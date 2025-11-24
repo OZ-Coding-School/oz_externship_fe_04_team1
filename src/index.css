@@ -32,3 +32,6 @@
   --danger-600: #dc2626;
   --danger-800: #991b1b;
 }
+body {
+  font-family: 'Pretendard Variable', sans-serif;
+}
