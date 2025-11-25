@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+
 @theme {
   /* primary */
   --color-primary-50: #fefce8;
@@ -10,12 +11,12 @@
   --color-primary-700: #a16207;
   --color-primary-800: #854d0e;
   --color-primary-900: #713f12;
-  /*success*/
+  /* success */
   --color-success-100: #dcfce7;
   --color-success-500: #22c55e;
   --color-success-600: #16a34a;
   --color-success-800: #166534;
-  /* / gray / */
+  /* gray */
   --color-gray-50: #f9fafb;
   --color-gray-100: #f3f4f6;
   --color-gray-200: #e5e7eb;
@@ -34,9 +35,7 @@
 
   --color-basic-white: #ffffff;
 }
-*::after {
+
+body {
   font-family: 'Pretendard Variable', sans-serif;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
 }
