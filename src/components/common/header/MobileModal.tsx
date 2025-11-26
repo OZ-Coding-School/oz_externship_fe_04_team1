@@ -6,28 +6,14 @@ import classIcon from '@/assets/icons/class.svg'
 import announcement from '@/assets/icons/announcement.svg'
 import defaultProfileImg from '@/assets/images/defaultProfileImg.svg'
 import logoutIcon from '@/assets/icons/logout.svg'
-import type { UserInformation } from '@/types/userInformation'
-import { useEffect, useState } from 'react'
-import { getUserInformationApi } from '@/api/userInformation'
 import profileImage from '@/assets/icons/profileImg.svg'
+import useUserData from '@/hooks/quries/useUserData'
 interface MobileModalProps {
   setIsModalOpen: (value: boolean) => void
 }
 function MobileModal({ setIsModalOpen }: MobileModalProps) {
   const loginState = LoginStateStore((state) => state.loginState)
-  const [userData, setUserData] = useState<UserInformation | null>(null)
-  // api로 받아오는 데이터 갱신하는 저장소
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const response = await getUserInformationApi()
-        setUserData(response[0] ?? null)
-      } catch (err) {
-        console.log(err)
-      }
-    }
-    fetchUser()
-  }, [])
+  const { data } = useUserData()
   return (
     <div className="bg-basic-white fixed top-[0] left-[0] z-10 h-screen w-[263px] pt-4 md:hidden">
       <div className="border-b border-solid border-gray-200">
@@ -73,10 +59,10 @@ function MobileModal({ setIsModalOpen }: MobileModalProps) {
             {/* 추후 api 연동으로 이미지 불러오게 */}
             <div className="flex flex-col">
               <span className="font-semiblod text-base text-gray-900">
-                {userData?.name}
+                {data[0].name}
               </span>
               <span className="text-base font-normal text-gray-600">
-                {userData?.email}
+                {data[0].email}
               </span>
               {/* 추후 api 연동으로 이름 및 이메일 불러오게 */}
             </div>

@@ -2,28 +2,15 @@ import notificationIcon from '@/assets/icons/notification.svg'
 import profileIcon from '@/assets/icons/profileImg.svg'
 import topArrow from '@/assets/icons/topArrow.svg'
 import UserModal from '@/components/common/header/UserModal'
-import { getUserInformationApi } from '@/api/userInformation'
-import { useEffect, useState } from 'react'
-import type { UserInformation } from '@/types/userInformation'
+import useUserData from '@/hooks/quries/useUserData'
+import { useState } from 'react'
 function User() {
   const [isUserModalOpen, setIsUserModalOpen] = useState(false)
   // 로그인했을때의 모달 상태 관리
   const handleUserModal = () => {
     setIsUserModalOpen((prev) => !prev)
   }
-  const [userData, setUserData] = useState<UserInformation | null>(null)
-  // api로 받아오는 데이터 갱신하는 저장소
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const response = await getUserInformationApi()
-        setUserData(response[0] ?? null)
-      } catch (err) {
-        console.log(err)
-      }
-    }
-    fetchUser()
-  }, [])
+  const { data } = useUserData()
   return (
     <div className="ml-auto flex">
       <div className="flex items-center gap-8 text-base text-gray-700">
@@ -61,7 +48,7 @@ function User() {
             className="h-[25px] w-[25px]"
           />
         </div>
-        <div className="text-primary-600 text-base">{userData?.name}</div>
+        <div className="text-primary-600 text-base">{data[0].name}</div>
         {isUserModalOpen ? (
           <img
             src={topArrow}
