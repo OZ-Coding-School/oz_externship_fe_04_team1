@@ -6,7 +6,7 @@ type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
 }
 
 const inputVariants = cva(
-  'w-full rounded-lg px-4 py-2.5 text-sm font-normal outline-1 placeholder:text-gray-400 transition-all outline-gray-300 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:opacity-50',
+  'w-full rounded-lg px-4 py-2.5 text-sm font-normal outline-2 placeholder:text-gray-400 transition-all outline-gray-300 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:opacity-50',
   {
     variants: {
       variant: {
