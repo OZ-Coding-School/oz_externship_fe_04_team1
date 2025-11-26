@@ -59,10 +59,10 @@ function MobileModal({ setIsModalOpen }: MobileModalProps) {
             {/* 추후 api 연동으로 이미지 불러오게 */}
             <div className="flex flex-col">
               <span className="font-semiblod text-base text-gray-900">
-                {data[0].name}
+                {data[0]?.name}
               </span>
               <span className="text-base font-normal text-gray-600">
-                {data[0].email}
+                {data[0]?.email}
               </span>
               {/* 추후 api 연동으로 이름 및 이메일 불러오게 */}
             </div>
