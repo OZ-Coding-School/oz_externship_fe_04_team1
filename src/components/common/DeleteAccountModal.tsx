@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 const options = [
   '더 이상 필요하지 않음',
@@ -15,9 +15,24 @@ const options = [
 function DeleteAccountModal() {
   const [isOpen, setIsOpen] = useState(false)
   const [selected, setSelected] = useState(options[0])
+  const dropdownRef = useRef<HTMLDivElement>(null)
+
+  // 모달 외부 클릭 시 모달 닫기
+  useEffect(() => {
+    const handleOutsideClick = (e: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(e.target as Node)
+      ) {
+        setIsOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleOutsideClick)
+    return () => document.removeEventListener('mousedown', handleOutsideClick)
+  }, [])
 
   return (
-    <div className="relative w-[400px]">
+    <div className="relative w-[400px]" ref={dropdownRef}>
       {/* 선택 영역 */}
       <div
         onClick={() => setIsOpen(!isOpen)}
