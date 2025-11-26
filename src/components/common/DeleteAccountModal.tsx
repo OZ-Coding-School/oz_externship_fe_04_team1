@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 
-const options = [
+const OPTIONS = [
   '더 이상 필요하지 않음',
   '흥미/관심 부족',
   '사용이 너무 어려움',
@@ -14,7 +14,7 @@ const options = [
 
 function DeleteAccountModal() {
   const [isOpen, setIsOpen] = useState(false)
-  const [selected, setSelected] = useState(options[0])
+  const [selected, setSelected] = useState(OPTIONS[0])
   const dropdownRef = useRef<HTMLDivElement>(null)
 
   // 모달 외부 클릭 시 모달 닫기
@@ -45,7 +45,7 @@ function DeleteAccountModal() {
       {/* 옵션 */}
       {isOpen && (
         <ul className="absolute z-10 mt-1 w-full rounded-lg bg-white shadow-md outline-1 outline-gray-300">
-          {options.map((option) => (
+          {OPTIONS.map((option) => (
             <li
               key={option}
               className="cursor-pointer px-4 py-2 text-sm hover:bg-gray-100"
