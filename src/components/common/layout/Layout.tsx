@@ -14,7 +14,7 @@ function Layout() {
       <Outlet />
       <Footer />
       {isSideBarOpen && (
-        <div className="fixed top-[0px] left-0 h-full w-full bg-black opacity-50"></div>
+        <div className="fixed top-[0px] left-0 h-full w-full bg-black opacity-50 md:hidden"></div>
       )}
     </>
   )
