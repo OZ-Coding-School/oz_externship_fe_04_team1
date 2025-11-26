@@ -1,7 +1,7 @@
 function Footer() {
   return (
     <div className="flex min-h-[313px] w-full bg-gray-900 px-6 py-12">
-      <div className="flex w-full flex-col gap-8">
+      <div className="mx-auto flex flex-col gap-8">
         <div className="flex max-w-[1440px] flex-col gap-8 border-b border-gray-300/50 pb-8 md:mx-auto md:flex-row">
           <div className="flex max-w-[592px] flex-col flex-wrap gap-4">
             <h2 className="text-primary-400 text-2xl font-bold">StudyHub</h2>
