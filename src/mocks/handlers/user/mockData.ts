@@ -5,6 +5,7 @@ export const userInformation: UserInformation[] = [
     id: 1,
     email: 'test@naver.com',
     nickname: '테스트',
+    name: '엄준식',
     phone_number: '01011111111',
     birthday: '2000-01-01',
     gender: 'M',
