@@ -12,7 +12,7 @@ const OPTIONS = [
   '기타',
 ]
 
-function DeleteAccountModal() {
+function DeleteReasonModal() {
   const [isOpen, setIsOpen] = useState(false)
   const [selected, setSelected] = useState(OPTIONS[0])
   const dropdownRef = useRef<HTMLDivElement>(null)
@@ -63,4 +63,4 @@ function DeleteAccountModal() {
   )
 }
 
-export default DeleteAccountModal
+export default DeleteReasonModal
