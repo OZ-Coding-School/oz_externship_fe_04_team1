@@ -6,16 +6,19 @@ import classIcon from '@/assets/icons/class.svg'
 import announcement from '@/assets/icons/announcement.svg'
 import defaultProfileImg from '@/assets/images/defaultProfileImg.svg'
 import logoutIcon from '@/assets/icons/logout.svg'
+import profileImage from '@/assets/icons/profileImg.svg'
+import useUserData from '@/hooks/quries/useUserData'
 interface MobileModalProps {
   setIsModalOpen: (value: boolean) => void
 }
 function MobileModal({ setIsModalOpen }: MobileModalProps) {
   const loginState = LoginStateStore((state) => state.loginState)
+  const { data } = useUserData()
   return (
-    <div className="fixed top-[0] left-[0] z-10 h-screen w-[263px] bg-[#FFFFFF] pt-[16px] md:hidden">
-      <div className="border-b border-solid border-[#E5E7EB]">
-        <div className="ml-[16px] flex items-center gap-[172px] pb-[15px]">
-          <img src={logo} alt="logo" className="w-[32px h-[32px]" />
+    <div className="bg-basic-white fixed top-[0] left-[0] z-10 h-screen w-[263px] pt-4 md:hidden">
+      <div className="border-b border-solid border-gray-200">
+        <div className="ml-4 flex items-center gap-43 pb-[15px]">
+          <img src={logo} alt="logo" className="h-[32px] w-[32px]" />
           <img
             src={close}
             alt="close"
@@ -24,27 +27,30 @@ function MobileModal({ setIsModalOpen }: MobileModalProps) {
           />
         </div>
       </div>
-      <div className="ml-[28px] flex flex-col gap-[8px] py-[16px]">
-        <span className="flex h-[36px] items-center text-[16px] font-[600] text-[#6B7280]">
+      <div className="ml-7 flex flex-col gap-2 py-4">
+        <span className="flex h-[36px] items-center text-base font-semibold text-gray-400">
           메뉴
         </span>
-        <div className="flex h-[48px] items-center gap-[12px]">
+        <div className="flex h-[48px] items-center gap-3">
           <img src={classIcon} alt="classIcon" />
-          <span>강의 목록</span>
+          <a href="">강의 목록</a>
+          {/* 강의목록 페이지로 렌더링 */}
         </div>
-        <div className="flex h-[48px] items-center gap-[12px]">
+        <div className="flex h-[48px] items-center gap-3">
           <img src={study} alt="studyIcon" />
-          <span>스터디 그룹</span>
+          <a href="">스터디 그룹</a>
+          {/* 로그인 화면으로 렌더링 */}
         </div>
-        <div className="flex h-[48px] items-center gap-[12px]">
+        <div className="flex h-[48px] items-center gap-3">
           <img src={announcement} alt="announcementIcon" />
-          <span>구인 광고</span>
+          <a href="">구인 광고</a>
+          {/* 구인광고 페이지로 렌더링 */}
         </div>
       </div>
       {/* user 일때만 나타나게 */}
       {loginState === 'USER' && (
-        <div className="absolute bottom-[25px] flex h-[117px] w-full flex-col gap-[12px] border-t border-solid border-[#E5E7EB] p-[16px]">
-          <div className="flex items-center gap-[12px]">
+        <div className="absolute bottom-[70px] flex h-[117px] w-full flex-col gap-3 border-t border-solid border-gray-200 p-4">
+          <div className="flex items-center gap-3">
             <img
               src={defaultProfileImg}
               alt="defaultProfileImg"
@@ -52,18 +58,24 @@ function MobileModal({ setIsModalOpen }: MobileModalProps) {
             />
             {/* 추후 api 연동으로 이미지 불러오게 */}
             <div className="flex flex-col">
-              <span className="text-[17px] font-[600] text-[#111827]">
-                김 개발
+              <span className="font-semiblod text-base text-gray-900">
+                {data[0].name}
               </span>
-              <span className="text-[15px] font-[400] text-[#4B5563]">
-                kim.dev@example.com
+              <span className="text-base font-normal text-gray-600">
+                {data[0].email}
               </span>
               {/* 추후 api 연동으로 이름 및 이메일 불러오게 */}
             </div>
           </div>
-          <button className="flex cursor-pointer items-center justify-center gap-[13px] rounded-[8px] bg-[#F3F4F6] px-[16px] py-[8px]">
+          <button className="flex cursor-pointer items-center justify-center gap-[13px] rounded-lg bg-[#FEF9C3] px-4 py-2">
+            <img src={profileImage} alt="profileImg" />
+            <span className="text- text-primary-600 text-base font-medium">
+              마이페이지
+            </span>
+          </button>
+          <button className="flex cursor-pointer items-center justify-center gap-[13px] rounded-lg bg-gray-100 px-4 py-2">
             <img src={logoutIcon} alt="logoutIcon" />
-            <span className="text-[16px] font-[500] text-[#374151]">
+            <span className="text-base font-medium text-gray-700">
               로그아웃
             </span>
           </button>

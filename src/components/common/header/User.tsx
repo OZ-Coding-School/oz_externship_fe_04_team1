@@ -1,26 +1,31 @@
 import notificationIcon from '@/assets/icons/notification.svg'
 import profileIcon from '@/assets/icons/profileImg.svg'
 import topArrow from '@/assets/icons/topArrow.svg'
-import { useState } from 'react'
 import UserModal from '@/components/common/header/UserModal'
-
+import useUserData from '@/hooks/quries/useUserData'
+import { useState } from 'react'
 function User() {
   const [isUserModalOpen, setIsUserModalOpen] = useState(false)
   // 로그인했을때의 모달 상태 관리
   const handleUserModal = () => {
     setIsUserModalOpen((prev) => !prev)
   }
+  const { data } = useUserData()
   return (
     <div className="ml-auto flex">
-      <div className="flex items-center gap-[32px] text-[17px] text-[#374151]">
-        <div className="hidden md:flex md:gap-[32px]">
-          <span className="cursor-pointer hover:text-[#CA8A04]">강의 목록</span>
+      <div className="flex items-center gap-8 text-base text-gray-700">
+        <div className="hidden md:flex md:gap-8">
+          <a href="" className="hover:text-primary-600 cursor-pointer">
+            강의 목록
+          </a>
           {/* 클릭하면 강의목록 페이지 렌더링 */}
-          <span className="cursor-pointer hover:text-[#CA8A04]">
+          <a href="" className="hover:text-primary-600 cursor-pointer">
             스터디 그룹
-          </span>
-          {/* 스터디 그룹은 로그인 안되어있으면 로그인 페이지 알림 ui */}
-          <span className="cursor-pointer hover:text-[#CA8A04]">구인 공고</span>
+          </a>
+          {/* 클릭하면 스터디그룹 페이지로 렌더링 */}
+          <a href="" className="hover:text-primary-600 cursor-pointer">
+            구인 공고
+          </a>
           {/* 클릭하면 구인공고 페이지 렌더링 */}
         </div>
         <img
@@ -33,7 +38,7 @@ function User() {
       </div>
       {/* 클릭하면 유저 모달 나오게 */}
       <div
-        className="relative ml-[16px] flex cursor-pointer items-center gap-[8px]"
+        className="relative ml-4 flex cursor-pointer items-center gap-2"
         onClick={handleUserModal}
       >
         <div className="flex h-[32px] w-[32px] items-center justify-center rounded-full bg-[#FEF9C3]">
@@ -43,7 +48,7 @@ function User() {
             className="h-[25px] w-[25px]"
           />
         </div>
-        <div className="text-[16px] text-[#CA8A04]">김개발</div>
+        <div className="text-primary-600 text-base">{data[0].name}</div>
         {isUserModalOpen ? (
           <img
             src={topArrow}
