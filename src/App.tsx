@@ -1,5 +1,6 @@
+import AppRoutes from '@/routes/AppRoutes'
+
 function App() {
-  return <div>template</div>
+  return <AppRoutes />
 }
-// 배포테스트
 export default App
