@@ -4,13 +4,14 @@ import Guest from '@/components/common/header/Guest'
 import User from '@/components/common/header/User'
 import MobileModal from '@/components/common/header/MobileModal'
 import { Menu } from 'lucide-react'
-import { useState } from 'react'
-function Header() {
+interface HeaderProps {
+  isSideBarOpen: boolean
+  setIsSideBarOpen: (value: boolean) => void
+}
+function Header({ isSideBarOpen, setIsSideBarOpen }: HeaderProps) {
   const loginState = LoginStateStore((state) => state.loginState)
-  const [isSideBarOpen, setIsSideBarOpen] = useState(false)
-  // 모바일 화면에서의 모달 상태 관리
   const handleSideBar = () => {
-    setIsSideBarOpen((prev) => !prev)
+    setIsSideBarOpen(!isSideBarOpen)
   }
   return (
     <div className="w-full border-b border-solid border-[#E5E7EB]">

@@ -12,7 +12,7 @@ interface MobileModalProps {
 function MobileModal({ setIsModalOpen }: MobileModalProps) {
   const loginState = LoginStateStore((state) => state.loginState)
   return (
-    <div className="fixed top-[0] left-[0] h-screen w-[263px] bg-[#FFFFFF] pt-[16px] md:hidden">
+    <div className="fixed top-[0] left-[0] z-10 h-screen w-[263px] bg-[#FFFFFF] pt-[16px] md:hidden">
       <div className="border-b border-solid border-[#E5E7EB]">
         <div className="ml-[16px] flex items-center gap-[172px] pb-[15px]">
           <img src={logo} alt="logo" className="w-[32px h-[32px]" />
