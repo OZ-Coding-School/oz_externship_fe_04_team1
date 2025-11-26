@@ -26,7 +26,7 @@ function CourseCard({
   return (
     <div
       onClick={onClick}
-      className="flex w-[389px] flex-col overflow-hidden rounded-xl border border-gray-200"
+      className="flex max-h-[388px] min-w-[389px] flex-col overflow-hidden rounded-xl border border-gray-200"
     >
       {/* thumbnail */}
       <img
