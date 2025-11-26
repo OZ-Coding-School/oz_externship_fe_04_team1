@@ -48,7 +48,7 @@ function User() {
             className="h-[25px] w-[25px]"
           />
         </div>
-        <div className="text-primary-600 text-base">{data[0].name}</div>
+        <div className="text-primary-600 text-base">{data[0]?.name}</div>
         {isUserModalOpen ? (
           <img
             src={topArrow}
