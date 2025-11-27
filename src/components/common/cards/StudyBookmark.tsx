@@ -1,7 +1,7 @@
 import Button from '../Button'
 import BaseBookmarkCard from './BaseBookmarkCard'
 import { Bookmark, Users, Calendar, Eye } from 'lucide-react'
-import type { StudyBookmarkProps } from '@/types/bookmark'
+import type { StudyBookmarkProps } from '@/types/mypage'
 
 function StudyBookmark({
   title,

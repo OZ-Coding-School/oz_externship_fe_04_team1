@@ -1,7 +1,7 @@
 import { Bookmark, Clock3 } from 'lucide-react'
 import Button from '../Button'
 import BaseBookmarkCard from './BaseBookmarkCard'
-import type { CourseBookmarkProps } from '@/types/bookmark'
+import type { CourseBookmarkProps } from '@/types/mypage'
 
 const PLATFORM_CONFIG = {
   INFLEARN: 'Inflearn',

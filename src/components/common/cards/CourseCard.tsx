@@ -1,4 +1,4 @@
-import type { CourseCardProps } from '@/types/bookmark'
+import type { CourseCardProps } from '@/types/mypage'
 import { Star } from 'lucide-react'
 
 function CourseCard({
