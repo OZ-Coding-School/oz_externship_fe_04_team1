@@ -41,8 +41,8 @@ body {
   font-family: 'Pretendard Variable', sans-serif;
 }
 
-/* 플랫폼 배지 */
-.platformInflearn {
+/* 배지 스타일 */
+.badge-green {
   color: #166534;
   border-radius: 4px;
   background-color: #dcfce7;
@@ -50,7 +50,7 @@ body {
   font-size: 12px;
 }
 
-.platformUdemy {
+.badge-purple {
   color: #6b21ab;
   border-radius: 4px;
   background-color: #f3e8ff;
@@ -58,16 +58,7 @@ body {
   font-size: 12px;
 }
 
-/* 난이도 배지 */
-.difficultyBeginner {
-  color: #166534;
-  border-radius: 4px;
-  background-color: #dcfce7;
-  font-weight: 500;
-  font-size: 12px;
-}
-
-.difficultyIntermediate {
+.badge-yellow {
   color: #854d0e;
   border-radius: 4px;
   background-color: #fef9c3;
@@ -75,7 +66,7 @@ body {
   font-size: 12px;
 }
 
-.difficultyAdvanced {
+.badge-red {
   color: #991b1b;
   border-radius: 4px;
   background-color: #fee2e2;

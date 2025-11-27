@@ -15,14 +15,14 @@ const DIFFICULTY_CONFIG = {
 } as const
 
 const PLATFORM_STYLES = {
-  INFLEARN: 'platformInflearn',
-  UDEMY: 'platformUdemy',
+  INFLEARN: 'badge-green',
+  UDEMY: 'badge-purple',
 } as const
 
 const DIFFICULTY_STYLES = {
-  EASY: 'difficultyBeginner',
-  NORMAL: 'difficultyIntermediate',
-  HARD: 'difficultyAdvanced',
+  EASY: 'badge-green',
+  NORMAL: 'badge-yellow',
+  HARD: 'badge-red',
 } as const
 
 function CourseBookmark({

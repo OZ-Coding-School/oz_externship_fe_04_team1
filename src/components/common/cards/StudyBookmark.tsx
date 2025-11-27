@@ -58,7 +58,7 @@ function StudyBookmark({
           {tags.map((tag) => (
             <span
               key={tag.id}
-              className="difficultyIntermediate px-2 py-1 text-xs whitespace-nowrap text-gray-600"
+              className="badge-yellow px-2 py-1 text-xs whitespace-nowrap text-gray-600"
             >
               {tag.name}
             </span>
