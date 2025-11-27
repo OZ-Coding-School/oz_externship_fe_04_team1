@@ -1,31 +1,7 @@
 import Button from '../Button'
 import BaseBookmarkCard from './BaseBookmarkCard'
 import { Bookmark, Users, Calendar, Eye } from 'lucide-react'
-
-type Lecture = {
-  id: number
-  title: string
-  instructor: string
-}
-
-type Tag = {
-  id: number
-  name: string
-}
-
-type StudyBookmarkProps = {
-  title: string
-  thumbnail_img_url?: string
-  expected_headcount: number // 모집인원?
-  close_at: string // 마감일
-  view_count: number
-  bookmark_count: number
-  lectures: Lecture[]
-  tags: Tag[]
-  isBookmarked: boolean
-  onBookmarkClick: () => void
-  onViewClick: () => void
-}
+import type { StudyBookmarkProps } from '@/types/bookmark'
 
 function StudyBookmark({
   title,

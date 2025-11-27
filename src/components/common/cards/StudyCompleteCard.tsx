@@ -1,18 +1,6 @@
 import { Star, Calendar, Clock3, Users, SquarePen } from 'lucide-react'
 import Button from '../Button'
-
-type StudyCardProps = {
-  thumbnail_img_url?: string
-  name: string
-  is_leader?: boolean
-  duration: string
-  end_at: string
-  participants: number
-  average_rating: number
-  review?: string
-  // status: 'ENDED' -> 외부에서 처리하면 좋을 것 같아서 빼겠습니다
-  onReviewClick: () => void
-}
+import type { StudyCardProps } from '@/types/bookmark'
 
 function StudyCompleteCard({
   thumbnail_img_url,

@@ -1,20 +1,7 @@
 import { Bookmark, Clock3 } from 'lucide-react'
 import Button from '../Button'
 import BaseBookmarkCard from './BaseBookmarkCard'
-
-type CourseBookmarkProps = {
-  title: string
-  instructor: string
-  total_class_time: number
-  original_price?: number
-  discounted_price: number
-  difficulty: 'EASY' | 'NORMAL' | 'HARD'
-  thumbnail_img_url?: string
-  platform: 'INFLEARN' | 'UDEMY'
-  isBookmarked: boolean
-  onBookmarkClick: () => void
-  onViewClick: () => void
-}
+import type { CourseBookmarkProps } from '@/types/bookmark'
 
 const PLATFORM_CONFIG = {
   INFLEARN: 'Inflearn',

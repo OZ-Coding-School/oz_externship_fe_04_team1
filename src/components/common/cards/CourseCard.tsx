@@ -1,15 +1,5 @@
+import type { CourseCardProps } from '@/types/bookmark'
 import { Star } from 'lucide-react'
-
-type CourseCardProps = {
-  title: string
-  instructor: string
-  thumbnail_img_url?: string
-  average_rating: number
-  reviewCount: number
-  discounted_price: number
-  original_price?: number
-  onClick?: () => void
-}
 
 function CourseCard({
   thumbnail_img_url,
