@@ -4,7 +4,6 @@ import close from '@/assets/icons/close.svg'
 import study from '@/assets/icons/study.svg'
 import classIcon from '@/assets/icons/class.svg'
 import announcement from '@/assets/icons/announcement.svg'
-import defaultProfileImg from '@/assets/images/defaultProfileImg.svg'
 import logoutIcon from '@/assets/icons/logout.svg'
 import profileImage from '@/assets/icons/profileImg.svg'
 import useUserData from '@/hooks/quries/useUserData'
@@ -52,8 +51,8 @@ function MobileModal({ setIsModalOpen }: MobileModalProps) {
         <div className="absolute bottom-[70px] flex h-[117px] w-full flex-col gap-3 border-t border-solid border-gray-200 p-4">
           <div className="flex items-center gap-3">
             <img
-              src={defaultProfileImg}
-              alt="defaultProfileImg"
+              src={data[0]?.profile_img_url}
+              alt="profile_img"
               className="h-[60px] w-[60px] rounded-full"
             />
             {/* 추후 api 연동으로 이미지 불러오게 */}
