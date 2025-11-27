@@ -1,14 +1,13 @@
 import { Star } from 'lucide-react'
 
 type CourseCardProps = {
-  id: number
   title: string
   instructor: string
   thumbnail_img_url?: string
   average_rating: number
   reviewCount: number
   discounted_price: number
-  originalPrice?: number
+  original_price?: number
   onClick?: () => void
 }
 
@@ -19,7 +18,7 @@ function CourseCard({
   average_rating,
   reviewCount,
   discounted_price,
-  originalPrice,
+  original_price,
   onClick,
 }: CourseCardProps) {
   const stars = Array.from(
@@ -62,9 +61,9 @@ function CourseCard({
           <p className="text-lg font-bold text-gray-900">
             {discounted_price.toLocaleString()}원
           </p>
-          {originalPrice && (
+          {original_price && (
             <p className="pl-2 text-sm text-gray-500 line-through">
-              {originalPrice.toLocaleString()}원
+              {original_price.toLocaleString()}원
             </p>
           )}
         </div>
