@@ -5,9 +5,8 @@ import completeStudyIcon from '@/assets/icons/completeStudyIcon.svg'
 
 function MobileSideNagigation() {
   return (
-    // 이것도 ml, mt, mb 제거
     // 활성화된 부분 스타일링 추가해야함
-    <div className="mt-[50px] mb-[50px] ml-[50px] h-[162px] w-[352px] rounded-xl border-2 border-solid border-gray-200">
+    <div className="h-[162px] w-[352px] rounded-xl border-2 border-solid border-gray-200">
       <div className="flex h-1/2 w-full">
         <div className="flex w-1/2 flex-col items-center justify-center gap-[9px] rounded-xl">
           <img

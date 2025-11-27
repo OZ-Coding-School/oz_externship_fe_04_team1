@@ -3,8 +3,7 @@ import SideNaigationNavigate from '@/components/common/sideNavigation/SideNaviga
 function SideNavigation() {
   const { data } = useUserData()
   return (
-    // 제일위 ML, MB, mt 제거
-    <div className="mt-[50px] mb-[50px] ml-[50px] flex h-[591px] w-[280px] flex-col gap-8 rounded-xl border-2 border-solid border-gray-200">
+    <div className="flex h-[591px] w-[280px] flex-col gap-8 rounded-xl border-2 border-solid border-gray-200">
       <div className="mt-[25px] flex flex-col items-center">
         <img
           src={data[0]?.profile_img_url}
