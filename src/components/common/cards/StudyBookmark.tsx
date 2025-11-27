@@ -26,7 +26,10 @@ function StudyBookmark({
         <div className="flex flex-wrap items-center gap-2 pb-3 text-xs text-gray-600 md:gap-4 md:text-sm">
           <p className="flex items-center gap-0.5">
             <Users className="hidden h-3.5 w-3.5 md:block" />
-            모집 인원: {expected_headcount}명
+            <span className="md:hidden">모집 {expected_headcount}명</span>
+            <span className="hidden md:inline">
+              모집 인원: {expected_headcount}명
+            </span>
           </p>
           <p className="hidden items-center gap-0.5 md:flex">
             <Calendar className="h-3.5 w-3.5" />
@@ -34,7 +37,8 @@ function StudyBookmark({
           </p>
           <p className="flex items-center gap-0.5">
             <Eye className="hidden h-3.5 w-3.5 md:block" />
-            조회 {view_count}
+            <span className="md:hidden">• 조회</span>
+            <span className="hidden md:inline">조회 {view_count}</span>
           </p>
           <p className="hidden items-center gap-0.5 md:flex">
             <Bookmark className="h-3.5 w-3.5" />
