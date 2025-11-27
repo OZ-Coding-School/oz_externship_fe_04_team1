@@ -64,3 +64,14 @@ export type StudyCardProps = {
   // status: 'ENDED' -> 외부에서 처리하면 좋을 것 같아서 빼겠습니다
   onReviewClick: () => void
 }
+
+// 지원 내역 관련 타입
+export type StudyApplicationCardProps = {
+  title: string
+  expected_headcount: number
+  thumbnail_img_url?: string
+  status: 'PENDING' | 'ACCEPTED' | 'REJECTED'
+  close_at: string
+  lectures: Lecture[]
+  tags: Tag[]
+}
