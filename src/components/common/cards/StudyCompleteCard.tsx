@@ -2,41 +2,47 @@ import { Star, Calendar, Clock3, Users, SquarePen } from 'lucide-react'
 import Button from '../Button'
 
 type StudyCardProps = {
-  thumbnail?: string
-  title: string
-  leader?: boolean
+  thumbnail_img_url?: string
+  name: string
+  is_leader?: boolean
   duration: string
-  endDate: string
+  end_at: string
   participants: number
-  rating: number
+  average_rating: number
   review?: string
+  // status: 'ENDED' -> 외부에서 처리하면 좋을 것 같아서 빼겠습니다
+  onReviewClick: () => void
 }
 
 function StudyCompleteCard({
-  thumbnail,
-  title,
-  leader = false,
+  thumbnail_img_url,
+  name,
+  is_leader = false,
   duration,
-  endDate,
+  end_at,
   participants,
-  rating,
+  average_rating,
   review,
+  onReviewClick,
 }: StudyCardProps) {
-  const stars = Array.from({ length: 5 }, (_, i) => i < Math.floor(rating))
+  const stars = Array.from(
+    { length: 5 },
+    (_, i) => i < Math.floor(average_rating)
+  )
   return (
     <div className="max-h-[500px] w-[318px] rounded-lg border border-gray-200 md:w-[384px]">
       {/* thumbnail */}
       <img
         className="h-[179px] w-full rounded-t-lg object-cover md:h-[216px]"
-        src={thumbnail}
-        alt={title}
+        src={thumbnail_img_url}
+        alt={name}
       />
 
       {/* content */}
       <div className="p-3 md:p-5">
         <div className="flex items-center justify-between pb-2 md:pb-3">
-          <h4 className="text-md font-medium md:text-lg">{title}</h4>
-          {leader && (
+          <h4 className="text-md font-medium md:text-lg">{name}</h4>
+          {is_leader && (
             <span className="bg-primary-100 text-primary-800 rounded-full px-2 py-1 text-xs">
               리더
             </span>
@@ -49,7 +55,7 @@ function StudyCompleteCard({
           </li>
           <li className="flex items-center gap-1">
             <Calendar className="h-4 w-3" />
-            종료: {endDate}
+            종료: {end_at}
           </li>
           <li className="flex items-center gap-1">
             <Users className="h-4 w-3" />
@@ -69,7 +75,7 @@ function StudyCompleteCard({
                     />
                   ))}
                   <span className="text-md ml-2 font-medium text-gray-700">
-                    {rating}/5
+                    {average_rating}/5
                   </span>
                 </div>
                 <SquarePen className="hidden h-[17px] w-4 md:block" />
@@ -81,6 +87,7 @@ function StudyCompleteCard({
             <Button
               variant="primary"
               className="block w-full p-2 md:hidden md:h-[40px]"
+              onClick={onReviewClick}
             >
               리뷰 수정
             </Button>
@@ -90,7 +97,11 @@ function StudyCompleteCard({
             <div className="bg-primary-50 text-primary-800 mb-3 flex items-center justify-center rounded-lg p-2 text-xs font-normal md:mb-4 md:h-[53px] md:text-sm">
               아직 리뷰를 작성하지 않았습니다
             </div>
-            <Button variant="primary" className="w-full p-2 md:h-[40px]">
+            <Button
+              onClick={onReviewClick}
+              variant="primary"
+              className="w-full p-2 md:h-[40px]"
+            >
               리뷰 작성
             </Button>
           </>
