@@ -1,6 +1,6 @@
-import { Bookmark, Clock } from 'lucide-react'
+import { Bookmark, Clock3 } from 'lucide-react'
 import Button from '../Button'
-import BaseCourseContainer from './BaseCourseContainer'
+import BaseBookmarkCard from './BaseBookmarkCard'
 
 type CourseBookmarkProps = {
   title: string
@@ -12,8 +12,8 @@ type CourseBookmarkProps = {
   thumbnail_img_url?: string
   platform: 'INFLEARN' | 'UDEMY'
   isBookmarked: boolean
-  onBookmarkToggle?: (id: string | number) => void
-  onClick?: () => void
+  onBookmarkClick: () => void
+  onViewClick: () => void
 }
 
 const PLATFORM_CONFIG = {
@@ -48,16 +48,15 @@ function CourseBookmark({
   thumbnail_img_url,
   platform,
   isBookmarked = false,
-  //   onBookmarkToggle,
-  onClick,
+  onBookmarkClick,
+  onViewClick,
 }: CourseBookmarkProps) {
   const BADGE_BASE_CLASS =
     'rounded px-1.5 py-[2px] text-xs font-medium md:px-2 md:py-1'
 
   return (
-    <BaseCourseContainer title={title} thumbnail_img_url={thumbnail_img_url}>
-      {/* content */}
-      <div className="flex-1">
+    <BaseBookmarkCard title={title} thumbnail_img_url={thumbnail_img_url}>
+      <div className="flex flex-1 flex-col">
         <h4 className="pb-1 text-sm font-semibold text-gray-900 md:pb-2 md:text-lg">
           {title}
         </h4>
@@ -74,13 +73,11 @@ function CourseBookmark({
             {DIFFICULTY_CONFIG[difficulty]}
           </span>
           <div className="hidden items-center gap-1 text-gray-600 md:flex">
-            <Clock className="h-3.5 w-3.5" />
+            <Clock3 className="h-3.5 w-3.5" />
             <span className="text-sm">{total_class_time}</span>
           </div>
         </div>
       </div>
-
-      {/* price / bookmark / button */}
       <div className="flex items-start justify-between md:flex-col md:items-end">
         <div className="flex flex-col items-start md:items-end">
           <p className="text-sm font-bold text-gray-900 md:text-lg">
@@ -93,21 +90,18 @@ function CourseBookmark({
           )}
         </div>
         <div className="flex items-center gap-2">
-          <button
-            // 여기서 북마크 onClick 처리??
-            className="cursor-pointer"
-          >
+          <button onClick={onBookmarkClick} className="cursor-pointer">
             <Bookmark
               className={`text-primary-500 h-5 w-4 ${isBookmarked ? 'fill-primary-500' : ''}`}
             />
           </button>
-          <Button className="py-1 md:py-2" onClick={onClick}>
+          <Button className="py-1 md:py-2" onClick={onViewClick}>
             <span className="md:hidden">보기</span>
             <span className="hidden md:inline">강의 보기</span>
           </Button>
         </div>
       </div>
-    </BaseCourseContainer>
+    </BaseBookmarkCard>
   )
 }
 
