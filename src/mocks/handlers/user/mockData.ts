@@ -10,5 +10,6 @@ export const userInformation: UserInformation[] = [
     birthday: '2000-01-01',
     gender: 'M',
     profile_img_url: defaultImg,
+    created_at: '2025-10-30T14:01:57.505250+09:00',
   },
 ]
