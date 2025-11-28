@@ -32,7 +32,7 @@ function MyPageLayout() {
         <div className="fixed top-[0px] left-0 h-full w-full bg-black opacity-50 md:hidden"></div>
       )}
       {isEditModalOpen && (
-        <div className="fixed top-[0px] left-0 flex h-full w-full items-center justify-center bg-black/50">
+        <div className="fixed top-[0px] left-0 flex h-full w-full items-center justify-center bg-black/50 px-5">
           <EditModal setIsEditModalOpen={setIsEditModalOpen} />
         </div>
       )}
