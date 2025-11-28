@@ -44,7 +44,7 @@ function MyPageLayout() {
       )}
       {isEditPhoneModalOpen && (
         <div className="fixed top-[0px] left-0 flex h-full w-full items-center justify-center bg-black/50 px-5">
-          <EditPhoneNumber />
+          <EditPhoneNumber setIsEditPhoneModalOpen={setIsEditPhoneModalOpen} />
         </div>
       )}
     </div>
