@@ -1,5 +1,5 @@
 import Button from '@/components/common/Button'
-import image from '@/assets/images/mainimage.png'
+import image from '@/assets/images/mainImage.png'
 function section1() {
   return (
     <section className="bg-primary-50 flex w-full justify-center">
