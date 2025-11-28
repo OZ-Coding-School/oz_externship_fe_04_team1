@@ -66,7 +66,10 @@ function StudyCompleteCard({
                     {average_rating}/5
                   </span>
                 </div>
-                <SquarePen className="hidden h-[17px] w-4 md:block" />
+                <SquarePen
+                  onClick={onReviewClick}
+                  className="hidden h-[17px] w-4 cursor-pointer md:block"
+                />
               </div>
               <p className="line-clamp-2 text-xs text-gray-600 md:text-sm">
                 {review}
