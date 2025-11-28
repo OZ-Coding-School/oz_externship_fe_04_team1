@@ -8,7 +8,7 @@ export const userInformation: UserInformation[] = [
     name: '엄준식',
     phone_number: '01011111111',
     birthday: '2000-01-01',
-    gender: 'M',
+    gender: 'F',
     profile_img_url: defaultImg,
     created_at: '2025-10-30T14:01:57.505250+09:00',
   },
