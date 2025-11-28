@@ -7,10 +7,13 @@ import announcement from '@/assets/icons/announcement.svg'
 import logoutIcon from '@/assets/icons/logout.svg'
 import profileImage from '@/assets/icons/profileImg.svg'
 import useUserData from '@/hooks/quries/useUserData'
+import { useNavigate } from 'react-router'
+import { ROUTE_PATHS } from '@/constant/route'
 interface MobileModalProps {
   setIsModalOpen: (value: boolean) => void
 }
 function MobileModal({ setIsModalOpen }: MobileModalProps) {
+  const navigate = useNavigate()
   const loginState = LoginStateStore((state) => state.loginState)
   const { data } = useUserData()
   return (
@@ -66,7 +69,10 @@ function MobileModal({ setIsModalOpen }: MobileModalProps) {
               {/* 추후 api 연동으로 이름 및 이메일 불러오게 */}
             </div>
           </div>
-          <button className="flex cursor-pointer items-center justify-center gap-[13px] rounded-lg bg-[#FEF9C3] px-4 py-2">
+          <button
+            className="flex cursor-pointer items-center justify-center gap-[13px] rounded-lg bg-[#FEF9C3] px-4 py-2"
+            onClick={() => navigate(ROUTE_PATHS.MYPAGE.MY_INFORMATION)}
+          >
             <img src={profileImage} alt="profileImg" />
             <span className="text- text-primary-600 text-base font-medium">
               마이페이지
