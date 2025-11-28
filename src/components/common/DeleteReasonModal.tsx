@@ -9,10 +9,6 @@ function DeleteReasonModal({ options }: DeleteReasonModalProps) {
   const [selected, setSelected] = useState<string | null>(null)
   const dropdownRef = useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
-    console.log(selected)
-  }, [selected])
-
   // 모달 외부 클릭 시 모달 닫기
   useEffect(() => {
     const handleOutsideClick = (e: MouseEvent) => {
