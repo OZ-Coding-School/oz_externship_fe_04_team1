@@ -1,4 +1,6 @@
+import MainPage from '@/components/main/mainPage'
+
 function Main() {
-  return <div>메인페이지</div>
+  return <MainPage />
 }
 export default Main
