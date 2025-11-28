@@ -1,9 +1,10 @@
 import Header from '@/components/common/header/Header'
 import { useState } from 'react'
 import { Outlet } from 'react-router'
-import SideNavigation from '../sideNavigation/SideNavigation'
+import SideNavigation from '@/components/common/sideNavigation/SideNavigation'
 import EditModal from '@/components/myPage/myInformation/modal/EditModal'
 import EditPhoneNumber from '@/components/myPage/myInformation/modal/EditPhoneNumber'
+import EditPassWordModal from '@/components/myPage/myInformation/modal/EditPassWordModal'
 
 function MyPageLayout() {
   // 사이드바 상태
@@ -12,6 +13,8 @@ function MyPageLayout() {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   // 휴대폰 전화변경 모달 상태
   const [isEditPhoneModalOpen, setIsEditPhoneModalOpen] = useState(false)
+  // 비밀번호 변경 모달 상태
+  const [isEditPassWordModalOpen, setIsEditPassWordModalOpen] = useState(false)
   return (
     <div className="flex min-h-screen w-full flex-col">
       <Header
@@ -29,6 +32,8 @@ function MyPageLayout() {
                 setIsEditModalOpen: setIsEditModalOpen,
                 isEditPhoneModalOpen: isEditPhoneModalOpen,
                 setIsEditPhoneModalOpen: setIsEditPhoneModalOpen,
+                isEditPassWordModalOpen: isEditPassWordModalOpen,
+                setIsEditPassWordModalOpen: setIsEditPassWordModalOpen,
               }}
             />
           </div>
@@ -45,6 +50,13 @@ function MyPageLayout() {
       {isEditPhoneModalOpen && (
         <div className="fixed top-[0px] left-0 flex h-full w-full items-center justify-center bg-black/50 px-5">
           <EditPhoneNumber setIsEditPhoneModalOpen={setIsEditPhoneModalOpen} />
+        </div>
+      )}
+      {isEditPassWordModalOpen && (
+        <div className="fixed top-[0px] left-0 flex h-full w-full items-center justify-center bg-black/50 px-5">
+          <EditPassWordModal
+            setIsEditPassWordModalOpen={setIsEditPassWordModalOpen}
+          />
         </div>
       )}
     </div>
