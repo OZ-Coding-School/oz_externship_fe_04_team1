@@ -8,7 +8,7 @@ function MobileUserForm() {
   }>()
   const { data } = useUserData()
   return (
-    <div className="mt-8 flex flex-col gap-3">
+    <div className="mt-8 flex w-full flex-col gap-3">
       <div className="flex w-full gap-3">
         <div className="flex w-1/2 flex-col gap-1">
           <span className="text-sm text-gray-700">이메일</span>
@@ -49,7 +49,7 @@ function MobileUserForm() {
             />
           </div>
           <button
-            className="text-basic-white bg-primary-500 py-2.3 cursor-pointer rounded-lg px-4 text-sm whitespace-nowrap"
+            className="text-basic-white bg-primary-500 py-2.3 w-1/5 cursor-pointer rounded-lg text-sm whitespace-nowrap"
             onClick={() => setIsEditPhoneModalOpen(true)}
           >
             변경
