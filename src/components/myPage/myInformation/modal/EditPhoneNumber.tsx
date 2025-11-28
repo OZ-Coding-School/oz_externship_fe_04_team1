@@ -10,6 +10,9 @@ function EditPhoneNumber({ setIsEditPhoneModalOpen }: EditPhoneNumberProps) {
   const [certifyNumber, setCertifyNumber] = useState<string>('')
   const isValidCode = /^\d{6}$/.test(certifyNumber)
   // 6자리 숫자 입력받기 위한 boolean값
+  const handleCloseModal = () => {
+    setIsEditPhoneModalOpen(false)
+  }
   const { data } = useUserData()
   return (
     <div className="bg-basic-white flex w-[512px] flex-col rounded-xl">
@@ -19,7 +22,7 @@ function EditPhoneNumber({ setIsEditPhoneModalOpen }: EditPhoneNumberProps) {
         <img
           src={closeIcon}
           alt="closeIcon"
-          onClick={() => setIsEditPhoneModalOpen(false)}
+          onClick={handleCloseModal}
           className="h-[20px] w-[20px] cursor-pointer"
         />
       </div>
@@ -54,10 +57,7 @@ function EditPhoneNumber({ setIsEditPhoneModalOpen }: EditPhoneNumberProps) {
         </div>
       </div>
       <div className="flex justify-end gap-3 px-6 py-7">
-        <Button
-          variant="outline"
-          onClick={() => setIsEditPhoneModalOpen(false)}
-        >
+        <Button variant="outline" onClick={handleCloseModal}>
           취소
         </Button>
         <Button
