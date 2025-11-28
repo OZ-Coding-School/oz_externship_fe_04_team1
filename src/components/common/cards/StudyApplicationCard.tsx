@@ -23,6 +23,7 @@ function StudyApplicationCard({
   close_at,
   lectures,
   tags,
+  create_at,
 }: StudyApplicationCardProps) {
   return (
     <BaseBookmarkCard title={title} thumbnail_img_url={thumbnail_img_url}>
@@ -34,7 +35,8 @@ function StudyApplicationCard({
             {title}
           </h4>
           <p className="pl-4">
-            <span className="text-sm text-gray-500">2024.02.10.오후 02:30</span>
+            {/* 지원한 일시 */}
+            <span className="text-sm text-gray-500">{create_at}</span>
             <span className={`${STATUS_STYLE[status]} ml-3 px-2 py-1`}>
               {STATUS_CONFIG[status]}
             </span>

@@ -74,4 +74,5 @@ export type StudyApplicationCardProps = {
   close_at: string
   lectures: Lecture[]
   tags: Tag[]
+  create_at: string
 }
