@@ -1,4 +1,6 @@
+import LandingPage from '@/pages/landing/landingPage'
+
 function Main() {
-  return <div>메인페이지</div>
+  return <LandingPage />
 }
 export default Main
