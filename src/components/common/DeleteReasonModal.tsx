@@ -1,20 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
 
-const OPTIONS = [
-  '더 이상 필요하지 않음',
-  '흥미/관심 부족',
-  '사용이 너무 어려움',
-  '더 나은 서비스 발견',
-  '개인 정보 문제',
-  '서비스 품질 불량',
-  '기술적 문제',
-  '콘텐츠 부족',
-  '기타',
-]
+type DeleteReasonModalProps = {
+  options: string[]
+  defaultValue: string
+}
 
-function DeleteReasonModal() {
+function DeleteReasonModal({ options, defaultValue }: DeleteReasonModalProps) {
   const [isOpen, setIsOpen] = useState(false)
-  const [selected, setSelected] = useState(OPTIONS[0])
+  const [selected, setSelected] = useState<string | null>(null)
   const dropdownRef = useRef<HTMLDivElement>(null)
 
   // 모달 외부 클릭 시 모달 닫기
@@ -36,16 +29,16 @@ function DeleteReasonModal() {
       {/* 선택 영역 */}
       <div
         onClick={() => setIsOpen(!isOpen)}
-        className="flex h-9 cursor-pointer items-center justify-between rounded-lg bg-white px-4 py-2 text-sm outline-1 outline-gray-300"
+        className={`flex h-9 cursor-pointer items-center justify-between rounded-lg bg-white px-4 py-2 text-sm outline-1 outline-gray-300 ${!selected ? 'text-gray-500' : ''}`}
       >
-        {selected}
+        {selected ?? defaultValue}
         <span>▾</span>
       </div>
 
       {/* 옵션 */}
       {isOpen && (
         <ul className="absolute z-10 mt-1 w-full rounded-lg bg-white shadow-md outline-1 outline-gray-300">
-          {OPTIONS.map((option) => (
+          {options.map((option) => (
             <li
               key={option}
               className="cursor-pointer px-4 py-2 text-sm hover:bg-gray-100"
