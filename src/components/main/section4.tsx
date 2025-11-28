@@ -11,7 +11,7 @@ function section4() {
           <p className="mb-8 text-xl text-gray-50">
             수백 개의 강의와 활발한 스터디 그룹이 여러분을 기다리고 있습니다.
           </p>
-          <div className="flex flex-col gap-4 sm:justify-center">
+          <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
             <Button
               size="lg"
               variant="outline"
