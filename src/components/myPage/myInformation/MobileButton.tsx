@@ -1,8 +1,16 @@
+import { useOutletContext } from 'react-router'
+
 function MobileButton() {
+  const { setIsEditModalOpen } = useOutletContext<{
+    setIsEditModalOpen: (value: boolean) => void
+  }>()
   return (
     // 추후 로직 구현
     <div className="mt-[25px] flex flex-col gap-3">
-      <button className="bg-primary-500 text-basic-white w-full cursor-pointer rounded-lg px-25.5 py-2">
+      <button
+        className="bg-primary-500 text-basic-white w-full cursor-pointer rounded-lg px-25.5 py-2"
+        onClick={() => setIsEditModalOpen(true)}
+      >
         프로필 수정
       </button>
       <div className="flex gap-2">
