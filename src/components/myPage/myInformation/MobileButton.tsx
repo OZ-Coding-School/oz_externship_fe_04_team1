@@ -1,0 +1,19 @@
+function MobileButton() {
+  return (
+    // 추후 로직 구현
+    <div className="mt-[25px] flex flex-col gap-3">
+      <button className="bg-primary-500 text-basic-white w-full cursor-pointer rounded-lg px-25.5 py-2">
+        프로필 수정
+      </button>
+      <div className="flex gap-2">
+        <button className="text-basic-white w-1/2 cursor-pointer rounded-lg bg-gray-500 py-2">
+          비밀번호 변경
+        </button>
+        <button className="text-basic-white bg-danger-500 w-1/2 cursor-pointer rounded-lg py-2">
+          회원 탈퇴
+        </button>
+      </div>
+    </div>
+  )
+}
+export default MobileButton
