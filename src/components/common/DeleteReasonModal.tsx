@@ -2,9 +2,10 @@ import { useEffect, useRef, useState } from 'react'
 
 type DeleteReasonModalProps = {
   options: string[]
+  defaultValue: string
 }
 
-function DeleteReasonModal({ options }: DeleteReasonModalProps) {
+function DeleteReasonModal({ options, defaultValue }: DeleteReasonModalProps) {
   const [isOpen, setIsOpen] = useState(false)
   const [selected, setSelected] = useState<string | null>(null)
   const dropdownRef = useRef<HTMLDivElement>(null)
@@ -28,9 +29,9 @@ function DeleteReasonModal({ options }: DeleteReasonModalProps) {
       {/* 선택 영역 */}
       <div
         onClick={() => setIsOpen(!isOpen)}
-        className="flex h-9 cursor-pointer items-center justify-between rounded-lg bg-white px-4 py-2 text-sm outline-1 outline-gray-300"
+        className={`flex h-9 cursor-pointer items-center justify-between rounded-lg bg-white px-4 py-2 text-sm outline-1 outline-gray-300 ${!selected ? 'text-gray-500' : ''}`}
       >
-        {selected ?? '탈퇴 사유를 선택해주세요.'}
+        {selected ?? defaultValue}
         <span>▾</span>
       </div>
 
