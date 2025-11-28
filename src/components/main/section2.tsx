@@ -29,11 +29,11 @@ function section2() {
   return (
     <section className="flex min-h-[400px] w-full justify-center px-20 py-16 sm:min-h-[472px]">
       <div className="flex w-full max-w-[1440px] flex-col">
-        <div className="flex flex-col items-center justify-center">
-          <h2 className="mb-4 text-[30px] font-bold">
+        <div className="flex flex-col text-center sm:items-center sm:justify-center">
+          <h2 className="mb-4 text-3xl font-bold">
             왜 StudyHub를 선택해야 할까요?
           </h2>
-          <p className="mb-12 text-[18px] text-gray-600">
+          <p className="mb-12 text-lg text-gray-600">
             체계적인 학습과 실무경험을 동시에 얻을 수 있는 최적의 플랫폼입니다.
           </p>
         </div>
@@ -44,10 +44,8 @@ function section2() {
               className="flex flex-1 flex-col items-center p-6 text-center"
             >
               <img src={features.icon} alt={features.title} className="mb-4" />
-              <p className="mb-3 text-[20px] font-bold">{features.title}</p>
-              <p className="text-[16px] text-gray-600">
-                {features.description}
-              </p>
+              <p className="mb-3 text-xl font-bold">{features.title}</p>
+              <p className="text-base text-gray-600">{features.description}</p>
             </div>
           ))}
         </div>

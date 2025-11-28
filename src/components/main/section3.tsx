@@ -32,7 +32,7 @@ function section3() {
         <div className="flex items-end justify-between">
           <div>
             <h2 className="mb-2 text-3xl font-bold">인기 강의</h2>
-            <p className="text-1xl mb-8 text-gray-600">
+            <p className="mb-8 text-base text-gray-600">
               지금 가장 많은 사람들이 수강하는 강의들
             </p>
           </div>
@@ -49,12 +49,12 @@ function section3() {
             >
               <div className="h-[217px]">{features.image}</div>
               <div className="p-5">
-                <p className="mb-2 flex-1 text-[18px] font-semibold">
+                <p className="mb-2 flex-1 text-lg font-semibold">
                   {features.title}
                 </p>
                 <p className="mb-3 font-light text-gray-600">{features.name}</p>
                 <p className="mb-3 text-gray-600">{features.star}</p>
-                <p className="text-[18px] font-bold">{features.price}</p>
+                <p className="text-lg font-bold">{features.price}</p>
               </div>
             </div>
           ))}

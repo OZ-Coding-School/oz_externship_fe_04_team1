@@ -8,10 +8,10 @@ function section4() {
           <h2 className="mb-4 text-3xl font-bold text-gray-50">
             지금 시작하여 전문가가 되어보세요!
           </h2>
-          <p className="mb-8 text-[20px] text-gray-50">
+          <p className="mb-8 text-xl text-gray-50">
             수백 개의 강의와 활발한 스터디 그룹이 여러분을 기다리고 있습니다.
           </p>
-          <div className="flex flex-wrap justify-center gap-4">
+          <div className="flex flex-col gap-4 sm:justify-center">
             <Button
               size="lg"
               variant="outline"
