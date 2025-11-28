@@ -8,7 +8,7 @@ function MobileButton() {
     // 추후 로직 구현
     <div className="mt-[25px] flex w-full flex-col gap-3">
       <button
-        className="bg-primary-500 text-basic-white w-full cursor-pointer rounded-lg px-25.5 py-2"
+        className="bg-primary-500 text-basic-white w-full cursor-pointer rounded-lg py-2"
         onClick={() => setIsEditModalOpen(true)}
       >
         프로필 수정
