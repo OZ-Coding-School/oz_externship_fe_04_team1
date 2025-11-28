@@ -3,11 +3,15 @@ import { useState } from 'react'
 import { Outlet } from 'react-router'
 import SideNavigation from '../sideNavigation/SideNavigation'
 import EditModal from '@/components/myPage/myInformation/modal/EditModal'
+import EditPhoneNumber from '@/components/myPage/myInformation/modal/EditPhoneNumber'
+
 function MyPageLayout() {
   // 사이드바 상태
   const [isSideBarOpen, setIsSideBarOpen] = useState(false)
   // 프로필 수정 모달 상태
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
+  // 휴대폰 전화변경 모달 상태
+  const [isEditPhoneModalOpen, setIsEditPhoneModalOpen] = useState(false)
   return (
     <div className="flex min-h-screen w-full flex-col">
       <Header
@@ -23,6 +27,8 @@ function MyPageLayout() {
               context={{
                 isEditModalOpen: isEditModalOpen,
                 setIsEditModalOpen: setIsEditModalOpen,
+                isEditPhoneModalOpen: isEditPhoneModalOpen,
+                setIsEditPhoneModalOpen: setIsEditPhoneModalOpen,
               }}
             />
           </div>
@@ -34,6 +40,11 @@ function MyPageLayout() {
       {isEditModalOpen && (
         <div className="fixed top-[0px] left-0 flex h-full w-full items-center justify-center bg-black/50 px-5">
           <EditModal setIsEditModalOpen={setIsEditModalOpen} />
+        </div>
+      )}
+      {isEditPhoneModalOpen && (
+        <div className="fixed top-[0px] left-0 flex h-full w-full items-center justify-center bg-black/50 px-5">
+          <EditPhoneNumber />
         </div>
       )}
     </div>

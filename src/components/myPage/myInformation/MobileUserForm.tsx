@@ -1,7 +1,11 @@
 import Input from '@/components/common/Input'
 import useUserData from '@/hooks/quries/useUserData'
+import { useOutletContext } from 'react-router'
 
 function MobileUserForm() {
+  const { setIsEditPhoneModalOpen } = useOutletContext<{
+    setIsEditPhoneModalOpen: (value: boolean) => void
+  }>()
   const { data } = useUserData()
   return (
     <div className="mt-8 flex flex-col gap-3">
@@ -44,7 +48,10 @@ function MobileUserForm() {
               className="!opacity-100 placeholder:font-medium placeholder:text-gray-900"
             />
           </div>
-          <button className="text-basic-white bg-primary-500 py-2.3 cursor-pointer rounded-lg px-4 text-sm whitespace-nowrap">
+          <button
+            className="text-basic-white bg-primary-500 py-2.3 cursor-pointer rounded-lg px-4 text-sm whitespace-nowrap"
+            onClick={() => setIsEditPhoneModalOpen(true)}
+          >
             변경
           </button>
         </div>

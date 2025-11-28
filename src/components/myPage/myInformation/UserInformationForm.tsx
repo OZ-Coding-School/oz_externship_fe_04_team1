@@ -1,6 +1,10 @@
 import useUserData from '@/hooks/quries/useUserData'
 import Input from '@/components/common/Input'
+import { useOutletContext } from 'react-router'
 function EditUserInformation() {
+  const { setIsEditPhoneModalOpen } = useOutletContext<{
+    setIsEditPhoneModalOpen: (value: boolean) => void
+  }>()
   const { data } = useUserData()
   return (
     <div className="mb-8 w-full px-8">
@@ -62,10 +66,12 @@ function EditUserInformation() {
                   disabled
                   className="!opacity-100 placeholder:font-medium placeholder:text-gray-900"
                 />
-                <button className="bg-primary-500 text-basic-white h-[40px] w-[84px] cursor-pointer rounded-lg text-base font-medium">
+                <button
+                  className="bg-primary-500 text-basic-white h-[40px] w-[84px] cursor-pointer rounded-lg text-base font-medium"
+                  onClick={() => setIsEditPhoneModalOpen(true)}
+                >
                   변경
                 </button>
-                {/* 휴대폰 인증 로직 추가 */}
               </div>
             </div>
             <div className="flex w-1/2 flex-col gap-2">
