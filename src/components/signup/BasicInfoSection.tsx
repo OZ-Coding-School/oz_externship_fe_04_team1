@@ -52,7 +52,7 @@ function BasicInfoSection() {
       </FormField>
 
       {/* 성별 */}
-      <FormField htmlFor="gender" label="성별" require>
+      <FormField label="성별" require>
         <div className="flex gap-4">
           <button
             type="button"
