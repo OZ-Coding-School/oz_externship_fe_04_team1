@@ -31,7 +31,7 @@ function SignupPage() {
             </Link>
           </p>
         </div>
-        <div>
+        <div className="flex flex-col gap-11">
           {/* 기본적인 정보 입력 (이름, 닉네임, 생년월일, 성별) */}
           <BasicInfoSection />
 
@@ -44,7 +44,7 @@ function SignupPage() {
           {/* 비밀번호 입력 */}
           <PasswordSection />
         </div>
-        <Button className="w-full">가입하기</Button>
+        <Button className="h-[52px] w-full">가입하기</Button>
       </form>
     </div>
   )
