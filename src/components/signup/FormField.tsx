@@ -4,15 +4,27 @@ interface FromFieldProps {
   label: string
   htmlFor: string
   require?: boolean
+  info?: string
   children: ReactNode
 }
 
-function FormField({ htmlFor, label, require, children }: FromFieldProps) {
+function FormField({
+  htmlFor,
+  label,
+  info,
+  require,
+  children,
+}: FromFieldProps) {
   return (
     <div className="flex flex-col gap-5">
       <label htmlFor={htmlFor}>
         {label}
-        {require && <span className="text-danger-500">*</span>}
+        {require && <span className="text-danger-500 pl-0.5">*</span>}
+        {info && (
+          <span className="text-primary-500 pl-3 text-sm font-semibold">
+            {info}
+          </span>
+        )}
       </label>
       {children}
     </div>
