@@ -1,5 +1,4 @@
 import { cva } from 'class-variance-authority'
-import { useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 
 type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
@@ -23,19 +22,15 @@ function Input({
   className,
   disabled,
   error = false,
-  value,
   ...props
 }: InputProps) {
   const variant = error ? 'error' : 'focus'
-  // value값 받아와서 수정할 수 있게 추가
-  const [defaultValue, setDefaultValue] = useState(value)
+
   return (
     <input
       type={type}
       disabled={disabled}
       className={twMerge(inputVariants({ variant }), className)}
-      value={defaultValue}
-      onChange={(e) => setDefaultValue(e.target.value)}
       {...props}
     />
   )
