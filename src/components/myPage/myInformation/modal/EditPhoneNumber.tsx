@@ -10,7 +10,11 @@ function EditPhoneNumber({ setIsEditPhoneModalOpen }: EditPhoneNumberProps) {
   const [certifyNumber, setCertifyNumber] = useState<string>('')
   const isValidCode = /^\d{6}$/.test(certifyNumber)
   // 6자리 숫자 입력받기 위한 boolean값
+  const handleCloseModal = () => {
+    setIsEditPhoneModalOpen(false)
+  }
   const { data } = useUserData()
+  const [editPhoneNumber, setEditPhoneNumber] = useState(data[0]?.phone_number)
   return (
     <div className="bg-basic-white flex w-[512px] flex-col rounded-xl">
       {/* 모달 헤더 부분 */}
@@ -19,7 +23,7 @@ function EditPhoneNumber({ setIsEditPhoneModalOpen }: EditPhoneNumberProps) {
         <img
           src={closeIcon}
           alt="closeIcon"
-          onClick={() => setIsEditPhoneModalOpen(false)}
+          onClick={handleCloseModal}
           className="h-[20px] w-[20px] cursor-pointer"
         />
       </div>
@@ -29,7 +33,10 @@ function EditPhoneNumber({ setIsEditPhoneModalOpen }: EditPhoneNumberProps) {
         <div className="flex flex-col gap-2">
           <span className="text-sm text-gray-700">휴대폰 번호</span>
           <div className="flex gap-2">
-            <Input value={data[0]?.phone_number} />
+            <Input
+              value={editPhoneNumber}
+              onChange={(e) => setEditPhoneNumber(e.target.value)}
+            />
             <Button variant="primary">인증하기</Button>
             {/* 추후 인증하기 눌렀을때 로직 구현하기 */}
             {/* 인증하기 누르면 variant = "secondary" 하고 disabled처리 + 로직 구현하기 + 인증번호가 오지 않나요? 이부분 나타나게*/}
@@ -54,10 +61,7 @@ function EditPhoneNumber({ setIsEditPhoneModalOpen }: EditPhoneNumberProps) {
         </div>
       </div>
       <div className="flex justify-end gap-3 px-6 py-7">
-        <Button
-          variant="outline"
-          onClick={() => setIsEditPhoneModalOpen(false)}
-        >
+        <Button variant="outline" onClick={handleCloseModal}>
           취소
         </Button>
         <Button
