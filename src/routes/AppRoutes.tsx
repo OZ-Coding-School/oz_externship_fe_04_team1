@@ -16,26 +16,29 @@ function AppRoutes() {
       <Route element={<Layout />}>
         {/* 이곳에 라우팅 추가하기 */}
         <Route index element={<Main />} />
+        {/* 마이페이지 레이아웃 */}
+        <Route element={<MyPageLayout />}>
+          <Route
+            path={ROUTE_PATHS.MYPAGE.MY_INFORMATION}
+            element={<MyPage />}
+          />
+          <Route
+            path={ROUTE_PATHS.MYPAGE.BOOKMARK_ANNOUNCEMENT}
+            element={<BookMarkAnnouncement />}
+          />
+          <Route
+            path={ROUTE_PATHS.MYPAGE.BOOKMARK_STUDY}
+            element={<BookMarkStudy />}
+          />
+          <Route path={ROUTE_PATHS.MYPAGE.APPLY_LIST} element={<ApplyList />} />
+          <Route
+            path={ROUTE_PATHS.MYPAGE.COMPLETE_STUDY}
+            element={<CompleteStudy />}
+          />
+        </Route>
+        {/* 회원가입 */}
+        <Route path={ROUTE_PATHS.SIGNUP} element={<SignupPage />} />
       </Route>
-      {/* 마이페이지 레이아웃 */}
-      <Route element={<MyPageLayout />}>
-        <Route path={ROUTE_PATHS.MYPAGE.MY_INFORMATION} element={<MyPage />} />
-        <Route
-          path={ROUTE_PATHS.MYPAGE.BOOKMARK_ANNOUNCEMENT}
-          element={<BookMarkAnnouncement />}
-        />
-        <Route
-          path={ROUTE_PATHS.MYPAGE.BOOKMARK_STUDY}
-          element={<BookMarkStudy />}
-        />
-        <Route path={ROUTE_PATHS.MYPAGE.APPLY_LIST} element={<ApplyList />} />
-        <Route
-          path={ROUTE_PATHS.MYPAGE.COMPLETE_STUDY}
-          element={<CompleteStudy />}
-        />
-      </Route>
-      {/* 회원가입 */}
-      <Route path={ROUTE_PATHS.SIGNUP} element={<SignupPage />} />
     </Routes>
   )
 }
