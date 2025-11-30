@@ -7,6 +7,7 @@ import CompleteStudy from '@/components/myPage/CompleteStudy'
 import { ROUTE_PATHS } from '@/constant/route'
 import Main from '@/pages/main'
 import MyPage from '@/pages/myPage'
+import SignupPage from '@/pages/signupPage'
 import { Route, Routes } from 'react-router'
 function AppRoutes() {
   return (
@@ -33,6 +34,8 @@ function AppRoutes() {
           element={<CompleteStudy />}
         />
       </Route>
+      {/* 회원가입 */}
+      <Route path={ROUTE_PATHS.SIGNUP} element={<SignupPage />} />
     </Routes>
   )
 }

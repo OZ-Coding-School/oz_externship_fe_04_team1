@@ -7,4 +7,5 @@ export const ROUTE_PATHS = {
     APPLY_LIST: '/mypage/apply-list',
     COMPLETE_STUDY: '/mypage/complete-study',
   },
+  SIGNUP: '/signup',
 }
