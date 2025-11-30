@@ -12,7 +12,11 @@ function EditModal({ setIsEditModalOpen }: EditModalProps) {
     setIsEditModalOpen(false)
   }
   const { data } = useUserData()
+  // 사용자의 수정 상태 관리용
   const [editGender, setEditGender] = useState(data[0]?.gender)
+  const [editUserName, setEditUserName] = useState(data[0]?.name)
+  const [editUserNickName, setEditUserNickName] = useState(data[0]?.nickname)
+  const [editUserBirthDay, setEditUserBirthDay] = useState(data[0]?.birthday)
   // 추후 useEffect 이용해서 폼에 초기값 가져오는것 구현하기
   return (
     <div className="bg-basic-white z-10 h-[730px] w-[512px] flex-col rounded-xl">
@@ -42,17 +46,26 @@ function EditModal({ setIsEditModalOpen }: EditModalProps) {
         {/* 이름 부분*/}
         <div className="flex flex-col gap-2">
           <span>이름</span>
-          <Input value={data[0]?.name} />
+          <Input
+            value={editUserName}
+            onChange={(e) => setEditUserName(e.target.value)}
+          />
         </div>
         {/*닉네임 부분*/}
         <div className="flex flex-col gap-2">
           <span>닉네임</span>
-          <Input value={data[0]?.nickname} />
+          <Input
+            value={editUserNickName}
+            onChange={(e) => setEditUserNickName(e.target.value)}
+          />
         </div>
         {/*생년월일*/}
         <div className="flex flex-col gap-2">
           <span>생년월일</span>
-          <Input value={data[0]?.birthday.split('-').join('')} />
+          <Input
+            value={editUserBirthDay.split('-').join('')}
+            onChange={(e) => setEditUserBirthDay(e.target.value)}
+          />
           {/*api 명세서 상 생년월일이 2000-05-05 이런식으로 내려와서 피그마에서 요구한대로 구현*/}
           {/* 추후 변경하기 버튼 누를시 2000-05-05 형태로 변환 시키기 */}
         </div>
