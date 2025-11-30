@@ -1,5 +1,6 @@
 // 랜딩페이지에서 사용되는 강의 타입
 export type CourseCardProps = {
+  id: number
   title: string
   instructor: string
   thumbnail_img_url?: string

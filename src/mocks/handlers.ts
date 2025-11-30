@@ -1,2 +1,4 @@
 import { userInformationHandler } from './handlers/user'
-export const handlers = [...userInformationHandler]
+import { courseInformationHandler } from './handlers/course.ts'
+
+export const handlers = [...userInformationHandler, ...courseInformationHandler]

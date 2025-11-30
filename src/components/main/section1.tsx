@@ -1,9 +1,9 @@
 import Button from '@/components/common/Button'
 import image from '@/assets/images/mainImage.png'
-function section1() {
+function Section1() {
   return (
     <section className="bg-primary-50 flex w-full justify-center">
-      <div className="flex w-full max-w-[1500px] flex-col gap-12 px-8 py-5 sm:max-w-[1440px] sm:flex-row sm:py-20">
+      <div className="flex w-[1440px] flex-col gap-12 px-10 py-10 sm:flex-row sm:px-20 sm:py-20">
         <div className="flex flex-1 flex-col text-center sm:text-left">
           <h1 className="mb-6 leading-none font-bold">
             <div className="text-5xl text-gray-950">IT 전문 지식을</div>
@@ -35,4 +35,4 @@ function section1() {
   )
 }
 
-export default section1
+export default Section1

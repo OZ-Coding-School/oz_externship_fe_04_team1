@@ -1,7 +1,7 @@
 import book from '@/assets/images/book.svg'
 import study from '@/assets/images/study.svg'
 import professional from '@/assets/images/professional.svg'
-function section2() {
+function Section2() {
   const features = [
     {
       id: 1,
@@ -54,4 +54,4 @@ function section2() {
   )
 }
 
-export default section2
+export default Section2

@@ -5,4 +5,8 @@ export const API_PATHS = {
     // 유저 정보를 가져오는 api
     GET: '/api/v1/accounts/me',
   },
+  COURSE: {
+    // 강의 정보를 가져오는 api
+    GET: '/api/v1/lectures/recommands',
+  },
 } as const
