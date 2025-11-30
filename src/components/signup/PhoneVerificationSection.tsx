@@ -29,7 +29,7 @@ function PhoneVerificationSection() {
       <FormField htmlFor="verificationCode" className="gap-4">
         <div className="flex gap-2.5">
           <Input
-            id="verificationCode"
+            id="phoneVerificationCode"
             className="h-12 flex-1"
             value={verificationCode}
             onChange={(e) => setVerificationCode(e.target.value)}

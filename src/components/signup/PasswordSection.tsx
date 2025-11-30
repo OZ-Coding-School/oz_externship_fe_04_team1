@@ -11,7 +11,7 @@ function PasswordSection() {
         info="8~15자의 영문 대소문자, 숫자, 특수문자 포함"
       >
         <Input
-          id="name"
+          id="password"
           type="password"
           className="h-12"
           placeholder="비밀번호를 입력해주세요"
@@ -20,8 +20,8 @@ function PasswordSection() {
       </FormField>
       <FormField htmlFor="passwordCheck" className="gap-4">
         <Input
-          id="name"
-          type="password"
+          id="password-check"
+          type="password-check"
           className="h-12"
           placeholder="비밀번호를 다시 입력해주세요"
           required
