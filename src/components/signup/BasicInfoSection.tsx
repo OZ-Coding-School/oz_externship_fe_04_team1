@@ -13,6 +13,7 @@ function BasicInfoSection() {
       <FormField htmlFor="name" require label="이름">
         <Input
           id="name"
+          autoComplete="name"
           className="h-12"
           placeholder="이름을 입력해주세요"
           required
@@ -25,6 +26,7 @@ function BasicInfoSection() {
           <Input
             className="h-12 flex-1"
             id="nickname"
+            autoComplete="off"
             placeholder="닉네임을 입력해주세요"
             required
             value={nickname}
@@ -46,6 +48,7 @@ function BasicInfoSection() {
         <Input
           className="h-12"
           id="birth"
+          autoComplete="bday"
           placeholder="8자리 입력해주세요 (ex.20000101)"
           required
         />

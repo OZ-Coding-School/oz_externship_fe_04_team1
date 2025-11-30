@@ -8,7 +8,7 @@ function EmailVerificationSection() {
   const [verificationCode, setVerificationCode] = useState('')
 
   return (
-    <div>
+    <div className="flex flex-col gap-4">
       <FormField
         htmlFor="email"
         label="이메일"
@@ -18,6 +18,8 @@ function EmailVerificationSection() {
         <div className="flex gap-2.5">
           <Input
             id="email"
+            type="email"
+            autoComplete="email"
             className="h-12 flex-1"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -31,23 +33,22 @@ function EmailVerificationSection() {
           </Button>
         </div>
       </FormField>
-      <FormField htmlFor="verificationCode" className="gap-4">
-        <div className="flex gap-2.5">
-          <Input
-            id="emailVerificationCode"
-            className="h-12 flex-1"
-            value={verificationCode}
-            onChange={(e) => setVerificationCode(e.target.value)}
-            placeholder="전송된 코드를 입력해주세요."
-          />
-          <Button
-            disabled={!verificationCode}
-            className={`w-[112px] text-base ${verificationCode ? 'verify-color hover:verify-color' : 'before-verify-color opacity-60'}`}
-          >
-            인증번호확인
-          </Button>
-        </div>
-      </FormField>
+      <div className="flex gap-2.5">
+        <Input
+          id="emailVerificationCode"
+          autoComplete="one-time-code"
+          className="h-12 flex-1"
+          value={verificationCode}
+          onChange={(e) => setVerificationCode(e.target.value)}
+          placeholder="전송된 코드를 입력해주세요."
+        />
+        <Button
+          disabled={!verificationCode}
+          className={`w-[112px] text-base ${verificationCode ? 'verify-color hover:verify-color' : 'before-verify-color opacity-60'}`}
+        >
+          인증번호확인
+        </Button>
+      </div>
     </div>
   )
 }

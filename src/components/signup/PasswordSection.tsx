@@ -13,15 +13,17 @@ function PasswordSection() {
         <Input
           id="password"
           type="password"
+          autoComplete="new-password"
           className="h-12"
           placeholder="비밀번호를 입력해주세요"
           required
         />
       </FormField>
-      <FormField htmlFor="passwordCheck" className="gap-4">
+      <FormField htmlFor="passwordConfirm" className="gap-4">
         <Input
-          id="password-check"
-          type="password-check"
+          id="passwordConfirm"
+          type="password"
+          autoComplete="new-password"
           className="h-12"
           placeholder="비밀번호를 다시 입력해주세요"
           required
