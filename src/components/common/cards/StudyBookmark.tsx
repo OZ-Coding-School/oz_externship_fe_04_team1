@@ -42,7 +42,7 @@ function StudyBookmark({
           {/* 조회수 정보 */}
           <p className="flex items-center gap-0.5">
             <Eye className="hidden h-3.5 w-3.5 sm:block" />
-            <span className="sm:hidden">• 조회</span>
+            <span className="sm:hidden">조회 {view_count}</span>
             <span className="hidden sm:inline">조회 {view_count}</span>
           </p>
           {/* 북마크 수 (데스크톱만 표시) */}
