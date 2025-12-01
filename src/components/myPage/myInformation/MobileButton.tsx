@@ -7,6 +7,9 @@ function MobileButton() {
   const { setIsEditPassWordModalOpen } = useOutletContext<{
     setIsEditPassWordModalOpen: (value: boolean) => void
   }>()
+  const { setIsWithDrawModalOpen } = useOutletContext<{
+    setIsWithDrawModalOpen: (value: boolean) => void
+  }>()
   // 수정 모달 핸들러
   const handleEditModalOpen = () => {
     setIsEditModalOpen(true)
@@ -14,6 +17,10 @@ function MobileButton() {
   // 비밀번호 변경 모달 핸들러
   const handleEditPassWordModalOpen = () => {
     setIsEditPassWordModalOpen(true)
+  }
+  // 회원 탈퇴 모달 핸들러
+  const handleWithDrawModalOpen = () => {
+    setIsWithDrawModalOpen(true)
   }
   return (
     // 회원탈퇴 핸들러 로직 추거허가
@@ -31,7 +38,10 @@ function MobileButton() {
         >
           비밀번호 변경
         </button>
-        <button className="text-basic-white bg-danger-500 w-1/2 cursor-pointer rounded-lg py-2">
+        <button
+          className="text-basic-white bg-danger-500 w-1/2 cursor-pointer rounded-lg py-2"
+          onClick={handleWithDrawModalOpen}
+        >
           회원 탈퇴
         </button>
       </div>
