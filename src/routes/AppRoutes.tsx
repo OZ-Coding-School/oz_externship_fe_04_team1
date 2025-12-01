@@ -1,5 +1,6 @@
 import Layout from '@/components/common/layout/Layout'
 import MyPageLayout from '@/components/common/layout/MyPageLayout'
+import LayoutWithoutFooter from '@/components/common/layout/LayoutWithoutFooter'
 import ApplyList from '@/components/myPage/ApplyList'
 import BookMarkAnnouncement from '@/components/myPage/bookmarkAnnouncement/BookMarkAnnouncement'
 import BookMarkStudy from '@/components/myPage/bookmarkStudy/BookMarkStudy'
@@ -7,6 +8,7 @@ import CompleteStudy from '@/components/myPage/CompleteStudy'
 import { ROUTE_PATHS } from '@/constant/route'
 import Main from '@/pages/main'
 import MyPage from '@/pages/myPage'
+import SignupPage from '@/pages/signupPage'
 import { Route, Routes } from 'react-router'
 function AppRoutes() {
   return (
@@ -32,6 +34,10 @@ function AppRoutes() {
           path={ROUTE_PATHS.MYPAGE.COMPLETE_STUDY}
           element={<CompleteStudy />}
         />
+      </Route>
+      {/* 회원가입 */}
+      <Route element={<LayoutWithoutFooter />}>
+        <Route path={ROUTE_PATHS.SIGNUP} element={<SignupPage />} />
       </Route>
     </Routes>
   )
