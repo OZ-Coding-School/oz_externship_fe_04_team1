@@ -12,8 +12,6 @@ function MobileBookMark() {
           저장한 스터디 공고 및 강의
         </span>
       </div>
-      {/* 드롭다운? */}
-
       {/* 검색모달 */}
       <Search placeHolder="공고 및 강의 검색..." className="w-full" />
       {/* 카드 컴포넌트 */}
