@@ -1,8 +1,13 @@
 import Search from '@/components/common/search/Search'
 import StudyBookmark from '@/components/common/cards/StudyBookmark'
 import useBookmarkAnnouncement from '@/hooks/quries/useBookMarkAnnouncement'
+import useBookmarkStudy from '@/hooks/quries/useBookMarkStudy'
+import CourseBookmark from '@/components/common/cards/CourseBookmark'
 function MobileBookMark() {
   const { data } = useBookmarkAnnouncement()
+  const { data: studyData } = useBookmarkStudy()
+  // 추후 북마크한 항목 없을때 항목 없음 컴포넌트 렌더링해야함
+  // 추후 무한 스크롤 구현하기
   return (
     <div className="bg-basic-white flex w-full min-w-[352px] flex-col gap-3 rounded-xl border-2 border-solid border-gray-200 px-4 py-4">
       {/* 제목 */}
@@ -38,6 +43,22 @@ function MobileBookMark() {
           ))
         )}
         {/* 추후 강의도 추가해야함 */}
+        {studyData.map((value) => (
+          <CourseBookmark
+            key={value.id}
+            title={value.title}
+            instructor={value.instructor}
+            total_class_time={value.total_class_time}
+            original_price={value.original_price}
+            discounted_price={value.discounted_price}
+            difficulty={value.difficulty}
+            thumbnail_img_url={value.thumbnail_img_url}
+            platform={value.platform}
+            isBookmarked
+            onBookmarkClick={() => console.log('bookmark clicked')}
+            onViewClick={() => console.log('view clicked')}
+          />
+        ))}
       </div>
     </div>
   )
