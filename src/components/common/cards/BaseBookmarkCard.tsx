@@ -12,13 +12,13 @@ function BaseBookmarkCard({
   children,
 }: BaseBookmarkCardProps) {
   return (
-    <div className="flex h-fit w-[318px] gap-3 rounded-xl border-2 border-gray-200 p-[13px] md:w-[838px] md:max-w-[838px] md:min-w-[838px] md:items-center md:gap-6 md:p-[25px]">
+    <div className="flex h-fit w-full max-w-[318px] gap-3 rounded-xl border-2 border-gray-200 p-[13px] sm:max-w-[838px] sm:items-center sm:gap-6 sm:p-[25px]">
       <img
-        className="h-[48px] w-[64px] rounded-lg object-cover md:h-[94px] md:w-[160px]"
+        className="h-[48px] w-[64px] rounded-lg object-cover sm:h-[94px] sm:w-[160px]"
         src={thumbnail_img_url}
         alt={title}
       />
-      <div className="flex flex-1 flex-col md:flex-row md:items-start">
+      <div className="flex flex-1 flex-col flex-wrap sm:flex-row sm:items-start">
         {children}
       </div>
     </div>
