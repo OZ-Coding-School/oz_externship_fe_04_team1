@@ -9,4 +9,9 @@ export const API_PATHS = {
     // 강의 정보를 가져오는 api
     GET: '/api/v1/lectures/recommands',
   },
+  BOOKMARK: {
+    ANNOUNCEMENT: {
+      GET: '/api/v1/recruitment-bookmarks',
+    },
+  },
 } as const
