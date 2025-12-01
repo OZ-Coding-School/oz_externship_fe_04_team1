@@ -43,22 +43,22 @@ function CourseBookmark({
   onViewClick,
 }: CourseBookmarkProps) {
   // 배지 공통 스타일 클래스
-  const BADGE_BASE_CLASS = 'px-1.5 py-[2px] text-xs font-medium md:px-2 md:py-1'
+  const BADGE_BASE_CLASS = 'px-1.5 py-[2px] text-xs font-medium sm:px-2 sm:py-1'
 
   return (
     <BaseBookmarkCard title={title} thumbnail_img_url={thumbnail_img_url}>
       {/* 콘텐츠 영역 */}
       <div className="flex flex-1 flex-col">
         {/* 제목 */}
-        <h4 className="pb-1 text-sm font-semibold text-gray-900 md:pb-2 md:text-lg">
+        <h4 className="pb-1 text-sm font-semibold text-gray-900 sm:pb-2 sm:text-lg">
           {title}
         </h4>
         {/* 강사명 */}
-        <p className="pb-2 text-xs font-normal text-gray-600 md:pb-3 md:text-base">
+        <p className="pb-2 text-xs font-normal text-gray-600 sm:pb-3 sm:text-base">
           {instructor}
         </p>
 
-        <div className="flex items-center gap-2 pb-2 md:gap-3 md:pb-0">
+        <div className="flex flex-wrap items-center gap-2 pb-2 sm:gap-3 sm:pb-0">
           {/* 플랫폼 배지 */}
           <span className={`${PLATFORM_STYLES[platform]} ${BADGE_BASE_CLASS}`}>
             {PLATFORM_CONFIG[platform]}
@@ -70,28 +70,34 @@ function CourseBookmark({
             {DIFFICULTY_CONFIG[difficulty]}
           </span>
           {/* 총 강의 시간 (데스크톱만 표시) */}
-          <div className="hidden items-center gap-1 text-gray-600 md:flex">
+          <div className="hidden items-center gap-1 text-gray-600 sm:flex sm:flex-wrap">
             <Clock3 className="h-3.5 w-3.5" />
-            <span className="text-sm">{total_class_time}</span>
+            {total_class_time >= 60 ? (
+              <span className="text-sm">
+                {Math.floor(total_class_time / 60)} : {total_class_time % 60}
+              </span>
+            ) : (
+              <span className="text-sm">{total_class_time}</span>
+            )}
           </div>
         </div>
       </div>
 
-      <div className="flex items-start justify-between md:flex-col md:items-end">
-        <div className="flex flex-col items-start md:items-end">
+      <div className="flex items-start justify-between sm:flex-col sm:items-end">
+        <div className="flex flex-col items-start sm:items-end">
           {/* 할인된 가격 */}
-          <p className="text-sm font-bold text-gray-900 md:text-lg">
+          <p className="text-sm font-bold text-gray-900 sm:text-lg">
             ₩{discounted_price.toLocaleString()}
           </p>
           {/* 원래 가격 */}
           {original_price && (
-            <p className="pb-2 text-xs font-normal text-gray-500 line-through md:pb-3 md:text-sm">
+            <p className="pb-2 text-xs font-normal text-gray-500 line-through sm:pb-3 sm:text-sm">
               ₩{original_price.toLocaleString()}
             </p>
           )}
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="items-cenflex-wrap flex gap-2">
           {/* 북마크 토글 버튼 */}
           <button onClick={onBookmarkClick} className="cursor-pointer">
             <Bookmark
@@ -99,9 +105,9 @@ function CourseBookmark({
             />
           </button>
           {/* 강의 상세 보기 버튼 (반응형 텍스트) */}
-          <Button className="py-1 md:py-2" onClick={onViewClick}>
-            <span className="md:hidden">보기</span>
-            <span className="hidden md:inline">강의 보기</span>
+          <Button className="py-1 sm:py-2" onClick={onViewClick}>
+            <span className="sm:hidden">보기</span>
+            <span className="hidden sm:inline">강의 보기</span>
           </Button>
         </div>
       </div>
