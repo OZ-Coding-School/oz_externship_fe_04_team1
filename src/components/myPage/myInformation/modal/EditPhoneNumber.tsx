@@ -19,7 +19,9 @@ function EditPhoneNumber({ setIsEditPhoneModalOpen }: EditPhoneNumberProps) {
     <div className="bg-basic-white flex w-[512px] flex-col rounded-xl">
       {/* 모달 헤더 부분 */}
       <div className="flex h-[89px] items-center justify-between border-b-2 border-solid border-gray-200 px-6 py-7">
-        <span className="text-lg text-gray-900">휴대폰 번호 변경</span>
+        <span className="text-lg font-semibold text-gray-900">
+          휴대폰 번호 변경
+        </span>
         <img
           src={closeIcon}
           alt="closeIcon"
