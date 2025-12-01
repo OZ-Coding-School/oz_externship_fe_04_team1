@@ -74,7 +74,7 @@ function StudyBookmark({
         </div>
       </div>
       {/* 액션 버튼 영역 - 북마크 토글 버튼 및 공고 보기 버튼 */}
-      <div className="flex shrink-0 items-center gap-2">
+      <div className="flex shrink-0 justify-end gap-2">
         <button onClick={onBookmarkClick} className="cursor-pointer">
           <Bookmark
             className={`text-primary-500 h-5 w-4 ${isBookmarked ? 'fill-primary-500' : ''}`}
