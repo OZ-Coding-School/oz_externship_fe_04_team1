@@ -1,34 +1,26 @@
-function section3() {
-  const features = [
-    {
-      id: 1,
-      image: '이미지1',
-      title: '리액트 완벽 마스터 강의',
-      name: '김개발',
-      star: 4.8,
-      price: '59,000원',
-    },
-    {
-      id: 2,
-      image: '이미지2',
-      title: '파이썬 데이터 사이언스',
-      name: '이데이터',
-      star: 4.9,
-      price: '99,000원',
-    },
-    {
-      id: 3,
-      image: '이미지3',
-      title: 'AWS 클라우드 아키텍처',
-      name: '한클라우드',
-      star: 4.8,
-      price: '129,000원',
-    },
-  ]
+// import CourseCard from '@/components/common/cards/CourseCard'
+import { useEffect, useState } from 'react'
+import { getCourseInformationApi } from '@/api/courseInformation'
+import { type CourseCardProps } from '@/types/mypage'
+import CourseCard from '@/components/common/cards/CourseCard'
+function Section3() {
+  const [courses, setCourses] = useState<CourseCardProps[]>([])
+
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const data = await getCourseInformationApi()
+        setCourses(data)
+      } catch (error) {
+        console.error('강의 목록 불러오기 실패:', error)
+      }
+    }
+    fetchCourses()
+  }, [])
 
   return (
     <section className="flex min-h-[500px] w-full justify-center px-20 py-16 sm:min-h-[615px]">
-      <div className="flex w-full max-w-[1440px] flex-col">
+      <div className="flex w-full max-w-[1440px] flex-col px-8">
         <div className="flex items-end justify-between">
           <div>
             <h2 className="mb-2 text-3xl font-bold">인기 강의</h2>
@@ -41,22 +33,19 @@ function section3() {
           </button>
         </div>
 
-        <div className="flex w-full flex-col gap-6 sm:flex-row">
-          {features.map((features) => (
-            <div
-              key={features.id}
-              className="flex-1 items-center rounded-[12px] border-[1px] border-gray-200"
-            >
-              <div className="h-[217px]">{features.image}</div>
-              <div className="p-5">
-                <p className="mb-2 flex-1 text-lg font-semibold">
-                  {features.title}
-                </p>
-                <p className="mb-3 font-light text-gray-600">{features.name}</p>
-                <p className="mb-3 text-gray-600">{features.star}</p>
-                <p className="text-lg font-bold">{features.price}</p>
-              </div>
-            </div>
+        <div className="flex w-full flex-col gap-6 sm:flex-row sm:gap-6 md:h-[388px] md:w-[389px]">
+          {courses.map((course) => (
+            <CourseCard
+              key={course.id}
+              id={course.id}
+              thumbnail_img_url={course.thumbnail_img_url}
+              title={course.title}
+              instructor={course.instructor}
+              average_rating={course.average_rating}
+              reviewCount={course.reviewCount}
+              discounted_price={course.discounted_price}
+              original_price={course.original_price}
+            />
           ))}
         </div>
       </div>
@@ -64,4 +53,4 @@ function section3() {
   )
 }
 
-export default section3
+export default Section3
