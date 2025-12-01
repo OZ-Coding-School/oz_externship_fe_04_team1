@@ -13,5 +13,8 @@ export const API_PATHS = {
     ANNOUNCEMENT: {
       GET: '/api/v1/recruitment-bookmarks',
     },
+    STUDY: {
+      GET: '/api/v1/lecture-bookmarks',
+    },
   },
 } as const
