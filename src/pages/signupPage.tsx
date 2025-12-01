@@ -3,7 +3,8 @@ import BasicInfoSection from '@/components/signup/BasicInfoSection'
 import EmailVerificationSection from '@/components/signup/EmailVerificationSection'
 import PasswordSection from '@/components/signup/PasswordSection'
 import PhoneVerificationSection from '@/components/signup/PhoneVerificationSection'
-import { FormProvider, useForm } from 'react-hook-form'
+import type { SignupFormValues } from '@/types/signup'
+import { FormProvider, useForm, type FieldErrors } from 'react-hook-form'
 import { Link } from 'react-router'
 
 // useForm() 한번 생성
@@ -11,14 +12,44 @@ import { Link } from 'react-router'
 // 제출처리 ( handleSubmit)
 
 function SignupPage() {
-  const methods = useForm()
-  console.log(methods)
+  const methods = useForm<SignupFormValues>({
+    mode: 'onBlur',
+    reValidateMode: 'onChange', // onSubmit을 해야 적용되는 것
+    defaultValues: {
+      name: '',
+      nickname: '',
+      birthday: '',
+      gender: '',
+      email: '',
+      phone_number: '',
+      password: '',
+      password_confirm: '',
+    },
+  })
+
+  // 제출 버튼 클릭 시 오류가 난 첫번째 인풋으로 포커스
+  const onError = (errors: FieldErrors) => {
+    const firstErrorField = Object.keys(errors)[0]
+    methods.setFocus(firstErrorField as keyof SignupFormValues)
+  }
+
+  const handleSubmit = (data: SignupFormValues) => {
+    // password_confirm 제거
+    const { password_confirm, ...signupData } = data
+    console.log(signupData) // singupData만 api로 Post
+  }
+
   return (
-    // 여기서 페이지의 전체적인 레이아웃 적용해야함 (의문: min-h-screen은 100vh를 유지하려고 할텐데 그럼 헤더, 푸터가 적용되면 어떻게 되는거지..?)
     <div className="mx-auto flex min-h-screen w-full flex-col items-center bg-gray-50">
       {/* 회원가입 폼 */}
       <FormProvider {...methods}>
-        <form className="my-14 flex h-fit w-[528px] flex-col gap-9 bg-white px-5 py-10">
+        <form
+          onSubmit={methods.handleSubmit(handleSubmit, onError)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') e.preventDefault()
+          }}
+          className="my-14 flex h-fit w-[528px] flex-col gap-9 bg-white px-5 py-10"
+        >
           {/* 헤더 */}
           <div className="flex flex-col items-center justify-center gap-4">
             <h2 className="text-3xl font-bold">회원가입</h2>
