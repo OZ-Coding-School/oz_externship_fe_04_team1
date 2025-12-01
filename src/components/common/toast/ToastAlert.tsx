@@ -1,7 +1,7 @@
 import { AlertCircle, CheckCircle2, XCircle, XIcon } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
-type ToastType = 'success' | 'warning' | 'error'
+type ToastType = 'success' | 'warning' | 'error' | 'alert'
 // 이거는 컴포넌트용 <ToastAlert type="success" title="제목" message="메시지" /> 이렇게 사용 import 받아올때 default가 아니므로
 // import { ToastAlert } from '@/components/common/toast/ToastAlert' 이렇게 받아오기
 interface ToastAlertProps {
@@ -27,6 +27,14 @@ const toastConfig = {
     titleClass: 'text-primary-800',
     messageClass: 'text-primary-600',
     buttonClass: 'text-primary-400 hover:text-primary-600',
+  },
+  alert: {
+    icon: AlertCircle,
+    containerClass: 'bg-danger-30 border-danger-100',
+    iconClass: 'text-danger-800',
+    titleClass: 'text-danger-800 font-semibold text-sm',
+    messageClass: 'text-danger-700 mt-2',
+    buttonClass: 'hidden',
   },
   error: {
     icon: XCircle,
@@ -66,7 +74,12 @@ export const ToastAlert = ({
         >
           {title}
         </p>
-        <p className={cn('text-sm opacity-90', config.messageClass)}>
+        <p
+          className={cn(
+            'text-sm whitespace-pre-line opacity-90',
+            config.messageClass
+          )}
+        >
           {message}
         </p>
       </div>

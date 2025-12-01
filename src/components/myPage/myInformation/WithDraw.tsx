@@ -1,4 +1,12 @@
+import { useOutletContext } from 'react-router'
+
 function WithDraw() {
+  const { setIsWithDrawModalOpen } = useOutletContext<{
+    setIsWithDrawModalOpen: (value: boolean) => void
+  }>()
+  const handleWithDrawModalOpen = () => {
+    setIsWithDrawModalOpen(true)
+  }
   return (
     <div className="mx-8 border-t-2 border-solid border-gray-200 py-8">
       <div className="flex items-center justify-between">
@@ -13,8 +21,10 @@ function WithDraw() {
             </span>
           </div>
         </div>
-        <button className="text-basic-white bg-danger-500 cursor-pointer rounded-lg px-6 py-2">
-          {/* 버튼 클릭하면 회원탈퇴 모달 열리게 구현해야함 */}
+        <button
+          className="text-basic-white bg-danger-500 cursor-pointer rounded-lg px-6 py-2"
+          onClick={handleWithDrawModalOpen}
+        >
           회원 탈퇴
         </button>
       </div>
