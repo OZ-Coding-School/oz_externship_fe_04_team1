@@ -1,7 +1,7 @@
 import Layout from '@/components/common/layout/Layout'
 import MyPageLayout from '@/components/common/layout/MyPageLayout'
 import ApplyList from '@/components/myPage/ApplyList'
-import BookMarkAnnouncement from '@/components/myPage/BookMarkAnnouncement'
+import BookMarkAnnouncement from '@/components/myPage/bookmarkAnnouncement/BookMarkAnnouncement'
 import BookMarkStudy from '@/components/myPage/BookMarkStudy'
 import CompleteStudy from '@/components/myPage/CompleteStudy'
 import { ROUTE_PATHS } from '@/constant/route'
