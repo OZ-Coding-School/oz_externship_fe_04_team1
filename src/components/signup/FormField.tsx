@@ -1,12 +1,13 @@
 import type { ReactNode } from 'react'
 import { twMerge } from 'tailwind-merge'
 
-interface FromFieldProps {
+interface FormFieldProps {
   label?: string
   htmlFor?: string
   require?: boolean
   info?: string
   className?: string
+  errorMsg?: string
   children: ReactNode
 }
 
@@ -16,10 +17,11 @@ function FormField({
   info,
   require,
   className,
+  errorMsg,
   children,
-}: FromFieldProps) {
+}: FormFieldProps) {
   return (
-    <div className={twMerge(`flex flex-col gap-5 ${className}`)}>
+    <div className={twMerge('flex flex-col gap-5', className)}>
       <label htmlFor={htmlFor}>
         {label}
         {require && <span className="text-danger-500 pl-0.5">*</span>}
@@ -29,7 +31,12 @@ function FormField({
           </span>
         )}
       </label>
-      {children}
+      <div>
+        {children}
+        {errorMsg && (
+          <p className="text-danger-500 pt-2 pl-1 text-sm">{errorMsg}</p>
+        )}
+      </div>
     </div>
   )
 }
