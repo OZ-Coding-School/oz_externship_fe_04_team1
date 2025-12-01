@@ -20,7 +20,7 @@ function MobileSideNagigation() {
           className={
             myPageState === 'MY_INFORMATION'
               ? 'bg-primary-500 flex w-1/2 cursor-pointer flex-col items-center justify-center gap-[9px] rounded-tl-xl'
-              : 'flex w-1/2 cursor-pointer flex-col items-center justify-center gap-[9px] rounded-xl'
+              : 'bg-basic-white flex w-1/2 cursor-pointer flex-col items-center justify-center gap-[9px] rounded-xl'
           }
           onClick={() => {
             setMyPageState('MY_INFORMATION')
@@ -49,7 +49,7 @@ function MobileSideNagigation() {
             myPageState === 'BOOKMARK_ANNOUNCEMENT' ||
             myPageState === 'BOOKMARK_STUDY'
               ? 'bg-primary-500 flex w-1/2 cursor-pointer flex-col items-center justify-center gap-[9px] rounded-tr-xl'
-              : 'flex w-1/2 cursor-pointer flex-col items-center justify-center gap-[9px] rounded-r-xl'
+              : 'bg-basic-white flex w-1/2 cursor-pointer flex-col items-center justify-center gap-[9px] rounded-r-xl'
           }
           onClick={() => {
             setMyPageState('BOOKMARK_ANNOUNCEMENT')
@@ -83,7 +83,7 @@ function MobileSideNagigation() {
           className={
             myPageState === 'APPLY_LIST'
               ? 'bg-primary-500 flex w-1/2 cursor-pointer flex-col items-center justify-center gap-[9px] rounded-bl-xl'
-              : 'flex w-1/2 cursor-pointer flex-col items-center justify-center gap-[9px] rounded-b-xl'
+              : 'bg-basic-white flex w-1/2 cursor-pointer flex-col items-center justify-center gap-[9px] rounded-b-xl'
           }
           onClick={() => {
             setMyPageState('APPLY_LIST')
@@ -109,7 +109,7 @@ function MobileSideNagigation() {
           className={
             myPageState === 'COMPLETE_STUDY'
               ? 'bg-primary-500 flex w-1/2 cursor-pointer flex-col items-center justify-center gap-[9px] rounded-br-xl'
-              : 'flex w-1/2 cursor-pointer flex-col items-center justify-center gap-[9px] rounded-r-xl'
+              : 'bg-basic-white flex w-1/2 cursor-pointer flex-col items-center justify-center gap-[9px] rounded-r-xl'
           }
           onClick={() => {
             setMyPageState('COMPLETE_STUDY')
