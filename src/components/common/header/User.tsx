@@ -1,14 +1,31 @@
 import notificationIcon from '@/assets/icons/notification.svg'
 import profileIcon from '@/assets/icons/profileImg.svg'
 import topArrow from '@/assets/icons/topArrow.svg'
-import UserModal from '@/components/common/header/UserModal'
 import useUserData from '@/hooks/quries/useUserData'
+import useIsDesktop from '@/hooks/useIsDesktop'
+
 import { useState } from 'react'
+import { AnimatePresence } from 'framer-motion'
+
+import UserModal from './UserModal'
+import NotificationModal from '../notification/NotificationModal'
 function User() {
   const [isUserModalOpen, setIsUserModalOpen] = useState(false)
+  const [isAlarmOpen, setIsAlarmOpen] = useState(false)
+  const [isAlarmAnimating, setIsAlarmAnimating] = useState(false)
+  const isDesktop = useIsDesktop()
   // 로그인했을때의 모달 상태 관리
   const handleUserModal = () => {
     setIsUserModalOpen((prev) => !prev)
+  }
+  // 알림 모달 토글 (애니메이션 중에는 연타 방지)
+  const handleAlarmModal = () => {
+    if (isAlarmAnimating) return
+    setIsAlarmAnimating(true)
+    setIsAlarmOpen((prev) => !prev)
+    if (isUserModalOpen) {
+      setIsUserModalOpen(false)
+    }
   }
   const { data } = useUserData()
   return (
@@ -28,13 +45,40 @@ function User() {
           </a>
           {/* 클릭하면 구인공고 페이지 렌더링 */}
         </div>
-        <img
-          src={notificationIcon}
-          alt="notificationIcon"
-          className="h-[30px] w-[30px] cursor-pointer"
-        />
-        {/* 이것도 알림개수 연동시키기 */}
-        {/* 클릭하면 알림 모달 창 나타나게 */}
+        <div className="relative">
+          <img
+            src={notificationIcon}
+            alt="notificationIcon"
+            className="h-[30px] w-[30px] cursor-pointer"
+            onClick={handleAlarmModal}
+          />
+          {/* 알림 모달,바텀시트 오픈 */}
+          {/* 모바일일 때만 배경 오버레이 렌더링 */}
+          {!isDesktop && isAlarmOpen && (
+            <div
+              className="fixed inset-0 z-40 bg-black/30 md:bg-transparent"
+              onClick={() => {
+                setIsAlarmAnimating(true)
+                setIsAlarmOpen(false)
+              }}
+            />
+          )}
+          <AnimatePresence
+            mode="wait"
+            onExitComplete={() => setIsAlarmAnimating(false)}
+          >
+            {isAlarmOpen && (
+              <NotificationModal
+                isDesktop={isDesktop}
+                onClose={() => {
+                  setIsAlarmAnimating(true)
+                  setIsAlarmOpen(false)
+                }}
+                onAnimationComplete={() => setIsAlarmAnimating(false)}
+              />
+            )}
+          </AnimatePresence>
+        </div>
       </div>
       {/* 클릭하면 유저 모달 나오게 */}
       <div
