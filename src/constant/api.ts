@@ -19,6 +19,7 @@ export const API_PATHS = {
       GET: '/api/v1/lecture-bookmarks',
     },
   },
+
   APPLY: {
     // 지원 내역 가져오는 api
     LIST: {
@@ -27,6 +28,32 @@ export const API_PATHS = {
     // 지원 내역 상세 가져오는 api
     DETAIL: {
       GET: (id: number) => `/api/v1/applications/${id}`,
+    },
+  },
+  SIGNUP: {
+    // 회원가입 post api
+    SUBMIT: {
+      POST: '/api/v1/accounts/signup',
+    },
+    // 닉네임 중복 post api ( 현재 api 명세서에 닉네임 관련 api 안나옴 - 임시 api )
+    NICKNAME_CHECK: {
+      POST: 'api/v1/accounts/signup/nickname-check',
+    },
+    // 이메일 인증 발송 post api
+    EMAIL_SEND: {
+      POST: 'api/v1/accounts/signup/send-email',
+    },
+    // 이메일 인증 코드 발송 post api
+    EMAIL_VERIFY: {
+      POST: 'api/v1/accounts/signup/verify-email',
+    },
+    // SMS 인증 발송 post api
+    SMS_SEND: {
+      POST: 'api/v1/accounts/signup/send-sms',
+    },
+    // SMS 인증 코드 발송 post api
+    SMS_VERIFY: {
+      POST: 'api/v1/accounts/signup/verify-sms',
     },
   },
 } as const
