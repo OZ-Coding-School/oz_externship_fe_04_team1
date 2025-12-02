@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Button from '../common/Button'
 import Input from '../common/Input'
 import FormField from './FormField'
-import { useFormContext } from 'react-hook-form'
+import { useFormContext, useWatch } from 'react-hook-form'
 import type { SignupFormValues } from '@/types/signup'
 
 function EmailVerificationSection() {
@@ -12,10 +12,9 @@ function EmailVerificationSection() {
 
   const {
     register,
-    watch,
     formState: { errors },
   } = useFormContext<SignupFormValues>()
-  const email = watch('email')
+  const email = useWatch({ name: 'email' })
 
   const emailRegister = register('email', {
     required: '이메일 인증을 해주세요.',
@@ -26,7 +25,7 @@ function EmailVerificationSection() {
   })
 
   const handleEmailSubmit = () => {
-    if (!email) return
+    if (!email || errors.email) return
     // api작업
     console.log('이메일 인증 시작 : ', email)
     setIsEmailSent(true)

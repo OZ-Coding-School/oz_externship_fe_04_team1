@@ -3,7 +3,7 @@ import Button from '../common/Button'
 import Input from '../common/Input'
 import FormField from './FormField'
 import type { SignupFormValues } from '@/types/signup'
-import { useFormContext } from 'react-hook-form'
+import { useFormContext, useWatch } from 'react-hook-form'
 
 function PhoneVerificationSection() {
   const [phoneVerificationCode, setPhoneVerificationCode] = useState('')
@@ -12,10 +12,9 @@ function PhoneVerificationSection() {
 
   const {
     register,
-    watch,
     formState: { errors },
   } = useFormContext<SignupFormValues>()
-  const phone = watch('phone_number')
+  const phone = useWatch({ name: 'phone_number' })
 
   const phoneRegister = register('phone_number', {
     required: '휴대폰 인증을 해주세요.',

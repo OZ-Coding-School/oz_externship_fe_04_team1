@@ -2,16 +2,15 @@ import type { SignupFormValues } from '@/types/signup'
 import Button from '../common/Button'
 import Input from '../common/Input'
 import FormField from './FormField'
-import { useFormContext } from 'react-hook-form'
+import { useFormContext, useWatch } from 'react-hook-form'
 
 function BasicInfoSection() {
   const {
     register,
-    watch,
     formState: { errors },
   } = useFormContext<SignupFormValues>()
-  const nickname = watch('nickname')
-  const gender = watch('gender')
+  const nickname = useWatch({ name: 'nickname' })
+  const gender = useWatch({ name: 'gender' })
 
   const nameRegister = register('name', {
     required: '이름을 입력해주세요',
