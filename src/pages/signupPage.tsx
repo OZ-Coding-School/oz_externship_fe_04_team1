@@ -7,14 +7,10 @@ import type { SignupFormValues } from '@/types/signup'
 import { FormProvider, useForm, type FieldErrors } from 'react-hook-form'
 import { Link } from 'react-router'
 
-// useForm() 한번 생성
-// FormProvider로 하위 컴포넌트들에 전파
-// 제출처리 ( handleSubmit)
-
 function SignupPage() {
   const methods = useForm<SignupFormValues>({
-    mode: 'onBlur',
-    reValidateMode: 'onChange', // onSubmit을 해야 적용되는 것
+    mode: 'onTouched',
+    reValidateMode: 'onChange',
     defaultValues: {
       name: '',
       nickname: '',
