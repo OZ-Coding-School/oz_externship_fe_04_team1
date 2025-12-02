@@ -4,6 +4,7 @@ import useBookmarkAnnouncement from '@/hooks/quries/useBookMarkAnnouncement'
 function BookMarkAnnouncementDesktop() {
   const { data } = useBookmarkAnnouncement()
   // pc버전 북마크한 공고
+  // 추후 북마크한 항목 없을때 항목 없음 컴포넌트 렌더링해야함
   // 추후에 무한스크롤 구현하기
   return (
     <div className="bg-basic-white rounded-xl border border-solid border-gray-200 px-8 py-8">
