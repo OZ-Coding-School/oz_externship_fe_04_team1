@@ -71,7 +71,7 @@ export type StudyApplicationCardProps = {
   title: string
   expected_headcount: number
   thumbnail_img_url?: string
-  status: 'PENDING' | 'ACCEPTED' | 'REJECTED'
+  status: 'PENDING' | 'ACCEPTED' | 'REJECTED' | 'CANCELED'
   close_at: string
   lectures: Lecture[]
   tags: Tag[]
