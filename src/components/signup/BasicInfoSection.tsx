@@ -13,8 +13,7 @@ function BasicInfoSection() {
   } = useFormContext<SignupFormValues>()
   const nickname = useWatch({ name: 'nickname' })
   const gender = useWatch({ name: 'gender' })
-  const { mutate: checkNickname, isPending: isCheckingNickname } =
-    useCheckNickname()
+  const { mutate: checkNickname } = useCheckNickname()
   const [isNicknameAvailable, setIsNicknameAvailable] = useState<
     boolean | null
   >(null)
