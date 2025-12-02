@@ -26,3 +26,8 @@ export type SignupFormValues = {
   password: string
   password_confirm: string
 }
+export interface SignupFormValuesWithValidation extends SignupFormValues {
+  emailVerified: boolean
+  smsVerified: boolean
+  nicknameVerified: boolean
+}
