@@ -27,7 +27,7 @@ function Guest() {
       {/* 클릭하면 회원가입 페이지 렌더링 */}
       <button
         onClick={() => navigate('/signup')}
-        className="bg-primary-500 text-basic-white ml-4 h-[40px] w-[90.89px] rounded-lg text-base md:text-lg"
+        className="bg-primary-500 text-basic-white ml-4 h-[40px] w-[90.89px] cursor-pointer rounded-lg text-base md:text-lg"
       >
         회원가입
       </button>
