@@ -1,13 +1,12 @@
 import Button from '@/components/common/Button'
 import image from '@/assets/images/mainImage.png'
-import Clicktest from '@/components/accountRecovery/accountRecoverModal'
+import AccountRecoverStep from '@/components/accountRecovery/accountRecoveryStep'
 import { useState } from 'react'
 
 function Section1() {
   const [isOpen, setIsOpen] = useState(false)
 
   const handleOpen = () => setIsOpen(true)
-  const handleClose = () => setIsOpen(false)
 
   return (
     <>
@@ -41,7 +40,7 @@ function Section1() {
           </div>
         </div>
       </section>
-      <Clicktest isOpen={isOpen} onClose={() => setIsOpen(false)} />
+      <AccountRecoverStep isOpen={isOpen} onClose={() => setIsOpen(false)} />
     </>
   )
 }
