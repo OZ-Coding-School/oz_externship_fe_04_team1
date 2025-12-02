@@ -1,9 +1,13 @@
 import StudyApplicationCard from '@/components/common/cards/StudyApplicationCard'
 import useApplyList from '@/hooks/quries/useApplyList'
 import noImage from '@/assets/images/noImage.png'
-
+import { useOutletContext } from 'react-router'
 function ApplyListDesktop() {
   const { data } = useApplyList()
+  const { setIsApplyListModalOpen, setApplyListId } = useOutletContext<{
+    setIsApplyListModalOpen: (isOpen: boolean) => void
+    setApplyListId: (id: number) => void
+  }>()
   return (
     <div className="bg-basic-white rounded-xl border border-solid border-gray-200 px-8 py-8">
       {/* 제목 */}
@@ -27,7 +31,10 @@ function ApplyListDesktop() {
               expected_headcount={v.expected_headcount}
               close_at={v.close_at}
               create_at={value.created_at}
-              // onClick 시 상세페이지로 이동하는 기능은 추후 구현
+              onClick={() => {
+                setIsApplyListModalOpen(true)
+                setApplyListId(value.id)
+              }}
             />
           ))
         )}

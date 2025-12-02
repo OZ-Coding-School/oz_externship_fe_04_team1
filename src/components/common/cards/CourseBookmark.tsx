@@ -2,33 +2,12 @@ import { Bookmark, Clock3 } from 'lucide-react'
 import Button from '../Button'
 import BaseBookmarkCard from './BaseBookmarkCard'
 import type { CourseBookmarkProps } from '@/types/mypage'
-
-// 플랫폼별 표시 텍스트 설정
-const PLATFORM_CONFIG = {
-  INFLEARN: 'Inflearn',
-  UDEMY: 'Udemy',
-} as const
-
-// 난이도별 표시 텍스트 설정
-const DIFFICULTY_CONFIG = {
-  EASY: '초급',
-  NORMAL: '중급',
-  HARD: '고급',
-} as const
-
-// 플랫폼별 배지 스타일 설정
-const PLATFORM_STYLES = {
-  INFLEARN: 'badge-green',
-  UDEMY: 'badge-purple',
-} as const
-
-// 난이도별 배지 스타일 설정
-const DIFFICULTY_STYLES = {
-  EASY: 'badge-green',
-  NORMAL: 'badge-yellow',
-  HARD: 'badge-red',
-} as const
-
+import {
+  PLATFORM_CONFIG,
+  DIFFICULTY_CONFIG,
+  PLATFORM_STYLES,
+  DIFFICULTY_STYLES,
+} from '@/constant/badgeConstant'
 function CourseBookmark({
   title,
   instructor,

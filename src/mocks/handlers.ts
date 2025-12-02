@@ -4,6 +4,7 @@ import { notificationHandlers } from './handlers/notification/index.ts'
 import { bookmarkAnnouncementHandler } from './handlers/bookmarkAnnouncement/index.ts'
 import { bookmarkStudyHandler } from './handlers/bookmarkStudy/index.ts'
 import { applyListHandler } from './handlers/applyList/index.ts'
+import { applyListDetailHandler } from './handlers/applyListDetail/index.ts'
 
 export const handlers = [
   ...userInformationHandler,
@@ -12,4 +13,5 @@ export const handlers = [
   ...bookmarkAnnouncementHandler,
   ...bookmarkStudyHandler,
   ...applyListHandler,
+  ...applyListDetailHandler,
 ]

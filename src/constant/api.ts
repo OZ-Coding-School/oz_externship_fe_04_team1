@@ -24,5 +24,9 @@ export const API_PATHS = {
     LIST: {
       GET: '/api/v1/applications/mine',
     },
+    // 지원 내역 상세 가져오는 api
+    DETAIL: {
+      GET: (id: number) => `/api/v1/applications/${id}`,
+    },
   },
 } as const

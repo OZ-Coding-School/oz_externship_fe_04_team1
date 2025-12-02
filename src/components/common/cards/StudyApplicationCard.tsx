@@ -1,20 +1,7 @@
 import type { StudyApplicationCardProps } from '@/types/mypage'
 import BaseBookmarkCard from './BaseBookmarkCard'
-// 스터디 지원 상태별 텍스트 설정
-const STATUS_CONFIG = {
-  PENDING: '대기중',
-  ACCEPTED: '승인됨',
-  REJECTED: '거절됨',
-  CANCELED: '취소됨',
-}
-
-// 스터디 지원 상태별 배지 스타일 설정
-const STATUS_STYLE = {
-  PENDING: 'badge-yellow',
-  ACCEPTED: 'badge-green',
-  REJECTED: 'badge-red',
-  CANCELED: 'badge-gray',
-}
+import { STATUS_CONFIG } from '@/constant/badgeConstant'
+import { STATUS_STYLE } from '@/constant/badgeConstant'
 // 카드를 눌렀을 때 스터디 그룹 공고 상세페이지로 넘어가도록 구현 (요구사항에는 없으나 리펙토링할 때 참고)
 function StudyApplicationCard({
   title,
@@ -25,9 +12,15 @@ function StudyApplicationCard({
   lectures,
   tags,
   create_at,
+  onClick,
 }: StudyApplicationCardProps) {
   return (
-    <BaseBookmarkCard title={title} thumbnail_img_url={thumbnail_img_url}>
+    <BaseBookmarkCard
+      title={title}
+      thumbnail_img_url={thumbnail_img_url}
+      className="cursor-pointer"
+      onClick={onClick}
+    >
       {/* 콘텐츠 영역 sm이상 */}
       <div className="flex w-full flex-1 flex-col">
         {/* 헤더 영역 sm이상 - 스터디 제목과 지원 일시 및 상태 표시 */}

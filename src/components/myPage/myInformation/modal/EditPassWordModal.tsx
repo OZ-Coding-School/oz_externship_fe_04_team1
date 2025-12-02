@@ -11,7 +11,7 @@ function EditPassWordModal({
     setIsEditPassWordModalOpen(false)
   }
   return (
-    <div className="bg-basic-white w-[448px] flex-col gap-6 rounded-xl border">
+    <div className="bg-basic-white w-[448px] flex-col gap-6 rounded-xl border pb-8">
       <div className="flex items-center justify-between border-b-2 border-gray-200 px-6 py-8">
         <span className="text-lg font-semibold text-gray-900">
           비밀번호 변경

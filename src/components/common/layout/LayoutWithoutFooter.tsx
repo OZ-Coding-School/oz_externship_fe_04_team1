@@ -11,6 +11,9 @@ function LayoutWithoutFooter() {
         setIsSideBarOpen={setIsSideBarOpen}
       />
       <Outlet />
+      {isSideBarOpen && (
+        <div className="fixed inset-0 h-full w-full bg-black opacity-50 md:hidden"></div>
+      )}
     </>
   )
 }
