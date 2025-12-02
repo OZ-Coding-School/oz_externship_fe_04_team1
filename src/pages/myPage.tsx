@@ -1,4 +1,4 @@
-import ApplyList from '@/components/myPage/ApplyList'
+import ApplyList from '@/components/myPage/applyList/ApplyList'
 import BookMarkAnnouncement from '@/components/myPage/bookmarkAnnouncement/BookMarkAnnouncement'
 import BookMarkStudy from '@/components/myPage/bookmarkStudy/BookMarkStudy'
 import CompleteStudy from '@/components/myPage/CompleteStudy'

@@ -76,6 +76,13 @@ body {
   font-weight: 500;
   font-size: 12px;
 }
+.badge-gray {
+  color: #000000;
+  border-radius: 4px;
+  background-color: #e5e7eb;
+  font-weight: 500;
+  font-size: 12px;
+}
 :root {
   --toastify-color-light: transparent;
   --toastify-color-progress-success: #22c55e;

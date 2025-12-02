@@ -10,11 +10,19 @@ export const API_PATHS = {
     GET: '/api/v1/lectures/recommands',
   },
   BOOKMARK: {
+    // 북마크된 공고 조회 가져오는 apu
     ANNOUNCEMENT: {
       GET: '/api/v1/recruitment-bookmarks',
     },
+    // 북마크된 강의 조회 가져오는 api
     STUDY: {
       GET: '/api/v1/lecture-bookmarks',
+    },
+  },
+  APPLY: {
+    // 지원 내역 가져오는 api
+    LIST: {
+      GET: '/api/v1/applications/mine',
     },
   },
 } as const
