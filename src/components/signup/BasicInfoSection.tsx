@@ -1,4 +1,4 @@
-import type { SignupFormValues } from '@/types/signup'
+import type { SignupFormValuesWithValidation } from '@/types/signup'
 import Button from '../common/Button'
 import Input from '../common/Input'
 import FormField from './FormField'
@@ -10,7 +10,8 @@ function BasicInfoSection() {
   const {
     register,
     formState: { errors },
-  } = useFormContext<SignupFormValues>()
+    setValue,
+  } = useFormContext<SignupFormValuesWithValidation>()
   const nickname = useWatch({ name: 'nickname' })
   const gender = useWatch({ name: 'gender' })
   const { mutate: checkNickname } = useCheckNickname()
@@ -32,7 +33,10 @@ function BasicInfoSection() {
       value: /^[가-힣a-zA-Z0-9]{1,10}$/,
       message: '1~10자의 한글/영문/숫자만 가능합니다.',
     },
-    onChange: () => setIsNicknameAvailable(null),
+    onChange: () => {
+      setIsNicknameAvailable(null)
+      setValue('nicknameVerified', false)
+    },
   })
 
   const birthdayRegister = register('birthday', {
@@ -55,9 +59,13 @@ function BasicInfoSection() {
         onSuccess: () => {
           // 닉네임 사용 가능
           setIsNicknameAvailable(true)
+          setValue('nicknameVerified', true)
         },
         // 이미 사용중인 닉네임
-        onError: () => setIsNicknameAvailable(false),
+        onError: () => {
+          setIsNicknameAvailable(false)
+          setValue('nicknameVerified', false)
+        },
       }
     )
   }
