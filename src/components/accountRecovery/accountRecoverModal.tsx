@@ -1,7 +1,7 @@
 import account from '@/assets/account.svg'
 import Button from '@/components/common/Button'
 
-interface Props {
+interface RecoverModalProps {
   isOpen: boolean
   onNext?: () => void
   onClose: () => void
@@ -13,12 +13,12 @@ export default function AccountRecoverModal({
   onNext,
   isOpen,
   onClose,
-}: Props) {
+}: RecoverModalProps) {
   if (!isOpen) return null
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70">
       {/* 기존 모달 박스 */}
-      <div className="flex h-[300px] w-[396px] flex-col rounded-xl bg-white p-6">
+      <div className="flex h-[300px] w-[406px] flex-col rounded-xl bg-white p-6">
         <div className="flex h-6 justify-end">
           <button className="cursor-pointer" onClick={onClose}>
             X

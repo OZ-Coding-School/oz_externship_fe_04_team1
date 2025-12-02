@@ -2,13 +2,15 @@ import Button from '@/components/common/Button'
 import Input from '@/components/common/Input'
 import accountemail from '@/assets/email.svg'
 import { useState } from 'react'
-interface Props {
+interface EmailVerificationProps {
   onVerify?: () => void
   onClose: () => void
   email?: string
 }
 
-export default function EmailVerificationModal({ onClose }: Props) {
+export default function EmailVerificationModal({
+  onClose,
+}: EmailVerificationProps) {
   const [email, setEmail] = useState('')
   const [verificationCode, setVerificationCode] = useState('')
 
