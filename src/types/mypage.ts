@@ -76,4 +76,5 @@ export type StudyApplicationCardProps = {
   lectures: Lecture[]
   tags: Tag[]
   create_at: string
+  onClick: () => void
 }
