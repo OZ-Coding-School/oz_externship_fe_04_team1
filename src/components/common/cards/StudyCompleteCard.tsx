@@ -37,13 +37,13 @@ function StudyCompleteCard({
           )}
         </div>
 
-        <ul className="flex flex-col gap-1 pb-4 text-xs text-gray-600 md:gap-2 md:text-sm">
+        <ul className="flex flex-col justify-center gap-1 pb-4 text-xs text-gray-600 md:gap-2 md:text-sm">
           <li className="flex items-center gap-1">
             <Clock3 className="h-4 w-3" /> 기간: {duration}
           </li>
           <li className="flex items-center gap-1">
             <Calendar className="h-4 w-3" />
-            종료: {end_at}
+            종료: {end_at}월
           </li>
           <li className="flex items-center gap-1">
             <Users className="h-4 w-3" />
@@ -97,7 +97,6 @@ function StudyCompleteCard({
             </Button>
           </>
         )}
-        {/* button도 프롭스로 받아서 onClick을 외부에서 처리시켜야하나요??.. */}
       </div>
     </div>
   )
