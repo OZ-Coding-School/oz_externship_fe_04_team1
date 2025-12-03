@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import AccountRecoverModal from '@/components/accountRecovery/accountRecoverModal'
 import EmailVerificationModal from '@/components/accountRecovery/emailVerificationModal'
+
 interface RecoverStepProps {
   isOpen: boolean
   onClose: () => void

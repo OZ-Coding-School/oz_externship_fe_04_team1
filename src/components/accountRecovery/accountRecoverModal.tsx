@@ -1,6 +1,6 @@
 import account from '@/assets/account.svg'
 import Button from '@/components/common/Button'
-
+import closeIcon from '@/assets/icons/close.svg'
 interface RecoverModalProps {
   isOpen: boolean
   onNext?: () => void
@@ -20,9 +20,12 @@ export default function AccountRecoverModal({
       {/* 기존 모달 박스 */}
       <div className="flex h-[300px] w-[406px] flex-col rounded-xl bg-white p-6">
         <div className="flex h-6 justify-end">
-          <button className="cursor-pointer" onClick={onClose}>
-            X
-          </button>
+          <img
+            src={closeIcon}
+            alt="closeIcon"
+            className="cursor-pointer"
+            onClick={onClose}
+          />
         </div>
         <div className="flex flex-col items-center justify-center text-center">
           <img src={account} alt="account" className="mb-4" />
