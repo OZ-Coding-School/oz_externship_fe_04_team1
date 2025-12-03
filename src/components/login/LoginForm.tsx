@@ -1,6 +1,7 @@
 import { Link } from 'react-router'
 import Button from '../common/Button'
 import Input from '../common/Input'
+import { ROUTE_PATHS } from '@/constant/route'
 
 function LoginForm() {
   return (
@@ -13,9 +14,9 @@ function LoginForm() {
         />
       </div>
       <div className="text-primary-600 mt-1 flex items-center gap-2 text-sm font-normal">
-        <Link to={'/find-id'}>아이디 찾기</Link>
+        <Link to={ROUTE_PATHS.FIND_ID}>아이디 찾기</Link>
         <span className="text-xl">|</span>
-        <Link to={'/find-password'}>비밀번호 찾기</Link>
+        <Link to={ROUTE_PATHS.FIND_PASSWORD}>비밀번호 찾기</Link>
       </div>
       <Button
         type="submit"

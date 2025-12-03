@@ -9,4 +9,6 @@ export const ROUTE_PATHS = {
   },
   SIGNUP: '/signup',
   LOGIN: '/login',
+  FIND_ID: '/find-id',
+  FIND_PASSWORD: '/find-password',
 }
