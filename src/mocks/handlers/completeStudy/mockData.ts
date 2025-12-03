@@ -68,7 +68,7 @@ export const completeStudy: CompleteStudy[] = [
       {
         id: 3,
         is_mine: true,
-        star_rating: 4.5,
+        star_rating: 4,
         content:
           '사람이 적긴 했었지만, 팀원 분들이 좋으신 분이였기에 잘 마칠수 있었습니다.',
       },

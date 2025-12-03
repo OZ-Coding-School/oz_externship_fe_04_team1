@@ -60,8 +60,7 @@ export type StudyCardProps = {
   duration: string
   end_at: string
   participants: number
-  average_rating: number
-  review?: string
+  review?: Review
   // status: 'ENDED' -> 외부에서 처리하면 좋을 것 같아서 빼겠습니다
   onReviewClick: () => void
 }
@@ -77,4 +76,11 @@ export type StudyApplicationCardProps = {
   tags: Tag[]
   create_at: string
   onClick: () => void
+}
+//리뷰 관련 타입
+export interface Review {
+  id: number
+  is_mine: boolean
+  star_rating: number
+  content: string
 }

@@ -9,13 +9,12 @@ function StudyCompleteCard({
   duration,
   end_at,
   participants,
-  average_rating,
   review,
   onReviewClick,
 }: StudyCardProps) {
   const stars = Array.from(
     { length: 5 },
-    (_, i) => i < Math.floor(average_rating)
+    (_, i) => i < Math.floor(Number(review?.star_rating))
   )
   return (
     <div className="max-h-[500px] w-[318px] rounded-lg border border-gray-200 sm:w-[384px]">
@@ -63,7 +62,7 @@ function StudyCompleteCard({
                     />
                   ))}
                   <span className="text-md ml-2 font-medium text-gray-700">
-                    {average_rating}/5
+                    {review.star_rating}/5
                   </span>
                 </div>
                 <SquarePen
@@ -72,7 +71,7 @@ function StudyCompleteCard({
                 />
               </div>
               <p className="line-clamp-2 text-xs text-gray-600 sm:text-sm">
-                {review}
+                {review.content}
               </p>
             </div>
             <Button
