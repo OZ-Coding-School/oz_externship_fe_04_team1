@@ -10,6 +10,7 @@ import Main from '@/pages/main'
 import MyPage from '@/pages/myPage'
 import SignupPage from '@/pages/signupPage'
 import { Route, Routes } from 'react-router'
+import LoginPage from '@/pages/loginPage'
 function AppRoutes() {
   return (
     <Routes>
@@ -38,6 +39,7 @@ function AppRoutes() {
       {/* 회원가입 */}
       <Route element={<LayoutWithoutFooter />}>
         <Route path={ROUTE_PATHS.SIGNUP} element={<SignupPage />} />
+        <Route path={ROUTE_PATHS.LOGIN} element={<LoginPage />} />
       </Route>
     </Routes>
   )

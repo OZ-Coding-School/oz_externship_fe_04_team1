@@ -19,7 +19,10 @@ function Guest() {
           </a>
           {/* 클릭하면 구인공고 페이지 렌더링 */}
         </div>
-        <span className="hover:text-primary-600 text-base md:cursor-pointer md:text-lg">
+        <span
+          onClick={() => navigate('/login')}
+          className="hover:text-primary-600 text-base md:cursor-pointer md:text-lg"
+        >
           로그인
         </span>
         {/* 클릭하면 로그인 페이지 렌더링 */}
