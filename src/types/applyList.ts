@@ -1,7 +1,7 @@
 export type ApplyList = {
   id: number
   status: Status
-  recruitment: Recruitment[]
+  recruitment: Recruitment
   created_at: string
 }
 
@@ -22,6 +22,7 @@ interface Recruitment {
   // thumbnail_img_url api명세서에 없어가지고 null 허용 -> 백엔드에 요청한 사항
   expected_headcount: number
   close_at: string
+  end_at: string
   lecture: Lectures[]
   tags: Tags[]
 }

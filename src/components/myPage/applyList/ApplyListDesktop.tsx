@@ -19,25 +19,23 @@ function ApplyListDesktop() {
       </div>
       {/* 카드 컴포넌트 */}
       <div className="mt-6 flex flex-col gap-4">
-        {data?.map((value) =>
-          value.recruitment.map((v) => (
-            <StudyApplicationCard
-              key={value.id}
-              status={value.status}
-              title={v.title}
-              thumbnail_img_url={v.thumbnail_img_url ?? noImage}
-              lectures={v.lecture}
-              tags={v.tags}
-              expected_headcount={v.expected_headcount}
-              close_at={v.close_at}
-              create_at={value.created_at}
-              onClick={() => {
-                setIsApplyListModalOpen(true)
-                setApplyListId(value.id)
-              }}
-            />
-          ))
-        )}
+        {data?.map((value) => (
+          <StudyApplicationCard
+            key={value.id}
+            status={value.status}
+            title={value.recruitment.title}
+            thumbnail_img_url={value.recruitment.thumbnail_img_url ?? noImage}
+            lectures={value.recruitment.lecture}
+            tags={value.recruitment.tags}
+            expected_headcount={value.recruitment.expected_headcount}
+            close_at={value.recruitment.close_at}
+            create_at={value.created_at}
+            onClick={() => {
+              setIsApplyListModalOpen(true)
+              setApplyListId(value.id)
+            }}
+          />
+        ))}
       </div>
     </div>
   )

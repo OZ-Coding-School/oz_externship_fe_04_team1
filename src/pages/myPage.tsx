@@ -1,7 +1,7 @@
 import ApplyList from '@/components/myPage/applyList/ApplyList'
 import BookMarkAnnouncement from '@/components/myPage/bookmarkAnnouncement/BookMarkAnnouncement'
 import BookMarkStudy from '@/components/myPage/bookmarkStudy/BookMarkStudy'
-import CompleteStudy from '@/components/myPage/CompleteStudy'
+import CompleteStudy from '@/components/myPage/completeStudy/CompleteStudy'
 import MyInformation from '@/components/myPage/myInformation/MyInformation'
 import MyPageStateStore from '@/store/mypageStateStore'
 

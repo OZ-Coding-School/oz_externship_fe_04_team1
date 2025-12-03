@@ -56,4 +56,10 @@ export const API_PATHS = {
       POST: 'api/v1/accounts/signup/verify-sms',
     },
   },
+  COMPLETE: {
+    // 개인 스터디 조회 가져오는 api
+    STUDY: {
+      GET: '/api/v1/study-groups',
+    },
+  },
 } as const
