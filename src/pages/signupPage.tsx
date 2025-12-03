@@ -4,6 +4,7 @@ import BasicInfoSection from '@/components/signup/BasicInfoSection'
 import EmailVerificationSection from '@/components/signup/EmailVerificationSection'
 import PasswordSection from '@/components/signup/PasswordSection'
 import SmsVerificationSection from '@/components/signup/SmsVerificationSection'
+import { ROUTE_PATHS } from '@/constant/route'
 import { useSubmitSignup } from '@/hooks/quries/auth/useSignup'
 import type {
   SignupFormValues,
@@ -75,7 +76,7 @@ function SignupPage() {
     submitSignup(signupData, {
       onSuccess: () => {
         showToast.success('회원가입', '성공')
-        navigate('/login')
+        navigate(ROUTE_PATHS.LOGIN)
       },
       onError: (error) => {
         showToast.error('회원가입 실패', error.message)
