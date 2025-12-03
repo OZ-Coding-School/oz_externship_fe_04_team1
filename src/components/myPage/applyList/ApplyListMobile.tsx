@@ -19,25 +19,23 @@ function ApplyListMobile() {
         </span>
       </div>
       <div className="mt-4 flex flex-col items-center gap-3">
-        {data?.map((value) =>
-          value.recruitment.map((v) => (
-            <StudyApplicationCard
-              key={value.id}
-              status={value.status}
-              title={v.title}
-              lectures={v.lecture}
-              tags={v.tags}
-              thumbnail_img_url={v.thumbnail_img_url ?? noImage}
-              expected_headcount={v.expected_headcount}
-              close_at={v.close_at}
-              create_at={value.created_at}
-              onClick={() => {
-                setIsApplyListModalOpen(true)
-                setApplyListId(value.id)
-              }}
-            />
-          ))
-        )}
+        {data?.map((value) => (
+          <StudyApplicationCard
+            key={value.id}
+            status={value.status}
+            title={value.recruitment.title}
+            lectures={value.recruitment.lecture}
+            tags={value.recruitment.tags}
+            thumbnail_img_url={value.recruitment.thumbnail_img_url ?? noImage}
+            expected_headcount={value.recruitment.expected_headcount}
+            close_at={value.recruitment.close_at}
+            create_at={value.created_at}
+            onClick={() => {
+              setIsApplyListModalOpen(true)
+              setApplyListId(value.id)
+            }}
+          />
+        ))}
       </div>
     </div>
   )
