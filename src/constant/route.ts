@@ -8,4 +8,7 @@ export const ROUTE_PATHS = {
     COMPLETE_STUDY: '/mypage/complete-study',
   },
   SIGNUP: '/signup',
+  LOGIN: '/login',
+  FIND_ID: '/find-id',
+  FIND_PASSWORD: '/find-password',
 }

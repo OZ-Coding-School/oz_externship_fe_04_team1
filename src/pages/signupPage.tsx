@@ -75,7 +75,7 @@ function SignupPage() {
     submitSignup(signupData, {
       onSuccess: () => {
         showToast.success('회원가입', '성공')
-        navigate('/')
+        navigate('/login')
       },
       onError: (error) => {
         showToast.error('회원가입 실패', error.message)

@@ -1,3 +1,4 @@
+import { ROUTE_PATHS } from '@/constant/route'
 import { useNavigate } from 'react-router'
 
 function Guest() {
@@ -19,7 +20,10 @@ function Guest() {
           </a>
           {/* 클릭하면 구인공고 페이지 렌더링 */}
         </div>
-        <span className="hover:text-primary-600 text-base md:cursor-pointer md:text-lg">
+        <span
+          onClick={() => navigate(ROUTE_PATHS.LOGIN)}
+          className="hover:text-primary-600 text-base md:cursor-pointer md:text-lg"
+        >
           로그인
         </span>
         {/* 클릭하면 로그인 페이지 렌더링 */}
