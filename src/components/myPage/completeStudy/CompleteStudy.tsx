@@ -43,7 +43,6 @@ function CompleteStudy() {
             duration={`${calculateDurationMonths(value.start_at, value.end_at)}개월`}
             end_at={value.end_at.slice(0, 7).split('-').join('년 ')}
             participants={value.current_headcount}
-            onReviewClick={() => console.log('click')}
             // 추후 리뷰 수정 + 작성 모달 구현하기
             review={value.reviews.find((val) => val.is_mine)}
             is_leader={value.is_leader}
