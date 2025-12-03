@@ -1,7 +1,8 @@
 import { Star, Calendar, Clock3, Users, SquarePen } from 'lucide-react'
 import Button from '../Button'
 import type { StudyCardProps } from '@/types/mypage'
-
+import { useOutletContext } from 'react-router'
+import type { Review } from '@/types/review'
 function StudyCompleteCard({
   thumbnail_img_url,
   name,
@@ -10,12 +11,19 @@ function StudyCompleteCard({
   end_at,
   participants,
   review,
-  onReviewClick,
 }: StudyCardProps) {
   const stars = Array.from(
     { length: 5 },
     (_, i) => i < Math.floor(Number(review?.star_rating))
   )
+  const { setIsReviewModalOpen, setCompleteStudyStore } = useOutletContext<{
+    setIsReviewModalOpen: (value: boolean) => void
+    setCompleteStudyStore: (value: Review) => void
+  }>()
+  // 리뷰 모달 열리는 핸들러
+  const handleReviewModalOpen = () => {
+    setIsReviewModalOpen(true)
+  }
   return (
     <div className="max-h-[500px] w-[318px] rounded-lg border border-gray-200 sm:w-[384px]">
       {/* thumbnail */}
@@ -66,7 +74,20 @@ function StudyCompleteCard({
                   </span>
                 </div>
                 <SquarePen
-                  onClick={onReviewClick}
+                  onClick={() => {
+                    handleReviewModalOpen()
+                    setCompleteStudyStore({
+                      name: name,
+                      duration: duration,
+                      end_at: end_at,
+                      reviews: review || {
+                        id: 0,
+                        is_mine: false,
+                        star_rating: 0,
+                        content: '',
+                      },
+                    }) // 넘길 데이터
+                  }}
                   className="hidden h-[17px] w-4 cursor-pointer sm:block"
                 />
               </div>
@@ -77,7 +98,20 @@ function StudyCompleteCard({
             <Button
               variant="primary"
               className="block w-full p-2 sm:hidden sm:h-[40px]"
-              onClick={onReviewClick}
+              onClick={() => {
+                handleReviewModalOpen()
+                setCompleteStudyStore({
+                  name: name,
+                  duration: duration,
+                  end_at: end_at,
+                  reviews: review || {
+                    id: 0,
+                    is_mine: false,
+                    star_rating: 0,
+                    content: '',
+                  },
+                }) // 넘길 데이터
+              }}
             >
               리뷰 수정
             </Button>
@@ -88,7 +122,20 @@ function StudyCompleteCard({
               아직 리뷰를 작성하지 않았습니다
             </div>
             <Button
-              onClick={onReviewClick}
+              onClick={() => {
+                handleReviewModalOpen()
+                setCompleteStudyStore({
+                  name: name,
+                  duration: duration,
+                  end_at: end_at,
+                  reviews: review || {
+                    id: 0,
+                    is_mine: false,
+                    star_rating: 0,
+                    content: '',
+                  },
+                }) // 넘길 데이터
+              }}
               variant="primary"
               className="w-full p-2 sm:h-[40px]"
             >

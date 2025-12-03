@@ -7,6 +7,8 @@ import EditPhoneNumber from '@/components/myPage/myInformation/modal/EditPhoneNu
 import EditPassWordModal from '@/components/myPage/myInformation/modal/EditPassWordModal'
 import WithDrawModal from '@/components/myPage/myInformation/modal/WithDrawModal'
 import ApplyListModal from '@/components/myPage/applyList/ApplyListModal'
+import CompleteStudyReviewModal from '@/components/myPage/completeStudy/CompleteStudyReviewModal'
+import type { Review } from '@/types/review'
 function MyPageLayout() {
   // 사이드바 상태
   const [isSideBarOpen, setIsSideBarOpen] = useState(false)
@@ -22,6 +24,12 @@ function MyPageLayout() {
   const [isApplyListModalOpen, setIsApplyListModalOpen] = useState(false)
   // 선택된 항목에 대한 id 상태 관리
   const [applyListId, setApplyListId] = useState<number | null>(null)
+  // 리뷰 모달 상태
+  const [isReviewModalOpen, setIsReviewModalOpen] = useState(false)
+  // 어떤 완료된 스터디에 관한 정보인지 상태
+  const [completeStudyStore, setCompleteStudyStore] = useState<
+    Review | undefined
+  >(undefined)
 
   return (
     <div className="flex min-h-screen w-full flex-col">
@@ -42,6 +50,8 @@ function MyPageLayout() {
                 setIsWithDrawModalOpen: setIsWithDrawModalOpen,
                 setIsApplyListModalOpen: setIsApplyListModalOpen,
                 setApplyListId: setApplyListId,
+                setIsReviewModalOpen: setIsReviewModalOpen,
+                setCompleteStudyStore: setCompleteStudyStore,
               }}
             />
           </div>
@@ -77,6 +87,14 @@ function MyPageLayout() {
           <ApplyListModal
             setIsApplyListModalOpen={setIsApplyListModalOpen}
             applyListId={applyListId}
+          />
+        </div>
+      )}
+      {isReviewModalOpen && (
+        <div className="fixed inset-0 flex h-full w-full items-center justify-center bg-black/50 px-5">
+          <CompleteStudyReviewModal
+            setIsReviewModalOpen={setIsReviewModalOpen}
+            completeStudyStore={completeStudyStore}
           />
         </div>
       )}
