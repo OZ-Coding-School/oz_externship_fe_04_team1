@@ -1,4 +1,4 @@
-import { useFormContext } from 'react-hook-form'
+import { useFormContext, useWatch } from 'react-hook-form'
 import Input from '../common/Input'
 import FormField from './FormField'
 import type { SignupFormValues } from '@/types/signup'
@@ -6,10 +6,9 @@ import type { SignupFormValues } from '@/types/signup'
 function PasswordSection() {
   const {
     register,
-    watch,
     formState: { errors },
   } = useFormContext<SignupFormValues>()
-  const password = watch('password')
+  const password = useWatch({ name: 'password' })
 
   const passwrodRegister = register('password', {
     required: '비밀번호를 입력해주세요.',

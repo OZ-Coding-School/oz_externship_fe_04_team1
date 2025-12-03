@@ -7,6 +7,7 @@ import App from './App.tsx'
 import { BrowserRouter } from 'react-router'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import '@/index.css'
+import { ToastContainer } from 'react-toastify'
 // MSW 워커를 활성화하는 함수(개발환경에서만 실행)
 async function enableMocking() {
   if (import.meta.env.MODE !== 'development') {
@@ -26,6 +27,7 @@ enableMocking().then(() => {
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
           <App />
+          <ToastContainer />
         </BrowserRouter>
       </QueryClientProvider>
     </StrictMode>

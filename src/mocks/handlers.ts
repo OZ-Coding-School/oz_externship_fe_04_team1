@@ -5,6 +5,7 @@ import { bookmarkAnnouncementHandler } from './handlers/bookmarkAnnouncement/ind
 import { bookmarkStudyHandler } from './handlers/bookmarkStudy/index.ts'
 import { applyListHandler } from './handlers/applyList/index.ts'
 import { applyListDetailHandler } from './handlers/applyListDetail/index.ts'
+import { signupHandlers } from './handlers/auth/signupHandler.ts'
 
 export const handlers = [
   ...userInformationHandler,
@@ -14,4 +15,5 @@ export const handlers = [
   ...bookmarkStudyHandler,
   ...applyListHandler,
   ...applyListDetailHandler,
+  ...signupHandlers,
 ]
