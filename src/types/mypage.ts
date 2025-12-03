@@ -61,8 +61,6 @@ export type StudyCardProps = {
   end_at: string
   participants: number
   review?: Review
-  // status: 'ENDED' -> 외부에서 처리하면 좋을 것 같아서 빼겠습니다
-  onReviewClick: () => void
 }
 
 // 지원 내역 관련 타입
