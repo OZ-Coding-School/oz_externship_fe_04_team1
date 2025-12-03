@@ -14,14 +14,16 @@ function LoginPage() {
           </h2>
         </div>
         <h3 className="mt-1 text-3xl font-bold">로그인</h3>
-        <p className="text-gray-600 mt-2 text-sm font-light">
+        <p className="mt-2 text-sm font-light text-gray-600">
           아직 계정이 없으신가요?{' '}
           <Link className="text-primary-600" to={'/signup'}>
             회원가입하기
           </Link>
         </p>
         <div className="mt-4 flex w-full flex-col gap-10">
+          {/* 소셜 로그인 */}
           <SocialLogin />
+          {/* 일반회원 로그인 및 아이디, 비밀번호 찾기 */}
           <LoginForm />
         </div>
       </div>
