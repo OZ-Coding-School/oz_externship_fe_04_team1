@@ -1,7 +1,6 @@
 import { Star, Calendar, Clock3, Users, SquarePen } from 'lucide-react'
 import Button from '../Button'
 import type { StudyCardProps } from '@/types/mypage'
-import type { Review } from '@/types/review'
 import { useReviewModal } from '@/hooks/useReviewModal'
 function StudyCompleteCard({
   thumbnail_img_url,
