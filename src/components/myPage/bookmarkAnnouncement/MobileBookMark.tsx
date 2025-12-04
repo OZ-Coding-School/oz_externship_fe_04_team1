@@ -25,7 +25,7 @@ function MobileBookMark() {
           value.recruitment.map((v) => (
             <StudyBookmark
               key={value.id}
-              studyBookmarkData={v}
+              announcementBookmarkData={v}
               onBookmarkClick={() => console.log('bookmark clicked')}
               // 추후에 북마크 클릭시 북마크 목록에서 삭제되게 구현하기
               onViewClick={() => console.log('view clicked')}
@@ -37,15 +37,7 @@ function MobileBookMark() {
         {studyData.map((value) => (
           <CourseBookmark
             key={value.id}
-            title={value.title}
-            instructor={value.instructor}
-            total_class_time={value.total_class_time}
-            original_price={value.original_price}
-            discounted_price={value.discounted_price}
-            difficulty={value.difficulty}
-            thumbnail_img_url={value.thumbnail_img_url}
-            platform={value.platform}
-            isBookmarked
+            studyBookMarkData={value}
             onBookmarkClick={() => console.log('bookmark clicked')}
             onViewClick={() => console.log('view clicked')}
           />

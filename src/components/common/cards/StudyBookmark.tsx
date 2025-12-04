@@ -1,27 +1,27 @@
 import Button from '../Button'
 import BaseBookmarkCard from './BaseBookmarkCard'
 import { Bookmark, Users, Calendar, Eye } from 'lucide-react'
-import type { StudyBookMarkType } from '@/types/mypage'
+import type { AnnouncementBookMarkType } from '@/types/mypage'
 interface StudyBookMarkProps {
-  studyBookmarkData: StudyBookMarkType
+  announcementBookmarkData: AnnouncementBookMarkType
   onBookmarkClick: () => void
   onViewClick: () => void
 }
 function StudyBookmark({
-  studyBookmarkData,
+  announcementBookmarkData,
   onBookmarkClick,
   onViewClick,
 }: StudyBookMarkProps) {
   return (
     <BaseBookmarkCard
-      title={studyBookmarkData.title}
-      thumbnail_img_url={studyBookmarkData.thumbnail_img_url}
+      title={announcementBookmarkData.title}
+      thumbnail_img_url={announcementBookmarkData.thumbnail_img_url}
     >
       {/* 콘텐츠 영역 */}
       <div className="flex flex-1 flex-col">
         {/* 제목 */}
         <h4 className="pb-1 text-sm font-semibold text-gray-900 sm:pb-2 sm:text-lg">
-          {studyBookmarkData.title}
+          {announcementBookmarkData.title}
         </h4>
 
         <div className="flex flex-wrap items-center gap-2 pb-3 text-xs text-gray-600 sm:gap-4 sm:text-sm">
@@ -29,39 +29,42 @@ function StudyBookmark({
           <p className="flex items-center gap-0.5">
             <Users className="hidden h-3.5 w-3.5 sm:block" />
             <span className="sm:hidden">
-              모집 {studyBookmarkData.expected_headcount}명
+              모집 {announcementBookmarkData.expected_headcount}명
             </span>
             <span className="hidden sm:inline">
-              모집 인원: {studyBookmarkData.expected_headcount}명
+              모집 인원: {announcementBookmarkData.expected_headcount}명
             </span>
           </p>
           {/* 마감일 정보 (데스크톱만 표시) */}
           <p className="hidden items-center gap-0.5 sm:flex">
             <Calendar className="h-3.5 w-3.5" />
             마감일:{' '}
-            {studyBookmarkData.close_at.slice(0, 10).split('-').join('.')}
+            {announcementBookmarkData.close_at
+              .slice(0, 10)
+              .split('-')
+              .join('.')}
           </p>
           {/* 조회수 정보 */}
           <p className="flex items-center gap-0.5">
             <Eye className="hidden h-3.5 w-3.5 sm:block" />
             <span className="sm:hidden">
-              조회 {studyBookmarkData.views_count}
+              조회 {announcementBookmarkData.views_count}
             </span>
             <span className="hidden sm:inline">
-              조회 {studyBookmarkData.views_count}
+              조회 {announcementBookmarkData.views_count}
             </span>
           </p>
           {/* 북마크 수 (데스크톱만 표시) */}
           <p className="hidden items-center gap-0.5 sm:flex">
             <Bookmark className="h-3.5 w-3.5" />
-            북마크 {studyBookmarkData.bookmark_count}
+            북마크 {announcementBookmarkData.bookmark_count}
           </p>
         </div>
 
         {/* 강의 목록 (데스크톱만 표시) */}
         <div className="hidden pb-3 text-gray-700 sm:block">
           <span className="block pb-1 text-sm">강의 목록:</span>
-          {studyBookmarkData.lecture.map((lecture) => (
+          {announcementBookmarkData.lecture.map((lecture) => (
             <div key={lecture.id} className="text-sm text-gray-600">
               • {lecture.title} - {lecture.instructor}
             </div>
@@ -69,7 +72,7 @@ function StudyBookmark({
         </div>
         {/* 태그 목록 (데스크톱만 표시) */}
         <div className="hidden flex-wrap gap-2 sm:flex">
-          {studyBookmarkData.tags.map((tag) => (
+          {announcementBookmarkData.tags.map((tag) => (
             <span
               key={tag.id}
               className="badge-yellow px-2 py-1 text-xs whitespace-nowrap text-gray-600"

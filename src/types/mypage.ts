@@ -10,20 +10,20 @@ export type CourseCardProps = {
   original_price?: number
   onClick?: () => void
 }
-
+type Difficulty = 'EASY' | 'NORMAL' | 'HARD'
+type Platform = 'INFLEARN' | 'UDEMY'
 // 북마크한 강의 관련 타입
-export type CourseBookmarkProps = {
+export type StudyBookmarkType = {
+  id?: number
   title: string
   instructor: string
   total_class_time: number
   original_price?: number
   discounted_price: number
-  difficulty: 'EASY' | 'NORMAL' | 'HARD'
+  difficulty: Difficulty
   thumbnail_img_url?: string
-  platform: 'INFLEARN' | 'UDEMY'
-  isBookmarked: boolean
-  onBookmarkClick: () => void
-  onViewClick: () => void
+  platform: Platform
+  url_link?: string
 }
 
 // 북마크한 공고 관련 타입
@@ -38,7 +38,7 @@ export interface Tags {
   name: string
 }
 // 북마크한 공고 타입
-export type StudyBookMarkType = {
+export type AnnouncementBookMarkType = {
   uuid?: string
   title: string
   thumbnail_img_url: string
