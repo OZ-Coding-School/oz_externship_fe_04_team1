@@ -7,7 +7,7 @@ import { applyListHandler } from './handlers/applyList/index.ts'
 import { applyListDetailHandler } from './handlers/applyListDetail/index.ts'
 import { signupHandlers } from './handlers/auth/signupHandler.ts'
 import { completeStudyHandler } from './handlers/completeStudy/index.ts'
-
+import { accountRecoveryHandler } from './handlers/accountRecovery/index.ts'
 export const handlers = [
   ...userInformationHandler,
   ...courseInformationHandler,
@@ -18,4 +18,5 @@ export const handlers = [
   ...applyListDetailHandler,
   ...signupHandlers,
   ...completeStudyHandler,
+  ...accountRecoveryHandler,
 ]

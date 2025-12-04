@@ -6,12 +6,16 @@ import {
   validateEmail,
   validateCode,
 } from '@/components/accountRecovery/validation'
+import {
+  useSendEmailRecovery,
+  useVerifyCodeRecovery,
+} from '@/hooks/quries/accountRecovery'
 import { showToast } from '@/components/common/toast/Toast'
 import closeIcon from '@/assets/icons/close.svg'
 import SuccessVerification from '@/components/accountRecovery/successVerification'
+
 interface EmailVerificationProps {
   onClose: () => void
-  email?: string
 }
 export default function EmailVerificationModal({
   onClose,
@@ -20,7 +24,11 @@ export default function EmailVerificationModal({
   const [verificationCode, setVerificationCode] = useState('')
   const [emailError, setEmailError] = useState('')
   const [codeError, setCodeError] = useState('')
+  const [isEmailSent, setIsEmailSent] = useState(false)
   const [showSuccessModal, setShowSuccesModal] = useState(false)
+
+  const sendEmailMutation = useSendEmailRecovery()
+  const verifyCodeMutation = useVerifyCodeRecovery()
 
   // 이메일 인증코드 전송
   const handleSendCode = () => {
@@ -29,9 +37,16 @@ export default function EmailVerificationModal({
     if (error) {
       return
     }
-    showToast.success('전송 완료!', '이메일을 확인해주세요.')
-    console.log('인증코드 전송:', email)
+    sendEmailMutation.mutate(email, {
+      onSuccess: () => {
+        showToast.success('전송 완료!', '이메일을 확인해주세요.')
+        setIsEmailSent(true)
+      },
+      onError: () =>
+        showToast.error('전송 실패', '이메일을 다시 한번 확인해주세요.'),
+    })
   }
+
   // 인증코드 검사
   const handleVerifyCode = () => {
     const error = validateCode(verificationCode)
@@ -39,10 +54,26 @@ export default function EmailVerificationModal({
     if (error) {
       return
     }
-    console.log('인증번호:', verificationCode)
+
+    verifyCodeMutation.mutate(
+      { email, code: verificationCode },
+      {
+        onSuccess: () => setCodeError('success'),
+        onError: () => setCodeError('인증번호가 일치하지 않습니다'),
+      }
+    )
   }
+
   // 최종 확인버튼
-  const handleComplete = () => {
+  const handleSubmit = () => {
+    if (!isEmailSent) {
+      showToast.error('이메일 전송', '이메일로 인증코드를 전송해주세요')
+      return
+    }
+    if (codeError !== 'success') {
+      showToast.error('인증 실패', '인증번호를 입력해주세요')
+      return
+    }
     setShowSuccesModal(true)
   }
   const handleFinalClose = () => {
@@ -91,6 +122,7 @@ export default function EmailVerificationModal({
                 />
 
                 <Button
+                  type="button"
                   disabled={!email || !!emailError}
                   className={`bg-gray-200 ${email ? 'verify-color hover:verify-color' : 'before-verify-color opacity-60'}`}
                   variant="outline"
@@ -116,6 +148,7 @@ export default function EmailVerificationModal({
                   placeholder="인증번호 6자리를 입력해주세요"
                 />
                 <Button
+                  type="button"
                   onClick={handleVerifyCode}
                   disabled={!verificationCode}
                   className={`bg-gray-200 ${verificationCode ? 'verify-color hover:verify-color' : 'before-verify-color opacity-60'}`}
@@ -124,12 +157,27 @@ export default function EmailVerificationModal({
                   인증코드확인
                 </Button>
               </div>
-              {verificationCode && (
-                <p className="text-danger-500 text-sm">{codeError}</p>
+              {codeError && (
+                <p
+                  className={`text-sm ${
+                    codeError === 'success'
+                      ? 'text-success-600'
+                      : 'text-danger-500'
+                  }`}
+                >
+                  {codeError === 'success'
+                    ? '이메일 인증이 완료되었습니다.'
+                    : codeError}
+                </p>
               )}
             </div>
 
-            <Button className="px-20 py-3" onClick={handleComplete}>
+            <Button
+              className="min-h-[48px] px-20 py-3"
+              disabled={!isEmailSent || codeError !== 'success'}
+              type="button"
+              onClick={handleSubmit}
+            >
               확인
             </Button>
             {showSuccessModal && (

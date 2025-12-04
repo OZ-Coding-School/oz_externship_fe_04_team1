@@ -56,10 +56,22 @@ export const API_PATHS = {
       POST: 'api/v1/accounts/signup/verify-sms',
     },
   },
+
   COMPLETE: {
     // 개인 스터디 조회 가져오는 api
     STUDY: {
       GET: '/api/v1/study-groups',
+    },
+  },
+  // 계정 복구
+  ACCOUNT_RECOVERY: {
+    // 이메일 인증 발송 post api
+    SEND_EMAIL: {
+      POST: '/api/v1/accounts/restore/send-email',
+    },
+    // // 이메일 인증 코드 발송 post api
+    VERIFY: {
+      POST: '/api/v1/accounts/restore',
     },
   },
 } as const
