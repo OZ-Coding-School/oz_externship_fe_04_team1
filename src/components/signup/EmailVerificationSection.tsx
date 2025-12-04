@@ -8,23 +8,27 @@ import type { SignupFormValuesWithValidation } from '@/types/signup'
 type EmailVerificationSectionProps = {
   onEmailSubmit: (email: string) => void
   onVerifyEmail: (email: string, code: string) => void
+  onEmailChange: () => void
   isSendingEmail: boolean
   isVerifyingEmail: boolean
+  emailSendError: string | null
+  isEmailSent: boolean
 }
 
 function EmailVerificationSection({
   onEmailSubmit,
   onVerifyEmail,
+  onEmailChange,
   isSendingEmail,
   isVerifyingEmail,
+  emailSendError,
+  isEmailSent,
 }: EmailVerificationSectionProps) {
   const [code, setCode] = useState('')
-  const [isEmailSent, setIsEmailSent] = useState(false)
 
   const {
     register,
     formState: { errors },
-    setValue,
     clearErrors,
   } = useFormContext<SignupFormValuesWithValidation>()
   const email = useWatch({ name: 'email' })
@@ -37,19 +41,15 @@ function EmailVerificationSection({
       message: '올바른 이메일 형식이 아닙니다.',
     },
     onChange: () => {
-      setIsEmailSent(false)
+      onEmailChange()
       setCode('')
-      setValue('emailVerified', null)
-      clearErrors('emailVerified')
     },
   })
 
   const handleEmailSubmit = () => {
     if (errors.email || !email) return
     onEmailSubmit(email)
-    setIsEmailSent(true)
     setCode('')
-    setValue('emailVerified', null)
     clearErrors('emailVerified')
   }
 
@@ -72,7 +72,7 @@ function EmailVerificationSection({
             {...emailRegister}
             id="email"
             type="email"
-            error={!!errors.email}
+            error={!!errors.email || !!emailSendError || isSendingEmail}
             autoComplete="email"
             className="h-12 flex-1"
             placeholder="example@gmail.com"
@@ -90,6 +90,9 @@ function EmailVerificationSection({
                 : '인증번호전송'}
           </Button>
         </div>
+        {emailSendError && (
+          <p className="text-danger-500 pt-2 pl-1 text-sm">{emailSendError}</p>
+        )}
       </FormField>
       <FormField className="gap-4" htmlFor="emailVerificationCode">
         <div className="flex gap-2.5">

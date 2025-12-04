@@ -8,8 +8,10 @@ import { ROUTE_PATHS } from '@/constant/route'
 import {
   useCheckNickname,
   useSendEmail,
+  useSendSms,
   useSubmitSignup,
   useVerifyEmailCode,
+  useVerifySmsCode,
 } from '@/hooks/quries/auth/useSignup'
 import type { ApiError, SignupFormValuesWithValidation } from '@/types/signup'
 import { useState } from 'react'
@@ -34,20 +36,38 @@ function SignupPage() {
       nicknameVerified: null,
     },
   })
+
+  // 인증 상태 구독 (가입하기 버튼 활성화 조건에 사용)
   const [nicknameVerified, emailVerified, smsVerified] = methods.watch([
     'nicknameVerified',
     'emailVerified',
     'smsVerified',
   ])
+
+  // 폼 전체 유효성
+  const { isValid } = methods.formState
+
+  // API 호출 및 로딩 상태 관리 (React Query Mutations)
   const { mutate: checkNickname, isPending: isCheckingNickname } =
     useCheckNickname()
   const { mutate: submitSignup, isPending: isSubmitPending } = useSubmitSignup()
   const { mutate: sendEmail, isPending: isSendingEmail } = useSendEmail()
   const { mutate: verifyEmailCode, isPending: isVerifyingEmail } =
     useVerifyEmailCode()
+  const { mutate: sendSms, isPending: isSendingSms } = useSendSms()
+  const { mutate: verifySmsCode, isPending: isVerifyingSms } =
+    useVerifySmsCode()
+
   const navigate = useNavigate()
 
+  // 에러 메시지
   const [nicknameError, setNicknameError] = useState<string | null>(null)
+  const [emailSendError, setEmailSendError] = useState<string | null>(null)
+  const [smsSendError, setSmsSendError] = useState<string | null>(null)
+
+  // 인증번호 전송 여부
+  const [isEmailSent, setIsEmailSent] = useState(false)
+  const [isSmsSent, setIsSmsSent] = useState(false)
 
   // 닉네임 중복 확인
   const handleCheckNickname = (nickname: string) => {
@@ -73,10 +93,31 @@ function SignupPage() {
     )
   }
 
+  // 이메일 변경 시 이메일 인증 관련 상태 리셋
+  const handleEmailChange = () => {
+    methods.setValue('emailVerified', null)
+    methods.clearErrors('emailVerified')
+    setIsEmailSent(false)
+    setEmailSendError(null)
+  }
+
   // 이메일 전송
   const handleEmailSubmit = (email: string) => {
-    // api작업
-    sendEmail({ email })
+    setEmailSendError(null)
+
+    sendEmail(
+      { email },
+      {
+        onSuccess: () => {
+          setIsEmailSent(true)
+          setEmailSendError(null)
+        },
+        onError: () => {
+          setIsEmailSent(false)
+          setEmailSendError('이메일 전송에 실패했습니다.')
+        },
+      }
+    )
   }
 
   // 이메일 인증번호 확인
@@ -99,7 +140,55 @@ function SignupPage() {
     )
   }
 
+  // 휴대폰 번호 변경 시 SMS 관련 상태 리셋
+  const handleSmsChange = () => {
+    setIsSmsSent(false)
+    setSmsSendError(null)
+    methods.setValue('smsVerified', null)
+    methods.clearErrors('smsVerified')
+  }
+
+  // sms 전송
+  const handleSmsSubmit = (phone_number: string) => {
+    setSmsSendError(null)
+
+    sendSms(
+      { phone_number },
+      {
+        onSuccess: () => {
+          setIsSmsSent(true)
+          setSmsSendError(null)
+        },
+        onError: () => {
+          setIsSmsSent(false)
+          setSmsSendError('SMS 전송에 실패했습니다.')
+        },
+      }
+    )
+  }
+
+  // sms 인증번호 확인
+  const handleVerifySms = (phone_number: string, code: string) => {
+    verifySmsCode(
+      { phone_number, code },
+      {
+        onSuccess: () => {
+          methods.setValue('smsVerified', true)
+          methods.clearErrors('smsVerified')
+        },
+        onError: () => {
+          methods.setValue('smsVerified', false)
+          methods.setError('smsVerified', {
+            type: 'manual',
+            message: '인증번호가 일치하지 않습니다',
+          })
+        },
+      }
+    )
+  }
+
   const isSubmitDisabled =
+    !isValid ||
     nicknameVerified !== true ||
     emailVerified !== true ||
     smsVerified !== true ||
@@ -164,12 +253,23 @@ function SignupPage() {
           <EmailVerificationSection
             onEmailSubmit={handleEmailSubmit}
             onVerifyEmail={handleVerifyEmail}
+            onEmailChange={handleEmailChange}
             isSendingEmail={isSendingEmail}
             isVerifyingEmail={isVerifyingEmail}
+            emailSendError={emailSendError}
+            isEmailSent={isEmailSent}
           />
 
           {/* 휴대전화 입력 */}
-          <SmsVerificationSection />
+          <SmsVerificationSection
+            onSmsSubmit={handleSmsSubmit}
+            onVerifySms={handleVerifySms}
+            onSmsChange={handleSmsChange}
+            isSendingSms={isSendingSms}
+            isVerifyingSms={isVerifyingSms}
+            smsSendError={smsSendError}
+            isSmsSent={isSmsSent}
+          />
 
           {/* 비밀번호 입력 */}
           <PasswordSection />
