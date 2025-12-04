@@ -1,10 +1,6 @@
 import Layout from '@/components/common/layout/Layout'
 import MyPageLayout from '@/components/common/layout/MyPageLayout'
 import LayoutWithoutFooter from '@/components/common/layout/LayoutWithoutFooter'
-import ApplyList from '@/components/myPage/applyList/ApplyList'
-import BookMarkAnnouncement from '@/components/myPage/bookmarkAnnouncement/BookMarkAnnouncement'
-import BookMarkStudy from '@/components/myPage/bookmarkStudy/BookMarkStudy'
-import CompleteStudy from '@/components/myPage/completeStudy/CompleteStudy'
 import { ROUTE_PATHS } from '@/constant/route'
 import Main from '@/pages/main'
 import MyPage from '@/pages/myPage'
@@ -21,20 +17,7 @@ function AppRoutes() {
       </Route>
       {/* 마이페이지 레이아웃 */}
       <Route element={<MyPageLayout />}>
-        <Route path={ROUTE_PATHS.MYPAGE.MY_INFORMATION} element={<MyPage />} />
-        <Route
-          path={ROUTE_PATHS.MYPAGE.BOOKMARK_ANNOUNCEMENT}
-          element={<BookMarkAnnouncement />}
-        />
-        <Route
-          path={ROUTE_PATHS.MYPAGE.BOOKMARK_STUDY}
-          element={<BookMarkStudy />}
-        />
-        <Route path={ROUTE_PATHS.MYPAGE.APPLY_LIST} element={<ApplyList />} />
-        <Route
-          path={ROUTE_PATHS.MYPAGE.COMPLETE_STUDY}
-          element={<CompleteStudy />}
-        />
+        <Route path={ROUTE_PATHS.MYPAGE} element={<MyPage />} />
       </Route>
       {/* 회원가입 */}
       <Route element={<LayoutWithoutFooter />}>

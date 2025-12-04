@@ -17,9 +17,7 @@ function UserModal() {
           alt="modalProfileIcon"
           className="h-[18px] w-[18px]"
         />
-        <span onClick={() => navigate(ROUTE_PATHS.MYPAGE.MY_INFORMATION)}>
-          마이페이지
-        </span>
+        <span onClick={() => navigate(ROUTE_PATHS.MYPAGE)}>마이페이지</span>
         {/* 클릭하면 마이페이지로 이동 */}
       </div>
     </div>

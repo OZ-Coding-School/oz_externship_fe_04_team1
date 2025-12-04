@@ -71,7 +71,7 @@ function MobileModal({ setIsModalOpen }: MobileModalProps) {
           </div>
           <button
             className="flex cursor-pointer items-center justify-center gap-[13px] rounded-lg bg-[#FEF9C3] px-4 py-2"
-            onClick={() => navigate(ROUTE_PATHS.MYPAGE.MY_INFORMATION)}
+            onClick={() => navigate(ROUTE_PATHS.MYPAGE)}
           >
             <img src={profileImage} alt="profileImg" />
             <span className="text- text-primary-600 text-base font-medium">
