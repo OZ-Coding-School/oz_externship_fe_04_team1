@@ -6,6 +6,10 @@ interface RecoverStepProps {
   isOpen: boolean
   onClose: () => void
 }
+enum Step {
+  AccountAlert = 1,
+  EmailVerification = 2,
+}
 export default function AccountRecoveryStep({
   isOpen,
   onClose,
@@ -15,6 +19,7 @@ export default function AccountRecoveryStep({
     setStep(1)
     onClose()
   }
+
   return (
     <div>
       {step === Step.AccountAlert && (
@@ -31,9 +36,4 @@ export default function AccountRecoveryStep({
       )}
     </div>
   )
-}
-
-enum Step {
-  AccountAlert = 1,
-  EmailVerification = 2,
 }

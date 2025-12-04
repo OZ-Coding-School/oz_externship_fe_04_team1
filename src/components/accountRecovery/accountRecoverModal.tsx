@@ -8,7 +8,6 @@ interface RecoverModalProps {
   email?: string
   date?: string
 }
-
 export default function AccountRecoverModal({
   onNext,
   isOpen,
