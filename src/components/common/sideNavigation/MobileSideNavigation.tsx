@@ -7,10 +7,7 @@ import activeApplyIcon from '@/assets/icons/mobileActiveApplyIcon.svg'
 import completeStudyIcon from '@/assets/icons/completeStudyIcon.svg'
 import activeCompleteStudyIcon from '@/assets/icons/mobileActiveCompleteStudyIcon.svg'
 import MyPageStateStore from '@/store/mypageStateStore'
-import { useNavigate } from 'react-router'
-import { ROUTE_PATHS } from '@/constant/route'
 function MobileSideNagigation() {
-  const navigate = useNavigate()
   const myPageState = MyPageStateStore((state) => state.myPageState)
   const setMyPageState = MyPageStateStore((state) => state.setMyPageState)
   return (
@@ -24,7 +21,6 @@ function MobileSideNagigation() {
           }
           onClick={() => {
             setMyPageState('MY_INFORMATION')
-            navigate(ROUTE_PATHS.MYPAGE.MY_INFORMATION)
           }}
         >
           <img
@@ -53,7 +49,6 @@ function MobileSideNagigation() {
           }
           onClick={() => {
             setMyPageState('BOOKMARK_ANNOUNCEMENT')
-            navigate(ROUTE_PATHS.MYPAGE.BOOKMARK_ANNOUNCEMENT)
           }}
         >
           <img
@@ -87,7 +82,6 @@ function MobileSideNagigation() {
           }
           onClick={() => {
             setMyPageState('APPLY_LIST')
-            navigate(ROUTE_PATHS.MYPAGE.APPLY_LIST)
           }}
         >
           <img
@@ -113,7 +107,6 @@ function MobileSideNagigation() {
           }
           onClick={() => {
             setMyPageState('COMPLETE_STUDY')
-            navigate(ROUTE_PATHS.MYPAGE.COMPLETE_STUDY)
           }}
         >
           <img
