@@ -6,11 +6,12 @@ import {
   verifyEmailCode,
   verifySmsCode,
 } from '@/api/auth/signup'
+import type { ApiError, ResNickname, ReqNicknameOnly } from '@/types/signup'
 import { useMutation } from '@tanstack/react-query'
 
 // 닉네임 중복 확인
 export const useCheckNickname = () => {
-  return useMutation({
+  return useMutation<ResNickname, ApiError, ReqNicknameOnly>({
     mutationFn: checkNickname,
     retry: false,
   })

@@ -1,4 +1,5 @@
 import type {
+  ResNickname,
   ReqCodeWithEmail,
   ReqCodeWithPhone,
   ReqEmailOnly,
@@ -10,9 +11,11 @@ import { axiosInstance } from '../axios'
 import { API_PATHS } from '@/constant/api'
 
 // 닉네임 중복 확인
-export const checkNickname = async (nickname: ReqNicknameOnly) => {
+export const checkNickname = async (
+  data: ReqNicknameOnly
+): Promise<ResNickname> => {
   const res = await axiosInstance.get(API_PATHS.SIGNUP.NICKNAME_CHECK.GET, {
-    params: { nickname },
+    params: data,
   })
   return res.data
 }

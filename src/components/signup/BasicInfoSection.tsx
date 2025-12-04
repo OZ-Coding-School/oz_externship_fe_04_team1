@@ -7,11 +7,13 @@ import { useFormContext, useWatch } from 'react-hook-form'
 type BasicInfoSectionProps = {
   isCheckingNickname: boolean
   onCheckNickname: (nickname: string) => void
+  nicknameError: string | null
 }
 
 function BasicInfoSection({
   isCheckingNickname,
   onCheckNickname,
+  nicknameError,
 }: BasicInfoSectionProps) {
   const {
     register,
@@ -105,7 +107,7 @@ function BasicInfoSection({
           >
             {nicknameVerified
               ? '사용가능한 닉네임입니다.'
-              : '이미 존재하는 닉네임입니다.'}
+              : nicknameError || '이미 존재하는 닉네임입니다.'}
           </p>
         )}
       </FormField>

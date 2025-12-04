@@ -9,8 +9,9 @@ import {
   useCheckNickname,
   useSubmitSignup,
 } from '@/hooks/quries/auth/useSignup'
-import type { SignupFormValuesWithValidation } from '@/types/signup'
-import { FormProvider, useForm, type FieldErrors } from 'react-hook-form'
+import type { ApiError, SignupFormValuesWithValidation } from '@/types/signup'
+import { useState } from 'react'
+import { FormProvider, useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router'
 
 function SignupPage() {
@@ -40,25 +41,27 @@ function SignupPage() {
     useCheckNickname()
   const { mutate: submitSignup, isPending: isSubmitPending } = useSubmitSignup()
   const navigate = useNavigate()
-
-  // 제출 버튼 클릭 시 오류가 난 첫번째 인풋으로 포커스
-  const onError = (errors: FieldErrors<SignupFormValuesWithValidation>) => {
-    const firstErrorField = Object.keys(errors)[0]
-    methods.setFocus(firstErrorField as keyof SignupFormValuesWithValidation)
-  }
+  const [nicknameError, setNicknameError] = useState<string | null>(null)
 
   // 닉네임 중복 확인
   const handleCheckNickname = (nickname: string) => {
+    setNicknameError(null)
     checkNickname(
       { nickname },
       {
         onSuccess: () => {
           // 닉네임 사용 가능
           methods.setValue('nicknameVerified', true)
+          setNicknameError(null)
         },
         // 이미 사용중인 닉네임
-        onError: () => {
+        onError: (error: ApiError) => {
           methods.setValue('nicknameVerified', false)
+          if (error.statusCode === 409) {
+            setNicknameError(error.error_detail)
+          } else {
+            setNicknameError('닉네임 확인 중 오류가 발생했습니다.')
+          }
         },
       }
     )
@@ -122,6 +125,7 @@ function SignupPage() {
           <BasicInfoSection
             isCheckingNickname={isCheckingNickname}
             onCheckNickname={handleCheckNickname}
+            nicknameError={nicknameError}
           />
 
           {/* 이메일 입력 */}
@@ -133,7 +137,7 @@ function SignupPage() {
           {/* 비밀번호 입력 */}
           <PasswordSection />
           <Button
-            onClick={methods.handleSubmit(handleSubmit, onError)}
+            onClick={methods.handleSubmit(handleSubmit)}
             className="h-[52px] w-full"
             disabled={isSubmitDisabled}
           >
