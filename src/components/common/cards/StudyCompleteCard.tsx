@@ -1,8 +1,8 @@
 import { Star, Calendar, Clock3, Users, SquarePen } from 'lucide-react'
 import Button from '../Button'
 import type { StudyCardProps } from '@/types/mypage'
-import { useOutletContext } from 'react-router'
 import type { Review } from '@/types/review'
+import { useReviewModal } from '@/hooks/useReviewModal'
 function StudyCompleteCard({
   thumbnail_img_url,
   name,
@@ -16,14 +16,7 @@ function StudyCompleteCard({
     { length: 5 },
     (_, i) => i < Math.floor(Number(review?.star_rating))
   )
-  const { setIsReviewModalOpen, setCompleteStudyStore } = useOutletContext<{
-    setIsReviewModalOpen: (value: boolean) => void
-    setCompleteStudyStore: (value: Review) => void
-  }>()
-  // 리뷰 모달 열리는 핸들러
-  const handleReviewModalOpen = () => {
-    setIsReviewModalOpen(true)
-  }
+  const { onOpenModal } = useReviewModal()
   return (
     <div className="max-h-[500px] w-[318px] rounded-lg border border-gray-200 sm:w-[384px]">
       {/* thumbnail */}
@@ -75,8 +68,7 @@ function StudyCompleteCard({
                 </div>
                 <SquarePen
                   onClick={() => {
-                    handleReviewModalOpen()
-                    setCompleteStudyStore({
+                    onOpenModal({
                       name: name,
                       duration: duration,
                       end_at: end_at,
@@ -99,8 +91,7 @@ function StudyCompleteCard({
               variant="primary"
               className="block w-full p-2 sm:hidden sm:h-[40px]"
               onClick={() => {
-                handleReviewModalOpen()
-                setCompleteStudyStore({
+                onOpenModal({
                   name: name,
                   duration: duration,
                   end_at: end_at,
@@ -123,8 +114,7 @@ function StudyCompleteCard({
             </div>
             <Button
               onClick={() => {
-                handleReviewModalOpen()
-                setCompleteStudyStore({
+                onOpenModal({
                   name: name,
                   duration: duration,
                   end_at: end_at,

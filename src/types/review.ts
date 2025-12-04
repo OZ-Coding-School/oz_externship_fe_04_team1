@@ -10,3 +10,4 @@ interface Reviews {
   star_rating: number
   content: string
 }
+export type ReviewModalState = 'open' | 'close'
