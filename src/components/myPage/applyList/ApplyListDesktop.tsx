@@ -9,7 +9,7 @@ function ApplyListDesktop() {
     setApplyListId: (id: number) => void
   }>()
   return (
-    <div className="bg-basic-white rounded-xl border border-solid border-gray-200 px-8 py-8">
+    <>
       {/* 제목 */}
       <div className="flex flex-col gap-2">
         <span className="text-2xl font-semibold text-gray-900">지원 내역</span>
@@ -37,7 +37,7 @@ function ApplyListDesktop() {
           />
         ))}
       </div>
-    </div>
+    </>
   )
 }
 export default ApplyListDesktop

@@ -1,12 +1,7 @@
-import { useOutletContext } from 'react-router'
+import { useInformationModal } from '@/hooks/useInformationModal'
 
 function WithDraw() {
-  const { setIsWithDrawModalOpen } = useOutletContext<{
-    setIsWithDrawModalOpen: (value: boolean) => void
-  }>()
-  const handleWithDrawModalOpen = () => {
-    setIsWithDrawModalOpen(true)
-  }
+  const { openWithDrawModal } = useInformationModal()
   return (
     <div className="mx-8 border-t-2 border-solid border-gray-200 py-8">
       <div className="flex items-center justify-between">
@@ -23,7 +18,7 @@ function WithDraw() {
         </div>
         <button
           className="text-basic-white bg-danger-500 cursor-pointer rounded-lg px-6 py-2"
-          onClick={handleWithDrawModalOpen}
+          onClick={openWithDrawModal}
         >
           회원 탈퇴
         </button>

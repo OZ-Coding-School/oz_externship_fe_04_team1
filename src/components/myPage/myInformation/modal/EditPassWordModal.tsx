@@ -2,14 +2,9 @@ import closeIcon from '@/assets/icons/close.svg'
 import Button from '@/components/common/Button'
 import Input from '@/components/common/Input'
 interface EditPassWordModalProps {
-  setIsEditPassWordModalOpen: (value: boolean) => void
+  onClose: () => void
 }
-function EditPassWordModal({
-  setIsEditPassWordModalOpen,
-}: EditPassWordModalProps) {
-  const handleModalClose = () => {
-    setIsEditPassWordModalOpen(false)
-  }
+function EditPassWordModal({ onClose }: EditPassWordModalProps) {
   return (
     <div className="bg-basic-white w-[448px] flex-col gap-6 rounded-xl border pb-8">
       <div className="flex items-center justify-between border-b-2 border-gray-200 px-6 py-8">
@@ -20,7 +15,7 @@ function EditPassWordModal({
           src={closeIcon}
           alt="closeIcon"
           className="cursor-pointer"
-          onClick={handleModalClose}
+          onClick={onClose}
         />
       </div>
       {/* 폼 */}
@@ -50,11 +45,7 @@ function EditPassWordModal({
       </div>
       {/* 버튼 */}
       <div className="mt-6 flex justify-end gap-3 px-6">
-        <Button
-          variant="outline"
-          onClick={handleModalClose}
-          className="cursor-pointer"
-        >
+        <Button variant="outline" onClick={onClose} className="cursor-pointer">
           취소
         </Button>
         <Button className="cursor-pointer">변경하기</Button>

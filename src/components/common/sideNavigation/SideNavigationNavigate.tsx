@@ -6,13 +6,10 @@ import completeStudyIcon from '@/assets/icons/completeStudyIcon.svg'
 import activeBookMarkIcon from '@/assets/icons/yellowBookmark.svg'
 import activeApplyIcon from '@/assets/icons/yellowApplyIcon.svg'
 import activeCompleteStudyIcon from '@/assets/icons/activeCompleteStudyIcon.svg'
-import { useNavigate } from 'react-router'
-import { ROUTE_PATHS } from '@/constant/route'
 import MyPageStateStore from '@/store/mypageStateStore'
 function SideNaigationNavigate() {
   const myPageState = MyPageStateStore((state) => state.myPageState)
   const setMyPageState = MyPageStateStore((state) => state.setMyPageState)
-  const navigate = useNavigate()
   return (
     // 전역 상태를 이용해 활성화 되는 항목 설정
     <div className="flex flex-col items-center gap-2">
@@ -24,7 +21,6 @@ function SideNaigationNavigate() {
         }
         onClick={() => {
           setMyPageState('MY_INFORMATION')
-          navigate(ROUTE_PATHS.MYPAGE.MY_INFORMATION)
         }}
       >
         <img
@@ -55,7 +51,6 @@ function SideNaigationNavigate() {
         }
         onClick={() => {
           setMyPageState('BOOKMARK_ANNOUNCEMENT')
-          navigate(ROUTE_PATHS.MYPAGE.BOOKMARK_ANNOUNCEMENT)
         }}
       >
         <img
@@ -88,7 +83,6 @@ function SideNaigationNavigate() {
         }
         onClick={() => {
           setMyPageState('BOOKMARK_STUDY')
-          navigate(ROUTE_PATHS.MYPAGE.BOOKMARK_STUDY)
         }}
       >
         <img
@@ -119,7 +113,6 @@ function SideNaigationNavigate() {
         }
         onClick={() => {
           setMyPageState('APPLY_LIST')
-          navigate(ROUTE_PATHS.MYPAGE.APPLY_LIST)
         }}
       >
         <img
@@ -148,7 +141,6 @@ function SideNaigationNavigate() {
         }
         onClick={() => {
           setMyPageState('COMPLETE_STUDY')
-          navigate(ROUTE_PATHS.MYPAGE.COMPLETE_STUDY)
         }}
       >
         <img

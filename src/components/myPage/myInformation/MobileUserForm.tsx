@@ -1,12 +1,14 @@
 import Input from '@/components/common/Input'
 import useUserData from '@/hooks/quries/useUserData'
-import { useOutletContext } from 'react-router'
-
+import { useMyInformationModal } from '@/store/context/myInformationModalContext'
 function MobileUserForm() {
-  const { setIsEditPhoneModalOpen } = useOutletContext<{
-    setIsEditPhoneModalOpen: (value: boolean) => void
-  }>()
   const { data } = useUserData()
+  const editPhoneModalContext = useMyInformationModal()
+  if (!editPhoneModalContext) return null
+  const { setInformationModalState } = editPhoneModalContext
+  const handleEditPhoneModalOpen = () => {
+    setInformationModalState('editPhoneNumberModal')
+  }
   return (
     <div className="mt-8 flex w-full flex-col gap-3">
       <div className="flex w-full gap-3">
@@ -50,7 +52,7 @@ function MobileUserForm() {
           </div>
           <button
             className="text-basic-white bg-primary-500 py-2.3 w-1/5 cursor-pointer rounded-lg text-sm whitespace-nowrap"
-            onClick={() => setIsEditPhoneModalOpen(true)}
+            onClick={handleEditPhoneModalOpen}
           >
             변경
           </button>

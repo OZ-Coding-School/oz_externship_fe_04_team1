@@ -10,7 +10,7 @@ function ApplyListMobile() {
     setApplyListId: (id: number) => void
   }>()
   return (
-    <div className="bg-basic-white flex w-full min-w-[352px] flex-col gap-3 rounded-xl border-2 border-solid border-gray-200 px-4 py-4">
+    <>
       {/* 제목부분 */}
       <div className="flex flex-col gap-2">
         <span className="text-lg font-semibold text-gray-900">지원 내역</span>
@@ -37,7 +37,7 @@ function ApplyListMobile() {
           />
         ))}
       </div>
-    </div>
+    </>
   )
 }
 export default ApplyListMobile

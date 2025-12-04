@@ -3,14 +3,10 @@ import closeIcon from '@/assets/icons/close.svg'
 import Button from '@/components/common/Button'
 import DeleteReasonModal from '@/components/common/DeleteReasonModal'
 import { ToastAlert } from '@/components/common/toast/ToastAlert'
-interface WithDrawModalProps {
-  setIsWithDrawModalOpen: (value: boolean) => void
+interface WithDrawProps {
+  onClose: () => void
 }
-
-function WithDrawModal({ setIsWithDrawModalOpen }: WithDrawModalProps) {
-  const handleCloseWithDrawModal = () => {
-    setIsWithDrawModalOpen(false)
-  }
+function WithDrawModal({ onClose }: WithDrawProps) {
   const options = [
     '더 이상 필요하지 않음',
     '흥미/관심 부족',
@@ -40,7 +36,7 @@ function WithDrawModal({ setIsWithDrawModalOpen }: WithDrawModalProps) {
           src={closeIcon}
           alt="closeIcon"
           className="h-[20px] w-[20px] cursor-pointer"
-          onClick={handleCloseWithDrawModal}
+          onClick={onClose}
         />
       </div>
       {/* 메인부분 */}
@@ -86,7 +82,7 @@ function WithDrawModal({ setIsWithDrawModalOpen }: WithDrawModalProps) {
       </div>
       {/* 버튼 부분 */}
       <div className="flex justify-end gap-3 p-6">
-        <Button variant="outline" onClick={handleCloseWithDrawModal}>
+        <Button variant="outline" onClick={onClose}>
           취소
         </Button>
         <Button variant="danger">회원 탈퇴</Button>

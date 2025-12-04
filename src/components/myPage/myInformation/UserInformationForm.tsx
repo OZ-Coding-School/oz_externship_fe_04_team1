@@ -1,11 +1,10 @@
 import useUserData from '@/hooks/quries/useUserData'
 import Input from '@/components/common/Input'
-import { useOutletContext } from 'react-router'
+import { useInformationModal } from '@/hooks/useInformationModal'
+
 function EditUserInformation() {
-  const { setIsEditPhoneModalOpen } = useOutletContext<{
-    setIsEditPhoneModalOpen: (value: boolean) => void
-  }>()
   const { data } = useUserData()
+  const { openEditPhoneNumberModal } = useInformationModal()
   return (
     <div className="mb-8 w-full px-8">
       <div>
@@ -68,7 +67,7 @@ function EditUserInformation() {
                 />
                 <button
                   className="bg-primary-500 text-basic-white h-[40px] w-[84px] cursor-pointer rounded-lg text-base font-medium"
-                  onClick={() => setIsEditPhoneModalOpen(true)}
+                  onClick={openEditPhoneNumberModal}
                 >
                   변경
                 </button>
