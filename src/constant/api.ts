@@ -35,9 +35,9 @@ export const API_PATHS = {
     SUBMIT: {
       POST: '/api/v1/accounts/signup',
     },
-    // 닉네임 중복 post api ( 현재 api 명세서에 닉네임 관련 api 안나옴 - 임시 api )
+    // 닉네임 중복 get api
     NICKNAME_CHECK: {
-      POST: 'api/v1/accounts/signup/nickname-check',
+      GET: 'api/v1/accounts/signup/check-nickname',
     },
     // 이메일 인증 발송 post api
     EMAIL_SEND: {

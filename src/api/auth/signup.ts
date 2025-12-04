@@ -10,11 +10,10 @@ import { axiosInstance } from '../axios'
 import { API_PATHS } from '@/constant/api'
 
 // 닉네임 중복 확인
-export const checkNickname = async (data: ReqNicknameOnly) => {
-  const res = await axiosInstance.post(
-    API_PATHS.SIGNUP.NICKNAME_CHECK.POST,
-    data
-  )
+export const checkNickname = async (nickname: ReqNicknameOnly) => {
+  const res = await axiosInstance.get(API_PATHS.SIGNUP.NICKNAME_CHECK.GET, {
+    params: { nickname },
+  })
   return res.data
 }
 
