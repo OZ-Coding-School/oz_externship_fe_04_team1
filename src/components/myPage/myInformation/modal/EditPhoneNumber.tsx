@@ -14,7 +14,7 @@ function EditPhoneNumber({ onClose }: EditPhoneNumberProps) {
   // 6자리 숫자 입력받기 위한 boolean값
 
   return (
-    <div className="bg-basic-white flex w-[512px] flex-col rounded-xl">
+    <>
       {/* 모달 헤더 부분 */}
       <div className="flex h-[89px] items-center justify-between border-b-2 border-solid border-gray-200 px-6 py-7">
         <span className="text-lg font-semibold text-gray-900">
@@ -72,7 +72,7 @@ function EditPhoneNumber({ onClose }: EditPhoneNumberProps) {
         </Button>
         {/* 변경하기 늘렀을때의 로직 추가 */}
       </div>
-    </div>
+    </>
   )
 }
 export default EditPhoneNumber

@@ -3,12 +3,12 @@ import EditPassWord from '@/components/myPage/myInformation/EditPassWord'
 import WithDraw from '@/components/myPage/myInformation/WithDraw'
 import MobileEditUserInformation from '@/components/myPage/myInformation/MobileEditUserInformation'
 import { useInformationModal } from '@/hooks/useInformationModal'
-import InformationOverlay from '../overlay/InformationOverlay'
+import OverLay from '@/components/myPage/overlay/OverLay'
 function MyInformation() {
   const { openEditModal } = useInformationModal()
   return (
     <>
-      <InformationOverlay />
+      <OverLay />
       <div className="flex items-center justify-between md:p-8">
         {/* 제목 및 버튼 파트 */}
         <div className="hidden md:flex md:flex-col md:gap-2">

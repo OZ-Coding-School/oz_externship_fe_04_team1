@@ -25,7 +25,7 @@ function DeleteReasonModal({ options, defaultValue }: DeleteReasonModalProps) {
   }, [])
 
   return (
-    <div className="relative w-[400px]" ref={dropdownRef}>
+    <div className="relative" ref={dropdownRef}>
       {/* 선택 영역 */}
       <div
         onClick={() => setIsOpen(!isOpen)}
