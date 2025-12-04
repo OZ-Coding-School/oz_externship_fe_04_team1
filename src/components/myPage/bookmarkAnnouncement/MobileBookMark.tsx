@@ -9,7 +9,7 @@ function MobileBookMark() {
   // 추후 북마크한 항목 없을때 항목 없음 컴포넌트 렌더링해야함
   // 추후 무한 스크롤 구현하기
   return (
-    <div className="bg-basic-white flex w-full min-w-[352px] flex-col gap-3 rounded-xl border-2 border-solid border-gray-200 px-4 py-4">
+    <>
       {/* 제목 */}
       <div className="mb-1 flex flex-col gap-2">
         <span className="text-lg font-semibold text-gray-900">북마크</span>
@@ -60,7 +60,7 @@ function MobileBookMark() {
           />
         ))}
       </div>
-    </div>
+    </>
   )
 }
 export default MobileBookMark

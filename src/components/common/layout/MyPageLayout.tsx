@@ -40,8 +40,8 @@ function MyPageLayout() {
       <div className="flex w-full flex-1 bg-gray-50 p-8">
         <div className="mx-auto flex w-full max-w-[1200px] flex-col gap-8 md:flex-row">
           <SideNavigation />
-          <div className="flex-1">
-            {/* Outlet 요소에 props를 전달하기 위해 context사용 */}
+          {/* Outlet 요소에 props를 전달하기 위해 context사용 */}
+          <div className="bg-basic-white w-full rounded-xl border border-solid border-gray-200 px-8 py-8">
             <Outlet
               context={{
                 setIsEditModalOpen: setIsEditModalOpen,

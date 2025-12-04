@@ -20,7 +20,7 @@ function CompleteStudy() {
     return yearDiff * 12 + monthDiff
   }
   return (
-    <div className="bg-basic-white rounded-xl border border-solid border-gray-200 px-4 py-4 sm:px-8 sm:py-8">
+    <>
       {/* 제목 부분 */}
       <div className="flex flex-col gap-1 sm:gap-2">
         <span className="text-lg font-semibold text-gray-900 sm:text-2xl">
@@ -49,7 +49,7 @@ function CompleteStudy() {
           />
         ))}
       </div>
-    </div>
+    </>
   )
 }
 export default CompleteStudy

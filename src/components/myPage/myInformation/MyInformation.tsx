@@ -11,7 +11,7 @@ function MyInformation() {
     setIsEditModalOpen(true)
   }
   return (
-    <div className="bg-basic-white flex flex-col md:gap-8">
+    <>
       <div className="flex items-center justify-between md:p-8">
         {/* 제목 및 버튼 파트 */}
         <div className="hidden md:flex md:flex-col md:gap-2">
@@ -38,7 +38,7 @@ function MyInformation() {
       <div className="md:hidden">
         <MobileEditUserInformation />
       </div>
-    </div>
+    </>
   )
 }
 export default MyInformation
