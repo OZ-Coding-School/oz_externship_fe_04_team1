@@ -5,11 +5,11 @@ import EmailVerificationSection from '@/components/signup/EmailVerificationSecti
 import PasswordSection from '@/components/signup/PasswordSection'
 import SmsVerificationSection from '@/components/signup/SmsVerificationSection'
 import { ROUTE_PATHS } from '@/constant/route'
-import { useSubmitSignup } from '@/hooks/quries/auth/useSignup'
-import type {
-  SignupFormValues,
-  SignupFormValuesWithValidation,
-} from '@/types/signup'
+import {
+  useCheckNickname,
+  useSubmitSignup,
+} from '@/hooks/quries/auth/useSignup'
+import type { SignupFormValuesWithValidation } from '@/types/signup'
 import { FormProvider, useForm, type FieldErrors } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router'
 
@@ -26,42 +26,51 @@ function SignupPage() {
       phone_number: '',
       password: '',
       password_confirm: '',
-      emailVerified: false,
-      smsVerified: false,
-      nicknameVerified: false,
+      emailVerified: null,
+      smsVerified: null,
+      nicknameVerified: null,
     },
   })
-  const { mutate: submitSignup } = useSubmitSignup()
+  const [nicknameVerified, emailVerified, smsVerified] = methods.watch([
+    'nicknameVerified',
+    'emailVerified',
+    'smsVerified',
+  ])
+  const { mutate: checkNickname, isPending: isCheckingNickname } =
+    useCheckNickname()
+  const { mutate: submitSignup, isPending: isSubmitPending } = useSubmitSignup()
   const navigate = useNavigate()
 
-  // 인증 여부 확인
-  const checkVerification = (data: SignupFormValuesWithValidation): boolean => {
-    if (!data.nicknameVerified) {
-      showToast.error('닉네임 중복 확인 필요', '닉네임 중복 확인을 해주세요.')
-      return false
-    }
-    if (!data.emailVerified) {
-      showToast.error('이메일 인증 필요', '이메일 인증을 완료해주세요.')
-      return false
-    }
-    if (!data.smsVerified) {
-      showToast.error('휴대폰 인증 필요', '휴대폰 인증을 완료해주세요.')
-      return false
-    }
-    return true
+  // 제출 버튼 클릭 시 오류가 난 첫번째 인풋으로 포커스
+  const onError = (errors: FieldErrors<SignupFormValuesWithValidation>) => {
+    const firstErrorField = Object.keys(errors)[0]
+    methods.setFocus(firstErrorField as keyof SignupFormValuesWithValidation)
   }
 
-  // 제출 버튼 클릭 시 오류가 난 첫번째 인풋으로 포커스
-  const onError = (errors: FieldErrors) => {
-    const firstErrorField = Object.keys(errors)[0]
-    methods.setFocus(firstErrorField as keyof SignupFormValues)
+  // 닉네임 중복 확인
+  const handleCheckNickname = (nickname: string) => {
+    checkNickname(
+      { nickname },
+      {
+        onSuccess: () => {
+          // 닉네임 사용 가능
+          methods.setValue('nicknameVerified', true)
+        },
+        // 이미 사용중인 닉네임
+        onError: () => {
+          methods.setValue('nicknameVerified', false)
+        },
+      }
+    )
   }
+
+  const isSubmitDisabled =
+    nicknameVerified !== true ||
+    emailVerified !== true ||
+    smsVerified !== true ||
+    isSubmitPending
 
   const handleSubmit = (data: SignupFormValuesWithValidation) => {
-    // 인증 여부 확인
-    if (!checkVerification(data)) return
-
-    // password_confirm, validation 필드 제거
     const {
       password_confirm: _password_confirm,
       emailVerified: _emailVerified,
@@ -98,13 +107,7 @@ function SignupPage() {
     <div className="mx-auto flex min-h-screen w-full flex-col items-center bg-gray-50">
       {/* 회원가입 폼 */}
       <FormProvider {...methods}>
-        <form
-          onSubmit={methods.handleSubmit(handleSubmit, onError)}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter') e.preventDefault()
-          }}
-          className="my-14 flex h-fit w-[528px] flex-col gap-9 bg-white px-5 py-10"
-        >
+        <div className="my-14 flex h-fit w-[528px] flex-col gap-9 bg-white px-5 py-10">
           {/* 헤더 */}
           <div className="flex flex-col items-center justify-center gap-4">
             <h2 className="text-3xl font-bold">회원가입</h2>
@@ -116,7 +119,10 @@ function SignupPage() {
             </p>
           </div>
           {/* 기본적인 정보 입력 (이름, 닉네임, 생년월일, 성별) */}
-          <BasicInfoSection />
+          <BasicInfoSection
+            isCheckingNickname={isCheckingNickname}
+            onCheckNickname={handleCheckNickname}
+          />
 
           {/* 이메일 입력 */}
           <EmailVerificationSection />
@@ -126,10 +132,14 @@ function SignupPage() {
 
           {/* 비밀번호 입력 */}
           <PasswordSection />
-          <Button type="submit" className="h-[52px] w-full">
-            가입하기
+          <Button
+            onClick={methods.handleSubmit(handleSubmit, onError)}
+            className="h-[52px] w-full"
+            disabled={isSubmitDisabled}
+          >
+            {isSubmitPending ? '가입 중...' : '가입하기'}
           </Button>
-        </form>
+        </div>
       </FormProvider>
     </div>
   )

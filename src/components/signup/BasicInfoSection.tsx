@@ -3,10 +3,16 @@ import Button from '../common/Button'
 import Input from '../common/Input'
 import FormField from './FormField'
 import { useFormContext, useWatch } from 'react-hook-form'
-import { useCheckNickname } from '@/hooks/quries/auth/useSignup'
-import { useState } from 'react'
 
-function BasicInfoSection() {
+type BasicInfoSectionProps = {
+  isCheckingNickname: boolean
+  onCheckNickname: (nickname: string) => void
+}
+
+function BasicInfoSection({
+  isCheckingNickname,
+  onCheckNickname,
+}: BasicInfoSectionProps) {
   const {
     register,
     formState: { errors },
@@ -14,10 +20,7 @@ function BasicInfoSection() {
   } = useFormContext<SignupFormValuesWithValidation>()
   const nickname = useWatch({ name: 'nickname' })
   const gender = useWatch({ name: 'gender' })
-  const { mutate: checkNickname } = useCheckNickname()
-  const [isNicknameAvailable, setIsNicknameAvailable] = useState<
-    boolean | null
-  >(null)
+  const nicknameVerified = useWatch({ name: 'nicknameVerified' })
 
   const nameRegister = register('name', {
     required: '이름을 입력해주세요',
@@ -33,10 +36,7 @@ function BasicInfoSection() {
       value: /^[가-힣a-zA-Z0-9]{1,10}$/,
       message: '1~10자의 한글/영문/숫자만 가능합니다.',
     },
-    onChange: () => {
-      setIsNicknameAvailable(null)
-      setValue('nicknameVerified', false)
-    },
+    onChange: () => setValue('nicknameVerified', null),
   })
 
   const birthdayRegister = register('birthday', {
@@ -51,23 +51,9 @@ function BasicInfoSection() {
     required: '성별을 선택해주세요',
   })
 
-  const handleCheckNickname = (nickname: string) => {
-    if (errors.nickname) return
-    checkNickname(
-      { nickname },
-      {
-        onSuccess: () => {
-          // 닉네임 사용 가능
-          setIsNicknameAvailable(true)
-          setValue('nicknameVerified', true)
-        },
-        // 이미 사용중인 닉네임
-        onError: () => {
-          setIsNicknameAvailable(false)
-          setValue('nicknameVerified', false)
-        },
-      }
-    )
+  const handleCheckClick = () => {
+    if (errors.nickname || !nickname) return
+    onCheckNickname(nickname)
   }
 
   return (
@@ -106,18 +92,18 @@ function BasicInfoSection() {
             placeholder="닉네임을 입력해주세요"
           />
           <Button
-            disabled={!nickname || !!errors.nickname}
+            disabled={!nickname || !!errors.nickname || isCheckingNickname}
             className={`w-[112px] text-base ${nickname ? 'verify-color hover:verify-color' : 'before-verify-color opacity-60'}`}
-            onClick={() => handleCheckNickname(nickname)}
+            onClick={handleCheckClick}
           >
-            중복 확인
+            {isCheckingNickname ? '확인 중...' : '중복 확인'}
           </Button>
         </div>
-        {!errors.nickname && isNicknameAvailable !== null && (
+        {!errors.nickname && nicknameVerified !== null && (
           <p
-            className={`pt-2 pl-1 text-sm ${isNicknameAvailable ? 'text-success-600' : 'text-danger-500'}`}
+            className={`pt-2 pl-1 text-sm ${nicknameVerified ? 'text-success-600' : 'text-danger-500'}`}
           >
-            {isNicknameAvailable
+            {nicknameVerified
               ? '사용가능한 닉네임입니다.'
               : '이미 존재하는 닉네임입니다.'}
           </p>

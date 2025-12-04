@@ -37,23 +37,23 @@ export const API_PATHS = {
     },
     // 닉네임 중복 get api
     NICKNAME_CHECK: {
-      GET: 'api/v1/accounts/signup/check-nickname',
+      GET: '/api/v1/accounts/signup/check-nickname',
     },
     // 이메일 인증 발송 post api
     EMAIL_SEND: {
-      POST: 'api/v1/accounts/signup/send-email',
+      POST: '/api/v1/accounts/signup/send-email',
     },
     // 이메일 인증 코드 발송 post api
     EMAIL_VERIFY: {
-      POST: 'api/v1/accounts/signup/verify-email',
+      POST: '/api/v1/accounts/signup/verify-email',
     },
     // SMS 인증 발송 post api
     SMS_SEND: {
-      POST: 'api/v1/accounts/signup/send-sms',
+      POST: '/api/v1/accounts/signup/send-sms',
     },
     // SMS 인증 코드 발송 post api
     SMS_VERIFY: {
-      POST: 'api/v1/accounts/signup/verify-sms',
+      POST: '/api/v1/accounts/signup/verify-sms',
     },
   },
 
