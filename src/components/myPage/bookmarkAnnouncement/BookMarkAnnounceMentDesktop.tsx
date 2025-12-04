@@ -27,7 +27,7 @@ function BookMarkAnnouncementDesktop() {
           value.recruitment.map((v) => (
             <StudyBookmark
               key={value.id}
-              studyBookmarkData={v}
+              announcementBookmarkData={v}
               onBookmarkClick={() => console.log('bookmark clicked')}
               // 추후에 북마크 클릭시 북마크 목록에서 삭제되게 구현하기
               onViewClick={() => console.log('view clicked')}
