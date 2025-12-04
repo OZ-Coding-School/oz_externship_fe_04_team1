@@ -7,7 +7,9 @@ import SmsVerificationSection from '@/components/signup/SmsVerificationSection'
 import { ROUTE_PATHS } from '@/constant/route'
 import {
   useCheckNickname,
+  useSendEmail,
   useSubmitSignup,
+  useVerifyEmailCode,
 } from '@/hooks/quries/auth/useSignup'
 import type { ApiError, SignupFormValuesWithValidation } from '@/types/signup'
 import { useState } from 'react'
@@ -40,7 +42,11 @@ function SignupPage() {
   const { mutate: checkNickname, isPending: isCheckingNickname } =
     useCheckNickname()
   const { mutate: submitSignup, isPending: isSubmitPending } = useSubmitSignup()
+  const { mutate: sendEmail, isPending: isSendingEmail } = useSendEmail()
+  const { mutate: verifyEmailCode, isPending: isVerifyingEmail } =
+    useVerifyEmailCode()
   const navigate = useNavigate()
+
   const [nicknameError, setNicknameError] = useState<string | null>(null)
 
   // 닉네임 중복 확인
@@ -62,6 +68,32 @@ function SignupPage() {
           } else {
             setNicknameError('닉네임 확인 중 오류가 발생했습니다.')
           }
+        },
+      }
+    )
+  }
+
+  // 이메일 전송
+  const handleEmailSubmit = (email: string) => {
+    // api작업
+    sendEmail({ email })
+  }
+
+  // 이메일 인증번호 확인
+  const handleVerifyEmail = (email: string, code: string) => {
+    verifyEmailCode(
+      { email, code },
+      {
+        onSuccess: () => {
+          methods.setValue('emailVerified', true)
+          methods.clearErrors('emailVerified')
+        },
+        onError: () => {
+          methods.setValue('emailVerified', false)
+          methods.setError('emailVerified', {
+            type: 'manual',
+            message: '인증번호가 일치하지 않습니다',
+          })
         },
       }
     )
@@ -129,7 +161,12 @@ function SignupPage() {
           />
 
           {/* 이메일 입력 */}
-          <EmailVerificationSection />
+          <EmailVerificationSection
+            onEmailSubmit={handleEmailSubmit}
+            onVerifyEmail={handleVerifyEmail}
+            isSendingEmail={isSendingEmail}
+            isVerifyingEmail={isVerifyingEmail}
+          />
 
           {/* 휴대전화 입력 */}
           <SmsVerificationSection />
