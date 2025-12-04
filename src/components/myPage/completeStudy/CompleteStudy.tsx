@@ -1,5 +1,7 @@
 import useCompleteStudyData from '@/hooks/quries/useCompleteStudy'
 import StudyCompleteCard from '@/components/common/cards/StudyCompleteCard'
+import ReviewOverLay from '../overlay/ReviewOverLay'
+import { ReviewModalProvider } from '@/store/context/reviewModalContext'
 function CompleteStudy() {
   const { data } = useCompleteStudyData()
   const now = new Date()
@@ -20,7 +22,8 @@ function CompleteStudy() {
     return yearDiff * 12 + monthDiff
   }
   return (
-    <>
+    <ReviewModalProvider>
+      <ReviewOverLay />
       {/* 제목 부분 */}
       <div className="flex flex-col gap-1 sm:gap-2">
         <span className="text-lg font-semibold text-gray-900 sm:text-2xl">
@@ -43,13 +46,12 @@ function CompleteStudy() {
             duration={`${calculateDurationMonths(value.start_at, value.end_at)}개월`}
             end_at={value.end_at.slice(0, 7).split('-').join('년 ')}
             participants={value.current_headcount}
-            // 추후 리뷰 수정 + 작성 모달 구현하기
             review={value.reviews.find((val) => val.is_mine)}
             is_leader={value.is_leader}
           />
         ))}
       </div>
-    </>
+    </ReviewModalProvider>
   )
 }
 export default CompleteStudy

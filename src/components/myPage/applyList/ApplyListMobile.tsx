@@ -1,14 +1,11 @@
 import StudyApplicationCard from '@/components/common/cards/StudyApplicationCard'
 import useApplyList from '@/hooks/quries/useApplyList'
 import noImage from '@/assets/images/noImage.png'
-import { useOutletContext } from 'react-router'
+import { useApplyModal } from '@/hooks/useApplyModal'
 
 function ApplyListMobile() {
   const { data } = useApplyList()
-  const { setIsApplyListModalOpen, setApplyListId } = useOutletContext<{
-    setIsApplyListModalOpen: (isOpen: boolean) => void
-    setApplyListId: (id: number) => void
-  }>()
+  const { onOpenModal } = useApplyModal()
   return (
     <>
       {/* 제목부분 */}
@@ -31,8 +28,7 @@ function ApplyListMobile() {
             close_at={value.recruitment.close_at}
             create_at={value.created_at}
             onClick={() => {
-              setIsApplyListModalOpen(true)
-              setApplyListId(value.id)
+              onOpenModal(value.id)
             }}
           />
         ))}

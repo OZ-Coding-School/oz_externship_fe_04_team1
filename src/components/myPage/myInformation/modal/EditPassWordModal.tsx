@@ -6,7 +6,7 @@ interface EditPassWordModalProps {
 }
 function EditPassWordModal({ onClose }: EditPassWordModalProps) {
   return (
-    <div className="bg-basic-white w-[448px] flex-col gap-6 rounded-xl border pb-8">
+    <>
       <div className="flex items-center justify-between border-b-2 border-gray-200 px-6 py-8">
         <span className="text-lg font-semibold text-gray-900">
           비밀번호 변경
@@ -50,7 +50,7 @@ function EditPassWordModal({ onClose }: EditPassWordModalProps) {
         </Button>
         <Button className="cursor-pointer">변경하기</Button>
       </div>
-    </div>
+    </>
   )
 }
 export default EditPassWordModal

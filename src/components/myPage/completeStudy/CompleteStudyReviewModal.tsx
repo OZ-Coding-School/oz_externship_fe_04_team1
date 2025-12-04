@@ -4,27 +4,22 @@ import type { Review } from '@/types/review'
 import { Star } from 'lucide-react'
 import { useState } from 'react'
 interface CompleteStudyReviewModalProps {
-  setIsReviewModalOpen: (value: boolean) => void
-  completeStudyStore?: Review
+  onCloseModal: () => void
+  review?: Review | null
 }
 function CompleteStudyReviewModal({
-  setIsReviewModalOpen,
-  completeStudyStore,
+  onCloseModal,
+  review,
 }: CompleteStudyReviewModalProps) {
   // 모달 닫히는 핸들러
-  const handleCloseReviewModal = () => {
-    setIsReviewModalOpen(false)
-  }
   // teatarea value 상태
-  const [content, setContent] = useState(
-    completeStudyStore?.reviews?.content || ''
-  )
+  const [content, setContent] = useState(review?.reviews?.content || '')
   // 별점 상태
   const [rating, setRating] = useState(
-    Number(completeStudyStore?.reviews?.star_rating ?? 0)
+    Number(review?.reviews?.star_rating ?? 0)
   )
   return (
-    <div className="bg-basic-white w-[448px] rounded-xl p-6">
+    <>
       {/* 제목부분 */}
       <div className="flex justify-between">
         <span className="text-lg font-semibold text-gray-900">스터디 리뷰</span>
@@ -32,17 +27,17 @@ function CompleteStudyReviewModal({
           src={closeIcon}
           alt="closeIcon"
           className="h-[20px] w-[20px] cursor-pointer"
-          onClick={handleCloseReviewModal}
+          onClick={onCloseModal}
         />
       </div>
       {/* 리뷰 부분 */}
       {/* 제목 및 기간 파트 */}
       <div className="mt-6 flex flex-col gap-2">
         <span className="text-base font-medium text-gray-900">
-          {completeStudyStore?.name}
+          {review?.name}
         </span>
         <span className="text-sm text-gray-600">
-          {completeStudyStore?.duration} · {completeStudyStore?.end_at}월 종료
+          {review?.duration} · {review?.end_at}월 종료
         </span>
         {/* 제목 및 duration close받아오기 */}
       </div>
@@ -75,23 +70,19 @@ function CompleteStudyReviewModal({
       </div>
       {/* 버튼 파트 */}
       <div className="mt-8 flex gap-3">
-        <Button
-          variant="outline"
-          onClick={handleCloseReviewModal}
-          className="w-1/2"
-        >
+        <Button variant="outline" onClick={onCloseModal} className="w-1/2">
           취소
         </Button>
         <Button
           variant="primary"
-          disabled={(completeStudyStore?.reviews?.content ?? '') === content}
+          disabled={(review?.reviews?.content ?? '') === content}
           className="w-1/2"
         >
           리뷰 등록
         </Button>
         {/* 등록 누르면 post or patch 연동 */}
       </div>
-    </div>
+    </>
   )
 }
 export default CompleteStudyReviewModal

@@ -8,17 +8,11 @@ import {
   HAS_STUDY_STATUS_STYLE,
 } from '@/constant/badgeConstant'
 interface ApplyListModalProps {
-  setIsApplyListModalOpen: (isOpen: boolean) => void
   applyListId: number | null
+  onCloseModal: () => void
 }
-function ApplyListModal({
-  setIsApplyListModalOpen,
-  applyListId,
-}: ApplyListModalProps) {
+function ApplyListModal({ applyListId, onCloseModal }: ApplyListModalProps) {
   // 모달 닫히는 핸들러
-  const handleModalClose = () => {
-    setIsApplyListModalOpen(false)
-  }
   const { data, isLoading } = useApplyListDetail(applyListId)
   // applyListId 없으면 아무것도 렌더링 안 함
   if (!applyListId) return null
@@ -27,7 +21,7 @@ function ApplyListModal({
   if (isLoading || !data) return null
   // 두가지는 임시 방편 -> 추후에 수정할 예정(스켈레톤이나 항목없음 컴포넌트 활용할 예정)
   return (
-    <div className="bg-basic-white z-10 h-[400px] w-[672px] overflow-y-auto rounded-xl md:h-[700px]">
+    <>
       {/* 제목 부분 */}
       <div className="flex items-center justify-between border-b-2 border-solid border-gray-200 px-6 py-6">
         <div className="flex flex-col gap-2">
@@ -40,7 +34,7 @@ function ApplyListModal({
           src={closeIcon}
           alt="closeIcon"
           className="h-[20px] w-[20px] cursor-pointer"
-          onClick={handleModalClose}
+          onClick={onCloseModal}
         />
       </div>
       {/* 내용 부분 */}
@@ -110,7 +104,7 @@ function ApplyListModal({
       </div>
       {/* 버튼 파트 */}
       <div className="flex justify-end gap-3 px-6 py-6">
-        <Button variant="outline" onClick={handleModalClose}>
+        <Button variant="outline" onClick={onCloseModal}>
           닫기
         </Button>
         <Button variant="danger" size="lg">
@@ -118,7 +112,7 @@ function ApplyListModal({
         </Button>
         {/* 지원 취소하는 api 연동하기 */}
       </div>
-    </div>
+    </>
   )
 }
 export default ApplyListModal

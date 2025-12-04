@@ -19,7 +19,7 @@ function WithDrawModal({ onClose }: WithDrawProps) {
     '기타',
   ]
   return (
-    <div className="bg-basic-white flex h-[625px] w-[448px] flex-col rounded-xl">
+    <>
       {/* 헤더부분 */}
       <div className="flex items-center justify-between border-b-2 border-solid border-gray-200 px-6 py-6">
         <div className="flex items-center gap-3">
@@ -81,14 +81,14 @@ function WithDrawModal({ onClose }: WithDrawProps) {
         </div>
       </div>
       {/* 버튼 부분 */}
-      <div className="flex justify-end gap-3 p-6">
+      <div className="flex justify-end gap-3 p-3 md:p-6">
         <Button variant="outline" onClick={onClose}>
           취소
         </Button>
         <Button variant="danger">회원 탈퇴</Button>
         {/* 버튼 눌렀을때 DELETE 로직 추가하기 + POST(사유 전달?) */}
       </div>
-    </div>
+    </>
   )
 }
 export default WithDrawModal
