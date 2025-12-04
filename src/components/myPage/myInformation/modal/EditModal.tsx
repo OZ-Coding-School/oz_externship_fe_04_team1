@@ -4,13 +4,9 @@ import Input from '@/components/common/Input'
 import useUserData from '@/hooks/quries/useUserData'
 import { useState } from 'react'
 interface EditModalProps {
-  setIsEditModalOpen: (value: boolean) => void
+  onClose: () => void
 }
-function EditModal({ setIsEditModalOpen }: EditModalProps) {
-  // 모달 닫히는 함수핸들러
-  const handleModalClose = () => {
-    setIsEditModalOpen(false)
-  }
+function EditModal({ onClose }: EditModalProps) {
   const { data } = useUserData()
   // 사용자의 수정 상태 관리용
   const [editGender, setEditGender] = useState(data[0]?.gender)
@@ -25,7 +21,7 @@ function EditModal({ setIsEditModalOpen }: EditModalProps) {
         <img
           src={closeIcon}
           alt="colseIcon"
-          onClick={handleModalClose}
+          onClick={onClose}
           className="h-[20px] w-[20px] cursor-pointer"
         />
       </div>
@@ -101,7 +97,7 @@ function EditModal({ setIsEditModalOpen }: EditModalProps) {
       <div className="mt-3 flex items-center justify-end gap-3 px-6">
         <button
           className="bg-basic-white cursor-pointer rounded-lg border-2 border-solid border-gray-300 px-6 py-2 text-base text-gray-900"
-          onClick={handleModalClose}
+          onClick={onClose}
         >
           취소
         </button>

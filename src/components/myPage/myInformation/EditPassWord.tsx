@@ -1,9 +1,12 @@
-import { useOutletContext } from 'react-router'
+import { useMyInformationModal } from '@/store/context/myInformationModalContext'
 
 function EditPassWord() {
-  const { setIsEditPassWordModalOpen } = useOutletContext<{
-    setIsEditPassWordModalOpen: (value: boolean) => void
-  }>()
+  const editPasswordModalContext = useMyInformationModal()
+  if (!editPasswordModalContext) return null
+  const { setInformationModalState } = editPasswordModalContext
+  const handleEditPhoneModalOpen = () => {
+    setInformationModalState('editPassWordModal')
+  }
   return (
     <div className="mx-8 border-t-2 border-solid border-gray-200 py-8">
       <div className="flex items-center justify-between">
@@ -15,7 +18,7 @@ function EditPassWord() {
         </div>
         <button
           className="text-basic-white cursor-pointer rounded-lg bg-gray-500 px-6 py-2"
-          onClick={() => setIsEditPassWordModalOpen(true)}
+          onClick={handleEditPhoneModalOpen}
         >
           비밀번호 변경
         </button>

@@ -2,16 +2,13 @@ import UserInformationForm from '@/components/myPage/myInformation/UserInformati
 import EditPassWord from '@/components/myPage/myInformation/EditPassWord'
 import WithDraw from '@/components/myPage/myInformation/WithDraw'
 import MobileEditUserInformation from '@/components/myPage/myInformation/MobileEditUserInformation'
-import { useOutletContext } from 'react-router'
+import { useInformationModal } from '@/hooks/useInformationModal'
+import InformationOverlay from '../overlay/InformationOverlay'
 function MyInformation() {
-  const { setIsEditModalOpen } = useOutletContext<{
-    setIsEditModalOpen: (value: boolean) => void
-  }>()
-  const handleEditModalOpen = () => {
-    setIsEditModalOpen(true)
-  }
+  const { openEditModal } = useInformationModal()
   return (
     <>
+      <InformationOverlay />
       <div className="flex items-center justify-between md:p-8">
         {/* 제목 및 버튼 파트 */}
         <div className="hidden md:flex md:flex-col md:gap-2">
@@ -22,7 +19,7 @@ function MyInformation() {
         </div>
         <button
           className="md:bg-primary-500 md:text-basic-white hidden md:block md:h-[40px] md:w-[106.89px] md:cursor-pointer md:rounded-lg md:px-6 md:py-2"
-          onClick={handleEditModalOpen}
+          onClick={openEditModal}
         >
           수정하기
         </button>

@@ -4,17 +4,15 @@ import Input from '@/components/common/Input'
 import useUserData from '@/hooks/quries/useUserData'
 import { useState } from 'react'
 interface EditPhoneNumberProps {
-  setIsEditPhoneModalOpen: (value: boolean) => void
+  onClose: () => void
 }
-function EditPhoneNumber({ setIsEditPhoneModalOpen }: EditPhoneNumberProps) {
+function EditPhoneNumber({ onClose }: EditPhoneNumberProps) {
+  const { data } = useUserData()
+  const [editPhoneNumber, setEditPhoneNumber] = useState(data[0]?.phone_number)
   const [certifyNumber, setCertifyNumber] = useState<string>('')
   const isValidCode = /^\d{6}$/.test(certifyNumber)
   // 6자리 숫자 입력받기 위한 boolean값
-  const handleCloseModal = () => {
-    setIsEditPhoneModalOpen(false)
-  }
-  const { data } = useUserData()
-  const [editPhoneNumber, setEditPhoneNumber] = useState(data[0]?.phone_number)
+
   return (
     <div className="bg-basic-white flex w-[512px] flex-col rounded-xl">
       {/* 모달 헤더 부분 */}
@@ -25,7 +23,7 @@ function EditPhoneNumber({ setIsEditPhoneModalOpen }: EditPhoneNumberProps) {
         <img
           src={closeIcon}
           alt="closeIcon"
-          onClick={handleCloseModal}
+          onClick={onClose}
           className="h-[20px] w-[20px] cursor-pointer"
         />
       </div>
@@ -63,7 +61,7 @@ function EditPhoneNumber({ setIsEditPhoneModalOpen }: EditPhoneNumberProps) {
         </div>
       </div>
       <div className="flex justify-end gap-3 px-6 py-7">
-        <Button variant="outline" onClick={handleCloseModal}>
+        <Button variant="outline" onClick={onClose}>
           취소
         </Button>
         <Button
