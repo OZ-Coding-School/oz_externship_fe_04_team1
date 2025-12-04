@@ -27,29 +27,29 @@ export type CourseBookmarkProps = {
 }
 
 // 북마크한 공고 관련 타입
-export interface Lecture {
+export interface Lectures {
   id: number
   title: string
   instructor: string
 }
 
-export interface Tag {
+export interface Tags {
   id: number
   name: string
 }
-
-export type StudyBookmarkProps = {
+// 북마크한 공고 타입
+export type StudyBookMarkType = {
+  uuid?: string
   title: string
-  thumbnail_img_url?: string
+  thumbnail_img_url: string
   expected_headcount: number
   close_at: string
-  view_count: number
+  views_count: number
   bookmark_count: number
-  lectures: Lecture[]
-  tags: Tag[]
-  isBookmarked: boolean
-  onBookmarkClick: () => void
-  onViewClick: () => void
+  lecture: Lectures[]
+  tags: Tags[]
+  // onBookmarkClick?: () => void
+  // onViewClick?: () => void
 }
 
 // 완료된 스터디 관련 타입
@@ -70,8 +70,8 @@ export type StudyApplicationCardProps = {
   thumbnail_img_url?: string
   status: 'PENDING' | 'ACCEPTED' | 'REJECTED' | 'CANCELED'
   close_at: string
-  lectures: Lecture[]
-  tags: Tag[]
+  lectures: Lectures[]
+  tags: Tags[]
   create_at: string
   onClick: () => void
 }
