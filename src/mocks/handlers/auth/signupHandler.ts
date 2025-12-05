@@ -18,7 +18,6 @@ export const signupHandlers = [
     if (!nickname) {
       return HttpResponse.json(
         {
-          statusCode: 400,
           error_detail: {
             nickname: ['이 필드는 필수 항목입니다.'],
           },
@@ -31,7 +30,6 @@ export const signupHandlers = [
     if (nickname === userInfo.nickname) {
       return HttpResponse.json(
         {
-          statusCode: 409,
           error_detail: '중복된 닉네임이 존재합니다.',
         },
         { status: 409 }
