@@ -1,12 +1,7 @@
 import closeIcon from '@/assets/icons/close.svg'
 import Button from '@/components/common/Button'
 import useApplyListDetail from '@/hooks/quries/useApplyListDetail'
-import {
-  HAS_STUDY_CONFIG,
-  STATUS_CONFIG,
-  STATUS_STYLE,
-  HAS_STUDY_STATUS_STYLE,
-} from '@/constant/badgeConstant'
+import { HAS_STUDY_CONFIG, STATUS_CONFIG } from '@/constant/badgeConstant'
 interface ApplyListModalProps {
   applyListId: number | null
   onCloseModal: () => void
@@ -44,9 +39,9 @@ function ApplyListModal({ applyListId, onCloseModal }: ApplyListModalProps) {
           <div className="flex flex-col gap-1">
             <span className="text-sm text-gray-700">지원 상태</span>
             <span
-              className={`${STATUS_STYLE[data.status]} px-2 py-1 whitespace-nowrap`}
+              className={`${STATUS_CONFIG[data.status].style} px-2 py-1 whitespace-nowrap`}
             >
-              {STATUS_CONFIG[data.status]}
+              {STATUS_CONFIG[data.status].label}
             </span>
           </div>
           <div className="flex flex-col gap-1 text-sm">
@@ -92,9 +87,12 @@ function ApplyListModal({ applyListId, onCloseModal }: ApplyListModalProps) {
           <div className="min-h-[56px] w-full rounded-lg bg-gray-50 p-4 text-base text-gray-700">
             <div className="flex flex-col gap-2">
               <span
-                className={`${HAS_STUDY_STATUS_STYLE[data.has_stydy_experience ? 'YES' : 'NO']} max-w-[60px] px-2 py-1 whitespace-nowrap`}
+                className={`${HAS_STUDY_CONFIG[data.has_stydy_experience ? 'YES' : 'NO'].style} max-w-[60px] px-2 py-1 whitespace-nowrap`}
               >
-                {HAS_STUDY_CONFIG[data.has_stydy_experience ? 'YES' : 'NO']}
+                {
+                  HAS_STUDY_CONFIG[data.has_stydy_experience ? 'YES' : 'NO']
+                    .label
+                }
                 {/* boolean값보다는 상수로 따로 빼서 하는것이 좋아보임 */}
               </span>
               <span>{data.study_experience}</span>
