@@ -1,6 +1,5 @@
 import StudyApplicationCard from '@/components/common/cards/StudyApplicationCard'
 import useApplyList from '@/hooks/quries/useApplyList'
-import noImage from '@/assets/images/noImage.png'
 import { useApplyModal } from '@/hooks/useApplyModal'
 function ApplyListDesktop() {
   const { data } = useApplyList()
@@ -19,14 +18,7 @@ function ApplyListDesktop() {
         {data?.map((value) => (
           <StudyApplicationCard
             key={value.id}
-            status={value.status}
-            title={value.recruitment.title}
-            thumbnail_img_url={value.recruitment.thumbnail_img_url ?? noImage}
-            lectures={value.recruitment.lecture}
-            tags={value.recruitment.tags}
-            expected_headcount={value.recruitment.expected_headcount}
-            close_at={value.recruitment.close_at}
-            create_at={value.created_at}
+            applyData={value}
             onClick={() => {
               onOpenModal(value.id)
             }}

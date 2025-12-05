@@ -1,12 +1,13 @@
 import type { ApplyList } from '@/types/applyList'
 import deepLearningApplyImg from '@/assets/images/deepLearningApplyImg.png'
+import toongToong from '@/assets/images/toongToong.png'
 export const applyList: ApplyList[] = [
   {
     id: 1,
     status: 'PENDING',
     recruitment: {
       title: '프론트엔드 DevOps 스터디',
-      thumbnail_img_url: null,
+      thumbnail_img_url: toongToong,
       expected_headcount: 5,
       close_at: '2025-10-03T00:00:05.875842+09:00',
       end_at: '2026-03-10T00:00:05.875842+09:00',
@@ -91,7 +92,7 @@ export const applyList: ApplyList[] = [
     status: 'REJECTED',
     recruitment: {
       title: '프론트엔드 DevOps 스터디',
-      thumbnail_img_url: null,
+      thumbnail_img_url: toongToong,
       expected_headcount: 5,
       close_at: '2025-06-02T00:00:05.875842+09:00',
       end_at: '2026-10-10T00:00:05.875842+09:00',
