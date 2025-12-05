@@ -1,5 +1,5 @@
 import { useMyInformationModal } from '@/store/context/myInformationModalContext'
-
+import type { NotNullInformationModalVariant } from '@/types/myInformationModal'
 // 기본정보에 대한 모달 상태 관리 -> 열림 닫힘 이런거 같이 관리
 export const useInformationModal = () => {
   const editModalContext = useMyInformationModal() ?? {
@@ -8,27 +8,15 @@ export const useInformationModal = () => {
   }
   const { setInformationModalState, informationModalState } = editModalContext
   // 여는 핸들러 관리
-  const openEditModal = () => {
-    setInformationModalState('editModal')
-  }
-  const openEditPassWordModal = () => {
-    setInformationModalState('editPassWordModal')
-  }
-  const openEditPhoneNumberModal = () => {
-    setInformationModalState('editPhoneNumberModal')
-  }
-  const openWithDrawModal = () => {
-    setInformationModalState('withDrawModal')
+  const openModal = (modalState: NotNullInformationModalVariant) => {
+    setInformationModalState(modalState)
   }
   // 모달 닫히는 것
   const onClose = () => {
     setInformationModalState(null)
   }
   return {
-    openEditModal,
-    openEditPassWordModal,
-    openEditPhoneNumberModal,
-    openWithDrawModal,
+    openModal,
     onClose,
     informationModalState,
   }

@@ -4,7 +4,7 @@ import { useInformationModal } from '@/hooks/useInformationModal'
 
 function EditUserInformation() {
   const { data } = useUserData()
-  const { openEditPhoneNumberModal } = useInformationModal()
+  const { openModal } = useInformationModal()
   return (
     <div className="mb-8 w-full px-8">
       <div>
@@ -67,7 +67,7 @@ function EditUserInformation() {
                 />
                 <button
                   className="bg-primary-500 text-basic-white h-[40px] w-[84px] cursor-pointer rounded-lg text-base font-medium"
-                  onClick={openEditPhoneNumberModal}
+                  onClick={() => openModal('editPhoneNumberModal')}
                 >
                   변경
                 </button>
