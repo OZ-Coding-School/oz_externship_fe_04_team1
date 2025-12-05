@@ -27,7 +27,7 @@ function User() {
       setIsUserModalOpen(false)
     }
   }
-  const { data } = useUserData()
+  const { data: userData } = useUserData()
   return (
     <div className="ml-auto flex">
       <div className="flex items-center gap-8 text-base text-gray-700">
@@ -92,7 +92,7 @@ function User() {
             className="h-[25px] w-[25px]"
           />
         </div>
-        <div className="text-primary-600 text-base">{data[0]?.name}</div>
+        <div className="text-primary-600 text-base">{userData[0]?.name}</div>
         {isUserModalOpen ? (
           <img
             src={topArrow}

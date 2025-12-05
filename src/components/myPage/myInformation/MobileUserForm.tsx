@@ -2,7 +2,7 @@ import Input from '@/components/common/Input'
 import useUserData from '@/hooks/quries/useUserData'
 import { useInformationModal } from '@/hooks/useInformationModal'
 function MobileUserForm() {
-  const { data } = useUserData()
+  const { data: userData } = useUserData()
   const { openModal } = useInformationModal()
   return (
     <div className="mt-8 flex w-full flex-col gap-3">
@@ -10,7 +10,7 @@ function MobileUserForm() {
         <div className="flex w-1/2 flex-col gap-1">
           <span className="text-sm text-gray-700">이메일</span>
           <Input
-            placeholder={data[0]?.email}
+            placeholder={userData[0]?.email}
             disabled
             className="!opacity-100 placeholder:font-medium placeholder:text-gray-900"
           />
@@ -18,7 +18,7 @@ function MobileUserForm() {
         <div className="flex w-1/2 flex-col gap-1">
           <span className="text-sm text-gray-700">성별</span>
           <Input
-            placeholder={data[0]?.gender === 'M' ? '남성' : '여성'}
+            placeholder={userData[0]?.gender === 'M' ? '남성' : '여성'}
             disabled
             className="!opacity-100 placeholder:font-medium placeholder:text-gray-900"
           />
@@ -27,7 +27,7 @@ function MobileUserForm() {
       <div className="flex w-full flex-col gap-1">
         <span className="text-sm text-gray-700">생년월일</span>
         <Input
-          placeholder={data[0]?.birthday}
+          placeholder={userData[0]?.birthday}
           disabled
           className="!opacity-100 placeholder:font-medium placeholder:text-gray-900"
         />
@@ -37,7 +37,7 @@ function MobileUserForm() {
         <div className="flex gap-3">
           <div className="w-4/5">
             <Input
-              placeholder={data[0]?.phone_number.replace(
+              placeholder={userData[0]?.phone_number.replace(
                 /(\d{3})(\d{4})(\d{4})/,
                 '$1-$2-$3'
               )}

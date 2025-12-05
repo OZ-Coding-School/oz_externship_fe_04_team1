@@ -2,7 +2,7 @@ import StudyApplicationCard from '@/components/common/cards/StudyApplicationCard
 import useApplyList from '@/hooks/quries/useApplyList'
 import { useApplyModal } from '@/hooks/useApplyModal'
 function ApplyListDesktop() {
-  const { data } = useApplyList()
+  const { data: applyListData } = useApplyList()
   const { onOpenModal } = useApplyModal()
   return (
     <>
@@ -15,7 +15,7 @@ function ApplyListDesktop() {
       </div>
       {/* 카드 컴포넌트 */}
       <div className="mt-6 flex flex-col gap-4">
-        {data?.map((value) => (
+        {applyListData?.map((value) => (
           <StudyApplicationCard
             key={value.id}
             applyData={value}

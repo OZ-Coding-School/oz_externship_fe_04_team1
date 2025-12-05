@@ -7,8 +7,10 @@ interface EditPhoneNumberProps {
   onClose: () => void
 }
 function EditPhoneNumber({ onClose }: EditPhoneNumberProps) {
-  const { data } = useUserData()
-  const [editPhoneNumber, setEditPhoneNumber] = useState(data[0]?.phone_number)
+  const { data: userData } = useUserData()
+  const [editPhoneNumber, setEditPhoneNumber] = useState(
+    userData[0]?.phone_number
+  )
   const [certifyNumber, setCertifyNumber] = useState<string>('')
   const isValidCode = /^\d{6}$/.test(certifyNumber)
   // 6자리 숫자 입력받기 위한 boolean값

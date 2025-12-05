@@ -2,7 +2,7 @@ import StudyBookmark from '@/components/common/cards/StudyBookmark'
 import Search from '@/components/common/search/Search'
 import useBookmarkAnnouncement from '@/hooks/quries/useBookMarkAnnouncement'
 function BookMarkAnnouncementDesktop() {
-  const { data } = useBookmarkAnnouncement()
+  const { data: bookmarkAnnouncementdata } = useBookmarkAnnouncement()
   // pc버전 북마크한 공고
   // 추후 북마크한 항목 없을때 항목 없음 컴포넌트 렌더링해야함
   // 추후에 무한스크롤 구현하기
@@ -23,7 +23,7 @@ function BookMarkAnnouncementDesktop() {
       </div>
       {/* 카드 컴포넌트들 */}
       <div className="mt-6 flex flex-col gap-4">
-        {data?.map((value) =>
+        {bookmarkAnnouncementdata?.map((value) =>
           value.recruitment.map((v) => (
             <StudyBookmark
               key={value.id}

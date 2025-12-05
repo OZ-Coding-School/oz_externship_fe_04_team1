@@ -3,10 +3,10 @@ import StudyCompleteCard from '@/components/common/cards/StudyCompleteCard'
 import ReviewOverLay from '../overlay/ReviewOverLay'
 import { ReviewModalProvider } from '@/store/context/reviewModalContext'
 function CompleteStudy() {
-  const { data } = useCompleteStudyData()
+  const { data: completeStudyData } = useCompleteStudyData()
   const now = new Date()
   // 현재 시간 기준으로 완료된 스터디 목록 필터링
-  const filteredData = data.filter((value) => {
+  const filteredData = completeStudyData.filter((value) => {
     const endAt = new Date(value.end_at)
     return value.status === 'ENDED' && now > endAt
   })

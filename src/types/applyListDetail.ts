@@ -1,7 +1,5 @@
 export interface ApplyListDetail {
   id: number
-  title: string
-  // 현재 api명세서에 누락되어있어 추가 요청한 상태
   self_introduction: string
   motivation: string
   objective: string
@@ -11,5 +9,10 @@ export interface ApplyListDetail {
   status: Status
   created_at?: string
   updated_at?: string
+  recruitment: Recruitment
 }
 type Status = 'PENDING' | 'ACCEPTED' | 'REJECTED' | 'CANCELED'
+interface Recruitment {
+  uuid?: string
+  title: string
+}

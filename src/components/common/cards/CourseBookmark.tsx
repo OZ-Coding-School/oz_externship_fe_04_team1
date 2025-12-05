@@ -2,12 +2,7 @@ import { Bookmark, Clock3 } from 'lucide-react'
 import Button from '../Button'
 import BaseBookmarkCard from './BaseBookmarkCard'
 import type { StudyBookmarkType } from '@/types/mypage'
-import {
-  PLATFORM_CONFIG,
-  DIFFICULTY_CONFIG,
-  PLATFORM_STYLES,
-  DIFFICULTY_STYLES,
-} from '@/constant/badgeConstant'
+import { PLATFORM_CONFIG, DIFFICULTY_CONFIG } from '@/constant/badgeConstant'
 interface CourseBookMarkProps {
   studyBookMarkData: StudyBookmarkType
   onBookmarkClick: () => void
@@ -40,15 +35,15 @@ function CourseBookmark({
         <div className="flex flex-wrap items-center gap-2 pb-2 sm:gap-3 sm:pb-0">
           {/* 플랫폼 배지 */}
           <span
-            className={`${PLATFORM_STYLES[studyBookMarkData.platform]} ${BADGE_BASE_CLASS}`}
+            className={`${PLATFORM_CONFIG[studyBookMarkData.platform].style} ${BADGE_BASE_CLASS}`}
           >
-            {PLATFORM_CONFIG[studyBookMarkData.platform]}
+            {PLATFORM_CONFIG[studyBookMarkData.platform].label}
           </span>
           {/* 난이도 배지 */}
           <span
-            className={`${DIFFICULTY_STYLES[studyBookMarkData.difficulty]} ${BADGE_BASE_CLASS}`}
+            className={`${DIFFICULTY_CONFIG[studyBookMarkData.difficulty].style} ${BADGE_BASE_CLASS}`}
           >
-            {DIFFICULTY_CONFIG[studyBookMarkData.difficulty]}
+            {DIFFICULTY_CONFIG[studyBookMarkData.difficulty].label}
           </span>
           {/* 총 강의 시간 (데스크톱만 표시) */}
           <div className="hidden items-center gap-1 text-gray-600 sm:flex sm:flex-wrap">

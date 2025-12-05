@@ -1,7 +1,7 @@
 import type { StudyApplicationCardType } from '@/types/mypage'
 import BaseBookmarkCard from './BaseBookmarkCard'
 import { STATUS_CONFIG } from '@/constant/badgeConstant'
-import { STATUS_STYLE } from '@/constant/badgeConstant'
+
 interface StudyApplicationCardProps {
   applyData: StudyApplicationCardType
   onClick: () => void
@@ -31,9 +31,9 @@ function StudyApplicationCard({
               {applyData.created_at.slice(11, 16)}
             </span>
             <span
-              className={`${STATUS_STYLE[applyData.status]} ml-3 px-2 py-1`}
+              className={`${STATUS_CONFIG[applyData.status].style} ml-3 px-2 py-1`}
             >
-              {STATUS_CONFIG[applyData.status]}
+              {STATUS_CONFIG[applyData.status].label}
             </span>
           </p>
         </div>
@@ -45,9 +45,9 @@ function StudyApplicationCard({
           {/* 상태 버튼 */}
           <p className="flex flex-nowrap items-center">
             <span
-              className={`${STATUS_STYLE[applyData.status]} px-2 py-1 whitespace-nowrap`}
+              className={`${STATUS_CONFIG[applyData.status].style} px-2 py-1 whitespace-nowrap`}
             >
-              {STATUS_CONFIG[applyData.status]}
+              {STATUS_CONFIG[applyData.status].label}
             </span>
           </p>
         </div>
@@ -69,7 +69,7 @@ function StudyApplicationCard({
         {/* 강의 목록 (데스크톱만 표시) */}
         <div className="hidden pb-3 text-gray-700 md:block">
           <span className="block pb-1 text-sm">강의 목록:</span>
-          {applyData.recruitment.lecture.map((lecture) => (
+          {applyData.recruitment.lectures?.map((lecture) => (
             <div key={lecture.id} className="text-sm text-gray-600">
               • {lecture.title} - {lecture.instructor}
             </div>

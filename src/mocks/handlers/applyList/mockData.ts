@@ -11,7 +11,7 @@ export const applyList: ApplyList[] = [
       expected_headcount: 5,
       close_at: '2025-10-03T00:00:05.875842+09:00',
       end_at: '2026-03-10T00:00:05.875842+09:00',
-      lecture: [
+      lectures: [
         {
           id: 1,
           title: 'AWS 클라우드 아키텍처',
@@ -53,7 +53,7 @@ export const applyList: ApplyList[] = [
       thumbnail_img_url: deepLearningApplyImg,
       close_at: '2024-05-12T00:00:05.875842+09:00',
       end_at: '2025-01-12T00:00:05.875842+09:00',
-      lecture: [
+      lectures: [
         {
           id: 1,
           title: '딥러닝 완벽 마스터',
@@ -96,7 +96,7 @@ export const applyList: ApplyList[] = [
       expected_headcount: 5,
       close_at: '2025-06-02T00:00:05.875842+09:00',
       end_at: '2026-10-10T00:00:05.875842+09:00',
-      lecture: [
+      lectures: [
         {
           id: 1,
           title: 'AWS 클라우드 아키텍처',
@@ -139,7 +139,7 @@ export const applyList: ApplyList[] = [
       expected_headcount: 3,
       close_at: '2025-11-02T00:00:05.875842+09:00',
       end_at: '2026-04-10T00:00:05.875842+09:00',
-      lecture: [
+      lectures: [
         {
           id: 1,
           title: '딥러닝 완벽 마스터',

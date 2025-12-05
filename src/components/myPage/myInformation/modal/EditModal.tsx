@@ -7,12 +7,16 @@ interface EditModalProps {
   onClose: () => void
 }
 function EditModal({ onClose }: EditModalProps) {
-  const { data } = useUserData()
+  const { data: userData } = useUserData()
   // 사용자의 수정 상태 관리용
-  const [editGender, setEditGender] = useState(data[0]?.gender)
-  const [editUserName, setEditUserName] = useState(data[0]?.name)
-  const [editUserNickName, setEditUserNickName] = useState(data[0]?.nickname)
-  const [editUserBirthDay, setEditUserBirthDay] = useState(data[0]?.birthday)
+  const [editGender, setEditGender] = useState(userData[0]?.gender)
+  const [editUserName, setEditUserName] = useState(userData[0]?.name)
+  const [editUserNickName, setEditUserNickName] = useState(
+    userData[0]?.nickname
+  )
+  const [editUserBirthDay, setEditUserBirthDay] = useState(
+    userData[0]?.birthday
+  )
   // 추후 useEffect 이용해서 폼에 초기값 가져오는것 구현하기
   return (
     <div
@@ -33,7 +37,7 @@ function EditModal({ onClose }: EditModalProps) {
         {/* 프로필 사진 변경 부분 */}
         <div className="flex flex-col items-center gap-4">
           <img
-            src={data[0]?.profile_img_url}
+            src={userData[0]?.profile_img_url}
             alt="profileImg"
             className="h-[96px] w-[96px] rounded-full"
           />
