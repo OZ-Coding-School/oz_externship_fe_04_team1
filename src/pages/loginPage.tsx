@@ -5,13 +5,17 @@ import SocialLogin from '@/components/login/SocialLogin'
 import { ROUTE_PATHS } from '@/constant/route'
 import { useLoginWithEmail } from '@/hooks/quries/auth/useLogin'
 import type { ReqLoginFormData } from '@/types/login'
+import type { UseFormSetError } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router'
 
 function LoginPage() {
   const navigate = useNavigate()
   const { mutate: loginWithEmail, isPending: loggingIn } = useLoginWithEmail()
 
-  const handleLogin = (data: ReqLoginFormData) => {
+  const handleLogin = (
+    data: ReqLoginFormData,
+    setError: UseFormSetError<ReqLoginFormData>
+  ) => {
     loginWithEmail(data, {
       onSuccess: () => {
         showToast.success('로그인', '성공')
@@ -19,7 +23,7 @@ function LoginPage() {
       },
       onError: (error) => {
         const errorMessage = error.error_detail || '로그인에 실패했습니다.'
-        showToast.error('로그인 실패', errorMessage)
+        setError('root', { message: errorMessage })
       },
     })
   }

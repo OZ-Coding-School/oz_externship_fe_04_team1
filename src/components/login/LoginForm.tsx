@@ -2,11 +2,14 @@ import { Link } from 'react-router'
 import Button from '../common/Button'
 import Input from '../common/Input'
 import { ROUTE_PATHS } from '@/constant/route'
-import { useForm } from 'react-hook-form'
+import { useForm, type UseFormSetError } from 'react-hook-form'
 import type { ReqLoginFormData } from '@/types/login'
 
 type LoginFormProps = {
-  onSubmit: (data: ReqLoginFormData) => void
+  onSubmit: (
+    data: ReqLoginFormData,
+    setError: UseFormSetError<ReqLoginFormData>
+  ) => void
   loggingIn: boolean
 }
 
@@ -14,7 +17,8 @@ function LoginForm({ onSubmit, loggingIn }: LoginFormProps) {
   const {
     register,
     handleSubmit,
-    formState: { isValid },
+    setError,
+    formState: { isValid, errors },
   } = useForm<ReqLoginFormData>({
     mode: 'onSubmit',
   })
@@ -28,7 +32,7 @@ function LoginForm({ onSubmit, loggingIn }: LoginFormProps) {
   })
 
   const handleLoginSubmit = (data: ReqLoginFormData) => {
-    onSubmit(data)
+    onSubmit(data, setError)
   }
 
   return (
@@ -56,6 +60,9 @@ function LoginForm({ onSubmit, loggingIn }: LoginFormProps) {
               autoComplete="current-password"
             />
           </label>
+          {errors.root && (
+            <p className="mt-1 text-sm text-red-600">{errors.root.message}</p>
+          )}
         </div>
       </div>
       <div className="text-primary-600 mt-1 flex items-center gap-2 text-sm font-normal">
