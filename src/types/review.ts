@@ -1,8 +1,8 @@
 export interface Review {
   name: string
-  duration: string
+  start_at: string
   end_at: string
-  reviews?: Reviews
+  reviews?: Reviews[]
 }
 interface Reviews {
   id: number

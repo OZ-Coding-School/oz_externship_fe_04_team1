@@ -48,37 +48,23 @@ export type AnnouncementBookMarkType = {
   bookmark_count: number
   lecture: Lectures[]
   tags: Tags[]
-  // onBookmarkClick?: () => void
-  // onViewClick?: () => void
 }
 
-// 완료된 스터디 관련 타입
-export type StudyCardProps = {
-  thumbnail_img_url?: string
-  name: string
-  is_leader?: boolean
-  duration: string
-  end_at: string
-  participants: number
-  review?: Review
-}
-
-// 지원 내역 관련 타입
-export type StudyApplicationCardProps = {
+type Status = 'PENDING' | 'ACCEPTED' | 'REJECTED' | 'CANCELED'
+interface Recruitment {
+  uuid?: string
   title: string
-  expected_headcount: number
   thumbnail_img_url?: string
-  status: 'PENDING' | 'ACCEPTED' | 'REJECTED' | 'CANCELED'
+  expected_headcount: number
   close_at: string
-  lectures: Lectures[]
+  end_at: string
+  lecture: Lectures[]
   tags: Tags[]
-  create_at: string
-  onClick: () => void
 }
-//리뷰 관련 타입
-export interface Review {
-  id: number
-  is_mine: boolean
-  star_rating: number
-  content: string
+// 지원 내역 관련 타입
+export type StudyApplicationCardType = {
+  id?: number
+  status: Status
+  recruitment: Recruitment
+  created_at: string
 }
