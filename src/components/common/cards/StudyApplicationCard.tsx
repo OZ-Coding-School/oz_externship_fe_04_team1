@@ -69,7 +69,7 @@ function StudyApplicationCard({
         {/* 강의 목록 (데스크톱만 표시) */}
         <div className="hidden pb-3 text-gray-700 md:block">
           <span className="block pb-1 text-sm">강의 목록:</span>
-          {applyData.recruitment.lecture.map((lecture) => (
+          {applyData.recruitment.lectures?.map((lecture) => (
             <div key={lecture.id} className="text-sm text-gray-600">
               • {lecture.title} - {lecture.instructor}
             </div>

@@ -2,7 +2,6 @@ import type { ApplyListDetail } from '@/types/applyListDetail'
 export const applyListDetail: ApplyListDetail[] = [
   {
     id: 1,
-    title: '프론트엔드 DevOps 스터디',
     self_introduction: '안녕하세요! 세상을 Chill하게 만드는 Chill Guy입니다.',
     motivation: '프론트엔드에 관한 깊은 이해를 쌓고 싶습니다',
     objective: '프론트엔드 전문가가 되는 것이 목표입니다',
@@ -13,10 +12,10 @@ export const applyListDetail: ApplyListDetail[] = [
     status: 'ACCEPTED',
     created_at: '2024-02-10T14:30:05.875842+09:00',
     updated_at: '2024-02-10T14:30:05.875842+09:00',
+    recruitment: { title: '프론트엔드 DevOps 스터디' },
   },
   {
     id: 2,
-    title: '딥러닝 AI 프로젝트 스터디원 모집',
     self_introduction: '저는 엄준식입니다.',
     motivation: '파이썬을 정복해서 구글에 들어가고 싶습니다.',
     objective: '구글에 들어가는 것이 목표입니다',
@@ -26,10 +25,10 @@ export const applyListDetail: ApplyListDetail[] = [
     status: 'PENDING',
     created_at: '2024-02-10T14:30:05.875842+09:00',
     updated_at: '2024-02-10T14:30:05.875842+09:00',
+    recruitment: { title: '딥러닝 AI 프로젝트 스터디원 모집' },
   },
   {
     id: 3,
-    title: '프론트엔드 DevOps 스터디',
     self_introduction: '반갑습니다! 원영적 사고를 가진 장원영입니다.',
     motivation: '프론트엔드 전문가가 되고 싶어 지원했습니다',
     objective: '스터디를 통해 실력을 키우는 것이 목표입니다.',
@@ -39,10 +38,10 @@ export const applyListDetail: ApplyListDetail[] = [
     status: 'CANCELED',
     created_at: '2024-02-10T14:30:05.875842+09:00',
     updated_at: '2024-02-10T14:30:05.875842+09:00',
+    recruitment: { title: '프론트엔드 DevOps 스터디' },
   },
   {
     id: 4,
-    title: '딥러닝 AI 프로젝트 스터디원 모집',
     self_introduction: '안녕하세요! 탕후루를 좋아하는 마라탕후루 입니다.',
     motivation: '파이썬에 관심이 생겨서 지원했습니다.',
     objective: '파이썬 마스터하는것이 목표입니다.',
@@ -52,5 +51,6 @@ export const applyListDetail: ApplyListDetail[] = [
     status: 'REJECTED',
     created_at: '2024-02-10T14:30:05.875842+09:00',
     updated_at: '2024-02-10T14:30:05.875842+09:00',
+    recruitment: { title: '딥러닝 AI 프로젝트 스터디원 모집' },
   },
 ]

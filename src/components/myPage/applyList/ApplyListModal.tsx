@@ -23,7 +23,9 @@ function ApplyListModal({ applyListId, onCloseModal }: ApplyListModalProps) {
           <span className="text-lg font-bold text-gray-900">
             지원 상세 정보
           </span>
-          <span className="text-base text-gray-600">{applyListData.title}</span>
+          <span className="text-base text-gray-600">
+            {applyListData.recruitment?.title}
+          </span>
         </div>
         <img
           src={closeIcon}

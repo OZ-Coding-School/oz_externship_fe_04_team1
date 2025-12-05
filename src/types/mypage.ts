@@ -58,7 +58,7 @@ interface Recruitment {
   expected_headcount: number
   close_at: string
   end_at: string
-  lecture: Lectures[]
+  lectures: Lectures[]
   tags: Tags[]
 }
 // 지원 내역 관련 타입
