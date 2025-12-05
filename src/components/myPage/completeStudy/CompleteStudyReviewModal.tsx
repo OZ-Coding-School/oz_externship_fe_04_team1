@@ -3,20 +3,24 @@ import Button from '@/components/common/Button'
 import type { Review } from '@/types/review'
 import { Star } from 'lucide-react'
 import { useState } from 'react'
+import { calculateDurationMonths } from '@/utils/calculateMonth'
 interface CompleteStudyReviewModalProps {
   onCloseModal: () => void
-  review?: Review | null
+  reviewInformation: Review
 }
 function CompleteStudyReviewModal({
   onCloseModal,
-  review,
+  reviewInformation,
 }: CompleteStudyReviewModalProps) {
   // 모달 닫히는 핸들러
+  const myReviewInformation = reviewInformation.reviews?.find(
+    (value) => value.is_mine
+  )
   // teatarea value 상태
-  const [content, setContent] = useState(review?.reviews?.content || '')
+  const [content, setContent] = useState(myReviewInformation?.content || '')
   // 별점 상태
   const [rating, setRating] = useState(
-    Number(review?.reviews?.star_rating ?? 0)
+    Number(myReviewInformation?.star_rating ?? 0)
   )
   return (
     <>
@@ -34,10 +38,15 @@ function CompleteStudyReviewModal({
       {/* 제목 및 기간 파트 */}
       <div className="mt-6 flex flex-col gap-2">
         <span className="text-base font-medium text-gray-900">
-          {review?.name}
+          {reviewInformation?.name}
         </span>
         <span className="text-sm text-gray-600">
-          {review?.duration} · {review?.end_at}월 종료
+          {calculateDurationMonths(
+            reviewInformation.start_at,
+            reviewInformation.end_at
+          )}
+          개월 · {reviewInformation?.end_at.slice(0, 7).split('-').join('년 ')}
+          월 종료
         </span>
         {/* 제목 및 duration close받아오기 */}
       </div>
@@ -75,7 +84,7 @@ function CompleteStudyReviewModal({
         </Button>
         <Button
           variant="primary"
-          disabled={(review?.reviews?.content ?? '') === content}
+          disabled={(myReviewInformation?.content ?? '') === content}
           className="w-1/2"
         >
           리뷰 등록

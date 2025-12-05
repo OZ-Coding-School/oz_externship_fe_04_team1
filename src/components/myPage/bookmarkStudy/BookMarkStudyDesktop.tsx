@@ -25,15 +25,7 @@ function BookMarkStudyDesktop() {
         {data.map((value) => (
           <CourseBookmark
             key={value.id}
-            title={value.title}
-            instructor={value.instructor}
-            total_class_time={value.total_class_time}
-            original_price={value.original_price}
-            discounted_price={value.discounted_price}
-            difficulty={value.difficulty}
-            thumbnail_img_url={value.thumbnail_img_url}
-            platform={value.platform}
-            isBookmarked
+            studyBookMarkData={value}
             onBookmarkClick={() => console.log('bookmark clicked')}
             onViewClick={() => console.log('view clicked')}
           />

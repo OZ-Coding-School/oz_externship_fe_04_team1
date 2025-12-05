@@ -11,16 +11,6 @@ function CompleteStudy() {
     return value.status === 'ENDED' && now > endAt
   })
   // 완료된 스터디 항목에 대한 데이터 -> 추후 데이터가 없을때 항목없음 컴포넌트 렌더링 해야함 + 무한 스크롤
-
-  // 개월수 계산 함수
-  function calculateDurationMonths(start: string, end: string) {
-    const startDate = new Date(start)
-    const endDate = new Date(end)
-    const yearDiff = endDate.getFullYear() - startDate.getFullYear()
-    const monthDiff = endDate.getMonth() - startDate.getMonth()
-
-    return yearDiff * 12 + monthDiff
-  }
   return (
     <ReviewModalProvider>
       <ReviewOverLay />
@@ -39,16 +29,7 @@ function CompleteStudy() {
       {/* 카드 부분 */}
       <div className="mt-6 flex flex-wrap justify-center gap-6 xl:justify-start">
         {filteredData.map((value) => (
-          <StudyCompleteCard
-            key={value.id}
-            thumbnail_img_url={value.profile_img_url}
-            name={value.name}
-            duration={`${calculateDurationMonths(value.start_at, value.end_at)}개월`}
-            end_at={value.end_at.slice(0, 7).split('-').join('년 ')}
-            participants={value.current_headcount}
-            review={value.reviews.find((val) => val.is_mine)}
-            is_leader={value.is_leader}
-          />
+          <StudyCompleteCard key={value.id} studyCompleteCardData={value} />
         ))}
       </div>
     </ReviewModalProvider>

@@ -4,6 +4,7 @@ import CompleteStudyReviewModal from '../completeStudy/CompleteStudyReviewModal'
 function ReviewOverLay() {
   const { onCloseModal, reviewModalState, review } = useReviewModal()
   if (reviewModalState === 'close') return null
+  if (!review) return null
   return (
     <div
       className="fixed inset-0 z-1 flex h-full w-full items-center justify-center bg-black/50 px-5"
@@ -16,7 +17,7 @@ function ReviewOverLay() {
         >
           <CompleteStudyReviewModal
             onCloseModal={onCloseModal}
-            review={review}
+            reviewInformation={review}
           />
         </div>
       )}

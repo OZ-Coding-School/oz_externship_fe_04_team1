@@ -27,16 +27,7 @@ function BookMarkAnnouncementDesktop() {
           value.recruitment.map((v) => (
             <StudyBookmark
               key={value.id}
-              title={v.title}
-              thumbnail_img_url={v.thumbnail_img_url}
-              expected_headcount={v.expected_headcount}
-              close_at={v.close_at.slice(0, 10)}
-              // Api 명세서에 맞추어서 slice 사용
-              view_count={v.views_count}
-              bookmark_count={v.bookmark_count}
-              lectures={v.lecture}
-              tags={v.tags}
-              isBookmarked
+              announcementBookmarkData={v}
               onBookmarkClick={() => console.log('bookmark clicked')}
               // 추후에 북마크 클릭시 북마크 목록에서 삭제되게 구현하기
               onViewClick={() => console.log('view clicked')}
@@ -49,5 +40,3 @@ function BookMarkAnnouncementDesktop() {
   )
 }
 export default BookMarkAnnouncementDesktop
-// 북마크한 공고, 북마크한 강의 모바일 화면일때는 어떻게 처리하지? 컴포넌트 하나로 빼서 관리?
-// 그렇다면 BrowserWidth로 연관지어서 해야할듯 싶다.
