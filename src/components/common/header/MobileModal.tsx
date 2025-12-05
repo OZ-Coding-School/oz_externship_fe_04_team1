@@ -9,12 +9,16 @@ import profileImage from '@/assets/icons/profileImg.svg'
 import useUserData from '@/hooks/quries/useUserData'
 import { useNavigate } from 'react-router'
 import { ROUTE_PATHS } from '@/constant/route'
+import MyPageStateStore from '@/store/mypageStateStore'
+import Button from '../Button'
 interface MobileModalProps {
   setIsModalOpen: (value: boolean) => void
 }
 function MobileModal({ setIsModalOpen }: MobileModalProps) {
   const navigate = useNavigate()
   const loginState = LoginStateStore((state) => state.loginState)
+  const setLoginState = LoginStateStore((state) => state.setLoginState)
+  const setMyPageState = MyPageStateStore((state) => state.setMyPageState)
   const { data } = useUserData()
   return (
     <div className="bg-basic-white fixed top-[0] left-[0] z-10 h-screen w-[263px] pt-4 md:hidden">
@@ -58,7 +62,6 @@ function MobileModal({ setIsModalOpen }: MobileModalProps) {
               alt="profile_img"
               className="h-[60px] w-[60px] rounded-full"
             />
-            {/* 추후 api 연동으로 이미지 불러오게 */}
             <div className="flex flex-col">
               <span className="font-semiblod text-base text-gray-900">
                 {data[0]?.name}
@@ -66,25 +69,36 @@ function MobileModal({ setIsModalOpen }: MobileModalProps) {
               <span className="text-base font-normal text-gray-600">
                 {data[0]?.email}
               </span>
-              {/* 추후 api 연동으로 이름 및 이메일 불러오게 */}
             </div>
           </div>
-          <button
-            className="flex cursor-pointer items-center justify-center gap-[13px] rounded-lg bg-[#FEF9C3] px-4 py-2"
-            onClick={() => navigate(ROUTE_PATHS.MYPAGE)}
+          <Button
+            className="flex cursor-pointer items-center justify-center bg-[#FEF9C3]"
+            onClick={() => {
+              navigate(ROUTE_PATHS.MYPAGE)
+              setMyPageState('MY_INFORMATION')
+            }}
           >
             <img src={profileImage} alt="profileImg" />
             <span className="text- text-primary-600 text-base font-medium">
               마이페이지
             </span>
-          </button>
-          <button className="flex cursor-pointer items-center justify-center gap-[13px] rounded-lg bg-gray-100 px-4 py-2">
+          </Button>
+          <Button
+            className="flex cursor-pointer items-center justify-center gap-[13px] rounded-lg bg-gray-100 px-4 py-2"
+            onClick={() => {
+              {
+                setLoginState('GUEST')
+                setIsModalOpen(false)
+                navigate(ROUTE_PATHS.HOME)
+              }
+            }}
+          >
             <img src={logoutIcon} alt="logoutIcon" />
             <span className="text-base font-medium text-gray-700">
               로그아웃
             </span>
-          </button>
-          {/* 버튼 컴포넌트 완료되면 버튼 컴포넌트로 커스텀 + 로그아웃 시키기 */}
+          </Button>
+          {/* 모든 렌더링 될때 제일 상단으로 올라가는 훅 호출하기 */}
         </div>
       )}
     </div>
