@@ -8,12 +8,15 @@ export const axiosInstance = axios.create({
   },
 })
 
-// response.data를 직접 throw
+// response.data에 statusCode를 추가해서 throw
 axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.data) {
-      return Promise.reject(error.response.data)
+      return Promise.reject({
+        ...error.response.data,
+        statusCode: error.response.status,
+      })
     }
     return Promise.reject(error)
   }
