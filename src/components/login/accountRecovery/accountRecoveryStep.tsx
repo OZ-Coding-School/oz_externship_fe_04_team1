@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import AccountRecoverModal from '@/components/accountRecovery/accountRecoverModal'
-import EmailVerificationModal from '@/components/accountRecovery/emailVerificationModal'
+import AccountRecoverModal from '@/components/login/accountRecovery/accountRecoverModal'
+import EmailVerificationModal from '@/components/login/accountRecovery/emailVerificationModal'
 
 interface RecoverStepProps {
   isOpen: boolean
@@ -10,13 +10,14 @@ enum Step {
   AccountAlert = 1,
   EmailVerification = 2,
 }
+
 export default function AccountRecoveryStep({
   isOpen,
   onClose,
 }: RecoverStepProps) {
-  const [step, setStep] = useState(1)
+  const [step, setStep] = useState(Step.AccountAlert)
   const handleClose = () => {
-    setStep(1)
+    setStep(Step.AccountAlert)
     onClose()
   }
 

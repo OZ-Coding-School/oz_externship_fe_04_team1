@@ -1,6 +1,6 @@
 import Button from '@/components/common/Button'
 import image from '@/assets/images/mainImage.png'
-import AccountRecoverStep from '@/components/accountRecovery/accountRecoveryStep'
+import AccountRecoverStep from '@/components/login/accountRecovery/accountRecoveryStep'
 import { useState } from 'react'
 
 function Section1() {

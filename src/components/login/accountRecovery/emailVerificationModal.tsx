@@ -2,17 +2,14 @@ import Button from '@/components/common/Button'
 import Input from '@/components/common/Input'
 import accountemail from '@/assets/email.svg'
 import { useState } from 'react'
-import {
-  validateEmail,
-  validateCode,
-} from '@/components/accountRecovery/validation'
+import { validateEmail, validateCode } from '../accountRecovery/validation'
 import {
   useSendEmailRecovery,
   useVerifyCodeRecovery,
 } from '@/hooks/quries/accountRecovery'
 import { showToast } from '@/components/common/toast/Toast'
 import closeIcon from '@/assets/icons/close.svg'
-import SuccessVerification from '@/components/accountRecovery/successVerification'
+import SuccessVerification from '../accountRecovery/successVerification'
 
 interface EmailVerificationProps {
   onClose: () => void
