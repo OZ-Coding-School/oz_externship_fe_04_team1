@@ -5,6 +5,6 @@ export const userInfo = {
   gender: 'M',
   email: 'hong@example.com',
   phone_number: '010-1234-5678',
-  password: 'Password123*',
-  password_confirm: 'Password123*',
+  password: 'Ozcoding1234*',
+  password_confirm: 'Ozcoding1234*',
 }
