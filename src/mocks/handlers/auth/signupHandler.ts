@@ -6,22 +6,39 @@ import type {
   ReqCodeWithPhone,
   ReqEmailOnly,
   ReqInfo,
-  ReqNicknameOnly,
 } from '@/types/signup'
 
-// 이메일 중복 확인 api는 어디? 임의로 내가 api 지정..ㅎ
 export const signupHandlers = [
   // 닉네임 중복
-  http.post(API_PATHS.SIGNUP.NICKNAME_CHECK.POST, async ({ request }) => {
-    const { nickname } = (await request.json()) as ReqNicknameOnly
+  http.get(API_PATHS.SIGNUP.NICKNAME_CHECK.GET, ({ request }) => {
+    const url = new URL(request.url)
+    const nickname = url.searchParams.get('nickname')
 
+    // 닉네임이 없는 경우 (400 - ValidationError)
+    if (!nickname) {
+      return HttpResponse.json(
+        {
+          statusCode: 400,
+          error_detail: {
+            nickname: ['이 필드는 필수 항목입니다.'],
+          },
+        },
+        { status: 400 }
+      )
+    }
+
+    // 이미 사용 중인 닉네임 (409 - ConflictError)
     if (nickname === userInfo.nickname) {
       return HttpResponse.json(
-        { error_detail: '이미 사용 중인 닉네임입니다.' },
+        {
+          statusCode: 409,
+          error_detail: '중복된 닉네임이 존재합니다.',
+        },
         { status: 409 }
       )
     }
 
+    // 성공
     return HttpResponse.json(
       { detail: '사용 가능한 닉네임입니다.' },
       { status: 200 }

@@ -4,22 +4,36 @@ import Input from '../common/Input'
 import FormField from './FormField'
 import type { SignupFormValuesWithValidation } from '@/types/signup'
 import { useFormContext, useWatch } from 'react-hook-form'
-import { useSendSms, useVerifySmsCode } from '@/hooks/quries/auth/useSignup'
 
-function SmsVerificationSection() {
+type SmsVerificationSectionProps = {
+  onSmsSubmit: (phone_number: string) => void
+  onVerifySms: (phone_number: string, code: string) => void
+  onSmsChange: () => void
+  isSendingSms: boolean
+  isVerifyingSms: boolean
+  smsSendError: string | null
+  isSmsSent: boolean
+}
+
+function SmsVerificationSection({
+  onSmsSubmit,
+  onVerifySms,
+  onSmsChange,
+  isSendingSms,
+  isVerifyingSms,
+  smsSendError,
+  isSmsSent,
+}: SmsVerificationSectionProps) {
   const [code, setCode] = useState('')
-  const [isSmsSent, setIsSmsSent] = useState(false)
-  const [isSmsVerified, setIsSmsVerified] = useState<boolean | null>(null)
-  const [smsSendError, setSmsSendError] = useState<string | null>(null)
-  const { mutate: sendSms } = useSendSms()
-  const { mutate: verifySmsCode } = useVerifySmsCode()
 
   const {
     register,
     formState: { errors },
+    clearErrors,
     setValue,
   } = useFormContext<SignupFormValuesWithValidation>()
   const phone_number = useWatch({ name: 'phone_number' })
+  const smsVerified = useWatch({ name: 'smsVerified' })
 
   const phoneRegister = register('phone_number', {
     required: '휴대폰 인증을 해주세요.',
@@ -28,49 +42,22 @@ function SmsVerificationSection() {
       message: '휴대폰 번호를 10~11자리 숫자로 입력해주세요.',
     },
     onChange: () => {
-      setIsSmsSent(false)
-      setIsSmsVerified(null)
+      onSmsChange()
       setCode('')
-      setSmsSendError(null)
-      setValue('smsVerified', false)
     },
   })
 
   const handleSmsSubmit = () => {
     if (errors.phone_number) return
-    setSmsSendError(null)
-
-    sendSms(
-      { phone_number },
-      {
-        onSuccess: () => {
-          setIsSmsSent(true)
-          setIsSmsVerified(null)
-          setCode('')
-        },
-        onError: (error) => {
-          setSmsSendError(error.message)
-        },
-      }
-    )
-    setIsSmsSent(true)
+    onSmsSubmit(phone_number)
+    setCode('')
+    setValue('smsVerified', null)
+    clearErrors('smsVerified')
   }
 
   const handleVerifySms = () => {
     if (!code || code.length !== 6) return
-    verifySmsCode(
-      { phone_number, code },
-      {
-        onSuccess: () => {
-          setIsSmsVerified(true)
-          setValue('smsVerified', true)
-        },
-        onError: () => {
-          setIsSmsVerified(false)
-          setValue('smsVerified', false)
-        },
-      }
-    )
+    onVerifySms(phone_number, code)
   }
 
   return (
@@ -89,14 +76,18 @@ function SmsVerificationSection() {
             type="tel"
             className="h-12 flex-1"
             placeholder="01012345678"
-            error={!!errors.phone_number || !!smsSendError}
+            error={!!errors.phone_number || !!smsSendError || isSendingSms}
           />
           <Button
-            disabled={!phone_number}
+            disabled={!phone_number || isSendingSms || !!errors.phone_number}
             className={`w-[112px] text-base ${phone_number ? 'verify-color hover:verify-color' : 'before-verify-color opacity-60'}`}
             onClick={handleSmsSubmit}
           >
-            {isSmsSent ? '재전송' : '인증번호전송'}
+            {isSendingSms
+              ? '전송 중...'
+              : isSmsSent
+                ? '재전송'
+                : '인증번호전송'}
           </Button>
         </div>
         {smsSendError && (
@@ -110,23 +101,28 @@ function SmsVerificationSection() {
             className="h-12 flex-1"
             autoComplete="one-time-code"
             value={code}
-            error={isSmsVerified === false}
+            error={smsVerified === false}
             onChange={(e) => setCode(e.target.value)}
             placeholder="인증번호 6자리를 입력해주세요"
           />
           <Button
-            disabled={code.length !== 6 || !!errors.phone_number || !isSmsSent}
+            disabled={
+              code.length !== 6 ||
+              !!errors.phone_number ||
+              !isSmsSent ||
+              isVerifyingSms
+            }
             className={`w-[112px] text-base ${code.length === 6 ? 'verify-color hover:verify-color' : 'before-verify-color opacity-60'}`}
             onClick={handleVerifySms}
           >
-            인증번호확인
+            {isVerifyingSms ? '확인 중...' : '인증번호확인'}
           </Button>
         </div>
-        {isSmsVerified !== null && (
+        {smsVerified !== null && (
           <p
-            className={`pt-2 pl-1 text-sm ${isSmsVerified ? 'text-success-600' : 'text-danger-500'}`}
+            className={`pt-2 pl-1 text-sm ${smsVerified ? 'text-success-600' : 'text-danger-500'}`}
           >
-            {isSmsVerified
+            {smsVerified
               ? '휴대폰 인증이 완료되었습니다.'
               : '휴대폰 인증을 실패했습니다.'}
           </p>

@@ -4,22 +4,35 @@ import Input from '../common/Input'
 import FormField from './FormField'
 import { useFormContext, useWatch } from 'react-hook-form'
 import type { SignupFormValuesWithValidation } from '@/types/signup'
-import { useSendEmail, useVerifyEmailCode } from '@/hooks/quries/auth/useSignup'
 
-function EmailVerificationSection() {
+type EmailVerificationSectionProps = {
+  onEmailSubmit: (email: string) => void
+  onVerifyEmail: (email: string, code: string) => void
+  onEmailChange: () => void
+  isSendingEmail: boolean
+  isVerifyingEmail: boolean
+  emailSendError: string | null
+  isEmailSent: boolean
+}
+
+function EmailVerificationSection({
+  onEmailSubmit,
+  onVerifyEmail,
+  onEmailChange,
+  isSendingEmail,
+  isVerifyingEmail,
+  emailSendError,
+  isEmailSent,
+}: EmailVerificationSectionProps) {
   const [code, setCode] = useState('')
-  const [isEmailSent, setIsEmailSent] = useState(false)
-  const [isEmailVerified, setIsEmailVerified] = useState<boolean | null>(null) // null 시도 안함 boolean 시도했음 (true 성공 false 실패)
-  const [emailSendError, setEmailSendError] = useState<string | null>(null)
-  const { mutate: sendEmail } = useSendEmail()
-  const { mutate: verifyEmailCode } = useVerifyEmailCode()
 
   const {
     register,
     formState: { errors },
-    setValue,
+    clearErrors,
   } = useFormContext<SignupFormValuesWithValidation>()
   const email = useWatch({ name: 'email' })
+  const emailVerified = useWatch({ name: 'emailVerified' })
 
   const emailRegister = register('email', {
     required: '이메일 인증을 해주세요.',
@@ -28,50 +41,21 @@ function EmailVerificationSection() {
       message: '올바른 이메일 형식이 아닙니다.',
     },
     onChange: () => {
-      setIsEmailSent(false)
-      setIsEmailVerified(null)
+      onEmailChange()
       setCode('')
-      setEmailSendError(null)
-      setValue('emailVerified', false)
     },
   })
 
   const handleEmailSubmit = () => {
-    if (errors.email) return
-    setEmailSendError(null)
-    // api작업
-    sendEmail(
-      { email },
-      {
-        onSuccess: () => {
-          setIsEmailSent(true)
-          setIsEmailVerified(null)
-          setCode('')
-        },
-        onError: (error) => {
-          setEmailSendError(error.message)
-        },
-      }
-    )
+    if (errors.email || !email) return
+    onEmailSubmit(email)
+    setCode('')
+    clearErrors('emailVerified')
   }
 
   const handleVerifyEmail = () => {
-    if (!code || code.length !== 6) return
-    // api작업
-    verifyEmailCode(
-      { email, code },
-      {
-        onSuccess: () => {
-          setIsEmailVerified(true)
-          setValue('emailVerified', true)
-        },
-        onError: () => {
-          // 에러 처리할 때 서버에서 주는 에러 메시지를 화면에 표시하는게 일반적인가? ( 하지만 지금 명세서에 에러가 어떤 식으로 던져지는지 명확하지 않음..)
-          setIsEmailVerified(false)
-          setValue('emailVerified', false)
-        },
-      }
-    )
+    if (!code || code.length !== 6 || !email) return
+    onVerifyEmail(email, code)
   }
 
   return (
@@ -88,17 +72,22 @@ function EmailVerificationSection() {
             {...emailRegister}
             id="email"
             type="email"
-            error={!!errors.email || !!emailSendError}
+            error={!!errors.email || !!emailSendError || isSendingEmail}
             autoComplete="email"
             className="h-12 flex-1"
             placeholder="example@gmail.com"
+            disabled={isSendingEmail}
           />
           <Button
-            disabled={!email}
+            disabled={!email || !!errors.email || isSendingEmail}
             className={`w-[112px] text-base ${email ? 'verify-color hover:verify-color' : 'before-verify-color opacity-60'}`}
             onClick={handleEmailSubmit}
           >
-            {isEmailSent ? '재전송' : '인증번호전송'}
+            {isSendingEmail
+              ? '전송 중...'
+              : isEmailSent
+                ? '재전송'
+                : '인증번호전송'}
           </Button>
         </div>
         {emailSendError && (
@@ -112,25 +101,27 @@ function EmailVerificationSection() {
             autoComplete="one-time-code"
             className="h-12 flex-1"
             value={code}
-            error={isEmailVerified === false}
+            error={emailVerified === false}
             onChange={(e) => setCode(e.target.value)}
             placeholder="전송된 코드를 입력해주세요."
           />
           <Button
-            disabled={!email || !!errors.email || !isEmailSent}
+            disabled={
+              !email || !!errors.email || !isEmailSent || isVerifyingEmail
+            }
             className={`w-[112px] text-base ${code.length === 6 ? 'verify-color hover:verify-color' : 'before-verify-color opacity-60'}`}
             onClick={handleVerifyEmail}
           >
-            인증번호확인
+            {isVerifyingEmail ? '확인 중...' : '인증번호확인'}
           </Button>
         </div>
-        {isEmailVerified !== null && (
+        {emailVerified !== null && (
           <p
-            className={`pt-2 pl-1 text-sm ${isEmailVerified ? 'text-success-600' : 'text-danger-500'}`}
+            className={`pt-2 pl-1 text-sm ${emailVerified ? 'text-success-600' : 'text-danger-500'}`}
           >
-            {isEmailVerified
+            {emailVerified
               ? '이메일 인증이 완료되었습니다.'
-              : '인증번호가 일치하지 않습니다'}
+              : errors.emailVerified?.message}
           </p>
         )}
       </FormField>

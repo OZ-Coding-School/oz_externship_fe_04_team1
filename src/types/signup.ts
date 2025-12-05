@@ -4,8 +4,6 @@ export type ReqEmailOnly = Pick<SignupFormValues, 'email'>
 
 export type ReqPhoneOnly = Pick<SignupFormValues, 'phone_number'>
 
-export type ReqNicknameOnly = Pick<SignupFormValues, 'nickname'>
-
 export type ReqCodeWithEmail = {
   email: string
   code: string
@@ -27,7 +25,30 @@ export type SignupFormValues = {
   password_confirm: string
 }
 export interface SignupFormValuesWithValidation extends SignupFormValues {
-  emailVerified: boolean
-  smsVerified: boolean
-  nicknameVerified: boolean
+  emailVerified: boolean | null
+  smsVerified: boolean | null
+  nicknameVerified: boolean | null
+}
+
+// 닉네임 관련 타입들
+export type ReqNicknameOnly = Pick<SignupFormValues, 'nickname'>
+
+// 400 에러
+export type ValidationError = {
+  statusCode: 400
+  error_detail: {
+    [field_name: string]: string[]
+  }
+}
+
+// 409에러
+export type ConflictError = {
+  statusCode: 409
+  error_detail: string
+}
+
+export type ApiError = ValidationError | ConflictError
+
+export type ResNickname = {
+  detail: string
 }
