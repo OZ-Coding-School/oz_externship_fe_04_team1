@@ -1,16 +1,27 @@
 import logoImg from '@/assets/images/logo.svg'
+import { showToast } from '@/components/common/toast/Toast'
 import LoginForm from '@/components/login/LoginForm'
 import SocialLogin from '@/components/login/SocialLogin'
 import { ROUTE_PATHS } from '@/constant/route'
+import { useLoginWithEmail } from '@/hooks/quries/auth/useLogin'
 import type { ReqLoginFormData } from '@/types/login'
 import { Link, useNavigate } from 'react-router'
 
 function LoginPage() {
   const navigate = useNavigate()
+  const { mutate: loginWithEmail, isPending: loggingIn } = useLoginWithEmail()
 
   const handleLogin = (data: ReqLoginFormData) => {
-    //api 작업
-    navigate(ROUTE_PATHS.HOME)
+    loginWithEmail(data, {
+      onSuccess: () => {
+        showToast.success('로그인', '성공')
+        navigate(ROUTE_PATHS.HOME)
+      },
+      onError: (error) => {
+        const errorMessage = error.error_detail || '로그인에 실패했습니다.'
+        showToast.error('로그인 실패', errorMessage)
+      },
+    })
   }
 
   return (
@@ -33,7 +44,7 @@ function LoginPage() {
           {/* 소셜 로그인 */}
           <SocialLogin />
           {/* 일반회원 로그인 및 아이디, 비밀번호 찾기 */}
-          <LoginForm onSubmit={handleLogin} />
+          <LoginForm onSubmit={handleLogin} loggingIn={loggingIn} />
         </div>
       </div>
     </div>
