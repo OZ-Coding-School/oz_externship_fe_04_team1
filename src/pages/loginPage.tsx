@@ -2,9 +2,17 @@ import logoImg from '@/assets/images/logo.svg'
 import LoginForm from '@/components/login/LoginForm'
 import SocialLogin from '@/components/login/SocialLogin'
 import { ROUTE_PATHS } from '@/constant/route'
-import { Link } from 'react-router'
+import type { ReqLoginFormData } from '@/types/login'
+import { Link, useNavigate } from 'react-router'
 
 function LoginPage() {
+  const navigate = useNavigate()
+
+  const handleLogin = (data: ReqLoginFormData) => {
+    //api 작업
+    navigate(ROUTE_PATHS.HOME)
+  }
+
   return (
     <div className="mx-auto flex min-h-screen w-full flex-col items-center bg-gray-50">
       <div className="my-30 flex h-fit w-[348px] flex-col items-center">
@@ -25,7 +33,7 @@ function LoginPage() {
           {/* 소셜 로그인 */}
           <SocialLogin />
           {/* 일반회원 로그인 및 아이디, 비밀번호 찾기 */}
-          <LoginForm />
+          <LoginForm onSubmit={handleLogin} />
         </div>
       </div>
     </div>

@@ -1,11 +1,15 @@
-import { Link, useNavigate } from 'react-router'
+import { Link } from 'react-router'
 import Button from '../common/Button'
 import Input from '../common/Input'
 import { ROUTE_PATHS } from '@/constant/route'
 import { useForm } from 'react-hook-form'
 import type { ReqLoginFormData } from '@/types/login'
 
-function LoginForm() {
+type LoginFormProps = {
+  onSubmit: (data: ReqLoginFormData) => void
+}
+
+function LoginForm({ onSubmit }: LoginFormProps) {
   const {
     register,
     handleSubmit,
@@ -13,7 +17,6 @@ function LoginForm() {
   } = useForm<ReqLoginFormData>({
     mode: 'onSubmit',
   })
-  const navigate = useNavigate()
 
   const emailRegister = register('email', {
     required: '이메일을 입력해주세요.',
@@ -27,13 +30,12 @@ function LoginForm() {
     required: '비밀번호를 입력해주세요.',
   })
 
-  const onSubmit = (data: ReqLoginFormData) => {
-    console.log(data)
-    navigate(ROUTE_PATHS.HOME)
+  const handleLoginSubmit = (data: ReqLoginFormData) => {
+    onSubmit(data)
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(handleLoginSubmit)}>
       <div className="flex flex-col gap-3">
         <div>
           <label htmlFor="login-email">
