@@ -1,7 +1,7 @@
 import { useInformationModal } from '@/hooks/useInformationModal'
 
 function WithDraw() {
-  const { openWithDrawModal } = useInformationModal()
+  const { openModal } = useInformationModal()
   return (
     <div className="mx-8 border-t-2 border-solid border-gray-200 py-8">
       <div className="flex items-center justify-between">
@@ -18,7 +18,7 @@ function WithDraw() {
         </div>
         <button
           className="text-basic-white bg-danger-500 cursor-pointer rounded-lg px-6 py-2"
-          onClick={openWithDrawModal}
+          onClick={() => openModal('withDrawModal')}
         >
           회원 탈퇴
         </button>

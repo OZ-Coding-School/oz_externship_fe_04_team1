@@ -5,7 +5,7 @@ import MobileEditUserInformation from '@/components/myPage/myInformation/MobileE
 import { useInformationModal } from '@/hooks/useInformationModal'
 import OverLay from '@/components/myPage/overlay/OverLay'
 function MyInformation() {
-  const { openEditModal } = useInformationModal()
+  const { openModal } = useInformationModal()
   return (
     <>
       <OverLay />
@@ -19,7 +19,7 @@ function MyInformation() {
         </div>
         <button
           className="md:bg-primary-500 md:text-basic-white hidden md:block md:h-[40px] md:w-[106.89px] md:cursor-pointer md:rounded-lg md:px-6 md:py-2"
-          onClick={openEditModal}
+          onClick={() => openModal('editModal')}
         >
           수정하기
         </button>

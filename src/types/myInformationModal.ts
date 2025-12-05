@@ -4,3 +4,7 @@ export type MyInformationModalVariant =
   | 'editPassWordModal'
   | 'withDrawModal'
   | null
+export type NotNullInformationModalVariant = Exclude<
+  MyInformationModalVariant,
+  null
+>

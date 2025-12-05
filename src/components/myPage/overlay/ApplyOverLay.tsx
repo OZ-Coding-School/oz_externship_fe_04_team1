@@ -12,7 +12,7 @@ function ApplyOverLay() {
       {applyListModalState === 'open' && (
         <div
           onClick={(e) => e.stopPropagation()}
-          className="bg-basic-white z-10 h-[400px] w-[672px] overflow-y-auto rounded-xl md:h-[700px]"
+          className="bg-basic-white z-[100] h-[400px] w-[672px] overflow-y-auto rounded-xl md:h-[700px]"
         >
           <ApplyListModal
             onCloseModal={onCloseModal}

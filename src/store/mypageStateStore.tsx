@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { createJSONStorage, persist } from 'zustand/middleware'
+import { persist } from 'zustand/middleware'
 
 // prtsist를 이용해서 새로고침해도 안바뀌게 설정 + session storage를 사용하여 재 접속할때는 초기화되게 설정
 type MyPageState =
@@ -21,7 +21,6 @@ const MyPageStateStore = create(
     }),
     {
       name: 'mypage-state',
-      storage: createJSONStorage(() => sessionStorage),
     }
   )
 )

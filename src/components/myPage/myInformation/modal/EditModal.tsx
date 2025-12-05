@@ -15,7 +15,10 @@ function EditModal({ onClose }: EditModalProps) {
   const [editUserBirthDay, setEditUserBirthDay] = useState(data[0]?.birthday)
   // 추후 useEffect 이용해서 폼에 초기값 가져오는것 구현하기
   return (
-    <>
+    <div
+      className="bg-basic-white z-10 h-[600px] w-[450px] flex-col overflow-y-auto rounded-xl md:h-[730px] md:w-[512px]"
+      onClick={(e) => e.stopPropagation()}
+    >
       <div className="flex h-[89px] w-full items-center justify-between border-b-2 border-solid border-gray-200 px-6 py-7">
         <span className="text-lg font-semibold text-gray-900">프로필 수정</span>
         <img
@@ -106,7 +109,7 @@ function EditModal({ onClose }: EditModalProps) {
         </button>
         {/* 변경하기 누르면 patch 로직 구현  + 토스트 ui*/}
       </div>
-    </>
+    </div>
   )
 }
 export default EditModal
