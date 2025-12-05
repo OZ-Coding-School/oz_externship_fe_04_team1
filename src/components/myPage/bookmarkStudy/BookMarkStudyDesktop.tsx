@@ -3,7 +3,7 @@ import Search from '@/components/common/search/Search'
 import useBookmarkStudy from '@/hooks/quries/useBookMarkStudy'
 
 function BookMarkStudyDesktop() {
-  const { data } = useBookmarkStudy()
+  const { data: bookmarkStudyData } = useBookmarkStudy()
   // 추후 북마크한 항목 없을때 항목 없음 컴포넌트 렌더링해야함
   // 추후 무한 스크롤 구현하기
   return (
@@ -22,7 +22,7 @@ function BookMarkStudyDesktop() {
       </div>
       {/* 카드 컴포넌트 */}
       <div className="mt-6 flex flex-col gap-4">
-        {data.map((value) => (
+        {bookmarkStudyData.map((value) => (
           <CourseBookmark
             key={value.id}
             studyBookMarkData={value}

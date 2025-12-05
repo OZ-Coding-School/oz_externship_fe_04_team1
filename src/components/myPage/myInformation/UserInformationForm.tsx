@@ -3,14 +3,14 @@ import Input from '@/components/common/Input'
 import { useInformationModal } from '@/hooks/useInformationModal'
 
 function EditUserInformation() {
-  const { data } = useUserData()
+  const { data: userData } = useUserData()
   const { openModal } = useInformationModal()
   return (
     <div className="mb-8 w-full px-8">
       <div>
         <div className="flex flex-col items-center gap-4">
           <img
-            src={data[0]?.profile_img_url}
+            src={userData[0]?.profile_img_url}
             alt="profileImg"
             className="h-[128px] w-[128px] rounded-full"
           />
@@ -21,7 +21,7 @@ function EditUserInformation() {
             <div className="flex w-1/2 flex-col gap-2">
               <span className="text-sm text-gray-700">이메일</span>
               <Input
-                placeholder={data[0]?.email}
+                placeholder={userData[0]?.email}
                 disabled
                 className="!opacity-100 placeholder:font-medium placeholder:text-gray-900"
               />
@@ -29,7 +29,7 @@ function EditUserInformation() {
             <div className="flex w-1/2 flex-col gap-2">
               <span className="text-sm text-gray-700">이름</span>
               <Input
-                placeholder={data[0]?.name}
+                placeholder={userData[0]?.name}
                 disabled
                 className="!opacity-100 placeholder:font-medium placeholder:text-gray-900"
               />
@@ -39,7 +39,7 @@ function EditUserInformation() {
             <div className="flex w-1/2 flex-col gap-2">
               <span className="text-sm text-gray-700">닉네임</span>
               <Input
-                placeholder={data[0]?.nickname}
+                placeholder={userData[0]?.nickname}
                 disabled
                 className="!opacity-100 placeholder:font-medium placeholder:text-gray-900"
               />
@@ -47,7 +47,7 @@ function EditUserInformation() {
             <div className="flex w-1/2 flex-col gap-2">
               <span className="text-sm text-gray-700">생년월일</span>
               <Input
-                placeholder={data[0]?.birthday}
+                placeholder={userData[0]?.birthday}
                 disabled
                 className="!opacity-100 placeholder:font-medium placeholder:text-gray-900"
               />
@@ -58,7 +58,7 @@ function EditUserInformation() {
               <span className="text-sm text-gray-700">휴대폰 번호</span>
               <div className="flex gap-4">
                 <Input
-                  placeholder={data[0]?.phone_number.replace(
+                  placeholder={userData[0]?.phone_number.replace(
                     /(\d{3})(\d{4})(\d{4})/,
                     '$1-$2-$3'
                   )}
@@ -76,7 +76,7 @@ function EditUserInformation() {
             <div className="flex w-1/2 flex-col gap-2">
               <span className="text-sm text-gray-700">성별</span>
               <Input
-                placeholder={data[0]?.gender === 'M' ? '남자' : '여자'}
+                placeholder={userData[0]?.gender === 'M' ? '남자' : '여자'}
                 disabled
                 className="!opacity-100 placeholder:font-medium placeholder:text-gray-900"
               />

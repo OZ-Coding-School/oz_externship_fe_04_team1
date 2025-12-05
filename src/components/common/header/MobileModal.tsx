@@ -19,7 +19,7 @@ function MobileModal({ setIsModalOpen }: MobileModalProps) {
   const loginState = LoginStateStore((state) => state.loginState)
   const setLoginState = LoginStateStore((state) => state.setLoginState)
   const setMyPageState = MyPageStateStore((state) => state.setMyPageState)
-  const { data } = useUserData()
+  const { data: userData } = useUserData()
   return (
     <div className="bg-basic-white fixed top-[0] left-[0] z-10 h-screen w-[263px] pt-4 md:hidden">
       <div className="border-b border-solid border-gray-200">
@@ -55,19 +55,19 @@ function MobileModal({ setIsModalOpen }: MobileModalProps) {
       </div>
       {/* user 일때만 나타나게 */}
       {loginState === 'USER' && (
-        <div className="absolute bottom-[70px] flex h-[117px] w-full flex-col gap-3 border-t border-solid border-gray-200 p-4">
+        <div className="absolute bottom-[70px] mb-6 flex h-[117px] w-full flex-col gap-3 border-t border-solid border-gray-200 p-4">
           <div className="flex items-center gap-3">
             <img
-              src={data[0]?.profile_img_url}
+              src={userData[0]?.profile_img_url}
               alt="profile_img"
               className="h-[60px] w-[60px] rounded-full"
             />
             <div className="flex flex-col">
               <span className="font-semiblod text-base text-gray-900">
-                {data[0]?.name}
+                {userData[0]?.name}
               </span>
               <span className="text-base font-normal text-gray-600">
-                {data[0]?.email}
+                {userData[0]?.email}
               </span>
             </div>
           </div>

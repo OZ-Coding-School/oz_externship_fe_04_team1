@@ -4,7 +4,7 @@ import useBookmarkAnnouncement from '@/hooks/quries/useBookMarkAnnouncement'
 import useBookmarkStudy from '@/hooks/quries/useBookMarkStudy'
 import CourseBookmark from '@/components/common/cards/CourseBookmark'
 function MobileBookMark() {
-  const { data } = useBookmarkAnnouncement()
+  const { data: bookmarkAnnouncementdata } = useBookmarkAnnouncement()
   const { data: studyData } = useBookmarkStudy()
   // 추후 북마크한 항목 없을때 항목 없음 컴포넌트 렌더링해야함
   // 추후 무한 스크롤 구현하기
@@ -21,7 +21,7 @@ function MobileBookMark() {
       <Search placeHolder="공고 및 강의 검색..." className="w-full" />
       {/* 카드 컴포넌트 */}
       <div className="mt-4 flex flex-col items-center gap-3">
-        {data?.map((value) =>
+        {bookmarkAnnouncementdata?.map((value) =>
           value.recruitment.map((v) => (
             <StudyBookmark
               key={value.id}

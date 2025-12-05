@@ -3,7 +3,7 @@ import useApplyList from '@/hooks/quries/useApplyList'
 import { useApplyModal } from '@/hooks/useApplyModal'
 
 function ApplyListMobile() {
-  const { data } = useApplyList()
+  const { data: applyListData } = useApplyList()
   const { onOpenModal } = useApplyModal()
   return (
     <>
@@ -15,7 +15,7 @@ function ApplyListMobile() {
         </span>
       </div>
       <div className="mt-4 flex flex-col items-center gap-3">
-        {data?.map((value) => (
+        {applyListData?.map((value) => (
           <StudyApplicationCard
             key={value.id}
             applyData={value}
