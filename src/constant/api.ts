@@ -74,4 +74,11 @@ export const API_PATHS = {
       POST: '/api/v1/accounts/restore',
     },
   },
+
+  LOGIN: {
+    //이메일 로그인 post api
+    EMAIL: {
+      POST: '/api/v1/accounts/login',
+    },
+  },
 } as const
