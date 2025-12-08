@@ -1,8 +1,16 @@
 import StudyBookmark from '@/components/common/cards/StudyBookmark'
+import NoSearchReult from '@/components/common/notFound/noSearchResult'
 import Search from '@/components/common/search/Search'
 import useBookmarkAnnouncement from '@/hooks/quries/useBookMarkAnnouncement'
+import { useSearchParams } from 'react-router'
 function BookMarkAnnouncementDesktop() {
   const { data: bookmarkAnnouncementdata } = useBookmarkAnnouncement()
+  const [searchParams] = useSearchParams()
+  const filteredData = bookmarkAnnouncementdata.filter((value) => {
+    return value.recruitment.some((v) => {
+      return v.title.includes(searchParams.get('search') ?? '')
+    })
+  })
   // pc버전 북마크한 공고
   // 추후 북마크한 항목 없을때 항목 없음 컴포넌트 렌더링해야함
   // 추후에 무한스크롤 구현하기
@@ -23,17 +31,33 @@ function BookMarkAnnouncementDesktop() {
       </div>
       {/* 카드 컴포넌트들 */}
       <div className="mt-6 flex flex-col gap-4">
-        {bookmarkAnnouncementdata?.map((value) =>
-          value.recruitment.map((v) => (
-            <StudyBookmark
-              key={value.id}
-              announcementBookmarkData={v}
-              onBookmarkClick={() => console.log('bookmark clicked')}
-              // 추후에 북마크 클릭시 북마크 목록에서 삭제되게 구현하기
-              onViewClick={() => console.log('view clicked')}
-              // 공고 보기 클릭시 해당 url로 이동시키게 구현해야함
-            />
-          ))
+        {/* 검색 목록이 존재한다면 해당 목록 렌더링, 검색 하지 않았을시 전체 렌더링, 만약 검색 결과가 없다면 검색 결과 없음 컴포넌트 보여주기*/}
+        {searchParams.get('search') ? (
+          filteredData && filteredData.length > 0 ? (
+            filteredData.map((value) =>
+              value.recruitment.map((v) => (
+                <StudyBookmark
+                  key={value.id}
+                  announcementBookmarkData={v}
+                  onBookmarkClick={() => console.log('bookmark clicked')}
+                  onViewClick={() => console.log('view clicked')}
+                />
+              ))
+            )
+          ) : (
+            <NoSearchReult searchResult={searchParams.get('search') ?? ''} />
+          )
+        ) : (
+          bookmarkAnnouncementdata?.map((value) =>
+            value.recruitment.map((v) => (
+              <StudyBookmark
+                key={value.id}
+                announcementBookmarkData={v}
+                onBookmarkClick={() => console.log('bookmark clicked')}
+                onViewClick={() => console.log('view clicked')}
+              />
+            ))
+          )
         )}
       </div>
     </>
