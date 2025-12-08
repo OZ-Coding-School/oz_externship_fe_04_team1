@@ -6,16 +6,19 @@ interface StudyBookMarkProps {
   announcementBookmarkData: AnnouncementBookMarkType
   onBookmarkClick: () => void
   onViewClick: () => void
+  className?: string
 }
 function StudyBookmark({
   announcementBookmarkData,
   onBookmarkClick,
   onViewClick,
+  className,
 }: StudyBookMarkProps) {
   return (
     <BaseBookmarkCard
       title={announcementBookmarkData.title}
       thumbnail_img_url={announcementBookmarkData.thumbnail_img_url}
+      className={className}
     >
       {/* 콘텐츠 영역 */}
       <div className="flex flex-1 flex-col">

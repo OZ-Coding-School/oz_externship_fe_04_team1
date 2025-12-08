@@ -3,9 +3,16 @@ import { useEffect, useRef, useState } from 'react'
 type DeleteReasonModalProps = {
   options: string[]
   defaultValue: string
+  className: string
+  onChange?: (value: string) => void
 }
 
-function DeleteReasonModal({ options, defaultValue }: DeleteReasonModalProps) {
+function DeleteReasonModal({
+  options,
+  defaultValue,
+  className,
+  onChange,
+}: DeleteReasonModalProps) {
   const [isOpen, setIsOpen] = useState(false)
   const [selected, setSelected] = useState<string | null>(null)
   const dropdownRef = useRef<HTMLDivElement>(null)
@@ -25,7 +32,7 @@ function DeleteReasonModal({ options, defaultValue }: DeleteReasonModalProps) {
   }, [])
 
   return (
-    <div className="relative" ref={dropdownRef}>
+    <div className={`relative ${className}`} ref={dropdownRef}>
       {/* 선택 영역 */}
       <div
         onClick={() => setIsOpen(!isOpen)}
@@ -45,6 +52,7 @@ function DeleteReasonModal({ options, defaultValue }: DeleteReasonModalProps) {
               onClick={() => {
                 setSelected(option)
                 setIsOpen(false)
+                onChange?.(option)
               }}
             >
               {option}

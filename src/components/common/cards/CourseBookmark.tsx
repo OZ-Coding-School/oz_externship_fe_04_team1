@@ -7,11 +7,13 @@ interface CourseBookMarkProps {
   studyBookMarkData: StudyBookmarkType
   onBookmarkClick: () => void
   onViewClick: () => void
+  className?: string
 }
 function CourseBookmark({
   studyBookMarkData,
   onBookmarkClick,
   onViewClick,
+  className,
 }: CourseBookMarkProps) {
   // 배지 공통 스타일 클래스
   const BADGE_BASE_CLASS = 'px-1.5 py-[2px] text-xs font-medium sm:px-2 sm:py-1'
@@ -20,6 +22,7 @@ function CourseBookmark({
     <BaseBookmarkCard
       title={studyBookMarkData.title}
       thumbnail_img_url={studyBookMarkData.thumbnail_img_url}
+      className={className}
     >
       {/* 콘텐츠 영역 */}
       <div className="flex flex-1 flex-col">
