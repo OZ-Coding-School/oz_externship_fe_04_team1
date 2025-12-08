@@ -1,5 +1,4 @@
 import Search from '@/assets/search.svg'
-import Button from '@/components/common/Button'
 interface NoSearchResultProps {
   searchResult: string
 }
