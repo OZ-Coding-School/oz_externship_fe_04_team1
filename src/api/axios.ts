@@ -1,9 +1,9 @@
 import { API_BASE_URL } from '@/constant/api'
 import AuthStateStore from '@/store/authStateStore'
 import axios from 'axios'
-import { refreshAccessToken } from './auth/refreshAccessToken'
 import LoginStateStore from '@/store/loginStateStore'
 import { ROUTE_PATHS } from '@/constant/route'
+import { refreshAccessToken } from './auth/login'
 
 export const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
