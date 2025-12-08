@@ -1,9 +1,18 @@
 import CourseBookmark from '@/components/common/cards/CourseBookmark'
+import NoSearchReult from '@/components/common/notFound/noSearchResult'
 import Search from '@/components/common/search/Search'
 import useBookmarkStudy from '@/hooks/quries/useBookMarkStudy'
-
+import { useStudySearchFilter } from '@/hooks/useStudySearchFilter'
+import { useEffect } from 'react'
+import { useSearchParams } from 'react-router'
 function BookMarkStudyDesktop() {
   const { data: bookmarkStudyData } = useBookmarkStudy()
+  const [searchParams, setSearchParams] = useSearchParams()
+  const filteredData = useStudySearchFilter(bookmarkStudyData)
+  // 새로고침시 검색 기록 초기화
+  useEffect(() => {
+    setSearchParams({ search: '' })
+  }, [])
   // 추후 북마크한 항목 없을때 항목 없음 컴포넌트 렌더링해야함
   // 추후 무한 스크롤 구현하기
   return (
@@ -22,14 +31,29 @@ function BookMarkStudyDesktop() {
       </div>
       {/* 카드 컴포넌트 */}
       <div className="mt-6 flex flex-col gap-4">
-        {bookmarkStudyData.map((value) => (
-          <CourseBookmark
-            key={value.id}
-            studyBookMarkData={value}
-            onBookmarkClick={() => console.log('bookmark clicked')}
-            onViewClick={() => console.log('view clicked')}
-          />
-        ))}
+        {searchParams.get('search') ? (
+          filteredData && filteredData.length > 0 ? (
+            filteredData.map((value) => (
+              <CourseBookmark
+                key={value.id}
+                studyBookMarkData={value}
+                onBookmarkClick={() => console.log('bookmark clicked')}
+                onViewClick={() => console.log('view clicked')}
+              />
+            ))
+          ) : (
+            <NoSearchReult searchResult={searchParams.get('search') ?? ''} />
+          )
+        ) : (
+          bookmarkStudyData.map((value) => (
+            <CourseBookmark
+              key={value.id}
+              studyBookMarkData={value}
+              onBookmarkClick={() => console.log('bookmark clicked')}
+              onViewClick={() => console.log('view clicked')}
+            />
+          ))
+        )}
       </div>
     </>
   )
