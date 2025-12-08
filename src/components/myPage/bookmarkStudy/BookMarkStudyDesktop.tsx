@@ -2,13 +2,17 @@ import CourseBookmark from '@/components/common/cards/CourseBookmark'
 import NoSearchReult from '@/components/common/notFound/noSearchResult'
 import Search from '@/components/common/search/Search'
 import useBookmarkStudy from '@/hooks/quries/useBookMarkStudy'
+import { useStudySearchFilter } from '@/hooks/useStudySearchFilter'
+import { useEffect } from 'react'
 import { useSearchParams } from 'react-router'
 function BookMarkStudyDesktop() {
   const { data: bookmarkStudyData } = useBookmarkStudy()
-  const [searchParams] = useSearchParams()
-  const filteredData = bookmarkStudyData.filter((val) => {
-    return val.title.includes(searchParams.get('search') ?? '')
-  })
+  const [searchParams, setSearchParams] = useSearchParams()
+  const filteredData = useStudySearchFilter(bookmarkStudyData)
+  // 새로고침시 검색 기록 초기화
+  useEffect(() => {
+    setSearchParams({ search: '' })
+  }, [])
   // 추후 북마크한 항목 없을때 항목 없음 컴포넌트 렌더링해야함
   // 추후 무한 스크롤 구현하기
   return (

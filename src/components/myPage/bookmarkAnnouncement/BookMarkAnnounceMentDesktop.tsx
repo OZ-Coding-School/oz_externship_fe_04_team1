@@ -2,15 +2,17 @@ import StudyBookmark from '@/components/common/cards/StudyBookmark'
 import NoSearchReult from '@/components/common/notFound/noSearchResult'
 import Search from '@/components/common/search/Search'
 import useBookmarkAnnouncement from '@/hooks/quries/useBookMarkAnnouncement'
+import { useAnnouncementSearchFilter } from '@/hooks/useAnnouncementSearchFilter'
+import { useEffect } from 'react'
 import { useSearchParams } from 'react-router'
 function BookMarkAnnouncementDesktop() {
   const { data: bookmarkAnnouncementdata } = useBookmarkAnnouncement()
-  const [searchParams] = useSearchParams()
-  const filteredData = bookmarkAnnouncementdata.filter((value) => {
-    return value.recruitment.some((v) => {
-      return v.title.includes(searchParams.get('search') ?? '')
-    })
-  })
+  const [searchParams, setSearchParams] = useSearchParams()
+  const filteredData = useAnnouncementSearchFilter(bookmarkAnnouncementdata)
+  // 새로고침시 검색 기록 초기화
+  useEffect(() => {
+    setSearchParams({ search: '' })
+  }, [])
   // pc버전 북마크한 공고
   // 추후 북마크한 항목 없을때 항목 없음 컴포넌트 렌더링해야함
   // 추후에 무한스크롤 구현하기
@@ -33,7 +35,7 @@ function BookMarkAnnouncementDesktop() {
       <div className="mt-6 flex flex-col gap-4">
         {/* 검색 목록이 존재한다면 해당 목록 렌더링, 검색 하지 않았을시 전체 렌더링, 만약 검색 결과가 없다면 검색 결과 없음 컴포넌트 보여주기*/}
         {searchParams.get('search') ? (
-          filteredData ? (
+          filteredData && filteredData.length > 0 ? (
             filteredData.map((value) =>
               value.recruitment.map((v) => (
                 <StudyBookmark

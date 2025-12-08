@@ -7,7 +7,7 @@ export const bookmarkAnnouncement: BookmarkAnnouncement[] = [
     id: 1,
     recruitment: [
       {
-        title: 'Vue.js 프론트엔드 개발팀 모집',
+        title: 'Vue.js 프론트엔드 개발팀 모집(초보)',
         thumbnail_img_url: vueImg,
         expected_headcount: 5,
         close_at: '2024-04-15T00:00:05.875842+09:00',
