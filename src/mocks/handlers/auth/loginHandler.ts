@@ -16,6 +16,32 @@ export const loginHandlers = [
         { status: 400 }
       )
     }
-    return HttpResponse.json({ access_token: 'abc' }, { status: 200 })
+    return HttpResponse.json(
+      { access_token: 'abc' },
+      {
+        headers: {
+          'Set-Cookie': 'refresh_token=fake_refresh_token',
+        },
+      }
+    )
+  }),
+
+  // 토큰 갱신
+  http.post(API_PATHS.REFRESH_TOKEN.POST, () => {
+    // refresh token이 유효하다고 가정
+    return HttpResponse.json({ access_token: 'new_token' }, { status: 200 })
+  }),
+
+  // 로그아웃
+  http.post(API_PATHS.LOGOUT.POST, () => {
+    return HttpResponse.json(
+      { detail: '로그아웃 성공' },
+      {
+        status: 200,
+        headers: {
+          'Set-Cookie': 'refresh_token=',
+        },
+      }
+    )
   }),
 ]
