@@ -22,7 +22,7 @@ function Guest() {
         </div>
         <span
           onClick={() => navigate(ROUTE_PATHS.LOGIN)}
-          className="hover:text-primary-600 text-base md:cursor-pointer md:text-lg"
+          className="hover:text-primary-600 cursor-pointer text-base md:text-lg"
         >
           로그인
         </span>
