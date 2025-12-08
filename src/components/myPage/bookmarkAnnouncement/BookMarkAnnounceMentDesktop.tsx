@@ -33,7 +33,7 @@ function BookMarkAnnouncementDesktop() {
       <div className="mt-6 flex flex-col gap-4">
         {/* 검색 목록이 존재한다면 해당 목록 렌더링, 검색 하지 않았을시 전체 렌더링, 만약 검색 결과가 없다면 검색 결과 없음 컴포넌트 보여주기*/}
         {searchParams.get('search') ? (
-          filteredData && filteredData.length > 0 ? (
+          filteredData ? (
             filteredData.map((value) =>
               value.recruitment.map((v) => (
                 <StudyBookmark
