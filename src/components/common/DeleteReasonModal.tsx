@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 type DeleteReasonModalProps = {
   options: string[]
   defaultValue: string
-  className: string
+  className?: string
   onChange?: (value: string) => void
 }
 

@@ -8,11 +8,11 @@ import { useAnnouncementSearchFilter } from '@/hooks/useAnnouncementSearchFilter
 import { useStudySearchFilter } from '@/hooks/useStudySearchFilter'
 import NoSearchReult from '@/components/common/notFound/noSearchResult'
 import DeleteReasonModal from '@/components/common/DeleteReasonModal'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 function MobileBookMark() {
   const { data: bookmarkAnnouncementdata } = useBookmarkAnnouncement()
   const { data: studyData } = useBookmarkStudy()
-  const [searchParams, setSearchParams] = useSearchParams()
+  const [searchParams] = useSearchParams()
   const announcementFilteredData = useAnnouncementSearchFilter(
     bookmarkAnnouncementdata
   )
@@ -31,13 +31,8 @@ function MobileBookMark() {
     else if (value.startsWith('공고')) setOptionIsSelected('ANNOUNCEMENT')
     else if (value.startsWith('강의')) setOptionIsSelected('STUDY')
   }
-  // 드롭다운 메뉴 선택시 params 초기화?
-  // useEffect(() => {
-  //   setSearchParams({ search: '' })
-  // }, [optionIsSelected])
   // 추후 북마크한 항목 없을때 항목 없음 컴포넌트 렌더링해야함
   // 추후 무한 스크롤 구현하기
-  // 드롭다운에서 전체, 공고, 강의 나누고, 공고 선택시에는 공고만 보이게 설정 -> context로 관리? 아니면 state로?
   return (
     <>
       {/* 제목 */}
