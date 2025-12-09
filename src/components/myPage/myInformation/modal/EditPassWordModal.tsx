@@ -11,13 +11,20 @@ function EditPassWordModal({ onClose }: EditPassWordModalProps) {
     register,
     handleSubmit,
     watch,
-    formState: { errors },
-  } = useForm<EditPassword>({ mode: 'onBlur' })
+    formState: { errors, isValid },
+  } = useForm<EditPassword>({
+    mode: 'onChange',
+    defaultValues: {
+      password: '',
+      new_password: '',
+      repeat_new_password: '',
+    },
+  })
   const onSubmit = (data: EditPassword) => {
     console.log(data)
   }
   const passwordRegister = {
-    require: { value: true, message: '현재 비밀번호는 필수 항목입니다.' },
+    required: { value: true, message: '현재 비밀번호는 필수 항목입니다.' },
     pattern: {
       value:
         /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+[\]{};':"\\|,.<>/?-]).{8,15}$/,
@@ -26,7 +33,7 @@ function EditPassWordModal({ onClose }: EditPassWordModalProps) {
   }
   // 비밀번호는 db에 저장되어있지 않아서 토스트로 맞는지 안맞는지 변경하기 눌렀을때 보여주어야 할것 같다.
   const newPasswordRegister = {
-    require: { value: true, message: '새 비밀번호는 필수 항목입니다.' },
+    required: { value: true, message: '새 비밀번호는 필수 항목입니다.' },
     pattern: {
       value:
         /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+[\]{};':"\\|,.<>/?-]).{8,15}$/,
@@ -34,7 +41,7 @@ function EditPassWordModal({ onClose }: EditPassWordModalProps) {
     },
   }
   const newPasswordRepeatRegister = {
-    require: { value: true, message: '새 비밀번호를 다시 입력해주세요' },
+    required: { value: true, message: '새 비밀번호를 다시 입력해주세요' },
     validate: (value: string) =>
       value === watch('new_password') || '새 비밀번호와 일치하지 않습니다',
   }
@@ -119,7 +126,12 @@ function EditPassWordModal({ onClose }: EditPassWordModalProps) {
         >
           취소
         </Button>
-        <Button type="submit" className="cursor-pointer">
+        <Button
+          type="submit"
+          className="cursor-pointer"
+          variant={isValid ? 'primary' : 'secondary'}
+          disabled={!isValid}
+        >
           변경하기
         </Button>
       </div>

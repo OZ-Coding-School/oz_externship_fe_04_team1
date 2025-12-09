@@ -13,13 +13,13 @@ function EditPhoneNumber({ onClose }: EditPhoneNumberProps) {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<CertifyNumber>({
     defaultValues: {
       phone_number: userData[0]?.phone_number,
       code: '',
     },
-    mode: 'onBlur',
+    mode: 'onChange',
   })
   const phoneNumberRegister = {
     required: { value: true, message: '휴대폰 번호는 필수 항목입니다' },
@@ -90,8 +90,8 @@ function EditPhoneNumber({ onClose }: EditPhoneNumberProps) {
               {...register('code', phoneCertify)}
             />
             <Button
-              variant={errors.code ? 'secondary' : 'primary'}
-              disabled={!!errors.code}
+              variant={isValid ? 'primary' : 'secondary'}
+              disabled={!isValid}
               type="button"
             >
               확인
@@ -108,8 +108,8 @@ function EditPhoneNumber({ onClose }: EditPhoneNumberProps) {
           취소
         </Button>
         <Button
-          variant={errors.code ? 'secondary' : 'primary'}
-          disabled={!!errors.code}
+          variant={isValid ? 'primary' : 'secondary'}
+          disabled={!isValid}
           type="submit"
         >
           변경하기
