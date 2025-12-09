@@ -24,5 +24,5 @@ export const refreshAccessToken = async () => {
 }
 
 export const loginWithKakao = () => {
-  window.location.href = API_PATHS.LOGIN.KAKAO.GET
+  window.location.href = `${API_BASE_URL}${API_PATHS.LOGIN.KAKAO.GET}`
 }

@@ -6,4 +6,5 @@ export const ROUTE_PATHS = {
   LOGIN: '/login',
   FIND_ID: '/find-id',
   FIND_PASSWORD: '/find-password',
+  SOCIAL_CALLBACK: '/social-callback',
 }
