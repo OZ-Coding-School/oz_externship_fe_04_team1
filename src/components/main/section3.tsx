@@ -1,23 +1,8 @@
-// import CourseCard from '@/components/common/cards/CourseCard'
-import { useEffect, useState } from 'react'
-import { getCourseInformationApi } from '@/api/courseInformation'
-import { type CourseCardProps } from '@/types/mypage'
+import { useGetCourses } from '@/hooks/quries/course'
 import CourseCard from '@/components/common/cards/CourseCard'
+
 function Section3() {
-  const [courses, setCourses] = useState<CourseCardProps[]>([])
-
-  useEffect(() => {
-    const fetchCourses = async () => {
-      try {
-        const data = await getCourseInformationApi()
-        setCourses(data)
-      } catch (error) {
-        console.error('강의 목록 불러오기 실패:', error)
-      }
-    }
-    fetchCourses()
-  }, [])
-
+  const { data: courses = [] } = useGetCourses()
   return (
     <section className="flex min-h-[500px] w-full justify-center px-20 py-16 sm:min-h-[615px]">
       <div className="flex w-full max-w-[1440px] flex-col px-8">
@@ -35,17 +20,7 @@ function Section3() {
 
         <div className="flex w-full flex-col gap-6 sm:flex-row sm:gap-6 md:h-[388px] md:w-[389px]">
           {courses.map((course) => (
-            <CourseCard
-              key={course.id}
-              id={course.id}
-              thumbnail_img_url={course.thumbnail_img_url}
-              title={course.title}
-              instructor={course.instructor}
-              average_rating={course.average_rating}
-              reviewCount={course.reviewCount}
-              discounted_price={course.discounted_price}
-              original_price={course.original_price}
-            />
+            <CourseCard key={course.id} {...course} />
           ))}
         </div>
       </div>

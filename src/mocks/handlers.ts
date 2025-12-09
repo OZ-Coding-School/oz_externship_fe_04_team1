@@ -1,5 +1,5 @@
 import { userInformationHandler } from './handlers/user'
-import { courseInformationHandler } from './handlers/course.ts'
+import { courseInformationHandler } from './handlers/course'
 import { notificationHandlers } from './handlers/notification/index.ts'
 import { bookmarkAnnouncementHandler } from './handlers/bookmarkAnnouncement/index.ts'
 import { bookmarkStudyHandler } from './handlers/bookmarkStudy/index.ts'
