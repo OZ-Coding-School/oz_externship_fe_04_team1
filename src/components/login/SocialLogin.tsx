@@ -3,9 +3,10 @@ import naver from '@/assets/icons/naver.svg'
 
 type SocialLoginProps = {
   onLoginWithKakao: () => void
+  onLoginWithNaver: () => void
 }
 
-function SocialLogin({ onLoginWithKakao }: SocialLoginProps) {
+function SocialLogin({ onLoginWithKakao, onLoginWithNaver }: SocialLoginProps) {
   return (
     <div className="flex flex-col gap-3">
       <button
@@ -19,6 +20,7 @@ function SocialLogin({ onLoginWithKakao }: SocialLoginProps) {
       <button
         type="button"
         className="inline-flex h-[52px] cursor-pointer items-center justify-center rounded-md bg-[rgb(4,199,92)] text-base font-normal text-white"
+        onClick={onLoginWithNaver}
       >
         <img className="pr-2" src={naver} alt="" /> 네이버 간편 로그인 / 가입
       </button>
