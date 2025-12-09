@@ -22,3 +22,7 @@ export const refreshAccessToken = async () => {
     { withCredentials: true }
   )
 }
+
+export const loginWithKakao = () => {
+  window.location.href = API_PATHS.LOGIN.KAKAO.GET
+}

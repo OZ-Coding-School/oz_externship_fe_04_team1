@@ -1,12 +1,17 @@
 import kakao from '@/assets/icons/kakao.svg'
 import naver from '@/assets/icons/naver.svg'
 
-function SocialLogin() {
+type SocialLoginProps = {
+  onLoginWithKakao: () => void
+}
+
+function SocialLogin({ onLoginWithKakao }: SocialLoginProps) {
   return (
     <div className="flex flex-col gap-3">
       <button
         type="button"
         className="inline-flex h-[52px] cursor-pointer items-center justify-center rounded-md bg-[rgb(255,230,3)] text-center text-base font-normal text-[rgb(56,28,26)]"
+        onClick={onLoginWithKakao}
       >
         <img className="pr-2" src={kakao} alt="" />
         카카오 간편 로그인 / 가입
