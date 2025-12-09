@@ -2,7 +2,6 @@ import closeIcon from '@/assets/icons/close.svg'
 import Button from '@/components/common/Button'
 import Input from '@/components/common/Input'
 import useUserData from '@/hooks/quries/useUserData'
-import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import type { CertifyNumber } from '@/types/certifyNumber'
 interface EditPhoneNumberProps {
