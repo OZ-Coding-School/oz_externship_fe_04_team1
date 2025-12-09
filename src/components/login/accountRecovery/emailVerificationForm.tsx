@@ -1,88 +1,44 @@
 import Button from '@/components/common/Button'
 import Input from '@/components/common/Input'
 import accountemail from '@/assets/email.svg'
-import { useState } from 'react'
-import {
-  validateEmail,
-  validateCode,
-} from '@/components/accountRecovery/validation'
-import {
-  useSendEmailRecovery,
-  useVerifyCodeRecovery,
-} from '@/hooks/quries/accountRecovery'
-import { showToast } from '@/components/common/toast/Toast'
 import closeIcon from '@/assets/icons/close.svg'
-import SuccessVerification from '@/components/accountRecovery/successVerification'
-
-interface EmailVerificationProps {
+import SuccessVerification from './successVerification'
+interface EmailVerificationUIProps {
+  email: string
+  setEmail: (value: string) => void
+  verificationCode: string
+  setVerificationCode: (value: string) => void
+  emailError: string
+  setEmailError: (value: string) => void
+  codeError: string
+  setCodeError: (value: string) => void
+  isEmailSent: boolean
+  showSuccessModal: boolean
+  handleSendCode: () => void
+  handleVerifyCode: () => void
+  handleSubmit: () => void
+  handleFinalClose: () => void
   onClose: () => void
 }
-export default function EmailVerificationModal({
+export default function EmailVerificationForm({
+  email,
+  setEmail,
+  verificationCode,
+  setVerificationCode,
+  emailError,
+  setEmailError,
+  codeError,
+  setCodeError,
+  isEmailSent,
+  showSuccessModal,
+  handleSendCode,
+  handleVerifyCode,
+  handleSubmit,
+  handleFinalClose,
   onClose,
-}: EmailVerificationProps) {
-  const [email, setEmail] = useState('')
-  const [verificationCode, setVerificationCode] = useState('')
-  const [emailError, setEmailError] = useState('')
-  const [codeError, setCodeError] = useState('')
-  const [isEmailSent, setIsEmailSent] = useState(false)
-  const [showSuccessModal, setShowSuccesModal] = useState(false)
-
-  const sendEmailMutation = useSendEmailRecovery()
-  const verifyCodeMutation = useVerifyCodeRecovery()
-
-  // 이메일 인증코드 전송
-  const handleSendCode = () => {
-    const error = validateEmail(email)
-    setEmailError(error)
-    if (error) {
-      return
-    }
-    sendEmailMutation.mutate(email, {
-      onSuccess: () => {
-        showToast.success('전송 완료!', '이메일을 확인해주세요.')
-        setIsEmailSent(true)
-      },
-      onError: () =>
-        showToast.error('전송 실패', '이메일을 다시 한번 확인해주세요.'),
-    })
-  }
-
-  // 인증코드 검사
-  const handleVerifyCode = () => {
-    const error = validateCode(verificationCode)
-    setCodeError(error)
-    if (error) {
-      return
-    }
-
-    verifyCodeMutation.mutate(
-      { email, code: verificationCode },
-      {
-        onSuccess: () => setCodeError('success'),
-        onError: () => setCodeError('인증번호가 일치하지 않습니다'),
-      }
-    )
-  }
-
-  // 최종 확인버튼
-  const handleSubmit = () => {
-    if (!isEmailSent) {
-      showToast.error('이메일 전송', '이메일로 인증코드를 전송해주세요')
-      return
-    }
-    if (codeError !== 'success') {
-      showToast.error('인증 실패', '인증번호를 입력해주세요')
-      return
-    }
-    setShowSuccesModal(true)
-  }
-  const handleFinalClose = () => {
-    setShowSuccesModal(false)
-    onClose()
-  }
+}: EmailVerificationUIProps) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70">
-      {/* 기존 모달 박스 */}
       <div className="flex h-[480px] w-[396px] flex-col rounded-xl bg-white p-6">
         <div className="flex h-6 justify-end">
           <img
@@ -92,21 +48,20 @@ export default function EmailVerificationModal({
             onClick={onClose}
           />
         </div>
+
         <div className="flex flex-col items-center justify-center text-center">
           <img src={accountemail} alt="accountRecoverSvg" className="mb-4" />
-          <p className="mb-4 text-lg font-bold">
-            계정 다시 사용하기<span></span>
-          </p>
+          <p className="mb-4 text-lg font-bold">계정 다시 사용하기</p>
           <p className="mb-10 text-sm text-gray-600">
             입력하신 이메일로 인증번호를 보내드릴게요.
           </p>
         </div>
+
         <div>
           <p className="mb-4">
             이메일<span className="text-danger-500 pl-0.5">*</span>
           </p>
 
-          {/* 이메일 인증번호 전송  */}
           <form className="flex flex-col">
             <div className="mb-4">
               <div className="flex gap-3">
@@ -120,7 +75,6 @@ export default function EmailVerificationModal({
                   className={`w-[230px] ${emailError ? 'border-danger-500 focus:border-danger-500' : ''}`}
                   placeholder="가입한 이메일을 입력해주세요"
                 />
-
                 <Button
                   type="button"
                   disabled={!email || !!emailError}
@@ -134,12 +88,12 @@ export default function EmailVerificationModal({
               {email && <p className="text-danger-500 text-sm">{emailError}</p>}
             </div>
 
-            {/* 이메일 인증코드 확인 */}
             <div className="mb-10">
               <div className="flex gap-3">
                 <Input
                   id="verificationCode"
                   value={verificationCode}
+                  disabled={!isEmailSent}
                   className="w-[230px]"
                   onChange={(e) => {
                     setVerificationCode(e.target.value)
@@ -150,7 +104,7 @@ export default function EmailVerificationModal({
                 <Button
                   type="button"
                   onClick={handleVerifyCode}
-                  disabled={!verificationCode}
+                  disabled={!isEmailSent || !verificationCode}
                   className={`bg-gray-200 ${verificationCode ? 'verify-color hover:verify-color' : 'before-verify-color opacity-60'}`}
                   variant="outline"
                 >
@@ -159,11 +113,7 @@ export default function EmailVerificationModal({
               </div>
               {codeError && (
                 <p
-                  className={`text-sm ${
-                    codeError === 'success'
-                      ? 'text-success-600'
-                      : 'text-danger-500'
-                  }`}
+                  className={`text-sm ${codeError === 'success' ? 'text-success-600' : 'text-danger-500'}`}
                 >
                   {codeError === 'success'
                     ? '이메일 인증이 완료되었습니다.'
