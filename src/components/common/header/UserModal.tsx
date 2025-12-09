@@ -1,19 +1,23 @@
+import { logout } from '@/api/auth/logout'
 import logoutIcon from '@/assets/icons/logout.svg'
 import modalProfileIcon from '@/assets/icons/modalProfileIcon.svg'
 import { ROUTE_PATHS } from '@/constant/route'
+import AuthStateStore from '@/store/authStateStore'
 import LoginStateStore from '@/store/loginStateStore'
 import MyPageStateStore from '@/store/mypageStateStore'
 import { useNavigate } from 'react-router'
 function UserModal() {
   const navigate = useNavigate()
   const setMyPageState = MyPageStateStore((state) => state.setMyPageState)
-  const setLoginState = LoginStateStore((state) => state.setLoginState)
+  const loginState = LoginStateStore((state) => state.setLoginState)
   return (
     <div className="hidden md:absolute md:top-[45.05px] md:right-[10px] md:z-10 md:flex md:h-[99px] md:w-[192px] md:flex-col md:gap-[8px] md:rounded-lg md:border md:border-solid md:border-[#E5E7EB] md:bg-[#ffffff] md:drop-shadow-[0_10px_15px_rgba(0,0,0,0.2)]">
       <div
         className="mt-[13px] flex cursor-pointer items-center gap-[12px] border-t-[2px] border-solid border-[#f3f4f6] px-[16px] py-[10px] pt-[5px] text-[16px] text-[#374151]"
-        onClick={() => {
-          setLoginState('GUEST')
+        onClick={async () => {
+          await logout()
+          AuthStateStore.getState().setAccessToken(null)
+          loginState('GUEST')
           navigate(ROUTE_PATHS.HOME)
         }}
       >

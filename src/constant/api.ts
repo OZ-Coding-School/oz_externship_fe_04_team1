@@ -81,4 +81,12 @@ export const API_PATHS = {
       POST: '/api/v1/accounts/login',
     },
   },
+
+  REFRESH_TOKEN: {
+    POST: '/api/v1/auth/refresh/',
+  },
+
+  LOGOUT: {
+    POST: '/api/v1/accounts/logout',
+  },
 } as const

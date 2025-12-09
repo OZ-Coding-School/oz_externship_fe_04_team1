@@ -3,7 +3,23 @@ import { http, HttpResponse } from 'msw'
 import { userInformation } from './mockData'
 
 export const userInformationHandler = [
-  http.get(API_PATHS.USER.GET, () => {
-    return HttpResponse.json(userInformation)
+  http.get(API_PATHS.USER.GET, ({ request }) => {
+    const authToken = request.headers.get('Authorization')
+
+    // 로그인 직후 받은 엑세스 토큰이면 401 반환 (만료된 것 처럼)
+    if (authToken === 'Bearer abc') {
+      return HttpResponse.json(
+        { error_detail: 'Token expired' },
+        { status: 401 }
+      )
+    }
+
+    // 갱신된 new_token이면 정상 응답
+    if (authToken === 'Bearer new_token') {
+      return HttpResponse.json(userInformation, { status: 200 })
+    }
+
+    // 토큰이 없으면 401
+    return HttpResponse.json({ error_detail: 'unauthorized' }, { status: 401 })
   }),
 ]

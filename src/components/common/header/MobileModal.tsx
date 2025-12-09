@@ -11,6 +11,8 @@ import { useNavigate } from 'react-router'
 import { ROUTE_PATHS } from '@/constant/route'
 import MyPageStateStore from '@/store/mypageStateStore'
 import Button from '../Button'
+import { logout } from '@/api/auth/logout'
+import AuthStateStore from '@/store/authStateStore'
 interface MobileModalProps {
   setIsModalOpen: (value: boolean) => void
 }
@@ -85,12 +87,12 @@ function MobileModal({ setIsModalOpen }: MobileModalProps) {
           </Button>
           <Button
             className="flex cursor-pointer items-center justify-center gap-[13px] rounded-lg bg-gray-100 px-4 py-2"
-            onClick={() => {
-              {
-                setLoginState('GUEST')
-                setIsModalOpen(false)
-                navigate(ROUTE_PATHS.HOME)
-              }
+            onClick={async () => {
+              await logout()
+              setLoginState('GUEST')
+              AuthStateStore.getState().setAccessToken(null)
+              setIsModalOpen(false)
+              navigate(ROUTE_PATHS.HOME)
             }}
           >
             <img src={logoutIcon} alt="logoutIcon" />

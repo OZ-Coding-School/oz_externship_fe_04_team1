@@ -4,6 +4,7 @@ import LoginForm from '@/components/login/LoginForm'
 import SocialLogin from '@/components/login/SocialLogin'
 import { ROUTE_PATHS } from '@/constant/route'
 import { useLoginWithEmail } from '@/hooks/quries/auth/useLogin'
+import LoginStateStore from '@/store/loginStateStore'
 import type { ReqLoginFormData } from '@/types/login'
 import type { UseFormSetError } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router'
@@ -11,6 +12,7 @@ import { Link, useNavigate } from 'react-router'
 function LoginPage() {
   const navigate = useNavigate()
   const { mutate: loginWithEmail, isPending: loggingIn } = useLoginWithEmail()
+  const loginState = LoginStateStore((state) => state.setLoginState)
 
   const handleLogin = (
     data: ReqLoginFormData,
@@ -18,6 +20,7 @@ function LoginPage() {
   ) => {
     loginWithEmail(data, {
       onSuccess: () => {
+        loginState('USER')
         showToast.success('로그인', '성공')
         navigate(ROUTE_PATHS.HOME)
       },
