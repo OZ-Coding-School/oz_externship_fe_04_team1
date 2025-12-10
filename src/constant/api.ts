@@ -6,7 +6,10 @@ export const API_PATHS = {
     GET: '/api/v1/accounts/me',
     // 비밀번호를 변경하는 api
     PATCH_PASSWORD: '/api/v1/accounts/find-password',
-    // 회원탈퇴 api
+    // 인증번호 전송하는 api
+    SEND_CODE: '/api/v1/accounts/change-phone/send-sms',
+    // 휴대폰 번호 변경하는 api
+    PATCH_PHONE_NUMBER: '/api/v1/accounts/change-phone',
   },
   COURSE: {
     // 강의 정보를 가져오는 api

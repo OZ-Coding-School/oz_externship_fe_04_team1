@@ -11,6 +11,8 @@ import { accountRecoveryHandler } from './handlers/accountRecovery/index.ts'
 import { loginHandlers } from './handlers/auth/loginHandler.ts'
 import { editPassWordHandler } from './handlers/user/editPassword.ts'
 import { deleteUserHandler } from './handlers/user/withDraw.ts'
+import { sendCodeHandler } from './handlers/certifyPhoneNumber/sendCodeHandler.ts'
+import { certifyPhoneNumber } from './handlers/certifyPhoneNumber/index.ts'
 export const handlers = [
   ...userInformationHandler,
   ...courseInformationHandler,
@@ -25,4 +27,6 @@ export const handlers = [
   ...loginHandlers,
   ...editPassWordHandler,
   ...deleteUserHandler,
+  ...sendCodeHandler,
+  ...certifyPhoneNumber,
 ]
