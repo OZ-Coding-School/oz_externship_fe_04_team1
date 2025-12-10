@@ -17,9 +17,9 @@ function EditPassWordModal({ onClose }: EditPassWordModalProps) {
   } = useForm<EditPassword>({
     mode: 'onChange',
     defaultValues: {
-      password: '',
+      current_password: '',
       new_password: '',
-      repeat_new_password: '',
+      confirm_password: '',
     },
   })
   const { mutate: editPassword } = useEditPassword()
@@ -77,19 +77,19 @@ function EditPassWordModal({ onClose }: EditPassWordModalProps) {
       {/* 폼 */}
       <div className="flex flex-col gap-4 px-6 py-6">
         <div className="flex flex-col gap-2">
-          <label htmlFor="password" className="flex gap-1">
+          <label htmlFor="current_password" className="flex gap-1">
             <span className="text-gray-700b text-sm">현재 비밀번호</span>
             <span className="text-danger-500 text-sm">*</span>
           </label>
           <Input
             placeholder="현재 비밀번호를 입력해주세요"
             type="password"
-            id="password"
-            {...register('password', passwordRegister)}
+            id="current_password"
+            {...register('current_password', passwordRegister)}
           />
-          {errors.password && (
+          {errors.current_password && (
             <p className="text-danger-500 pl-1 text-xs">
-              {errors.password.message}
+              {errors.current_password.message}
             </p>
           )}
         </div>
@@ -110,20 +110,20 @@ function EditPassWordModal({ onClose }: EditPassWordModalProps) {
             </p>
           )}
         </label>
-        <label htmlFor="repeat_new_password" className="flex flex-col gap-2">
+        <label htmlFor="confirm_password" className="flex flex-col gap-2">
           <div className="flex gap-1">
             <span className="text-gray-700b text-sm">새 비밀번호 확인</span>
             <span className="text-danger-500 text-sm">*</span>
           </div>
           <Input
-            id="repeat_new_password"
+            id="confirm_password"
             type="password"
             placeholder="새 비밀번호를 다시 입력해주세요"
-            {...register('repeat_new_password', newPasswordRepeatRegister)}
+            {...register('confirm_password', newPasswordRepeatRegister)}
           />
-          {errors.repeat_new_password && (
+          {errors.confirm_password && (
             <p className="text-danger-500 pl-1 text-xs">
-              {errors.repeat_new_password.message}
+              {errors.confirm_password.message}
             </p>
           )}
         </label>
