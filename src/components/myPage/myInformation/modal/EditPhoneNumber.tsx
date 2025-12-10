@@ -8,7 +8,6 @@ import { useSendCode } from '@/hooks/quries/useSendCode'
 import { showToast } from '@/components/common/toast/Toast'
 import { useState } from 'react'
 import { useEditPhoneNumber } from '@/hooks/quries/useEditPhoneNumber'
-import { AxiosError } from 'axios'
 interface EditPhoneNumberProps {
   onClose: () => void
 }
