@@ -1,6 +1,8 @@
+import { axiosInstance } from '@/api/axios'
 import CourseBookmark from '@/components/common/cards/CourseBookmark'
 import NoSearchReult from '@/components/common/notFound/noSearchResult'
 import Search from '@/components/common/search/Search'
+import { showToast } from '@/components/common/toast/Toast'
 import useBookmarkStudy from '@/hooks/quries/useBookMarkStudy'
 import { useStudySearchFilter } from '@/hooks/useStudySearchFilter'
 import { useEffect } from 'react'
@@ -37,7 +39,16 @@ function BookMarkStudyDesktop() {
               <CourseBookmark
                 key={value.id}
                 studyBookMarkData={value}
-                onBookmarkClick={() => console.log('bookmark clicked')}
+                onBookmarkClick={async () => {
+                  try {
+                    await axiosInstance.delete(
+                      `/api/v1/lecture-bookmarks/${value.id}`
+                    )
+                    showToast.success('성공', '북마크가 제거되었습니다.')
+                  } catch (err) {
+                    console.log(err)
+                  }
+                }}
                 onViewClick={() => console.log('view clicked')}
               />
             ))
@@ -49,7 +60,16 @@ function BookMarkStudyDesktop() {
             <CourseBookmark
               key={value.id}
               studyBookMarkData={value}
-              onBookmarkClick={() => console.log('bookmark clicked')}
+              onBookmarkClick={async () => {
+                try {
+                  await axiosInstance.delete(
+                    `/api/v1/lecture-bookmarks/${value.id}`
+                  )
+                  showToast.success('성공', '북마크가 제거되었습니다.')
+                } catch (err) {
+                  console.log(err)
+                }
+              }}
               onViewClick={() => console.log('view clicked')}
             />
           ))

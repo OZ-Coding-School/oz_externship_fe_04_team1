@@ -1,6 +1,8 @@
+import { axiosInstance } from '@/api/axios'
 import StudyBookmark from '@/components/common/cards/StudyBookmark'
 import NoSearchReult from '@/components/common/notFound/noSearchResult'
 import Search from '@/components/common/search/Search'
+import { showToast } from '@/components/common/toast/Toast'
 import useBookmarkAnnouncement from '@/hooks/quries/useBookMarkAnnouncement'
 import { useAnnouncementSearchFilter } from '@/hooks/useAnnouncementSearchFilter'
 import { useEffect } from 'react'
@@ -41,7 +43,17 @@ function BookMarkAnnouncementDesktop() {
                 <StudyBookmark
                   key={value.id}
                   announcementBookmarkData={v}
-                  onBookmarkClick={() => console.log('bookmark clicked')}
+                  // 토글형식이라 tanstack-query사용하지 않음
+                  onBookmarkClick={async () => {
+                    try {
+                      await axiosInstance.delete(
+                        `/api/v1/recruitment-bookmarks/${v.uuid}`
+                      )
+                      showToast.success('성공', '북마크가 제거되었습니다.')
+                    } catch (err) {
+                      console.log(err)
+                    }
+                  }}
                   onViewClick={() => console.log('view clicked')}
                 />
               ))
@@ -55,7 +67,16 @@ function BookMarkAnnouncementDesktop() {
               <StudyBookmark
                 key={value.id}
                 announcementBookmarkData={v}
-                onBookmarkClick={() => console.log('bookmark clicked')}
+                onBookmarkClick={async () => {
+                  try {
+                    await axiosInstance.delete(
+                      `/api/v1/recruitment-bookmarks/${v.uuid}`
+                    )
+                    showToast.success('성공', '북마크가 제거되었습니다.')
+                  } catch (err) {
+                    console.log(err)
+                  }
+                }}
                 onViewClick={() => console.log('view clicked')}
               />
             ))

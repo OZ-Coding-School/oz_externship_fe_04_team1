@@ -9,6 +9,8 @@ import { useStudySearchFilter } from '@/hooks/useStudySearchFilter'
 import NoSearchReult from '@/components/common/notFound/noSearchResult'
 import DeleteReasonModal from '@/components/common/DeleteReasonModal'
 import { useState } from 'react'
+import { showToast } from '@/components/common/toast/Toast'
+import { axiosInstance } from '@/api/axios'
 function MobileBookMark() {
   const { data: bookmarkAnnouncementdata } = useBookmarkAnnouncement()
   const { data: studyData } = useBookmarkStudy()
@@ -62,7 +64,16 @@ function MobileBookMark() {
                   <StudyBookmark
                     key={value.id}
                     announcementBookmarkData={v}
-                    onBookmarkClick={() => console.log('bookmark clicked')}
+                    onBookmarkClick={async () => {
+                      try {
+                        await axiosInstance.delete(
+                          `/api/v1/recruitment-bookmarks/${v.uuid}`
+                        )
+                        showToast.success('성공', '북마크가 제거되었습니다.')
+                      } catch (err) {
+                        console.log(err)
+                      }
+                    }}
                     onViewClick={() => console.log('view clicked')}
                     className={
                       optionIsSelected === 'ALL' ||
@@ -77,7 +88,16 @@ function MobileBookMark() {
                 <CourseBookmark
                   key={value.id}
                   studyBookMarkData={value}
-                  onBookmarkClick={() => console.log('bookmark clicked')}
+                  onBookmarkClick={async () => {
+                    try {
+                      await axiosInstance.delete(
+                        `/api/v1/lecture-bookmarks/${value.id}`
+                      )
+                      showToast.success('성공', '북마크가 제거되었습니다.')
+                    } catch (err) {
+                      console.log(err)
+                    }
+                  }}
                   onViewClick={() => console.log('view clicked')}
                   className={
                     optionIsSelected === 'ALL' || optionIsSelected === 'STUDY'
@@ -97,7 +117,16 @@ function MobileBookMark() {
                 <StudyBookmark
                   key={value.id}
                   announcementBookmarkData={v}
-                  onBookmarkClick={() => console.log('bookmark clicked')}
+                  onBookmarkClick={async () => {
+                    try {
+                      await axiosInstance.delete(
+                        `/api/v1/recruitment-bookmarks/${v.uuid}`
+                      )
+                      showToast.success('성공', '북마크가 제거되었습니다.')
+                    } catch (err) {
+                      console.log(err)
+                    }
+                  }}
                   onViewClick={() => console.log('view clicked')}
                   className={
                     optionIsSelected === 'ALL' ||
@@ -112,7 +141,16 @@ function MobileBookMark() {
               <CourseBookmark
                 key={value.id}
                 studyBookMarkData={value}
-                onBookmarkClick={() => console.log('bookmark clicked')}
+                onBookmarkClick={async () => {
+                  try {
+                    await axiosInstance.delete(
+                      `/api/v1/lecture-bookmarks/${value.id}`
+                    )
+                    showToast.success('성공', '북마크가 제거되었습니다.')
+                  } catch (err) {
+                    console.log(err)
+                  }
+                }}
                 onViewClick={() => console.log('view clicked')}
                 className={
                   optionIsSelected === 'ALL' || optionIsSelected === 'STUDY'
