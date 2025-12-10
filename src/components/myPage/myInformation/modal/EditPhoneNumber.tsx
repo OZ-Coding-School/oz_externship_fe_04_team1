@@ -2,17 +2,25 @@ import closeIcon from '@/assets/icons/close.svg'
 import Button from '@/components/common/Button'
 import Input from '@/components/common/Input'
 import useUserData from '@/hooks/quries/useUserData'
-import { useForm } from 'react-hook-form'
+import { useForm, useWatch } from 'react-hook-form'
 import type { CertifyNumber } from '@/types/certifyNumber'
+import { useSendCode } from '@/hooks/quries/useSendCode'
+import { showToast } from '@/components/common/toast/Toast'
+import { useState } from 'react'
+import { useEditPhoneNumber } from '@/hooks/quries/useEditPhoneNumber'
 interface EditPhoneNumberProps {
   onClose: () => void
 }
 function EditPhoneNumber({ onClose }: EditPhoneNumberProps) {
   const { data: userData } = useUserData()
-  // 6자리 숫자 입력받기 위한 boolean값
+  const [isSendCode, setIsSendCode] = useState(false)
+  const [isCertify, setIsCertify] = useState(false)
+  const { mutate: sendCode } = useSendCode()
+  const { mutate: editPhoneNumber } = useEditPhoneNumber()
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors, isValid },
   } = useForm<CertifyNumber>({
     defaultValues: {
@@ -24,16 +32,34 @@ function EditPhoneNumber({ onClose }: EditPhoneNumberProps) {
   const phoneNumberRegister = {
     required: { value: true, message: '휴대폰 번호는 필수 항목입니다' },
     pattern: {
-      value: /^[0-9]{10,11}$/,
-      message: '휴대폰 번호를 10~11자리 숫자로 입력해주세요',
+      value: /^[0-9]{11}$/,
+      message: '휴대폰 번호를 11자리 숫자로 입력해주세요',
     },
   }
   const phoneCertify = {
     required: { value: true, message: '' },
     pattern: { value: /^[0-9]{6}$/, message: '인증번호 6자리를 입력해주세요' },
   }
+  const currentPhoneNumber = useWatch({
+    control,
+    name: 'phone_number',
+  })
+  const isPhoneValid = /^[0-9]{11}$/.test(currentPhoneNumber || '')
   const onSubmit = (data: CertifyNumber) => {
-    console.log(data)
+    editPhoneNumber(data, {
+      onSuccess: () => {
+        showToast.success('성공', '인증번호가 확인되었습니다')
+        setIsCertify(true)
+      },
+      onError: (err: any) => {
+        const status = err.statusCode
+        if (status === 400) {
+          showToast.error('실패', '인증 코드가 유효하지 않습니다')
+        } else if (status === 409) {
+          showToast.error('실패', '이미 등록된 휴대폰 번호입니다')
+        }
+      },
+    })
   }
   return (
     <form
@@ -66,11 +92,25 @@ function EditPhoneNumber({ onClose }: EditPhoneNumberProps) {
               id="phone_number"
               {...register('phone_number', phoneNumberRegister)}
             />
-            <Button variant="primary" type="button">
+            <Button
+              variant={isSendCode ? 'secondary' : 'primary'}
+              type="button"
+              onClick={() => {
+                sendCode(
+                  { phone_number: currentPhoneNumber },
+                  {
+                    onSuccess: () => {
+                      showToast.success('성공', '인증번호가 전송되었습니다')
+                      setIsSendCode(true)
+                    },
+                  }
+                )
+              }}
+              disabled={!isPhoneValid}
+            >
               인증하기
             </Button>
-            {/* 추후 인증하기 눌렀을때 로직 구현하기 */}
-            {/* 인증하기 누르면 variant = "secondary" 하고 + 로직 구현하기 + 인증번호가 오지 않나요? + 재전송 이부분 나타나게 -> 타이머는 어떻게 할건지...*/}
+            {/* 타이머 어케 구현? 현재는 계속 전송이 되게 구현 -> 인증하기 누르면 3분간 비활성화 -> 3분 지나면 활성화 이런식으로 해야할듯 */}
           </div>
           {errors.phone_number && (
             <p className="text-danger-500 pl-1 text-xs">
@@ -92,29 +132,31 @@ function EditPhoneNumber({ onClose }: EditPhoneNumberProps) {
             <Button
               variant={isValid ? 'primary' : 'secondary'}
               disabled={!isValid}
-              type="button"
+              type="submit"
             >
-              확인
+              인증번호 확인
             </Button>
             {/* 확인눌렀을때 확인하는 로직 필요 + 토스트 알림 */}
           </div>
+          {isSendCode ? (
+            <div
+              className={isCertify ? 'hidden' : 'pl-1 text-xs text-gray-500'}
+            >
+              인증번호가 오지 않나요? 스팸함을 확인하거나 타이머 후
+              재전송해주세요
+            </div>
+          ) : (
+            ''
+          )}
         </label>
         {errors.code && (
           <p className="text-danger-500 pl-1 text-xs">{errors.code.message}</p>
         )}
       </div>
       <div className="flex justify-end gap-3 px-6 py-7">
-        <Button variant="outline" onClick={onClose}>
-          취소
+        <Button variant="primary" disabled={!isCertify} onClick={onClose}>
+          변경완료
         </Button>
-        <Button
-          variant={isValid ? 'primary' : 'secondary'}
-          disabled={!isValid}
-          type="submit"
-        >
-          변경하기
-        </Button>
-        {/* 변경하기 늘렀을때의 로직 추가  + 휴대폰 번호 전송시 중간에 - 넣어서 요청 보내야함*/}
       </div>
     </form>
   )

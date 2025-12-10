@@ -1,5 +1,6 @@
 import type { UserInformation } from '@/types/userInformation'
 import defaultImg from '@/assets/images/defaultProfileImg.svg'
+import type { EditPassword } from '@/types/editPassword'
 export const userInformation: UserInformation[] = [
   {
     id: 1,
@@ -13,3 +14,8 @@ export const userInformation: UserInformation[] = [
     created_at: '2025-10-30T14:01:57.505250+09:00',
   },
 ]
+export const editPassword: EditPassword = {
+  current_password: 'Ozcoding1!',
+  new_password: 'Ozcoding@',
+  confirm_password: 'Ozcoding@',
+}

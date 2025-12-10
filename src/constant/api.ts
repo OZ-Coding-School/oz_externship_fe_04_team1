@@ -2,15 +2,21 @@ export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
 
 export const API_PATHS = {
   USER: {
-    // 유저 정보를 가져오는 api
+    // 유저 정보를 가져오는 api + 탈퇴 api
     GET: '/api/v1/accounts/me',
+    // 비밀번호를 변경하는 api
+    PATCH_PASSWORD: '/api/v1/accounts/find-password',
+    // 인증번호 전송하는 api
+    SEND_CODE: '/api/v1/accounts/change-phone/send-sms',
+    // 휴대폰 번호 변경하는 api
+    PATCH_PHONE_NUMBER: '/api/v1/accounts/change-phone',
   },
   COURSE: {
     // 강의 정보를 가져오는 api
     GET: '/api/v1/lectures/recommands',
   },
   BOOKMARK: {
-    // 북마크된 공고 조회 가져오는 apu
+    // 북마크된 공고 조회 가져오는 api
     ANNOUNCEMENT: {
       GET: '/api/v1/recruitment-bookmarks',
     },

@@ -3,6 +3,8 @@ import Button from '@/components/common/Button'
 import Input from '@/components/common/Input'
 import { useForm } from 'react-hook-form'
 import type { EditPassword } from '@/types/editPassword'
+import { useEditPassword } from '@/hooks/quries/useEditPassword'
+import { showToast } from '@/components/common/toast/Toast'
 interface EditPassWordModalProps {
   onClose: () => void
 }
@@ -15,14 +17,12 @@ function EditPassWordModal({ onClose }: EditPassWordModalProps) {
   } = useForm<EditPassword>({
     mode: 'onChange',
     defaultValues: {
-      password: '',
+      current_password: '',
       new_password: '',
-      repeat_new_password: '',
+      confirm_password: '',
     },
   })
-  const onSubmit = (data: EditPassword) => {
-    console.log(data)
-  }
+  const { mutate: editPassword } = useEditPassword()
   const passwordRegister = {
     required: { value: true, message: '현재 비밀번호는 필수 항목입니다.' },
     pattern: {
@@ -45,6 +45,20 @@ function EditPassWordModal({ onClose }: EditPassWordModalProps) {
     validate: (value: string) =>
       value === watch('new_password') || '새 비밀번호와 일치하지 않습니다',
   }
+  const onSubmit = (data: EditPassword) => {
+    editPassword(data, {
+      onSuccess: () => {
+        showToast.success('성공', '비밀번호가 변경되었습니다')
+        onClose()
+      },
+      onError: (error: any) => {
+        if (error.statusCode === 400) {
+          showToast.error('실패', '현재 비밀번호가 일치하지 않습니다')
+        }
+        // 현재 새 비밀번호가 일치하지 않는것은 버튼 비활성화로 처리를 해둔 상황 -> 그렇다면 현재 비밀번호만 처리하면 되지 않을까 하는 생각
+      },
+    })
+  }
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -65,19 +79,19 @@ function EditPassWordModal({ onClose }: EditPassWordModalProps) {
       {/* 폼 */}
       <div className="flex flex-col gap-4 px-6 py-6">
         <div className="flex flex-col gap-2">
-          <label htmlFor="password" className="flex gap-1">
+          <label htmlFor="current_password" className="flex gap-1">
             <span className="text-gray-700b text-sm">현재 비밀번호</span>
             <span className="text-danger-500 text-sm">*</span>
           </label>
           <Input
             placeholder="현재 비밀번호를 입력해주세요"
             type="password"
-            id="password"
-            {...register('password', passwordRegister)}
+            id="current_password"
+            {...register('current_password', passwordRegister)}
           />
-          {errors.password && (
+          {errors.current_password && (
             <p className="text-danger-500 pl-1 text-xs">
-              {errors.password.message}
+              {errors.current_password.message}
             </p>
           )}
         </div>
@@ -98,20 +112,20 @@ function EditPassWordModal({ onClose }: EditPassWordModalProps) {
             </p>
           )}
         </label>
-        <label htmlFor="repeat_new_password" className="flex flex-col gap-2">
+        <label htmlFor="confirm_password" className="flex flex-col gap-2">
           <div className="flex gap-1">
             <span className="text-gray-700b text-sm">새 비밀번호 확인</span>
             <span className="text-danger-500 text-sm">*</span>
           </div>
           <Input
-            id="repeat_new_password"
+            id="confirm_password"
             type="password"
             placeholder="새 비밀번호를 다시 입력해주세요"
-            {...register('repeat_new_password', newPasswordRepeatRegister)}
+            {...register('confirm_password', newPasswordRepeatRegister)}
           />
-          {errors.repeat_new_password && (
+          {errors.confirm_password && (
             <p className="text-danger-500 pl-1 text-xs">
-              {errors.repeat_new_password.message}
+              {errors.confirm_password.message}
             </p>
           )}
         </label>
