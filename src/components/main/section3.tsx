@@ -20,7 +20,7 @@ function Section3() {
 
         <div className="flex w-full flex-col gap-6 sm:flex-row sm:gap-6 md:h-[388px] md:w-[389px]">
           {courses.map((course) => (
-            <CourseCard key={course.id} {...course} />
+            <CourseCard key={course.id} course={course} />
           ))}
         </div>
       </div>
