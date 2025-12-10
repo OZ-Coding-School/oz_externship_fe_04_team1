@@ -3,7 +3,7 @@ import Button from '@/components/common/Button'
 import Input from '@/components/common/Input'
 import { useForm } from 'react-hook-form'
 import type { EditPassword } from '@/types/editPassword'
-import { useEditPassword } from '@/hooks/quries/editPassword'
+import { useEditPassword } from '@/hooks/quries/useEditPassword'
 import { showToast } from '@/components/common/toast/Toast'
 interface EditPassWordModalProps {
   onClose: () => void
@@ -51,8 +51,10 @@ function EditPassWordModal({ onClose }: EditPassWordModalProps) {
         showToast.success('성공', '비밀번호가 변경되었습니다')
         onClose()
       },
-      onError: () => {
-        showToast.error('실패', '현재 비밀번호가 일치하지 않습니다')
+      onError: (error: any) => {
+        if (error.statusCode === 400) {
+          showToast.error('실패', '현재 비밀번호가 일치하지 않습니다')
+        }
         // 현재 새 비밀번호가 일치하지 않는것은 버튼 비활성화로 처리를 해둔 상황 -> 그렇다면 현재 비밀번호만 처리하면 되지 않을까 하는 생각
       },
     })
