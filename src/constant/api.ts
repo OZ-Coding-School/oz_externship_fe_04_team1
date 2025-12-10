@@ -4,13 +4,15 @@ export const API_PATHS = {
   USER: {
     // 유저 정보를 가져오는 api
     GET: '/api/v1/accounts/me',
+    // 비밀번호를 변경하는 api
+    PATCH_PASSWORD: '/api/v1/accounts/find-password',
   },
   COURSE: {
     // 강의 정보를 가져오는 api
     GET: '/api/v1/lectures/recommands',
   },
   BOOKMARK: {
-    // 북마크된 공고 조회 가져오는 apu
+    // 북마크된 공고 조회 가져오는 api
     ANNOUNCEMENT: {
       GET: '/api/v1/recruitment-bookmarks',
     },
