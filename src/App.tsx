@@ -8,7 +8,7 @@ function App() {
   const isSpecialPage = pathname.startsWith('/mypage')
   return (
     <>
-      <ToastContainer position={isSpecialPage ? 'top-left' : 'top-center'} />
+      <ToastContainer position={isSpecialPage ? 'top-right' : 'top-center'} />
       <MoveToTop />
       <AppRoutes />
     </>
