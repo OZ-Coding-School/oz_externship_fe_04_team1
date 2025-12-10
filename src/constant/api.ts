@@ -2,10 +2,11 @@ export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
 
 export const API_PATHS = {
   USER: {
-    // 유저 정보를 가져오는 api
+    // 유저 정보를 가져오는 api + 탈퇴 api
     GET: '/api/v1/accounts/me',
     // 비밀번호를 변경하는 api
     PATCH_PASSWORD: '/api/v1/accounts/find-password',
+    // 회원탈퇴 api
   },
   COURSE: {
     // 강의 정보를 가져오는 api

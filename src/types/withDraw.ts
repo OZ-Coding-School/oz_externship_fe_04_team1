@@ -9,6 +9,6 @@ export interface WithDraw {
     | 'TECHNICAL_ISSUES'
     | 'LACK_OF_CONTENT'
     | 'OTHER'
-  check: boolean
+  agree_check: boolean
   reason_detail: string
 }

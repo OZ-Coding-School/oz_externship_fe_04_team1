@@ -6,16 +6,24 @@ import { ToastAlert } from '@/components/common/toast/ToastAlert'
 import { useForm } from 'react-hook-form'
 import type { WithDraw } from '@/types/withDraw'
 import Input from '@/components/common/Input'
+import { useDeleteUser } from '@/hooks/quries/deleteUser'
+import { showToast } from '@/components/common/toast/Toast'
+import { useNavigate } from 'react-router'
+import LoginStateStore from '@/store/loginStateStore'
+import { ROUTE_PATHS } from '@/constant/route'
 interface WithDrawProps {
   onClose: () => void
 }
 function WithDrawModal({ onClose }: WithDrawProps) {
+  const navigate = useNavigate()
+  const setLoginState = LoginStateStore((set) => set.setLoginState)
   const {
     register,
     handleSubmit,
     setValue,
     formState: { errors, isValid },
   } = useForm<WithDraw>({ mode: 'onChange' })
+  const { mutate: deleteUser } = useDeleteUser()
   const options = [
     { label: '더 이상 필요하지 않음', value: 'NO_LONGER_NEEDED' },
     { label: '흥미/관심 부족', value: 'LACK_OF_INTEREST' },
@@ -28,7 +36,14 @@ function WithDrawModal({ onClose }: WithDrawProps) {
     { label: '기타', value: 'OTHER' },
   ]
   const onSubmit = (data: WithDraw) => {
-    console.log(data)
+    deleteUser(data, {
+      onSuccess: () => {
+        showToast.success('성공', '회원탈퇴가 정상적으로 처리되었습니다')
+        setLoginState('GUEST')
+        onClose()
+        navigate(ROUTE_PATHS.HOME)
+      },
+    })
   }
   const reasonRegister = {
     required: { value: true, message: '탈퇴 사유를 선택해주세요' },
@@ -121,7 +136,7 @@ function WithDrawModal({ onClose }: WithDrawProps) {
           <input
             id="check"
             type="checkbox"
-            {...register('check', checkRegister)}
+            {...register('agree_check', checkRegister)}
           />
           <div className="flex gap-1">
             <span className="text-sm text-gray-700">
@@ -130,9 +145,9 @@ function WithDrawModal({ onClose }: WithDrawProps) {
             <span className="text-danger-500 text-sm">*</span>
           </div>
         </label>
-        {errors.check && (
+        {errors.agree_check && (
           <p className="text-danger-500 absolute bottom-[20px] pl-1 text-xs">
-            {errors.check.message}
+            {errors.agree_check.message}
           </p>
         )}
       </div>

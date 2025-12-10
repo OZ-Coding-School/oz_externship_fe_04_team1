@@ -10,6 +10,7 @@ import { completeStudyHandler } from './handlers/completeStudy/index.ts'
 import { accountRecoveryHandler } from './handlers/accountRecovery/index.ts'
 import { loginHandlers } from './handlers/auth/loginHandler.ts'
 import { editPassWordHandler } from './handlers/user/editPassword.ts'
+import { deleteUserHandler } from './handlers/user/withDraw.ts'
 export const handlers = [
   ...userInformationHandler,
   ...courseInformationHandler,
@@ -23,4 +24,5 @@ export const handlers = [
   ...accountRecoveryHandler,
   ...loginHandlers,
   ...editPassWordHandler,
+  ...deleteUserHandler,
 ]
