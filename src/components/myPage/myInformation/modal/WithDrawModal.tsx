@@ -159,7 +159,6 @@ function WithDrawModal({ onClose }: WithDrawProps) {
         <Button variant="danger" type="submit" disabled={!isValid}>
           회원 탈퇴
         </Button>
-        {/* 버튼 눌렀을때 DELETE 로직 추가하기 + POST(사유 전달?) */}
       </div>
     </form>
   )
