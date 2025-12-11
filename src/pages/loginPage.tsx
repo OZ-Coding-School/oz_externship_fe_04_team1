@@ -32,16 +32,6 @@ function LoginPage() {
     })
   }
 
-  // 소셜 로그인
-  const handleLoginWithKakao = () => {
-    // 이동한 후 Msw작업은 어떻게??!?..
-    loginWithKakao()
-  }
-
-  const handleLoginWithNaver = () => {
-    loginWithNaver()
-  }
-
   return (
     <div className="mx-auto flex min-h-screen w-full flex-col items-center bg-gray-50">
       <div className="my-30 flex h-fit w-[348px] flex-col items-center">
@@ -60,10 +50,7 @@ function LoginPage() {
         </p>
         <div className="mt-4 flex w-full flex-col gap-10">
           {/* 소셜 로그인 */}
-          <SocialLogin
-            onLoginWithNaver={handleLoginWithNaver}
-            onLoginWithKakao={handleLoginWithKakao}
-          />
+          <SocialLogin />
           {/* 일반회원 로그인 및 아이디, 비밀번호 찾기 */}
           <LoginForm onSubmit={handleLogin} loggingIn={loggingIn} />
         </div>
