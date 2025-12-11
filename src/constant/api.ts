@@ -72,6 +72,11 @@ export const API_PATHS = {
     STUDY: {
       GET: '/api/v1/study-groups',
     },
+    REVIEW: {
+      POST: (group_id: number) => `/api/v1/study-groups/${group_id}/reviews`,
+      PATCH: (group_id: number, review_id: number) =>
+        `/api/v1/study-groups/${group_id}/reviews/${review_id}`,
+    },
   },
   // 계정 복구
   ACCOUNT_RECOVERY: {

@@ -4,7 +4,7 @@ import typeScriptCompleteImg from '@/assets/images/typeScriptCompleteStudyImg.pn
 export const completeStudy: CompleteStudy[] = [
   {
     id: 1,
-    name: 'Python 데이터 분석 스터디',
+    name: 'Python 데이터 분석 스터디1',
     is_leader: true,
     start_at: '2025-11-01T00:00:00.000Z',
     end_at: '2026-03-01T00:00:00.000Z',
@@ -17,7 +17,7 @@ export const completeStudy: CompleteStudy[] = [
   },
   {
     id: 2,
-    name: 'Python 데이터 분석 스터디',
+    name: 'Python 데이터 분석 스터디2',
     is_leader: false,
     start_at: '2025-05-01T00:00:00.000Z',
     end_at: '2025-11-01T00:00:00.000Z',
@@ -43,7 +43,7 @@ export const completeStudy: CompleteStudy[] = [
   },
   {
     id: 3,
-    name: 'TypeScript 심화 스터디',
+    name: 'TypeScript 심화 스터디3',
     is_leader: true,
     start_at: '2025-07-01T00:00:00.000Z',
     end_at: '2025-12-01T00:00:00.000Z',
@@ -76,7 +76,7 @@ export const completeStudy: CompleteStudy[] = [
   },
   {
     id: 4,
-    name: 'TypeScript 심화 스터디',
+    name: 'TypeScript 심화 스터디4',
     is_leader: true,
     start_at: '2025-07-01T00:00:00.000Z',
     end_at: '2025-12-01T00:00:00.000Z',

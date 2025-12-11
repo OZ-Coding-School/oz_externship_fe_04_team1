@@ -1,4 +1,5 @@
 export interface Review {
+  id: number
   name: string
   start_at: string
   end_at: string
@@ -11,3 +12,8 @@ interface Reviews {
   content: string
 }
 export type ReviewModalState = 'open' | 'close'
+
+export interface EditReview {
+  star_rating: number
+  content: string
+}

@@ -9,7 +9,11 @@ import {
   deleteApplyListHandler,
 } from './handlers/applyListDetail/index.ts'
 import { signupHandlers } from './handlers/auth/signupHandler.ts'
-import { completeStudyHandler } from './handlers/completeStudy/index.ts'
+import {
+  completeStudyHandler,
+  patchReviewHandler,
+  postReviewHandler,
+} from './handlers/completeStudy/index.ts'
 import { accountRecoveryHandler } from './handlers/accountRecovery/index.ts'
 import { loginHandlers } from './handlers/auth/loginHandler.ts'
 import { editPassWordHandler } from './handlers/user/editPassword.ts'
@@ -37,4 +41,6 @@ export const handlers = [
   ...deleteBookMarkAnnouncementHandler,
   ...deleteBookMarkStudytHandler,
   ...deleteApplyListHandler,
+  ...postReviewHandler,
+  ...patchReviewHandler,
 ]
