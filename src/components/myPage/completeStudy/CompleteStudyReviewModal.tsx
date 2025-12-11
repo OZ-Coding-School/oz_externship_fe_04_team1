@@ -134,8 +134,9 @@ function CompleteStudyReviewModal({
         <Button
           variant="primary"
           disabled={
-            (myReviewInformation?.content ?? '') === content &&
-            (myReviewInformation?.star_rating ?? 0) === rating
+            ((myReviewInformation?.content ?? '') === content &&
+              (myReviewInformation?.star_rating ?? 0) === rating) ||
+            content.length > 500
           }
           className="w-1/2"
           type="submit"
