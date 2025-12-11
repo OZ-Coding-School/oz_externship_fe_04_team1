@@ -98,14 +98,6 @@ export const API_PATHS = {
     NAVER: {
       GET: '/api/v1/accounts/social-login/naver',
     },
-    // 카카오 소셜 로그인 callback api
-    KAKAO_CALLBACK: {
-      GET: '/api/v1/accounts/social-login/kakao/callback',
-    },
-    // 네이버 소셜 로그인 callback api
-    NAVER_CALLBACK: {
-      GET: '/api/v1/accounts/social-login/naver/callback',
-    },
   },
 
   REFRESH_TOKEN: {
