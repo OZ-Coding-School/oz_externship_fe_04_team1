@@ -2,12 +2,13 @@ import closeIcon from '@/assets/icons/close.svg'
 import Button from '@/components/common/Button'
 import useApplyListDetail from '@/hooks/quries/useApplyListDetail'
 import { HAS_STUDY_CONFIG, STATUS_CONFIG } from '@/constant/badgeConstant'
+import { useDeleteApplyList } from '@/hooks/quries/useDeleteApplyList'
 interface ApplyListModalProps {
   applyListId: number | null
   onCloseModal: () => void
 }
 function ApplyListModal({ applyListId, onCloseModal }: ApplyListModalProps) {
-  // 모달 닫히는 핸들러
+  const { mutate: deleteApplyList } = useDeleteApplyList()
   const { data: applyListData, isLoading } = useApplyListDetail(applyListId)
   // applyListId 없으면 아무것도 렌더링 안 함
   if (!applyListId) return null
@@ -108,7 +109,14 @@ function ApplyListModal({ applyListId, onCloseModal }: ApplyListModalProps) {
         <Button variant="outline" onClick={onCloseModal}>
           닫기
         </Button>
-        <Button variant="danger" size="lg">
+        <Button
+          variant="danger"
+          size="lg"
+          onClick={() => {
+            deleteApplyList(applyListId)
+            onCloseModal()
+          }}
+        >
           지원 취소
         </Button>
         {/* 지원 취소하는 api 연동하기 */}

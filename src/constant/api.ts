@@ -37,7 +37,7 @@ export const API_PATHS = {
     },
     // 지원 내역 상세 가져오는 api
     DETAIL: {
-      GET: (id: number) => `/api/v1/applications/${id}`,
+      BASE: (id: number) => `/api/v1/applications/${id}`,
     },
   },
   SIGNUP: {
