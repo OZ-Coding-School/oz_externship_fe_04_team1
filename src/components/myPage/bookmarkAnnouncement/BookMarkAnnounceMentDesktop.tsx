@@ -1,9 +1,8 @@
-import { axiosInstance } from '@/api/axios'
 import StudyBookmark from '@/components/common/cards/StudyBookmark'
 import NoSearchReult from '@/components/common/notFound/noSearchResult'
 import Search from '@/components/common/search/Search'
-import { showToast } from '@/components/common/toast/Toast'
 import useBookmarkAnnouncement from '@/hooks/quries/useBookMarkAnnouncement'
+import { useDeleteBookmarkAnnouncement } from '@/hooks/quries/useDeleteBookmarkAnnouncement'
 import { useAnnouncementSearchFilter } from '@/hooks/useAnnouncementSearchFilter'
 import { useEffect } from 'react'
 import { useSearchParams } from 'react-router'
@@ -11,6 +10,7 @@ function BookMarkAnnouncementDesktop() {
   const { data: bookmarkAnnouncementdata } = useBookmarkAnnouncement()
   const [searchParams, setSearchParams] = useSearchParams()
   const filteredData = useAnnouncementSearchFilter(bookmarkAnnouncementdata)
+  const { mutate: deleteBookmarkAnnouncement } = useDeleteBookmarkAnnouncement()
   // 새로고침시 검색 기록 초기화
   useEffect(() => {
     setSearchParams({ search: '' })
@@ -43,17 +43,7 @@ function BookMarkAnnouncementDesktop() {
                 <StudyBookmark
                   key={value.id}
                   announcementBookmarkData={v}
-                  // 토글형식이라 tanstack-query사용하지 않음
-                  onBookmarkClick={async () => {
-                    try {
-                      await axiosInstance.delete(
-                        `/api/v1/recruitment-bookmarks/${v.uuid}`
-                      )
-                      showToast.success('성공', '북마크가 제거되었습니다.')
-                    } catch (err) {
-                      console.log(err)
-                    }
-                  }}
+                  onBookmarkClick={() => deleteBookmarkAnnouncement(v.uuid)}
                   onViewClick={() => console.log('view clicked')}
                 />
               ))
@@ -67,16 +57,7 @@ function BookMarkAnnouncementDesktop() {
               <StudyBookmark
                 key={value.id}
                 announcementBookmarkData={v}
-                onBookmarkClick={async () => {
-                  try {
-                    await axiosInstance.delete(
-                      `/api/v1/recruitment-bookmarks/${v.uuid}`
-                    )
-                    showToast.success('성공', '북마크가 제거되었습니다.')
-                  } catch (err) {
-                    console.log(err)
-                  }
-                }}
+                onBookmarkClick={() => deleteBookmarkAnnouncement(v.uuid)}
                 onViewClick={() => console.log('view clicked')}
               />
             ))

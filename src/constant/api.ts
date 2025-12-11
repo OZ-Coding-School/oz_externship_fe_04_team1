@@ -19,6 +19,8 @@ export const API_PATHS = {
     // 북마크된 공고 조회 가져오는 api
     ANNOUNCEMENT: {
       GET: '/api/v1/recruitment-bookmarks',
+      // 북마크 공고 삭제 api
+      DELETE: (uuid: string) => `/api/v1/recruitment-bookmarks/${uuid}`,
     },
     // 북마크된 강의 조회 가져오는 api
     STUDY: {

@@ -8,6 +8,7 @@ export const bookmarkAnnouncement: BookmarkAnnouncement[] = [
     recruitment: [
       {
         title: 'Vue.js 프론트엔드 개발팀 모집(초보)',
+        uuid: 'sdawdasdawdsdadawd',
         thumbnail_img_url: vueImg,
         expected_headcount: 5,
         close_at: '2024-04-15T00:00:05.875842+09:00',
@@ -47,6 +48,7 @@ export const bookmarkAnnouncement: BookmarkAnnouncement[] = [
     recruitment: [
       {
         title: '딥러닝 AI 프로젝트 스터디원 모집',
+        uuid: 'asdashjdiodefnidjasd',
         thumbnail_img_url: deepLearningImg,
         expected_headcount: 3,
         close_at: '2024-05-12T00:00:05.875842+09:00',
@@ -85,6 +87,7 @@ export const bookmarkAnnouncement: BookmarkAnnouncement[] = [
     id: 3,
     recruitment: [
       {
+        uuid: 'asdjiasfhasufaskdaskdas',
         title: 'Unity 게임 개발 프로젝트팀 멤버 모집',
         thumbnail_img_url: unityImg,
         expected_headcount: 5,
@@ -128,6 +131,7 @@ export const bookmarkAnnouncement: BookmarkAnnouncement[] = [
     id: 4,
     recruitment: [
       {
+        uuid: 'asdjasidhaisdjasdasd',
         title: 'Vue.js 프론트엔드 개발팀 모집',
         thumbnail_img_url: vueImg,
         expected_headcount: 5,
@@ -167,6 +171,7 @@ export const bookmarkAnnouncement: BookmarkAnnouncement[] = [
     id: 5,
     recruitment: [
       {
+        uuid: 'djaisdjaisdjksd',
         title: '딥러닝 AI 프로젝트 스터디원 모집',
         thumbnail_img_url: deepLearningImg,
         expected_headcount: 3,
@@ -206,6 +211,7 @@ export const bookmarkAnnouncement: BookmarkAnnouncement[] = [
     id: 6,
     recruitment: [
       {
+        uuid: 'aishfiuahsdasdasdmas',
         title: 'Unity 게임 개발 프로젝트팀 멤버 모집',
         thumbnail_img_url: unityImg,
         expected_headcount: 5,

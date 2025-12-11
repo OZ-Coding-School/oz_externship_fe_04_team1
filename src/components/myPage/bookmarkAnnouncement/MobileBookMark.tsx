@@ -11,10 +11,12 @@ import DeleteReasonModal from '@/components/common/DeleteReasonModal'
 import { useState } from 'react'
 import { showToast } from '@/components/common/toast/Toast'
 import { axiosInstance } from '@/api/axios'
+import { useDeleteBookmarkAnnouncement } from '@/hooks/quries/useDeleteBookmarkAnnouncement'
 function MobileBookMark() {
   const { data: bookmarkAnnouncementdata } = useBookmarkAnnouncement()
   const { data: studyData } = useBookmarkStudy()
   const [searchParams] = useSearchParams()
+  const { mutate: deleteBookMarkAnnouncement } = useDeleteBookmarkAnnouncement()
   const announcementFilteredData = useAnnouncementSearchFilter(
     bookmarkAnnouncementdata
   )
@@ -64,16 +66,7 @@ function MobileBookMark() {
                   <StudyBookmark
                     key={value.id}
                     announcementBookmarkData={v}
-                    onBookmarkClick={async () => {
-                      try {
-                        await axiosInstance.delete(
-                          `/api/v1/recruitment-bookmarks/${v.uuid}`
-                        )
-                        showToast.success('성공', '북마크가 제거되었습니다.')
-                      } catch (err) {
-                        console.log(err)
-                      }
-                    }}
+                    onBookmarkClick={() => deleteBookMarkAnnouncement(v.uuid)}
                     onViewClick={() => console.log('view clicked')}
                     className={
                       optionIsSelected === 'ALL' ||
@@ -117,16 +110,7 @@ function MobileBookMark() {
                 <StudyBookmark
                   key={value.id}
                   announcementBookmarkData={v}
-                  onBookmarkClick={async () => {
-                    try {
-                      await axiosInstance.delete(
-                        `/api/v1/recruitment-bookmarks/${v.uuid}`
-                      )
-                      showToast.success('성공', '북마크가 제거되었습니다.')
-                    } catch (err) {
-                      console.log(err)
-                    }
-                  }}
+                  onBookmarkClick={() => deleteBookMarkAnnouncement(v.uuid)}
                   onViewClick={() => console.log('view clicked')}
                   className={
                     optionIsSelected === 'ALL' ||
