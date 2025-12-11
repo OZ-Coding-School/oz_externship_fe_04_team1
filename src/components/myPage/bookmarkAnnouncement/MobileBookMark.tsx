@@ -9,14 +9,14 @@ import { useStudySearchFilter } from '@/hooks/useStudySearchFilter'
 import NoSearchReult from '@/components/common/notFound/noSearchResult'
 import DeleteReasonModal from '@/components/common/DeleteReasonModal'
 import { useState } from 'react'
-import { showToast } from '@/components/common/toast/Toast'
-import { axiosInstance } from '@/api/axios'
 import { useDeleteBookmarkAnnouncement } from '@/hooks/quries/useDeleteBookmarkAnnouncement'
+import { useDeleteBookmarkStudy } from '@/hooks/quries/useDeleteBookmarkStudy'
 function MobileBookMark() {
   const { data: bookmarkAnnouncementdata } = useBookmarkAnnouncement()
   const { data: studyData } = useBookmarkStudy()
   const [searchParams] = useSearchParams()
   const { mutate: deleteBookMarkAnnouncement } = useDeleteBookmarkAnnouncement()
+  const { mutate: deleteBookmarkStudy } = useDeleteBookmarkStudy()
   const announcementFilteredData = useAnnouncementSearchFilter(
     bookmarkAnnouncementdata
   )
@@ -81,16 +81,7 @@ function MobileBookMark() {
                 <CourseBookmark
                   key={value.id}
                   studyBookMarkData={value}
-                  onBookmarkClick={async () => {
-                    try {
-                      await axiosInstance.delete(
-                        `/api/v1/lecture-bookmarks/${value.id}`
-                      )
-                      showToast.success('성공', '북마크가 제거되었습니다.')
-                    } catch (err) {
-                      console.log(err)
-                    }
-                  }}
+                  onBookmarkClick={() => deleteBookmarkStudy(value.id)}
                   onViewClick={() => console.log('view clicked')}
                   className={
                     optionIsSelected === 'ALL' || optionIsSelected === 'STUDY'
@@ -125,16 +116,7 @@ function MobileBookMark() {
               <CourseBookmark
                 key={value.id}
                 studyBookMarkData={value}
-                onBookmarkClick={async () => {
-                  try {
-                    await axiosInstance.delete(
-                      `/api/v1/lecture-bookmarks/${value.id}`
-                    )
-                    showToast.success('성공', '북마크가 제거되었습니다.')
-                  } catch (err) {
-                    console.log(err)
-                  }
-                }}
+                onBookmarkClick={() => deleteBookmarkStudy(value.id)}
                 onViewClick={() => console.log('view clicked')}
                 className={
                   optionIsSelected === 'ALL' || optionIsSelected === 'STUDY'

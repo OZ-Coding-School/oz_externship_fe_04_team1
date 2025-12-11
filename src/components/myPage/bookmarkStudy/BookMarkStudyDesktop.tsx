@@ -1,14 +1,14 @@
-import { axiosInstance } from '@/api/axios'
 import CourseBookmark from '@/components/common/cards/CourseBookmark'
 import NoSearchReult from '@/components/common/notFound/noSearchResult'
 import Search from '@/components/common/search/Search'
-import { showToast } from '@/components/common/toast/Toast'
 import useBookmarkStudy from '@/hooks/quries/useBookMarkStudy'
+import { useDeleteBookmarkStudy } from '@/hooks/quries/useDeleteBookmarkStudy'
 import { useStudySearchFilter } from '@/hooks/useStudySearchFilter'
 import { useEffect } from 'react'
 import { useSearchParams } from 'react-router'
 function BookMarkStudyDesktop() {
   const { data: bookmarkStudyData } = useBookmarkStudy()
+  const { mutate: deleteBookmarkStudy } = useDeleteBookmarkStudy()
   const [searchParams, setSearchParams] = useSearchParams()
   const filteredData = useStudySearchFilter(bookmarkStudyData)
   // 새로고침시 검색 기록 초기화
@@ -39,16 +39,7 @@ function BookMarkStudyDesktop() {
               <CourseBookmark
                 key={value.id}
                 studyBookMarkData={value}
-                onBookmarkClick={async () => {
-                  try {
-                    await axiosInstance.delete(
-                      `/api/v1/lecture-bookmarks/${value.id}`
-                    )
-                    showToast.success('성공', '북마크가 제거되었습니다.')
-                  } catch (err) {
-                    console.log(err)
-                  }
-                }}
+                onBookmarkClick={() => deleteBookmarkStudy(value.id)}
                 onViewClick={() => console.log('view clicked')}
               />
             ))
@@ -60,16 +51,7 @@ function BookMarkStudyDesktop() {
             <CourseBookmark
               key={value.id}
               studyBookMarkData={value}
-              onBookmarkClick={async () => {
-                try {
-                  await axiosInstance.delete(
-                    `/api/v1/lecture-bookmarks/${value.id}`
-                  )
-                  showToast.success('성공', '북마크가 제거되었습니다.')
-                } catch (err) {
-                  console.log(err)
-                }
-              }}
+              onBookmarkClick={() => deleteBookmarkStudy(value.id)}
               onViewClick={() => console.log('view clicked')}
             />
           ))

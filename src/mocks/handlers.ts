@@ -14,6 +14,7 @@ import { deleteUserHandler } from './handlers/user/withDraw.ts'
 import { sendCodeHandler } from './handlers/certifyPhoneNumber/sendCodeHandler.ts'
 import { certifyPhoneNumber } from './handlers/certifyPhoneNumber/index.ts'
 import { deleteBookMarkAnnouncementHandler } from './handlers/bookmarkAnnouncement/deleteBookMarkAnnouncement.ts'
+import { deleteBookMarkStudytHandler } from './handlers/bookmarkStudy/deleteBookMarkStudy.ts'
 export const handlers = [
   ...userInformationHandler,
   ...courseInformationHandler,
@@ -31,4 +32,5 @@ export const handlers = [
   ...sendCodeHandler,
   ...certifyPhoneNumber,
   ...deleteBookMarkAnnouncementHandler,
+  ...deleteBookMarkStudytHandler,
 ]

@@ -25,6 +25,8 @@ export const API_PATHS = {
     // 북마크된 강의 조회 가져오는 api
     STUDY: {
       GET: '/api/v1/lecture-bookmarks',
+      // 북마크 강의 삭제 api
+      DELETE: (id: number) => `/api/v1/lecture-bookmarks/${id}`,
     },
   },
 
