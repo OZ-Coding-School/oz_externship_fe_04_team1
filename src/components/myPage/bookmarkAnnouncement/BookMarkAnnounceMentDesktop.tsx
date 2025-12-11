@@ -2,6 +2,7 @@ import StudyBookmark from '@/components/common/cards/StudyBookmark'
 import NoSearchReult from '@/components/common/notFound/noSearchResult'
 import Search from '@/components/common/search/Search'
 import useBookmarkAnnouncement from '@/hooks/quries/useBookMarkAnnouncement'
+import { useDeleteBookmarkAnnouncement } from '@/hooks/quries/useDeleteBookmarkAnnouncement'
 import { useAnnouncementSearchFilter } from '@/hooks/useAnnouncementSearchFilter'
 import { useEffect } from 'react'
 import { useSearchParams } from 'react-router'
@@ -9,6 +10,7 @@ function BookMarkAnnouncementDesktop() {
   const { data: bookmarkAnnouncementdata } = useBookmarkAnnouncement()
   const [searchParams, setSearchParams] = useSearchParams()
   const filteredData = useAnnouncementSearchFilter(bookmarkAnnouncementdata)
+  const { mutate: deleteBookmarkAnnouncement } = useDeleteBookmarkAnnouncement()
   // 새로고침시 검색 기록 초기화
   useEffect(() => {
     setSearchParams({ search: '' })
@@ -41,7 +43,7 @@ function BookMarkAnnouncementDesktop() {
                 <StudyBookmark
                   key={value.id}
                   announcementBookmarkData={v}
-                  onBookmarkClick={() => console.log('bookmark clicked')}
+                  onBookmarkClick={() => deleteBookmarkAnnouncement(v.uuid)}
                   onViewClick={() => console.log('view clicked')}
                 />
               ))
@@ -55,7 +57,7 @@ function BookMarkAnnouncementDesktop() {
               <StudyBookmark
                 key={value.id}
                 announcementBookmarkData={v}
-                onBookmarkClick={() => console.log('bookmark clicked')}
+                onBookmarkClick={() => deleteBookmarkAnnouncement(v.uuid)}
                 onViewClick={() => console.log('view clicked')}
               />
             ))

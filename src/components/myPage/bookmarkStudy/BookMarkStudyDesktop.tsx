@@ -2,11 +2,13 @@ import CourseBookmark from '@/components/common/cards/CourseBookmark'
 import NoSearchReult from '@/components/common/notFound/noSearchResult'
 import Search from '@/components/common/search/Search'
 import useBookmarkStudy from '@/hooks/quries/useBookMarkStudy'
+import { useDeleteBookmarkStudy } from '@/hooks/quries/useDeleteBookmarkStudy'
 import { useStudySearchFilter } from '@/hooks/useStudySearchFilter'
 import { useEffect } from 'react'
 import { useSearchParams } from 'react-router'
 function BookMarkStudyDesktop() {
   const { data: bookmarkStudyData } = useBookmarkStudy()
+  const { mutate: deleteBookmarkStudy } = useDeleteBookmarkStudy()
   const [searchParams, setSearchParams] = useSearchParams()
   const filteredData = useStudySearchFilter(bookmarkStudyData)
   // 새로고침시 검색 기록 초기화
@@ -37,7 +39,7 @@ function BookMarkStudyDesktop() {
               <CourseBookmark
                 key={value.id}
                 studyBookMarkData={value}
-                onBookmarkClick={() => console.log('bookmark clicked')}
+                onBookmarkClick={() => deleteBookmarkStudy(value.id)}
                 onViewClick={() => console.log('view clicked')}
               />
             ))
@@ -49,7 +51,7 @@ function BookMarkStudyDesktop() {
             <CourseBookmark
               key={value.id}
               studyBookMarkData={value}
-              onBookmarkClick={() => console.log('bookmark clicked')}
+              onBookmarkClick={() => deleteBookmarkStudy(value.id)}
               onViewClick={() => console.log('view clicked')}
             />
           ))

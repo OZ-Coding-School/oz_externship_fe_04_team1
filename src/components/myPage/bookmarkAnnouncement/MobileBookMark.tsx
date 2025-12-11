@@ -9,10 +9,14 @@ import { useStudySearchFilter } from '@/hooks/useStudySearchFilter'
 import NoSearchReult from '@/components/common/notFound/noSearchResult'
 import DeleteReasonModal from '@/components/common/DeleteReasonModal'
 import { useState } from 'react'
+import { useDeleteBookmarkAnnouncement } from '@/hooks/quries/useDeleteBookmarkAnnouncement'
+import { useDeleteBookmarkStudy } from '@/hooks/quries/useDeleteBookmarkStudy'
 function MobileBookMark() {
   const { data: bookmarkAnnouncementdata } = useBookmarkAnnouncement()
   const { data: studyData } = useBookmarkStudy()
   const [searchParams] = useSearchParams()
+  const { mutate: deleteBookMarkAnnouncement } = useDeleteBookmarkAnnouncement()
+  const { mutate: deleteBookmarkStudy } = useDeleteBookmarkStudy()
   const announcementFilteredData = useAnnouncementSearchFilter(
     bookmarkAnnouncementdata
   )
@@ -62,7 +66,7 @@ function MobileBookMark() {
                   <StudyBookmark
                     key={value.id}
                     announcementBookmarkData={v}
-                    onBookmarkClick={() => console.log('bookmark clicked')}
+                    onBookmarkClick={() => deleteBookMarkAnnouncement(v.uuid)}
                     onViewClick={() => console.log('view clicked')}
                     className={
                       optionIsSelected === 'ALL' ||
@@ -77,7 +81,7 @@ function MobileBookMark() {
                 <CourseBookmark
                   key={value.id}
                   studyBookMarkData={value}
-                  onBookmarkClick={() => console.log('bookmark clicked')}
+                  onBookmarkClick={() => deleteBookmarkStudy(value.id)}
                   onViewClick={() => console.log('view clicked')}
                   className={
                     optionIsSelected === 'ALL' || optionIsSelected === 'STUDY'
@@ -97,7 +101,7 @@ function MobileBookMark() {
                 <StudyBookmark
                   key={value.id}
                   announcementBookmarkData={v}
-                  onBookmarkClick={() => console.log('bookmark clicked')}
+                  onBookmarkClick={() => deleteBookMarkAnnouncement(v.uuid)}
                   onViewClick={() => console.log('view clicked')}
                   className={
                     optionIsSelected === 'ALL' ||
@@ -112,7 +116,7 @@ function MobileBookMark() {
               <CourseBookmark
                 key={value.id}
                 studyBookMarkData={value}
-                onBookmarkClick={() => console.log('bookmark clicked')}
+                onBookmarkClick={() => deleteBookmarkStudy(value.id)}
                 onViewClick={() => console.log('view clicked')}
                 className={
                   optionIsSelected === 'ALL' || optionIsSelected === 'STUDY'

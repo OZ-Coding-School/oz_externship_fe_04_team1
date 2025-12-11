@@ -8,3 +8,11 @@ export const applyListDetailHandler = [
     return HttpResponse.json(data)
   }),
 ]
+
+export const deleteApplyListHandler = [
+  http.delete('/api/v1/applications/:id', ({ params }) => {
+    const { id } = params
+    const data = applyListDetail.find((item) => item.id === Number(id))
+    return HttpResponse.json(data)
+  }),
+]

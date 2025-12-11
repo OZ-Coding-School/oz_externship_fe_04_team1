@@ -3,7 +3,7 @@ export interface BookmarkAnnouncement {
   recruitment: Recruitment[]
 }
 interface Recruitment {
-  uuid?: string
+  uuid: string
   title: string
   thumbnail_img_url: string
   expected_headcount: number
