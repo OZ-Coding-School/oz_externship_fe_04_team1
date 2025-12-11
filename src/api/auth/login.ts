@@ -22,3 +22,11 @@ export const refreshAccessToken = async () => {
     { withCredentials: true }
   )
 }
+
+export const loginWithKakao = () => {
+  window.location.href = `${API_BASE_URL}${API_PATHS.LOGIN.KAKAO.GET}`
+}
+
+export const loginWithNaver = () => {
+  window.location.href = `${API_BASE_URL}${API_PATHS.LOGIN.NAVER.GET}`
+}

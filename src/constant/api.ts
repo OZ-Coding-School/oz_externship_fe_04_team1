@@ -90,6 +90,14 @@ export const API_PATHS = {
     EMAIL: {
       POST: '/api/v1/accounts/login',
     },
+    // 카카오 로그인 get api
+    KAKAO: {
+      GET: '/api/v1/accounts/social-login/kakao',
+    },
+    // 네이버 로그인 get api
+    NAVER: {
+      GET: '/api/v1/accounts/social-login/naver',
+    },
   },
 
   REFRESH_TOKEN: {
