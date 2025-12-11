@@ -1,4 +1,3 @@
-import { loginWithKakao, loginWithNaver } from '@/api/auth/login'
 import logoImg from '@/assets/images/logo.svg'
 import { showToast } from '@/components/common/toast/Toast'
 import LoginForm from '@/components/login/LoginForm'
