@@ -24,9 +24,9 @@ export const refreshAccessToken = async () => {
 }
 
 export const loginWithKakao = () => {
-  return axiosInstance.get(API_PATHS.LOGIN.KAKAO.GET)
+  window.location.href = `${API_BASE_URL}${API_PATHS.LOGIN.KAKAO.GET}`
 }
 
 export const loginWithNaver = () => {
-  return axiosInstance.get(API_PATHS.LOGIN.NAVER.GET)
+  window.location.href = `${API_BASE_URL}${API_PATHS.LOGIN.NAVER.GET}`
 }

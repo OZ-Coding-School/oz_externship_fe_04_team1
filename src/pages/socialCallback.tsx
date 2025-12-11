@@ -37,6 +37,7 @@ function SocialCallback() {
           '소셜 로그인 실패',
           error instanceof Error ? error.message : '알 수 없는 오류'
         )
+        navigate(ROUTE_PATHS.LOGIN)
       }
     }
     handleAccessToken()
