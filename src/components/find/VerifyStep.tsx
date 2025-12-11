@@ -1,0 +1,79 @@
+import { useState, type Dispatch, type SetStateAction } from 'react'
+import { FINDTYPE, StepIndicatorType } from '@/types/findAccount'
+import StepProgress from './StepProgress'
+import { Phone, MailCheck } from 'lucide-react'
+import useFindAccountStore from '@/store/findAccountStore'
+import Button from '../common/Button'
+import Input from '../common/Input'
+
+type VerifyStepProps = {
+  type: FINDTYPE
+  currentStep: StepIndicatorType
+  setStep: Dispatch<SetStateAction<StepIndicatorType>>
+}
+
+function VerifyStep({ type, currentStep, setStep }: VerifyStepProps) {
+  const { phoneNumber, email } = useFindAccountStore()
+  const [code, setCode] = useState('')
+  const VERIFY_CONTENT = {
+    [FINDTYPE.FIND_EMAIL]: {
+      icon: Phone,
+      title: '휴대폰 인증',
+      description: `${phoneNumber}로 인증코드를 발송했습니다.`,
+    },
+    [FINDTYPE.FIND_PASSWORD]: {
+      icon: MailCheck,
+      title: '이메일 인증',
+      description: `${email}로 인증코드를 발송했습니다.`,
+    },
+  }
+
+  const { icon: Icon, title, description } = VERIFY_CONTENT[type]
+
+  const handleNext = () => {
+    setStep(StepIndicatorType.COMPLETE)
+  }
+
+  const handlePrev = () => {
+    setStep(StepIndicatorType.AUTH)
+  }
+
+  return (
+    <div className="flex flex-col">
+      <StepProgress type={type} currentStep={currentStep} />
+      <div className="mt-4 flex flex-col items-center justify-center">
+        <Icon className="bg-primary-100 text-primary-600 mb-4 size-16 rounded-full p-5.5" />
+        <h3 className="mb-2 text-lg font-semibold">{title}</h3>
+        <p className="pb-6 text-sm text-gray-600">{description}</p>
+      </div>
+      <div className="flex flex-col">
+        <label htmlFor="code" className="pb-1 text-gray-700">
+          인증코드
+        </label>
+        <div className="mb-5 flex gap-2">
+          <Input
+            id="code"
+            className="w-full"
+            placeholder={
+              type === FINDTYPE.FIND_EMAIL
+                ? '4자리 인증코드 입력'
+                : '6자리 인증코드 입력'
+            }
+            value={code}
+            onChange={(e) => setCode(e.target.value)}
+          />
+          <Button className="verify-color">재전송</Button>
+        </div>
+      </div>
+
+      <Button onClick={handleNext} className="h-12 cursor-pointer">
+        인증완료
+      </Button>
+      <Button onClick={handlePrev} className="mt-6" variant="outline">
+        이전 단계
+      </Button>
+    </div>
+  )
+}
+
+export default VerifyStep
