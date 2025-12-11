@@ -1,4 +1,3 @@
-import { getUserInformationApi } from '@/api/userInformation'
 import { showToast } from '@/components/common/toast/Toast'
 import { ROUTE_PATHS } from '@/constant/route'
 import AuthStateStore from '@/store/authStateStore'
@@ -21,15 +20,13 @@ function SocialCallback() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    const handleAccessToken = async () => {
+    const handleAccessToken = () => {
       try {
         // 엑세스 토큰 가지고 오기 -> 전역으로 관리
         const accessToken = getCookie('access_token')
         if (!accessToken) throw new Error('access token을 가져올 수 없음')
         AuthStateStore.getState().setAccessToken(accessToken)
 
-        // 사용자 정보 불러오기
-        await getUserInformationApi()
         LoginStateStore.getState().setLoginState('USER')
 
         deleteCookie('access_token')
