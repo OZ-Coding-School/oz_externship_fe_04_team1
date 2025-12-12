@@ -7,17 +7,21 @@ import { useForm } from 'react-hook-form'
 import type { EditUserInformation } from '@/types/editUserInformation'
 import useS3PresignedUrl from '@/hooks/quries/useS3PresignedUrl'
 import type { S3PresignedUrl } from '@/types/s3PresignedUrl'
+import { usePatchUserInformation } from '@/hooks/usePatchUserData'
+import { showToast } from '@/components/common/toast/Toast'
 interface EditModalProps {
   onClose: () => void
 }
 function EditModal({ onClose }: EditModalProps) {
   const [imgFile, setImgFile] = useState<File | null>(null)
   const { data: userData } = useUserData()
+  const { mutate: editUserInformation } = usePatchUserInformation()
   // 추후 useEffect 이용해서 폼에 초기값 가져오는것 구현하기
   const {
     register,
     handleSubmit,
     setValue,
+    watch,
     getValues,
     formState: { errors },
   } = useForm<EditUserInformation>({
@@ -30,14 +34,32 @@ function EditModal({ onClose }: EditModalProps) {
     },
     mode: 'onBlur',
   })
-  const onSubmit = //(data: EditUserInformation) => {
-    () => {
-      if (imgFile) {
-        setValue('profile_img_url', s3UrlImgData.file_url)
-      }
-      console.log(getValues())
-      // 추후에 api 연동시켜야함
+  const onSubmit = () => {
+    if (imgFile) {
+      setValue('profile_img_url', s3UrlImgData.file_url)
     }
+    const noHipenBirthDay = watch('birthday')
+    const parts = [
+      noHipenBirthDay.slice(0, 4),
+      noHipenBirthDay.slice(4, 6),
+      noHipenBirthDay.slice(6),
+    ]
+    const hipenBirthDay = parts.join('-')
+    setValue('birthday', hipenBirthDay)
+    const finalData = getValues()
+    editUserInformation(finalData, {
+      onSuccess: () => {
+        showToast.success('성공', '개인정보가 변경되었습니다')
+        onClose()
+        console.log(finalData)
+      },
+      onError: (error: any) => {
+        if (error.statusCode === 409) {
+          showToast.error('실패', '중복된 닉네임이 존재합니다')
+        }
+      },
+    })
+  }
   const params = imgFile
     ? {
         type: 'USER_PROFILE_IMAGE',
@@ -152,8 +174,6 @@ function EditModal({ onClose }: EditModalProps) {
                 {errors.birthday.message}
               </p>
             )}
-            {/*api 명세서 상 생년월일이 2000-05-05 이런식으로 내려와서 피그마에서 요구한대로 구현*/}
-            {/* 추후 변경하기 버튼 누를시 2000-05-05 형태로 변환 시키기 */}
           </label>
           {/*성별 부분*/}
           <div className="flex flex-col gap-2">
@@ -195,7 +215,6 @@ function EditModal({ onClose }: EditModalProps) {
           <button className="bg-primary-500 text-basic-white text-bas cursor-pointer rounded-lg px-7 py-2">
             변경하기
           </button>
-          {/* 변경하기 누르면 patch 로직 구현  + 토스트 ui*/}
         </div>
       </form>
     </div>

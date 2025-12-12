@@ -1,6 +1,7 @@
 import type { UserInformation } from '@/types/userInformation'
 import defaultImg from '@/assets/images/defaultProfileImg.svg'
 import type { EditPassword } from '@/types/editPassword'
+import type { EditUserInformation } from '@/types/editUserInformation'
 export const userInformation: UserInformation[] = [
   {
     id: 1,
@@ -18,4 +19,11 @@ export const editPassword: EditPassword = {
   current_password: 'Ozcoding1!',
   new_password: 'Ozcoding@',
   confirm_password: 'Ozcoding@',
+}
+export const editUserInformation: EditUserInformation = {
+  nickname: '엄준식',
+  name: '엄준식',
+  profile_img_url: 'https://pbs.twimg.com/media/GPju6_VbcAEoF56.jpg',
+  birthday: '2000-01-01',
+  gender: 'M',
 }

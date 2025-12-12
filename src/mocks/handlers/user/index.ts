@@ -1,7 +1,8 @@
 import { API_PATHS } from '@/constant/api'
 import { http, HttpResponse } from 'msw'
 import { userInformation } from './mockData'
-
+import { editUserInformation } from './mockData'
+import type { EditUserInformation } from '@/types/editUserInformation'
 export const userInformationHandler = [
   http.get(API_PATHS.USER.GET, ({ request }) => {
     const authToken = request.headers.get('Authorization')
@@ -21,5 +22,22 @@ export const userInformationHandler = [
 
     // 토큰이 없으면 401
     return HttpResponse.json({ error_detail: 'unauthorized' }, { status: 401 })
+  }),
+]
+
+export const patchUserInformationHandler = [
+  http.patch(API_PATHS.USER.GET, async ({ request }) => {
+    const { nickname } = (await request.json()) as EditUserInformation
+    if (nickname === editUserInformation.nickname) {
+      return HttpResponse.json(
+        {
+          error_detail: {
+            nickname: ['중복된 닉네임이 존재합니다'],
+          },
+        },
+        { status: 409 }
+      )
+    }
+    return HttpResponse.json({}, { status: 200 })
   }),
 ]
