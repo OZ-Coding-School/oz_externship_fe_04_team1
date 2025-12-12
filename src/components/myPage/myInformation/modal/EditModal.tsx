@@ -56,6 +56,9 @@ function EditModal({ onClose }: EditModalProps) {
       onError: (error: any) => {
         if (error.statusCode === 409) {
           showToast.error('실패', '중복된 닉네임이 존재합니다')
+          const errorBirthDay = watch('birthday')
+          const errorNoHipenBirthDay = errorBirthDay.split('-').join('')
+          setValue('birthday', errorNoHipenBirthDay)
         }
       },
     })
