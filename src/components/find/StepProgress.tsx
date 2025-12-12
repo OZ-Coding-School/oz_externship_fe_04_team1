@@ -14,7 +14,7 @@ function StepProgress({ type, currentStep }: StepProgressProps) {
   return (
     <div className="mx-auto flex">
       {STEP_TEXTS[type].map((text, index) => (
-        <>
+        <div key={index} className="flex items-center">
           <div
             key={index}
             className="flex w-[80px] flex-col items-center justify-center"
@@ -34,7 +34,7 @@ function StepProgress({ type, currentStep }: StepProgressProps) {
           </div>
           {index < 2 && (
             <div
-              className={`mt-5 h-1 w-[75px] rounded-full ${
+              className={`mb-2 h-1 w-[75px] rounded-full ${
                 currentStep === 3
                   ? 'bg-success-500'
                   : index + 1 < currentStep
@@ -43,7 +43,7 @@ function StepProgress({ type, currentStep }: StepProgressProps) {
               }`}
             />
           )}
-        </>
+        </div>
       ))}
     </div>
   )
