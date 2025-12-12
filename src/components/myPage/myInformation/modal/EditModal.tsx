@@ -18,6 +18,7 @@ function EditModal({ onClose }: EditModalProps) {
     register,
     handleSubmit,
     setValue,
+    getValues,
     formState: { errors },
   } = useForm<EditUserInformation>({
     defaultValues: {
@@ -30,10 +31,10 @@ function EditModal({ onClose }: EditModalProps) {
     mode: 'onBlur',
   })
   const onSubmit = (data: EditUserInformation) => {
-    if (!imgFile) console.log(data)
-    // 추후에 api 연동시켜야함
-    setValue('profile_img_url', s3UrlImgData?.file_url)
-    console.log(data)
+    if (imgFile) {
+      setValue('profile_img_url', s3UrlImgData.file_url)
+    }
+    console.log(getValues())
     // 추후에 api 연동시켜야함
   }
   const params = imgFile
