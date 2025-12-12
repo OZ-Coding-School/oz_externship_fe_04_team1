@@ -30,13 +30,14 @@ function EditModal({ onClose }: EditModalProps) {
     },
     mode: 'onBlur',
   })
-  const onSubmit = (data: EditUserInformation) => {
-    if (imgFile) {
-      setValue('profile_img_url', s3UrlImgData.file_url)
+  const onSubmit = //(data: EditUserInformation) => {
+    () => {
+      if (imgFile) {
+        setValue('profile_img_url', s3UrlImgData.file_url)
+      }
+      console.log(getValues())
+      // 추후에 api 연동시켜야함
     }
-    console.log(getValues())
-    // 추후에 api 연동시켜야함
-  }
   const params = imgFile
     ? {
         type: 'USER_PROFILE_IMAGE',
