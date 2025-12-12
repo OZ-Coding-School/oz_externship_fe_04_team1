@@ -47,8 +47,8 @@ function AuthStep({ type, currentStep, setStep }: AuthStepProps) {
   const phoneRegister = register('phoneNumber', {
     required: true,
     pattern: {
-      value: /^[0-9]{10,11}$/,
-      message: '휴대폰 번호를 10~11자리 숫자로 입력해주세요.',
+      value: /^[0-9]{11}$/,
+      message: '휴대폰 번호를 11자리 숫자로 입력해주세요.',
     },
   })
 
