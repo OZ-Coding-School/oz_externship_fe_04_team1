@@ -4,7 +4,7 @@ export const ROUTE_PATHS = {
 
   SIGNUP: '/signup',
   LOGIN: '/login',
-  FIND_ID: '/find-id',
+  FIND_EMAIL: '/find-email',
   FIND_PASSWORD: '/find-password',
   SOCIAL_CALLBACK: '/social-callback',
 }

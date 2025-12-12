@@ -38,8 +38,8 @@ function SmsVerificationSection({
   const phoneRegister = register('phone_number', {
     required: '휴대폰 인증을 해주세요.',
     pattern: {
-      value: /^[0-9]{10,11}$/,
-      message: '휴대폰 번호를 10~11자리 숫자로 입력해주세요.',
+      value: /^[0-9]{11}$/,
+      message: '휴대폰 번호를 11자리 숫자로 입력해주세요.',
     },
     onChange: () => {
       onSmsChange()

@@ -8,6 +8,8 @@ import SignupPage from '@/pages/signupPage'
 import { Route, Routes } from 'react-router'
 import LoginPage from '@/pages/loginPage'
 import SocialCallback from '@/pages/socialCallback'
+import FindEmailPage from '@/pages/findEmailPage'
+import FindPasswordPage from '@/pages/findPasswordPage'
 function AppRoutes() {
   return (
     <Routes>
@@ -27,6 +29,11 @@ function AppRoutes() {
         <Route
           path={ROUTE_PATHS.SOCIAL_CALLBACK}
           element={<SocialCallback />}
+        />
+        <Route path={ROUTE_PATHS.FIND_EMAIL} element={<FindEmailPage />} />
+        <Route
+          path={ROUTE_PATHS.FIND_PASSWORD}
+          element={<FindPasswordPage />}
         />
       </Route>
     </Routes>

@@ -66,7 +66,7 @@ function LoginForm({ onSubmit, loggingIn }: LoginFormProps) {
         </div>
       </div>
       <div className="text-primary-600 mt-1 flex items-center gap-2 text-sm font-normal">
-        <Link to={ROUTE_PATHS.FIND_ID}>아이디 찾기</Link>
+        <Link to={ROUTE_PATHS.FIND_EMAIL}>아이디 찾기</Link>
         <span className="text-xl">|</span>
         <Link to={ROUTE_PATHS.FIND_PASSWORD}>비밀번호 찾기</Link>
       </div>

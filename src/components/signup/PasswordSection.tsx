@@ -10,7 +10,7 @@ function PasswordSection() {
   } = useFormContext<SignupFormValues>()
   const password = useWatch({ name: 'password' })
 
-  const passwrodRegister = register('password', {
+  const passwordRegister = register('password', {
     required: '비밀번호를 입력해주세요.',
     pattern: {
       value:
@@ -34,7 +34,7 @@ function PasswordSection() {
         errorMsg={errors.password?.message}
       >
         <Input
-          {...passwrodRegister}
+          {...passwordRegister}
           id="password"
           type="password"
           autoComplete="new-password"
