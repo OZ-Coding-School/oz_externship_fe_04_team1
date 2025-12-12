@@ -2,9 +2,9 @@ import { useState, type Dispatch, type SetStateAction } from 'react'
 import { FINDTYPE, StepIndicatorType } from '@/types/findAccount'
 import StepProgress from './StepProgress'
 import { Phone, MailCheck } from 'lucide-react'
-import useFindAccountStore from '@/store/findAccountStore'
 import Button from '../common/Button'
 import Input from '../common/Input'
+import { useFormContext } from 'react-hook-form'
 
 type VerifyStepProps = {
   type: FINDTYPE
@@ -13,8 +13,12 @@ type VerifyStepProps = {
 }
 
 function VerifyStep({ type, currentStep, setStep }: VerifyStepProps) {
-  const { phoneNumber, email } = useFindAccountStore()
   const [code, setCode] = useState('')
+  const { getValues } = useFormContext()
+
+  const phoneNumber = getValues('phoneNumber')
+  const email = getValues('email')
+
   const VERIFY_CONTENT = {
     [FINDTYPE.FIND_EMAIL]: {
       icon: Phone,
@@ -31,11 +35,17 @@ function VerifyStep({ type, currentStep, setStep }: VerifyStepProps) {
   const { icon: Icon, title, description } = VERIFY_CONTENT[type]
 
   const handleNext = () => {
+    // 인증 api 호출
     setStep(StepIndicatorType.COMPLETE)
   }
 
   const handlePrev = () => {
     setStep(StepIndicatorType.AUTH)
+  }
+
+  const handleResend = () => {
+    setCode('')
+    // api 호출로 인증코드 재전송
   }
 
   return (
@@ -64,11 +74,19 @@ function VerifyStep({ type, currentStep, setStep }: VerifyStepProps) {
             value={code}
             onChange={(e) => setCode(e.target.value)}
           />
-          <Button className="verify-color">재전송</Button>
+          <Button onClick={handleResend} className="verify-color">
+            재전송
+          </Button>
         </div>
       </div>
 
-      <Button onClick={handleNext} className="h-12 cursor-pointer">
+      <Button
+        onClick={handleNext}
+        disabled={
+          type === FINDTYPE.FIND_EMAIL ? code.length !== 4 : code.length !== 6
+        }
+        className="h-12 cursor-pointer"
+      >
         인증완료
       </Button>
       <Button onClick={handlePrev} className="mt-6" variant="outline">

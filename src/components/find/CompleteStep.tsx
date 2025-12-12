@@ -24,7 +24,7 @@ function CompleteStep({ type, currentStep }: CompleteStepProps) {
     handleSubmit,
     formState: { errors, isValid },
   } = useForm<SetPasswordForm>({
-    mode: 'onBlur',
+    mode: 'onChange',
     defaultValues: {
       password: '',
       password_confirm: '',
@@ -79,6 +79,7 @@ function CompleteStep({ type, currentStep }: CompleteStepProps) {
       {isEmailFinding ? (
         <>
           <div className="mt-3 mb-20 flex justify-center rounded-lg border-1 border-gray-200 bg-gray-50 p-8">
+            {/* 이메일 찾기 api 응답값으로 변경할 예정 */}
             kim***@gmail.com
           </div>
           <div className="flex h-[50px] justify-between gap-3">
