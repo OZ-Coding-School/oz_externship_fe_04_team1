@@ -24,7 +24,7 @@ export default function SuccessVerification({
 
           <p className="mb-4 text-lg font-bold">계정 복구 완료!</p>
           <p className="mb-10 text-sm text-gray-600">
-            지금바로 로그인해 보세요
+            지금 바로 로그인해 보세요
           </p>
         </div>
       </div>

@@ -10,7 +10,7 @@ import Input from '@/components/common/Input'
 import accountemail from '@/assets/email.svg'
 import closeIcon from '@/assets/icons/close.svg'
 import SuccessVerification from './successVerification'
-
+import { useTimer } from '../accountRecovery/emailTimer'
 interface EmailRegisterFieldProps {
   email: string
   verificationCode: string
@@ -41,6 +41,9 @@ export default function EmailVerificationModal({
   const [isEmailSent, setIsEmailSent] = useState(false)
   const [showSuccessModal, setShowSuccessModal] = useState(false)
 
+  const timerHook = useTimer(300)
+  const { timer, formattedTime, startTimer } = timerHook
+
   const sendEmailMutation = useSendEmailRecovery()
   const verifyCodeMutation = useVerifyCodeRecovery()
 
@@ -56,6 +59,7 @@ export default function EmailVerificationModal({
       onSuccess: () => {
         showToast.success('전송 완료!', '이메일을 확인해주세요.')
         setIsEmailSent(true)
+        startTimer()
       },
       onError: () => {
         showToast.error('전송 실패', '이메일을 다시 한번 확인해주세요.')
@@ -155,23 +159,30 @@ export default function EmailVerificationModal({
             {/* 이메일 인증코드 확인 */}
             <div className="mb-10">
               <div className="flex gap-3">
-                <Input
-                  id="verificationCode"
-                  {...register('verificationCode', {
-                    required: '인증번호를 입력해주세요',
-                    pattern: {
-                      value: /^\d{6}$/,
-                      message: '6자리 숫자를 입력해주세요',
-                    },
-                    onChange: () => {
-                      clearErrors('verificationCode')
-                      setCodeError('')
-                    },
-                  })}
-                  disabled={!isEmailSent}
-                  className="w-[230px]"
-                  placeholder="인증번호 6자리를 입력해주세요"
-                />
+                <div className="relative w-[230px]">
+                  <Input
+                    id="verificationCode"
+                    {...register('verificationCode', {
+                      required: '인증번호를 입력해주세요',
+                      pattern: {
+                        value: /^\d{6}$/,
+                        message: '6자리 숫자를 입력해주세요',
+                      },
+                      onChange: () => {
+                        clearErrors('verificationCode')
+                        setCodeError('')
+                      },
+                    })}
+                    disabled={!isEmailSent}
+                    className="w-full"
+                    placeholder="인증번호를 입력해주세요"
+                  />
+                  {timer > 0 && (
+                    <span className="text-danger-500 absolute top-1/2 right-3 -translate-y-1/2 text-sm font-medium">
+                      {formattedTime}
+                    </span>
+                  )}
+                </div>
                 <Button
                   type="button"
                   onClick={handleVerifyCode}
