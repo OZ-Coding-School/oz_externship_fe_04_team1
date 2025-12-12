@@ -112,4 +112,7 @@ export const API_PATHS = {
   LOGOUT: {
     POST: '/api/v1/accounts/logout',
   },
+  S3: {
+    GET: '/api/v1/s3-presigned-url',
+  },
 } as const

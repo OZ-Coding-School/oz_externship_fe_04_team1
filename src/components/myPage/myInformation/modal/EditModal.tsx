@@ -5,17 +5,19 @@ import useUserData from '@/hooks/quries/useUserData'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import type { EditUserInformation } from '@/types/editUserInformation'
+import useS3PresignedUrl from '@/hooks/quries/useS3PresignedUrl'
+import type { S3PresignedUrl } from '@/types/s3PresignedUrl'
 interface EditModalProps {
   onClose: () => void
 }
 function EditModal({ onClose }: EditModalProps) {
+  const [imgFile, setImgFile] = useState<File | null>(null)
   const { data: userData } = useUserData()
   // 추후 useEffect 이용해서 폼에 초기값 가져오는것 구현하기
   const {
     register,
     handleSubmit,
     setValue,
-    // watch,
     formState: { errors },
   } = useForm<EditUserInformation>({
     defaultValues: {
@@ -23,14 +25,27 @@ function EditModal({ onClose }: EditModalProps) {
       nickname: userData[0]?.nickname,
       birthday: userData[0]?.birthday.split('-').join(''),
       gender: userData[0]?.gender,
-      // profile_img_url: userData[0]?.profile_img_url,
+      profile_img_url: userData[0]?.profile_img_url,
     },
     mode: 'onBlur',
   })
   const onSubmit = (data: EditUserInformation) => {
+    if (!imgFile) console.log(data)
+    // 추후에 api 연동시켜야함
+    setValue('profile_img_url', s3UrlImgData?.file_url)
     console.log(data)
-    // 추후 api 연결하기 -> PATCH
+    // 추후에 api 연동시켜야함
   }
+  const params = imgFile
+    ? {
+        type: 'USER_PROFILE_IMAGE',
+        content_type: imgFile.type,
+        file_name: imgFile.name,
+        file_ext: imgFile.name.split('.').pop()!,
+      }
+    : undefined
+
+  const { data: s3UrlImgData } = useS3PresignedUrl(params as S3PresignedUrl)
   const [editGender, setEditGender] = useState(userData[0]?.gender)
   const handleGender = (gender: 'M' | 'F') => {
     setEditGender(gender)
@@ -57,7 +72,6 @@ function EditModal({ onClose }: EditModalProps) {
       message: '생년월일 8자리를 작성해주세요',
     },
   }
-  // const editImgData = watch('profile_img_url')
   return (
     <div
       className="bg-basic-white z-10 h-[600px] w-[450px] flex-col overflow-y-auto rounded-xl md:h-[730px] md:w-[512px]"
@@ -78,25 +92,32 @@ function EditModal({ onClose }: EditModalProps) {
         {/* 사진~성별까지의 부분 */}
         <div className="mt-11 flex flex-col gap-3 border-b-2 border-solid border-gray-200 px-6 pb-10">
           {/* 프로필 사진 변경 부분 */}
-          {/* <label
-            htmlFor="profile_img_url" */}
-          <div className="text-primary-600 flex cursor-pointer flex-col items-center gap-4 text-sm">
+          <label
+            htmlFor="profile_img_url"
+            className="text-primary-600 flex cursor-pointer flex-col items-center gap-4 text-sm"
+          >
             <img
-              src={userData[0]?.profile_img_url}
+              src={
+                imgFile ? s3UrlImgData?.file_url : userData[0]?.profile_img_url
+              }
               alt="profileImg"
               className="h-[96px] w-[96px] rounded-full"
             />
             프로필 사진 변경
-            {/* <Input
+            <Input
               type="file"
               id="profile_img_url"
               className="hidden"
               {...register('profile_img_url')}
               accept="image/*"
-            /> */}
-            {/* 프로필 사진 변경을 누르면 finder나오게 구현하기 */}
-            {/* </label> */}
-          </div>
+              // 이미지만 첨부 가능하게
+              onChange={(e) => {
+                const file = e.target.files?.[0]
+                if (!file) return
+                setImgFile(file)
+              }}
+            />
+          </label>
           {/* 이름 부분*/}
           <label
             htmlFor="nameForm"
