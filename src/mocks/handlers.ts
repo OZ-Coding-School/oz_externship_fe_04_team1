@@ -1,4 +1,7 @@
-import { userInformationHandler } from './handlers/user'
+import {
+  patchUserInformationHandler,
+  userInformationHandler,
+} from './handlers/user'
 import { courseInformationHandler } from './handlers/course'
 import { notificationHandlers } from './handlers/notification/index.ts'
 import { bookmarkAnnouncementHandler } from './handlers/bookmarkAnnouncement/index.ts'
@@ -45,4 +48,5 @@ export const handlers = [
   ...postReviewHandler,
   ...patchReviewHandler,
   ...s3PresignedHandler,
+  ...patchUserInformationHandler,
 ]
