@@ -66,11 +66,7 @@ function VerifyStep({ type, currentStep, setStep }: VerifyStepProps) {
           <Input
             id="code"
             className="w-full"
-            placeholder={
-              type === FINDTYPE.FIND_EMAIL
-                ? '4자리 인증코드 입력'
-                : '6자리 인증코드 입력'
-            }
+            placeholder="6자리 인증코드 입력"
             value={code}
             onChange={(e) => setCode(e.target.value)}
           />
@@ -82,9 +78,7 @@ function VerifyStep({ type, currentStep, setStep }: VerifyStepProps) {
 
       <Button
         onClick={handleNext}
-        disabled={
-          type === FINDTYPE.FIND_EMAIL ? code.length !== 4 : code.length !== 6
-        }
+        disabled={code.length !== 6}
         className="h-12 cursor-pointer"
       >
         인증완료
