@@ -35,19 +35,21 @@ function AuthStep({ type, currentStep, setStep }: AuthStepProps) {
     setStep(StepIndicatorType.VERIFY)
   }
 
-  const isEmailFind = type === FINDTYPE.FIND_EMAIL
+  const isEmailFinding = type === FINDTYPE.FIND_EMAIL
   const { icon: Icon, title, description } = AUTH_CONTENT[type]
 
   return (
     <div className="flex flex-col">
       <StepProgress type={type} currentStep={currentStep} />
       <div className="mt-4 flex flex-col items-center justify-center">
-        <Icon className="bg-primary-100 text-primary-600 mb-4 size-16 rounded-full p-5.5" />
+        <div className="bg-primary-100 mb-3 flex size-15 items-center justify-center rounded-full">
+          <Icon className="text-primary-600" size={24} />
+        </div>
         <h3 className="mb-2 text-lg font-semibold">{title}</h3>
         <p className="pb-6 text-sm text-gray-600">{description}</p>
       </div>
       <div className="flex flex-col pt-5">
-        {isEmailFind ? (
+        {isEmailFinding ? (
           <>
             <label htmlFor="name" className="pb-1 text-gray-700">
               이름
