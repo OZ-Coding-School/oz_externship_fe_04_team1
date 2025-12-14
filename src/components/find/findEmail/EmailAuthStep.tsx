@@ -1,7 +1,11 @@
-import { FINDTYPE, StepIndicatorType } from '@/types/findAccount'
+import {
+  FINDTYPE,
+  StepIndicatorType,
+  type FindEmailFormData,
+  type StepControlProps,
+} from '@/types/findAccount'
 import { UserRoundSearch } from 'lucide-react'
 import StepProgress from '../common/StepProgress'
-import type { Dispatch, SetStateAction } from 'react'
 import StepHeader from '../common/StepHeader'
 import Input from '@/components/common/Input'
 import { useFormContext } from 'react-hook-form'
@@ -9,17 +13,7 @@ import Button from '@/components/common/Button'
 import { ROUTE_PATHS } from '@/constant/route'
 import { Link } from 'react-router'
 
-type EmailAuthStepProps = {
-  currentStep: StepIndicatorType
-  setCurrentStep: Dispatch<SetStateAction<StepIndicatorType>>
-}
-
-export type FindEmailFormData = {
-  name: string
-  phone: string
-}
-
-function EmailAuthStep({ currentStep, setCurrentStep }: EmailAuthStepProps) {
+function EmailAuthStep({ currentStep, setCurrentStep }: StepControlProps) {
   const {
     register,
     formState: { errors, isValid },

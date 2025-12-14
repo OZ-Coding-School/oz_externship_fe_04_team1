@@ -1,15 +1,11 @@
-import { FINDTYPE, type StepIndicatorType } from '@/types/findAccount'
+import { FINDTYPE, type CompleteStepProps } from '@/types/findAccount'
 import StepHeader from '../common/StepHeader'
 import StepProgress from '../common/StepProgress'
 import { Check } from 'lucide-react'
 import Button from '@/components/common/Button'
 import { useNavigate } from 'react-router'
 
-type EmailCompleteStepProps = {
-  currentStep: StepIndicatorType
-}
-
-function EmailCompleteStep({ currentStep }: EmailCompleteStepProps) {
+function EmailCompleteStep({ currentStep }: CompleteStepProps) {
   const navigate = useNavigate()
   return (
     <div>

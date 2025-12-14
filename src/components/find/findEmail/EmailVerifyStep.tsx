@@ -1,21 +1,17 @@
-import { useState, type Dispatch, type SetStateAction } from 'react'
+import { useState } from 'react'
 import StepHeader from '../common/StepHeader'
 import StepProgress from '../common/StepProgress'
 import { Phone } from 'lucide-react'
-import { FINDTYPE, StepIndicatorType } from '@/types/findAccount'
+import {
+  FINDTYPE,
+  StepIndicatorType,
+  type StepControlProps,
+} from '@/types/findAccount'
 import { useFormContext } from 'react-hook-form'
 import Button from '@/components/common/Button'
 import Input from '@/components/common/Input'
 
-type EmailVerifyStepProps = {
-  currentStep: StepIndicatorType
-  setCurrentStep: Dispatch<SetStateAction<StepIndicatorType>>
-}
-
-function EmailVerifyStep({
-  currentStep,
-  setCurrentStep,
-}: EmailVerifyStepProps) {
+function EmailVerifyStep({ currentStep, setCurrentStep }: StepControlProps) {
   const { getValues } = useFormContext()
   const phone = getValues('phone')
   const [code, setCode] = useState('')
