@@ -1,23 +1,27 @@
-import { useState } from 'react'
 import StepHeader from '../common/StepHeader'
 import StepProgress from '../common/StepProgress'
 import { Phone } from 'lucide-react'
 import {
   FINDTYPE,
   StepIndicatorType,
-  type StepControlProps,
+  type FindEmailFormData,
+  type EmailVerifyStepProps,
 } from '@/types/findAccount'
-import { useFormContext } from 'react-hook-form'
+import { useFormContext, useWatch } from 'react-hook-form'
 import Button from '@/components/common/Button'
 import Input from '@/components/common/Input'
 
-function EmailVerifyStep({ currentStep, setCurrentStep }: StepControlProps) {
-  const { getValues } = useFormContext()
+function EmailVerifyStep({
+  currentStep,
+  setCurrentStep,
+  onVerifyCode,
+}: EmailVerifyStepProps) {
+  const { getValues, register, setValue } = useFormContext<FindEmailFormData>()
   const phone = getValues('phone')
-  const [code, setCode] = useState('')
+  const code = useWatch({ name: 'code' })
 
-  const handleNext = () => {
-    // 인증 api 호출
+  const handleNextWithVerifyCode = () => {
+    onVerifyCode({ phone, code })
     setCurrentStep(StepIndicatorType.COMPLETE)
   }
 
@@ -26,7 +30,7 @@ function EmailVerifyStep({ currentStep, setCurrentStep }: StepControlProps) {
   }
 
   const handleResend = () => {
-    setCode('')
+    setValue('code', '')
     // api 호출로 인증코드 재전송
   }
 
@@ -47,8 +51,7 @@ function EmailVerifyStep({ currentStep, setCurrentStep }: StepControlProps) {
             id="code"
             className="w-full"
             placeholder="6자리 인증코드 입력"
-            value={code}
-            onChange={(e) => setCode(e.target.value)}
+            {...register('code')}
           />
           <Button onClick={handleResend} className="verify-color">
             재전송
@@ -57,7 +60,7 @@ function EmailVerifyStep({ currentStep, setCurrentStep }: StepControlProps) {
       </div>
       <div className="flex flex-col">
         <Button
-          onClick={handleNext}
+          onClick={handleNextWithVerifyCode}
           disabled={code.length !== 6}
           className="mt-2 h-12 cursor-pointer"
         >
