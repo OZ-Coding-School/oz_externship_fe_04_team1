@@ -16,12 +16,13 @@ function EmailVerifyStep({
   setCurrentStep,
   onVerifyCode,
 }: EmailVerifyStepProps) {
-  const { getValues, register, setValue } = useFormContext<FindEmailFormData>()
+  const { getValues, register, setValue, handleSubmit } =
+    useFormContext<FindEmailFormData>()
   const phone = getValues('phone')
   const code = useWatch({ name: 'code' })
 
-  const handleNextWithVerifyCode = () => {
-    onVerifyCode({ phone, code })
+  const handleNextWithVerifyCode = (data: FindEmailFormData) => {
+    onVerifyCode({ phone, code: data.code })
     setCurrentStep(StepIndicatorType.COMPLETE)
   }
 
@@ -29,10 +30,16 @@ function EmailVerifyStep({
     setCurrentStep(StepIndicatorType.AUTH)
   }
 
-  const handleResend = () => {
+  const handleResendCode = () => {
     setValue('code', '')
     // api 호출로 인증코드 재전송
   }
+
+  const codeRegister = register('code', {
+    required: true,
+    minLength: 6,
+    maxLength: 6,
+  })
 
   return (
     <div>
@@ -42,34 +49,36 @@ function EmailVerifyStep({
         title="회원 정보 입력"
         description={`${phone}로 인증코드를 발송했습니다.`}
       />
-      <div className="flex flex-col">
-        <label htmlFor="code" className="pb-1 text-gray-700">
-          인증코드
-        </label>
-        <div className="mb-5 flex gap-2">
-          <Input
-            id="code"
-            className="w-full"
-            placeholder="6자리 인증코드 입력"
-            {...register('code')}
-          />
-          <Button onClick={handleResend} className="verify-color">
-            재전송
+      <form onSubmit={handleSubmit(handleNextWithVerifyCode)}>
+        <div className="flex flex-col">
+          <label htmlFor="code" className="pb-1 text-gray-700">
+            인증코드
+          </label>
+          <div className="mb-5 flex gap-2">
+            <Input
+              id="code"
+              className="w-full"
+              placeholder="6자리 인증코드 입력"
+              {...codeRegister}
+            />
+            <Button onClick={handleResendCode} className="verify-color">
+              재전송
+            </Button>
+          </div>
+        </div>
+        <div className="flex flex-col">
+          <Button
+            type="submit"
+            disabled={code.length !== 6}
+            className="mt-2 h-12 cursor-pointer"
+          >
+            인증완료
           </Button>
         </div>
-      </div>
-      <div className="flex flex-col">
-        <Button
-          onClick={handleNextWithVerifyCode}
-          disabled={code.length !== 6}
-          className="mt-2 h-12 cursor-pointer"
-        >
-          인증완료
-        </Button>
-        <Button onClick={handlePrev} className="mt-6 h-11" variant="outline">
-          이전 단계
-        </Button>
-      </div>
+      </form>
+      <Button onClick={handlePrev} className="mt-6 h-11" variant="outline">
+        이전 단계
+      </Button>
     </div>
   )
 }
