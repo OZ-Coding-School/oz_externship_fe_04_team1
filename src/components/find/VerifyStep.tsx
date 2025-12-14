@@ -1,6 +1,6 @@
 import { useState, type Dispatch, type SetStateAction } from 'react'
 import { FINDTYPE, StepIndicatorType } from '@/types/findAccount'
-import StepProgress from './StepProgress'
+import StepProgress from './common/StepProgress'
 import { Phone, MailCheck } from 'lucide-react'
 import Button from '../common/Button'
 import Input from '../common/Input'
@@ -79,11 +79,11 @@ function VerifyStep({ type, currentStep, setStep }: VerifyStepProps) {
       <Button
         onClick={handleNext}
         disabled={code.length !== 6}
-        className="h-12 cursor-pointer"
+        className="mt-2 h-12 cursor-pointer"
       >
         인증완료
       </Button>
-      <Button onClick={handlePrev} className="mt-6" variant="outline">
+      <Button onClick={handlePrev} className="mt-6 h-11" variant="outline">
         이전 단계
       </Button>
     </div>
