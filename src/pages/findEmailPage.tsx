@@ -6,6 +6,7 @@ import {
   StepIndicatorType,
   type FindEmailFormData,
   type ReqVerifyPhoneCode,
+  type ReqVerifyUserIdentity,
 } from '@/types/findAccount'
 import { useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
@@ -21,6 +22,11 @@ function FindEmailPage() {
     },
   })
 
+  const handleVerifyUserIdentity = (data: ReqVerifyUserIdentity) => {
+    // api 작업 - name과 phone를 서버로 전송하여 인증번호 검증
+    console.log('data : ', data)
+  }
+
   const handleVerifyCode = (data: ReqVerifyPhoneCode) => {
     // api 작업 - phone과 code를 서버로 전송하여 인증번호 검증
     console.log('data: ', data)
@@ -34,6 +40,7 @@ function FindEmailPage() {
       >
         {currentStep === StepIndicatorType.AUTH && (
           <EmailAuthStep
+            onVerifyUserIdentity={handleVerifyUserIdentity}
             currentStep={currentStep}
             setCurrentStep={setCurrentStep}
           />

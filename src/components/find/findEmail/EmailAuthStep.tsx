@@ -1,22 +1,27 @@
 import {
   FINDTYPE,
   StepIndicatorType,
+  type EmailAuthStepProps,
   type FindEmailFormData,
-  type StepControlProps,
 } from '@/types/findAccount'
 import { UserRoundSearch } from 'lucide-react'
 import StepProgress from '../common/StepProgress'
 import StepHeader from '../common/StepHeader'
 import Input from '@/components/common/Input'
 import { useFormContext } from 'react-hook-form'
-import Button from '@/components/common/Button'
 import { ROUTE_PATHS } from '@/constant/route'
 import { Link } from 'react-router'
+import Button from '@/components/common/Button'
 
-function EmailAuthStep({ currentStep, setCurrentStep }: StepControlProps) {
+function EmailAuthStep({
+  currentStep,
+  setCurrentStep,
+  onVerifyUserIdentity,
+}: EmailAuthStepProps) {
   const {
     register,
     formState: { errors, isValid },
+    handleSubmit,
   } = useFormContext<FindEmailFormData>()
 
   const nameRegister = register('name', {
@@ -35,7 +40,8 @@ function EmailAuthStep({ currentStep, setCurrentStep }: StepControlProps) {
     },
   })
 
-  const handleNext = () => {
+  const handleNextWithSendCode = (data: FindEmailFormData) => {
+    onVerifyUserIdentity({ name: data.name, phone_number: data.phone })
     setCurrentStep(StepIndicatorType.VERIFY)
   }
   return (
@@ -46,7 +52,10 @@ function EmailAuthStep({ currentStep, setCurrentStep }: StepControlProps) {
         title="회원 정보 입력"
         description="가입 시 입력한 이름과 휴대폰번호를 입력해주세요"
       />
-      <div className="flex flex-col pt-5">
+      <form
+        onSubmit={handleSubmit(handleNextWithSendCode)}
+        className="flex flex-col pt-5"
+      >
         <label htmlFor="name" className="pb-1 text-gray-700">
           이름
         </label>
@@ -76,13 +85,13 @@ function EmailAuthStep({ currentStep, setCurrentStep }: StepControlProps) {
           )}
         </div>
         <Button
+          type="submit"
           disabled={!isValid}
-          onClick={handleNext}
           className="h-12 cursor-pointer"
         >
           인증 코드 전송
         </Button>
-      </div>
+      </form>
       <Link
         className="text-primary-600 flex justify-center pt-6 text-sm"
         to={ROUTE_PATHS.LOGIN}
