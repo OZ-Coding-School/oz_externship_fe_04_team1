@@ -67,3 +67,12 @@ export type ReqVerifyPhoneCode = {
 export interface EmailVerifyStepProps extends StepControlProps {
   onVerifyCode: (data: ReqVerifyPhoneCode) => void
 }
+
+export type ReqVerifyUserIdentity = {
+  name: string
+  phone_number: string
+}
+
+export interface EmailAuthStepProps extends StepControlProps {
+  onVerifyUserIdentity: (data: ReqVerifyUserIdentity) => void
+}
