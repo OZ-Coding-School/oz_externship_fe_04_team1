@@ -5,6 +5,7 @@ import PasswordVerifyStep from '@/components/find/findPassword/PasswordVerifySte
 import {
   StepIndicatorType,
   type FindPasswordFormData,
+  type ReqVerifyEmailCode,
   type ReqResetPassword,
 } from '@/types/findAccount'
 import { useState } from 'react'
@@ -12,10 +13,24 @@ import { FormProvider, useForm } from 'react-hook-form'
 
 function FindPasswordPage() {
   const [currentStep, setCurrentStep] = useState(StepIndicatorType.AUTH)
-  const methods = useForm<FindPasswordFormData>({ mode: 'onChange' })
+  const methods = useForm<FindPasswordFormData>({
+    mode: 'onChange',
+    defaultValues: {
+      email: '',
+      code: '',
+      password: '',
+      password_confirm: '',
+    },
+  })
 
-  const handleResetPassword = (password: ReqResetPassword) => {
-    // api 작업
+  const handleVerifyCode = (data: ReqVerifyEmailCode) => {
+    // api 작업: email과 code를 서버로 전송하여 인증번호 검증
+    console.log('Verify Code:', data)
+  }
+
+  const handleResetPassword = (data: ReqResetPassword) => {
+    // api 작업 - email과 새 password를 서버로 전송하여 비밀번호 재설정
+    console.log('Reset Password:', data)
   }
   return (
     <FormProvider {...methods}>
@@ -31,6 +46,7 @@ function FindPasswordPage() {
         )}
         {currentStep === StepIndicatorType.VERIFY && (
           <PasswordVerifyStep
+            onVerifyCode={handleVerifyCode}
             currentStep={currentStep}
             setCurrentStep={setCurrentStep}
           />

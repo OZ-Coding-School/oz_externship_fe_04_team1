@@ -1,23 +1,28 @@
 import {
   FINDTYPE,
   StepIndicatorType,
-  type StepControlProps,
+  type FindPasswordFormData,
+  type PasswordVerifyStepProps,
 } from '@/types/findAccount'
 import StepProgress from '../common/StepProgress'
 import StepHeader from '../common/StepHeader'
-import { useFormContext } from 'react-hook-form'
+import { useFormContext, useWatch } from 'react-hook-form'
 import { MailCheck } from 'lucide-react'
 import Input from '@/components/common/Input'
-import { useState } from 'react'
 import Button from '@/components/common/Button'
 
-function PasswordVerifyStep({ currentStep, setCurrentStep }: StepControlProps) {
-  const [code, setCode] = useState('')
-  const { getValues } = useFormContext()
+function PasswordVerifyStep({
+  currentStep,
+  setCurrentStep,
+  onVerifyCode,
+}: PasswordVerifyStepProps) {
+  const { getValues, register, setValue } =
+    useFormContext<FindPasswordFormData>()
   const email = getValues('email')
+  const code = useWatch({ name: 'code' })
 
-  const handleNext = () => {
-    // 인증 api 호출
+  const handleNextWithVerifyCode = () => {
+    onVerifyCode({ email, code })
     setCurrentStep(StepIndicatorType.COMPLETE)
   }
 
@@ -26,7 +31,7 @@ function PasswordVerifyStep({ currentStep, setCurrentStep }: StepControlProps) {
   }
 
   const handleResend = () => {
-    setCode('')
+    setValue('code', '')
     // api 호출로 인증코드 재전송
   }
 
@@ -47,8 +52,7 @@ function PasswordVerifyStep({ currentStep, setCurrentStep }: StepControlProps) {
             id="code"
             className="w-full"
             placeholder="6자리 인증코드 입력"
-            value={code}
-            onChange={(e) => setCode(e.target.value)}
+            {...register('code')}
           />
           <Button onClick={handleResend} className="verify-color">
             재전송
@@ -57,7 +61,7 @@ function PasswordVerifyStep({ currentStep, setCurrentStep }: StepControlProps) {
       </div>
       <div className="flex flex-col">
         <Button
-          onClick={handleNext}
+          onClick={handleNextWithVerifyCode}
           disabled={code.length !== 6}
           className="mt-2 h-12 cursor-pointer"
         >

@@ -1,18 +1,13 @@
 import {
   FINDTYPE,
-  type CompleteStepProps,
   type FindPasswordFormData,
-  type ReqResetPassword,
+  type PasswordCompleteStepProps,
 } from '@/types/findAccount'
 import StepProgress from '../common/StepProgress'
 import StepHeader from '../common/StepHeader'
 import { KeyRound } from 'lucide-react'
 import Input from '@/components/common/Input'
 import { useFormContext, useWatch } from 'react-hook-form'
-
-interface PasswordCompleteStepProps extends CompleteStepProps {
-  onResetPassword: (password: ReqResetPassword) => void
-}
 
 function PasswordCompleteStep({
   currentStep,
@@ -22,6 +17,7 @@ function PasswordCompleteStep({
     register,
     formState: { errors, isValid },
     handleSubmit,
+    getValues,
   } = useFormContext<FindPasswordFormData>()
   const password = useWatch({ name: 'password', defaultValue: '' })
 
@@ -40,7 +36,8 @@ function PasswordCompleteStep({
   })
 
   const handleResetPassword = (data: FindPasswordFormData) => {
-    onResetPassword({ password: data.password })
+    const email = getValues('email')
+    onResetPassword({ email, new_password: data.password })
   }
 
   return (
