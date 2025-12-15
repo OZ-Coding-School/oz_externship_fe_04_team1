@@ -4,7 +4,6 @@ import EmailAuthStep from '@/components/findAccount/findEmail/EmailAuthStep'
 import EmailVerifyStep from '@/components/findAccount/findEmail/EmailVerifyStep'
 import {
   StepIndicatorType,
-  type findAccount400Error,
   type FindEmailFormData,
   type ReqVerifyPhoneCode,
   type ReqVerifyUserIdentity,
@@ -16,14 +15,7 @@ import {
   useVerifyUserIdentity,
 } from '@/hooks/quries/findAccount/findEmail'
 import { showToast } from '@/components/common/toast/Toast'
-
-const getErrorDetail = (
-  { error_detail }: findAccount400Error,
-  custom_error_msg: string
-) => {
-  const errorMsg = Object.values(error_detail)?.[0]?.[0] || custom_error_msg
-  return errorMsg
-}
+import { getErrorDetail } from '@/utils/getErrorDetail'
 
 function FindEmailPage() {
   const [currentStep, setCurrentStep] = useState(StepIndicatorType.AUTH)
