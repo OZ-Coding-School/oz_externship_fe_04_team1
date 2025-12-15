@@ -61,6 +61,7 @@ function PasswordCompleteStep({
           <Input
             id="password"
             type="password"
+            autoComplete="new-password"
             className="w-full"
             placeholder="8자 이상 입력해주세요"
             {...passwordRegister}
@@ -77,6 +78,7 @@ function PasswordCompleteStep({
             id="password_confirm"
             type="password"
             className="w-full"
+            autoComplete="new-password"
             placeholder="새 비밀번호를 다시 입력해주세요"
             {...passwordConfirmRegister}
           />
