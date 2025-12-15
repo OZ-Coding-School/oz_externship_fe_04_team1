@@ -86,7 +86,7 @@ function BookMarkAnnouncementDesktop() {
       </div>
       <div ref={loadMoreRef} className="h-4" />
       {/* 마지막 항목 도달시 */}
-      {hasNextPage && <Loading />}
+      {hasNextPage && !searchParams.get('search') && <Loading />}
     </>
   )
 }
