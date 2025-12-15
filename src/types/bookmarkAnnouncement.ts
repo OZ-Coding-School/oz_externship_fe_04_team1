@@ -1,4 +1,9 @@
 export interface BookmarkAnnouncement {
+  next: string | null
+  previous: string | null
+  results: Results[]
+}
+export interface Results {
   id: number
   recruitment: Recruitment[]
 }

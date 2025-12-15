@@ -1,4 +1,5 @@
 import CourseBookmark from '@/components/common/cards/CourseBookmark'
+import Loading from '@/components/common/loading'
 import NoSearchReult from '@/components/common/notFound/noSearchResult'
 import Search from '@/components/common/search/Search'
 import useBookmarkStudy from '@/hooks/quries/useBookMarkStudy'
@@ -57,6 +58,7 @@ function BookMarkStudyDesktop() {
           ))
         )}
       </div>
+      <Loading />
     </>
   )
 }
