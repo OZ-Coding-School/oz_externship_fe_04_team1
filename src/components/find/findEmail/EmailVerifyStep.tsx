@@ -21,7 +21,7 @@ function EmailVerifyStep({
   const phone = getValues('phone')
   const code = useWatch({ name: 'code' })
 
-  const handleNextWithVerifyCode = (data: FindEmailFormData) => {
+  const handleVerifyCode = (data: FindEmailFormData) => {
     onVerifyCode({ phone, code: data.code })
     setCurrentStep(StepIndicatorType.COMPLETE)
   }
@@ -46,10 +46,10 @@ function EmailVerifyStep({
       <StepProgress currentStep={currentStep} type={FINDTYPE.FIND_EMAIL} />
       <StepHeader
         icon={Phone}
-        title="회원 정보 입력"
+        title="휴대폰 인증"
         description={`${phone}로 인증코드를 발송했습니다.`}
       />
-      <form onSubmit={handleSubmit(handleNextWithVerifyCode)}>
+      <form onSubmit={handleSubmit(handleVerifyCode)}>
         <div className="flex flex-col">
           <label htmlFor="code" className="pb-1 text-gray-700">
             인증코드

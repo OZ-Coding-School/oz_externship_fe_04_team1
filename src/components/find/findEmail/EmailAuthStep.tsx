@@ -40,10 +40,11 @@ function EmailAuthStep({
     },
   })
 
-  const handleNextWithSendCode = (data: FindEmailFormData) => {
+  const handleVerifyUserIdentity = (data: FindEmailFormData) => {
     onVerifyUserIdentity({ name: data.name, phone_number: data.phone })
     setCurrentStep(StepIndicatorType.VERIFY)
   }
+
   return (
     <div>
       <StepProgress currentStep={currentStep} type={FINDTYPE.FIND_EMAIL} />
@@ -53,7 +54,7 @@ function EmailAuthStep({
         description="가입 시 입력한 이름과 휴대폰번호를 입력해주세요"
       />
       <form
-        onSubmit={handleSubmit(handleNextWithSendCode)}
+        onSubmit={handleSubmit(handleVerifyUserIdentity)}
         className="flex flex-col pt-5"
       >
         <label htmlFor="name" className="pb-1 text-gray-700">
