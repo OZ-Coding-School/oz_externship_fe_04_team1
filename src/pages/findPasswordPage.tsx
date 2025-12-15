@@ -7,6 +7,7 @@ import {
   type FindPasswordFormData,
   type ReqVerifyEmailCode,
   type ReqResetPassword,
+  type ReqVerifyWithEmail,
 } from '@/types/findAccount'
 import { useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
@@ -22,6 +23,10 @@ function FindPasswordPage() {
       password_confirm: '',
     },
   })
+
+  const handleVerifyWithEmail = (data: ReqVerifyWithEmail) => {
+    console.log('email : ', data)
+  }
 
   const handleVerifyCode = (data: ReqVerifyEmailCode) => {
     // api 작업: email과 code를 서버로 전송하여 인증번호 검증
@@ -40,6 +45,7 @@ function FindPasswordPage() {
       >
         {currentStep === StepIndicatorType.AUTH && (
           <PasswordAuthStep
+            onVerifyWithEmail={handleVerifyWithEmail}
             currentStep={currentStep}
             setCurrentStep={setCurrentStep}
           />

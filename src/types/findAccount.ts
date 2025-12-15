@@ -34,6 +34,14 @@ export type FindPasswordFormData = {
   password_confirm: string
 }
 
+export type ReqVerifyWithEmail = {
+  email: string
+}
+
+export interface PasswordAuthStepProps extends StepControlProps {
+  onVerifyWithEmail: (data: ReqVerifyWithEmail) => void
+}
+
 export type ReqVerifyEmailCode = {
   email: string
   code: string

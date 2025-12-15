@@ -2,7 +2,7 @@ import {
   FINDTYPE,
   StepIndicatorType,
   type FindPasswordFormData,
-  type StepControlProps,
+  type PasswordAuthStepProps,
 } from '@/types/findAccount'
 import StepProgress from '../common/StepProgress'
 import StepHeader from '../common/StepHeader'
@@ -13,10 +13,15 @@ import Button from '@/components/common/Button'
 import { Link } from 'react-router'
 import { ROUTE_PATHS } from '@/constant/route'
 
-function PasswordAuthStep({ currentStep, setCurrentStep }: StepControlProps) {
+function PasswordAuthStep({
+  currentStep,
+  setCurrentStep,
+  onVerifyWithEmail,
+}: PasswordAuthStepProps) {
   const {
     register,
     formState: { errors, isValid },
+    handleSubmit,
   } = useFormContext<FindPasswordFormData>()
 
   const emailRegister = register('email', {
@@ -27,7 +32,8 @@ function PasswordAuthStep({ currentStep, setCurrentStep }: StepControlProps) {
     },
   })
 
-  const handleNext = () => {
+  const handleNextWithVerifyEmail = (data: FindPasswordFormData) => {
+    onVerifyWithEmail({ email: data.email })
     setCurrentStep(StepIndicatorType.VERIFY)
   }
 
@@ -36,33 +42,37 @@ function PasswordAuthStep({ currentStep, setCurrentStep }: StepControlProps) {
       <StepProgress currentStep={currentStep} type={FINDTYPE.FIND_PASSWORD} />
       <StepHeader
         icon={LockOpen}
-        title="회원 정보 입력"
-        description="가입 시 입력한 이름과 휴대폰번호를 입력해주세요"
+        title="이메일 입력"
+        description="가입하신 이메일을 입력하면 인증코드를 보내드립니다"
       />
-      <div className="flex flex-col pt-5">
-        <label htmlFor="email" className="pb-1 text-gray-700">
-          이메일
-        </label>
-        <div className="mb-6">
-          <Input
-            id="email"
-            className="w-full"
-            placeholder="example@email.com"
-            {...emailRegister}
-          />
-          {errors.email?.message && (
-            <p className="pt-1 text-sm text-red-500">{errors.email.message}</p>
-          )}
-        </div>
+      <form onSubmit={handleSubmit(handleNextWithVerifyEmail)}>
+        <div className="flex flex-col pt-5">
+          <label htmlFor="email" className="pb-1 text-gray-700">
+            이메일
+          </label>
+          <div className="mb-6">
+            <Input
+              id="email"
+              className="w-full"
+              placeholder="example@email.com"
+              {...emailRegister}
+            />
+            {errors.email?.message && (
+              <p className="pt-1 text-sm text-red-500">
+                {errors.email.message}
+              </p>
+            )}
+          </div>
 
-        <Button
-          disabled={!isValid}
-          onClick={handleNext}
-          className="h-12 cursor-pointer"
-        >
-          인증 코드 전송
-        </Button>
-      </div>
+          <Button
+            type="submit"
+            disabled={!isValid}
+            className="h-12 cursor-pointer"
+          >
+            인증 코드 전송
+          </Button>
+        </div>
+      </form>
       <Link
         className="text-primary-600 flex justify-center pt-6 text-sm"
         to={ROUTE_PATHS.LOGIN}
