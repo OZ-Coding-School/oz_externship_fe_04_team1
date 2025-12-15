@@ -19,7 +19,6 @@ export enum StepIndicatorType {
 
 export type StepControlProps = {
   currentStep: StepIndicatorType
-  setCurrentStep: Dispatch<SetStateAction<StepIndicatorType>>
 }
 
 export type CompleteStepProps = {
@@ -56,7 +55,7 @@ export type ReqResetPassword = {
   new_password: string
 }
 
-export interface PasswordCompleteStepProps extends CompleteStepProps {
+export interface PasswordCompleteStepProps extends StepControlProps {
   onResetPassword: (data: ReqResetPassword) => void
 }
 
@@ -72,8 +71,15 @@ export type ReqVerifyPhoneCode = {
   code: string
 }
 
-export interface EmailVerifyStepProps extends StepControlProps {
+export interface EmailVerifyStepProps {
+  currentStep: StepIndicatorType
+  setCurrentStep: Dispatch<SetStateAction<StepIndicatorType>>
   onVerifyCode: (data: ReqVerifyPhoneCode) => void
+}
+
+export type EmailCompleteStepProps = {
+  currentStep: StepIndicatorType
+  email: string
 }
 
 export type ReqVerifyUserIdentity = {
@@ -83,4 +89,21 @@ export type ReqVerifyUserIdentity = {
 
 export interface EmailAuthStepProps extends StepControlProps {
   onVerifyUserIdentity: (data: ReqVerifyUserIdentity) => void
+}
+
+// 응답 타입
+export type ResFindAccount = {
+  detail: string
+}
+
+export type ResFindEmail = {
+  detail: string
+  email: string
+}
+
+// 에러 메시지
+export type findAccount400Error = {
+  error_detail: {
+    [key: string]: string[]
+  }
 }

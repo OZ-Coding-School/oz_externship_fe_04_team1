@@ -1,6 +1,5 @@
 import {
   FINDTYPE,
-  StepIndicatorType,
   type EmailAuthStepProps,
   type FindEmailFormData,
 } from '@/types/findAccount'
@@ -15,7 +14,6 @@ import Button from '@/components/common/Button'
 
 function EmailAuthStep({
   currentStep,
-  setCurrentStep,
   onVerifyUserIdentity,
 }: EmailAuthStepProps) {
   const {
@@ -42,7 +40,6 @@ function EmailAuthStep({
 
   const handleVerifyUserIdentity = (data: FindEmailFormData) => {
     onVerifyUserIdentity({ name: data.name, phone_number: data.phone })
-    setCurrentStep(StepIndicatorType.VERIFY)
   }
 
   return (
