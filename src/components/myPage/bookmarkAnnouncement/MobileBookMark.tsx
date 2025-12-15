@@ -55,11 +55,13 @@ function MobileBookMark() {
   useInfiniteScroll(
     loadMoreRef,
     () => {
-      if (optionIsSelected === 'ANNOUNCEMENT') {
-        if (announceHasNextPage && !announceIsFetchingNextPage)
-          announceFetchNextPage()
-      } else if (optionIsSelected === 'STUDY') {
-        if (studyHasNextPage && !studyIsFetchingNextPage) studyFetchNextPage()
+      if (!searchParams.get('search')) {
+        if (optionIsSelected === 'ANNOUNCEMENT') {
+          if (announceHasNextPage && !announceIsFetchingNextPage)
+            announceFetchNextPage()
+        } else if (optionIsSelected === 'STUDY') {
+          if (studyHasNextPage && !studyIsFetchingNextPage) studyFetchNextPage()
+        }
       }
     },
     300
@@ -69,7 +71,7 @@ function MobileBookMark() {
       `공고 (${allAnnouncementResults.length})`,
       `강의 (${allStudyResults.length})`,
     ])
-  }, [allAnnouncementResults.length])
+  }, [allAnnouncementResults.length, allStudyResults.length])
   return (
     <>
       {/* 제목 */}
@@ -149,8 +151,8 @@ function MobileBookMark() {
       </div>
       <div ref={loadMoreRef} className="h-4" />
       {/* 마지막 항목 도달시 */}
-      {(announceHasNextPage || studyHasNextPage) &&
-        !searchParams.get('search') && <Loading />}
+      {!searchParams.get('search') &&
+        (announceHasNextPage || studyHasNextPage) && <Loading />}
     </>
   )
 }

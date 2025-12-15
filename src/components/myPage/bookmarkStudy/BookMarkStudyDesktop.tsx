@@ -29,8 +29,10 @@ function BookMarkStudyDesktop() {
   useInfiniteScroll(
     loadMoreRef,
     () => {
-      if (!hasNextPage || isFetchingNextPage) return
-      fetchNextPage()
+      if (!searchParams.get('search')) {
+        if (!hasNextPage || isFetchingNextPage) return
+        fetchNextPage()
+      }
     },
     300
   )
