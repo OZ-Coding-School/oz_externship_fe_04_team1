@@ -117,12 +117,25 @@ export const API_PATHS = {
   },
 
   FIND_ACCOUNT: {
+    // 이메일 찾기
     EMAIL: {
       IDENTITY: {
         POST: '/api/v1/accounts/find-email/send-sms',
       },
       VERIFY_CODE: {
         POST: '/api/v1/accounts/find-email',
+      },
+    },
+    // 비밀번호 찾기
+    PASSWORD: {
+      SEND_EMAIL: {
+        POST: '/api/v1/accounts/find-password/send-email',
+      },
+      VERIFY_CODE: {
+        POST: '/api/v1/accounts/find-password/verify-email',
+      },
+      RESET_PASSWORD: {
+        POST: '/api/v1/accounts/find-password',
       },
     },
   },
