@@ -27,6 +27,7 @@ import { deleteBookMarkAnnouncementHandler } from './handlers/bookmarkAnnounceme
 import { deleteBookMarkStudytHandler } from './handlers/bookmarkStudy/deleteBookMarkStudy.ts'
 import { s3PresignedHandler } from './handlers/s3/index.ts'
 import { findEmailHandlers } from './handlers/findAccount/findEmailHandler.ts'
+import { findPasswordHandlers } from './handlers/findAccount/findPasswordHandler.ts'
 export const handlers = [
   ...userInformationHandler,
   ...courseInformationHandler,
@@ -51,4 +52,5 @@ export const handlers = [
   ...s3PresignedHandler,
   ...patchUserInformationHandler,
   ...findEmailHandlers,
+  ...findPasswordHandlers,
 ]
