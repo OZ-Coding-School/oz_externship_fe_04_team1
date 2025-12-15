@@ -11,6 +11,7 @@ type StepProgressProps = {
 }
 
 function StepProgress({ type, currentStep }: StepProgressProps) {
+  // 단계 표시 UI
   return (
     <div className="mx-auto flex">
       {STEP_TEXTS[type].map((text, index) => (

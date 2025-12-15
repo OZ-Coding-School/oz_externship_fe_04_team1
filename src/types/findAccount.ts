@@ -17,8 +17,70 @@ export enum StepIndicatorType {
   COMPLETE = 3,
 }
 
-export type AuthStepProps = {
-  type: FINDTYPE
+export type StepControlProps = {
   currentStep: StepIndicatorType
-  setStep: Dispatch<SetStateAction<StepIndicatorType>>
+  setCurrentStep: Dispatch<SetStateAction<StepIndicatorType>>
+}
+
+export type CompleteStepProps = {
+  currentStep: StepIndicatorType
+}
+
+// 비밀번호 찾기
+export type FindPasswordFormData = {
+  email: string
+  code: string
+  password: string
+  password_confirm: string
+}
+
+export type ReqVerifyWithEmail = {
+  email: string
+}
+
+export interface PasswordAuthStepProps extends StepControlProps {
+  onVerifyWithEmail: (data: ReqVerifyWithEmail) => void
+}
+
+export type ReqVerifyEmailCode = {
+  email: string
+  code: string
+}
+
+export interface PasswordVerifyStepProps extends StepControlProps {
+  onVerifyCode: (data: ReqVerifyEmailCode) => void
+}
+
+export type ReqResetPassword = {
+  email: string
+  new_password: string
+}
+
+export interface PasswordCompleteStepProps extends CompleteStepProps {
+  onResetPassword: (data: ReqResetPassword) => void
+}
+
+// 이메일 찾기
+export type FindEmailFormData = {
+  name: string
+  phone: string
+  code: string
+}
+
+export type ReqVerifyPhoneCode = {
+  phone_number: string
+  code: string
+}
+
+export interface EmailVerifyStepProps extends StepControlProps {
+  onVerifyCode: (data: ReqVerifyPhoneCode) => void
+}
+
+export type ReqVerifyUserIdentity = {
+  name: string
+  phone_number: string
+}
+
+export interface EmailAuthStepProps extends StepControlProps {
+  onVerifyUserIdentity: (data: ReqVerifyUserIdentity) => void
 }
