@@ -1,7 +1,7 @@
-import FindAccountLayout from '@/components/find/common/FindAccountLayout'
-import EmailCompleteStep from '@/components/find/findEmail/EmailCompleteStep'
-import EmailAuthStep from '@/components/find/findEmail/EmailAuthStep'
-import EmailVerifyStep from '@/components/find/findEmail/EmailVerifyStep'
+import FindAccountLayout from '@/components/findAccount/common/FindAccountLayout'
+import EmailCompleteStep from '@/components/findAccount/findEmail/EmailCompleteStep'
+import EmailAuthStep from '@/components/findAccount/findEmail/EmailAuthStep'
+import EmailVerifyStep from '@/components/findAccount/findEmail/EmailVerifyStep'
 import {
   StepIndicatorType,
   type FindEmailFormData,

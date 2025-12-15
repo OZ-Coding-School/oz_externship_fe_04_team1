@@ -1,7 +1,7 @@
-import FindAccountLayout from '@/components/find/common/FindAccountLayout'
-import PasswordAuthStep from '@/components/find/findPassword/PasswordAuthStep'
-import PasswordCompleteStep from '@/components/find/findPassword/PasswordComplete'
-import PasswordVerifyStep from '@/components/find/findPassword/PasswordVerifyStep'
+import FindAccountLayout from '@/components/findAccount/common/FindAccountLayout'
+import PasswordAuthStep from '@/components/findAccount/findPassword/PasswordAuthStep'
+import PasswordCompleteStep from '@/components/findAccount/findPassword/PasswordComplete'
+import PasswordVerifyStep from '@/components/findAccount/findPassword/PasswordVerifyStep'
 import {
   StepIndicatorType,
   type FindPasswordFormData,
