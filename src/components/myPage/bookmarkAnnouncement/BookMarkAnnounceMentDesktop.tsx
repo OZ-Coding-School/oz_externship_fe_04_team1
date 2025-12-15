@@ -33,7 +33,9 @@ function BookMarkAnnouncementDesktop() {
   useInfiniteScroll(
     loadMoreRef,
     () => {
-      if (hasNextPage && !isFetchingNextPage) fetchNextPage()
+      if (!searchParams.get('search')) {
+        if (hasNextPage && !isFetchingNextPage) fetchNextPage()
+      }
     },
     300
   )
