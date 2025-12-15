@@ -1,11 +1,11 @@
-import { FINDTYPE, type CompleteStepProps } from '@/types/findAccount'
+import { FINDTYPE, type EmailCompleteStepProps } from '@/types/findAccount'
 import StepHeader from '../common/StepHeader'
 import StepProgress from '../common/StepProgress'
 import { Check } from 'lucide-react'
 import Button from '@/components/common/Button'
 import { useNavigate } from 'react-router'
 
-function EmailCompleteStep({ currentStep }: CompleteStepProps) {
+function EmailCompleteStep({ currentStep, email }: EmailCompleteStepProps) {
   const navigate = useNavigate()
   return (
     <div>
@@ -18,8 +18,7 @@ function EmailCompleteStep({ currentStep }: CompleteStepProps) {
         description="입력하신 정보로 가입된 이메일을 찾았습니다."
       />
       <div className="mt-3 mb-20 flex justify-center rounded-lg border-1 border-gray-200 bg-gray-50 p-8">
-        {/* 이메일 찾기 api 응답값으로 변경할 예정 */}
-        kim***@gmail.com
+        {email || ''}
       </div>
       <div className="flex h-[50px] justify-between gap-3">
         <button

@@ -6,15 +6,15 @@ import type {
   findAccount400Error,
   ReqVerifyPhoneCode,
   ReqVerifyUserIdentity,
+  ResFindAccount,
   ResFindEmail,
-  ResVerifyUserIdentity,
 } from '@/types/findAccount'
 import { useMutation } from '@tanstack/react-query'
 
 // 이름, 전화번호 전송
 export const useVerifyUserIdentity = () => {
   return useMutation<
-    ResVerifyUserIdentity,
+    ResFindAccount,
     findAccount400Error,
     ReqVerifyUserIdentity
   >({
