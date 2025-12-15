@@ -38,7 +38,7 @@ export const findPasswordHandlers = [
   http.post(
     API_PATHS.FIND_ACCOUNT.PASSWORD.VERIFY_CODE.POST,
     async ({ request }) => {
-      const { email, code } = (await request.json()) as ReqVerifyEmailCode
+      const { code } = (await request.json()) as ReqVerifyEmailCode
 
       if (code !== '123456') {
         return HttpResponse.json(
@@ -68,7 +68,7 @@ export const findPasswordHandlers = [
   http.post(
     API_PATHS.FIND_ACCOUNT.PASSWORD.RESET_PASSWORD.POST,
     async ({ request }) => {
-      const { email, new_password } = (await request.json()) as ReqResetPassword
+      const { email } = (await request.json()) as ReqResetPassword
 
       if (email !== userInfo.email) {
         return HttpResponse.json(
