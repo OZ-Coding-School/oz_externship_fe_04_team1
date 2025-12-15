@@ -16,7 +16,7 @@ export const API_PATHS = {
     GET: '/api/v1/lectures/recommands',
   },
   BOOKMARK: {
-    // 북마크된 공고 조회 가져오는 api
+    // 북마크된 공고 조회 가져오는 api(6개씩)
     ANNOUNCEMENT: {
       GET: '/api/v1/recruitment-bookmarks',
       // 북마크 공고 삭제 api
