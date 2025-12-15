@@ -29,7 +29,8 @@ function BookMarkStudyDesktop() {
   useInfiniteScroll(
     loadMoreRef,
     () => {
-      if (hasNextPage && !isFetchingNextPage) fetchNextPage()
+      if (!hasNextPage || isFetchingNextPage) return
+      fetchNextPage()
     },
     300
   )
@@ -75,7 +76,7 @@ function BookMarkStudyDesktop() {
       </div>
       <div ref={loadMoreRef} className="h-4" />
       {/* 마지막 항목 도달시 */}
-      {hasNextPage && <Loading />}
+      {hasNextPage && !searchParams.get('search') && <Loading />}
     </>
   )
 }

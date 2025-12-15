@@ -149,7 +149,8 @@ function MobileBookMark() {
       </div>
       <div ref={loadMoreRef} className="h-4" />
       {/* 마지막 항목 도달시 */}
-      {(announceHasNextPage || studyHasNextPage) && <Loading />}
+      {(announceHasNextPage || studyHasNextPage) &&
+        !searchParams.get('search') && <Loading />}
     </>
   )
 }
