@@ -22,7 +22,7 @@ function EmailVerifyStep({
   const code = useWatch({ name: 'code' })
 
   const handleVerifyCode = (data: FindEmailFormData) => {
-    onVerifyCode({ phone, code: data.code })
+    onVerifyCode({ phone_number: phone, code: data.code })
     setCurrentStep(StepIndicatorType.COMPLETE)
   }
 

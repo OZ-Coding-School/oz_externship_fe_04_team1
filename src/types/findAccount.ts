@@ -68,7 +68,7 @@ export type FindEmailFormData = {
 }
 
 export type ReqVerifyPhoneCode = {
-  phone: string
+  phone_number: string
   code: string
 }
 
