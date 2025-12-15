@@ -10,7 +10,7 @@ import Input from '@/components/common/Input'
 import accountemail from '@/assets/email.svg'
 import closeIcon from '@/assets/icons/close.svg'
 import SuccessVerification from './successVerification'
-import { useTimer } from '../accountRecovery/emailTimer'
+import { useTimer } from '@/components/common/timer/Timer'
 interface EmailRegisterFieldProps {
   email: string
   verificationCode: string
@@ -41,14 +41,13 @@ export default function EmailVerificationModal({
   const [isEmailSent, setIsEmailSent] = useState(false)
   const [showSuccessModal, setShowSuccessModal] = useState(false)
 
-  const timerHook = useTimer(300)
-  const { timer, formattedTime, startTimer } = timerHook
-
   const sendEmailMutation = useSendEmailRecovery()
   const verifyCodeMutation = useVerifyCodeRecovery()
 
   const email = watch('email')
   const verificationCode = watch('verificationCode')
+
+  const timer = useTimer({ defaultSeconds: 300 }) // 타이머 시간 지정
 
   const handleSendCode = async () => {
     // trigger를 사용할 시 해당 (email) 필드를 찾고 register의 정해진 규칙을 실행 시키는 비동기 함수
@@ -59,7 +58,7 @@ export default function EmailVerificationModal({
       onSuccess: () => {
         showToast.success('전송 완료!', '이메일을 확인해주세요.')
         setIsEmailSent(true)
-        startTimer()
+        timer.start()
       },
       onError: () => {
         showToast.error('전송 실패', '이메일을 다시 한번 확인해주세요.')
@@ -177,9 +176,9 @@ export default function EmailVerificationModal({
                     className="w-full"
                     placeholder="인증번호를 입력해주세요"
                   />
-                  {timer > 0 && (
-                    <span className="text-danger-500 absolute top-1/2 right-3 -translate-y-1/2 text-sm font-medium">
-                      {formattedTime}
+                  {timer.seconds && (
+                    <span className="text-danger-500 absolute top-1/2 right-3 -translate-y-1/2 text-sm">
+                      {timer.formatted}
                     </span>
                   )}
                 </div>
