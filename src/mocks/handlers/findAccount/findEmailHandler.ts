@@ -6,17 +6,42 @@ import type {
 import { http, HttpResponse } from 'msw'
 import { userInfo } from '../auth/mockData'
 
+// 전화번호 포맷 변환: 01012345678 -> 010-1234-5678
+const formatPhoneNumber = (phone: string): string => {
+  if (phone.length === 11) {
+    return `${phone.slice(0, 3)}-${phone.slice(3, 7)}-${phone.slice(7, 11)}`
+  }
+
+  return phone
+}
+
 export const findEmailHandlers = [
   // 이름, 전화번호 보내기 ( 1단계 )
   http.post(API_PATHS.FIND_ACCOUNT.EMAIL.IDENTITY.POST, async ({ request }) => {
     const { name, phone_number } =
       (await request.json()) as ReqVerifyUserIdentity
 
-    if (name !== userInfo.name || phone_number !== userInfo.phone_number) {
+    // 전화번호 포맷 변환
+    const formattedPhone = formatPhoneNumber(phone_number)
+
+    if (name !== userInfo.name) {
       // 400에러밖에 없음.. 일단 임시로 만듦
       return HttpResponse.json(
         {
-          error_detail: '일치하는 사용자 정보가 없습니다.',
+          error_detail: {
+            name: ['일치하는 사용자 정보가 없습니다.'],
+          },
+        },
+        { status: 400 }
+      )
+    }
+    if (formattedPhone !== userInfo.phone_number) {
+      // 400에러밖에 없음.. 일단 임시로 만듦
+      return HttpResponse.json(
+        {
+          error_detail: {
+            phone_number: ['일치하는 사용자 정보가 없습니다.'],
+          },
         },
         { status: 400 }
       )
@@ -39,7 +64,10 @@ export const findEmailHandlers = [
       const { phone_number, code } =
         (await request.json()) as ReqVerifyPhoneCode
 
-      if (phone_number !== userInfo.phone_number || code !== '123456') {
+      // 전화번호 포맷 변환
+      const formattedPhone = formatPhoneNumber(phone_number)
+
+      if (formattedPhone !== userInfo.phone_number || code !== '123456') {
         return HttpResponse.json({
           error_detail: {
             code: ['이메일 인증 실패 - 이메일 인증코드가 유효하지 않습니다.'],
