@@ -1,6 +1,5 @@
 import {
   FINDTYPE,
-  StepIndicatorType,
   type FindPasswordFormData,
   type PasswordAuthStepProps,
 } from '@/types/findAccount'
@@ -15,7 +14,6 @@ import { ROUTE_PATHS } from '@/constant/route'
 
 function PasswordAuthStep({
   currentStep,
-  setCurrentStep,
   onVerifyWithEmail,
 }: PasswordAuthStepProps) {
   const {
@@ -34,7 +32,6 @@ function PasswordAuthStep({
 
   const handleNextWithVerifyEmail = (data: FindPasswordFormData) => {
     onVerifyWithEmail({ email: data.email })
-    setCurrentStep(StepIndicatorType.VERIFY)
   }
 
   return (

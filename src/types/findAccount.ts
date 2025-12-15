@@ -47,6 +47,7 @@ export type ReqVerifyEmailCode = {
 }
 
 export interface PasswordVerifyStepProps extends StepControlProps {
+  setCurrentStep: Dispatch<SetStateAction<StepIndicatorType>>
   onVerifyCode: (data: ReqVerifyEmailCode) => void
 }
 

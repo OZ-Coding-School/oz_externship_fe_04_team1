@@ -47,7 +47,6 @@ function FindPasswordPage() {
           <PasswordAuthStep
             onVerifyWithEmail={handleVerifyWithEmail}
             currentStep={currentStep}
-            setCurrentStep={setCurrentStep}
           />
         )}
         {currentStep === StepIndicatorType.VERIFY && (
