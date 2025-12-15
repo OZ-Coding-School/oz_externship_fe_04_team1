@@ -1,18 +1,33 @@
-import FindAccountLayout from '@/components/find/common/FindAccountLayout'
-import EmailCompleteStep from '@/components/find/findEmail/EmailCompleteStep'
-import EmailAuthStep from '@/components/find/findEmail/EmailAuthStep'
-import EmailVerifyStep from '@/components/find/findEmail/EmailVerifyStep'
+import FindAccountLayout from '@/components/findAccount/common/FindAccountLayout'
+import EmailCompleteStep from '@/components/findAccount/findEmail/EmailCompleteStep'
+import EmailAuthStep from '@/components/findAccount/findEmail/EmailAuthStep'
+import EmailVerifyStep from '@/components/findAccount/findEmail/EmailVerifyStep'
 import {
   StepIndicatorType,
+  type findAccount400Error,
   type FindEmailFormData,
   type ReqVerifyPhoneCode,
   type ReqVerifyUserIdentity,
 } from '@/types/findAccount'
 import { useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
+import {
+  useFindEmailByPhone,
+  useVerifyUserIdentity,
+} from '@/hooks/quries/findAccount/findEmail'
+import { showToast } from '@/components/common/toast/Toast'
+
+const getErrorDetail = (
+  { error_detail }: findAccount400Error,
+  custom_error_msg: string
+) => {
+  const errorMsg = Object.values(error_detail)?.[0]?.[0] || custom_error_msg
+  return errorMsg
+}
 
 function FindEmailPage() {
   const [currentStep, setCurrentStep] = useState(StepIndicatorType.AUTH)
+  const [foundEmail, setFoundEmail] = useState<string>('')
   const methods = useForm<FindEmailFormData>({
     mode: 'onChange',
     defaultValues: {
@@ -22,14 +37,37 @@ function FindEmailPage() {
     },
   })
 
+  const { mutate: verifyUserIdentify } = useVerifyUserIdentity()
+  const { mutate: findEamilByPhone } = useFindEmailByPhone()
+
+  // 이름, 전화번호를 서버에 전달
   const handleVerifyUserIdentity = (data: ReqVerifyUserIdentity) => {
-    // api 작업 - name과 phone를 서버로 전송하여 인증번호 검증
-    console.log('data : ', data)
+    verifyUserIdentify(data, {
+      onSuccess: () => {
+        showToast.success('인증번호', '발송 완료')
+        setCurrentStep(StepIndicatorType.VERIFY)
+      },
+      onError: (error) => {
+        showToast.error(
+          getErrorDetail(error, '사용자 정보 확인에 실패했습니다.'),
+          ''
+        )
+        setCurrentStep(StepIndicatorType.AUTH)
+      },
+    })
   }
 
+  // 인증 코드와 전화번호를 서버에 전달
   const handleVerifyCode = (data: ReqVerifyPhoneCode) => {
-    // api 작업 - phone과 code를 서버로 전송하여 인증번호 검증
-    console.log('data: ', data)
+    findEamilByPhone(data, {
+      onSuccess: (response) => {
+        setFoundEmail(response.email)
+        setCurrentStep(StepIndicatorType.COMPLETE)
+      },
+      onError: (error) => {
+        showToast.error(getErrorDetail(error, '인증에 실패했습니다.'), '')
+      },
+    })
   }
 
   return (
@@ -40,9 +78,8 @@ function FindEmailPage() {
       >
         {currentStep === StepIndicatorType.AUTH && (
           <EmailAuthStep
-            onVerifyUserIdentity={handleVerifyUserIdentity}
             currentStep={currentStep}
-            setCurrentStep={setCurrentStep}
+            onVerifyUserIdentity={handleVerifyUserIdentity}
           />
         )}
         {currentStep === StepIndicatorType.VERIFY && (
@@ -53,7 +90,7 @@ function FindEmailPage() {
           />
         )}
         {currentStep === StepIndicatorType.COMPLETE && (
-          <EmailCompleteStep currentStep={currentStep} />
+          <EmailCompleteStep currentStep={currentStep} email={foundEmail} />
         )}
       </FindAccountLayout>
     </FormProvider>
