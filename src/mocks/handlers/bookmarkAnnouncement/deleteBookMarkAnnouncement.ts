@@ -6,7 +6,7 @@ export const deleteBookMarkAnnouncementHandler = [
     const { uuid } = params
     // recruitment 배열 안에서 uuid 찾기
     let found = false
-    for (const bookmark of bookmarkAnnouncement) {
+    for (const bookmark of bookmarkAnnouncement.results) {
       const index = bookmark.recruitment.findIndex((r) => r.uuid === uuid)
       if (index !== -1) {
         bookmark.recruitment.splice(index, 1) // 삭제
