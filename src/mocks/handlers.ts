@@ -35,7 +35,7 @@ export const handlers = [
   ...bookmarkStudyHandler,
   ...applyListHandler,
   ...applyListDetailHandler,
-  // ...signupHandlers,
+  ...signupHandlers,
   ...completeStudyHandler,
   ...accountRecoveryHandler,
   ...loginHandlers,
