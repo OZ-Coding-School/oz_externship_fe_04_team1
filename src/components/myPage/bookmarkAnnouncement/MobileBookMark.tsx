@@ -16,23 +16,30 @@ import Loading from '@/components/common/loading'
 function MobileBookMark() {
   const {
     data: bookmarkAnnouncementdata,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
+    fetchNextPage: announceFetchNextPage,
+    hasNextPage: announceHasNextPage,
+    isFetchingNextPage: announceIsFetchingNextPage,
   } = useBookmarkAnnouncement()
+  const {
+    data: bookmarkStudyData,
+    fetchNextPage: studyFetchNextPage,
+    hasNextPage: studyHasNextPage,
+    isFetchingNextPage: studyIsFetchingNextPage,
+  } = useBookmarkStudy()
   const allAnnouncementResults =
     bookmarkAnnouncementdata?.pages.flatMap((page) => page.results) ?? []
-  const { data: studyData } = useBookmarkStudy()
+  const allStudyResults =
+    bookmarkStudyData?.pages.flatMap((page) => page.results) ?? []
   const [searchParams] = useSearchParams()
   const { mutate: deleteBookMarkAnnouncement } = useDeleteBookmarkAnnouncement()
   const { mutate: deleteBookmarkStudy } = useDeleteBookmarkStudy()
   const announcementFilteredData = useAnnouncementSearchFilter(
     allAnnouncementResults
   )
-  const studyFilteredData = useStudySearchFilter(studyData)
+  const studyFilteredData = useStudySearchFilter(allStudyResults)
   const [options, setOptions] = useState([
     `공고 (${allAnnouncementResults.length})`,
-    `강의 (${studyData.length})`,
+    `강의 (${allStudyResults.length})`,
   ])
   // 드롭다운 선택된 항목 상태
   const [optionIsSelected, setOptionIsSelected] = useState<
@@ -48,14 +55,19 @@ function MobileBookMark() {
   useInfiniteScroll(
     loadMoreRef,
     () => {
-      if (hasNextPage && !isFetchingNextPage) fetchNextPage()
+      if (optionIsSelected === 'ANNOUNCEMENT') {
+        if (announceHasNextPage && !announceIsFetchingNextPage)
+          announceFetchNextPage()
+      } else if (optionIsSelected === 'STUDY') {
+        if (studyHasNextPage && !studyIsFetchingNextPage) studyFetchNextPage()
+      }
     },
     300
   )
   useEffect(() => {
     setOptions([
       `공고 (${allAnnouncementResults.length})`,
-      `강의 (${studyData.length})`,
+      `강의 (${allStudyResults.length})`,
     ])
   }, [allAnnouncementResults.length])
   return (
@@ -123,7 +135,7 @@ function MobileBookMark() {
                 />
               ))
             )}
-            {studyData.map((value) => (
+            {allStudyResults.map((value) => (
               <CourseBookmark
                 key={value.id}
                 studyBookMarkData={value}
@@ -135,12 +147,9 @@ function MobileBookMark() {
           </>
         )}
       </div>
-      <div
-        ref={loadMoreRef}
-        className={optionIsSelected === 'ANNOUNCEMENT' ? 'h-4' : 'hidden'}
-      />
+      <div ref={loadMoreRef} className="h-4" />
       {/* 마지막 항목 도달시 */}
-      {hasNextPage && <Loading />}
+      {(announceHasNextPage || studyHasNextPage) && <Loading />}
     </>
   )
 }

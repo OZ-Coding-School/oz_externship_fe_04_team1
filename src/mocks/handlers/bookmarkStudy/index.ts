@@ -4,8 +4,6 @@ import { bookMarkStudy } from './mockData'
 
 export const bookmarkStudyHandler = [
   http.get(API_PATHS.BOOKMARK.STUDY.GET, () => {
-    return HttpResponse.json({
-      results: bookMarkStudy,
-    })
+    return HttpResponse.json(bookMarkStudy)
   }),
 ]
