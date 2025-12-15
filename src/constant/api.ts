@@ -115,4 +115,15 @@ export const API_PATHS = {
   S3: {
     GET: '/api/v1/s3-presigned-url',
   },
+
+  FIND_ACCOUNT: {
+    EMAIL: {
+      IDENTITY: {
+        POST: '/api/v1/accounts/find-email/send-sms',
+      },
+      VERIFY_CODE: {
+        POST: '/api/v1/accounts/find-email',
+      },
+    },
+  },
 } as const
