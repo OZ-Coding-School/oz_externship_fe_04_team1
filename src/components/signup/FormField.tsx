@@ -1,5 +1,5 @@
+import { cn } from '@/lib/utils'
 import type { ReactNode } from 'react'
-import { twMerge } from 'tailwind-merge'
 
 interface FormFieldProps {
   label?: string
@@ -21,7 +21,7 @@ function FormField({
   children,
 }: FormFieldProps) {
   return (
-    <div className={twMerge('flex flex-col gap-5', className)}>
+    <div className={cn('flex flex-col gap-5', className)}>
       <label htmlFor={htmlFor}>
         {label}
         {require && <span className="text-danger-500 pl-0.5">*</span>}
