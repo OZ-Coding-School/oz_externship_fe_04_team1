@@ -23,7 +23,6 @@ function EmailVerifyStep({
 
   const handleVerifyCode = (data: FindEmailFormData) => {
     onVerifyCode({ phone_number: phone, code: data.code })
-    setCurrentStep(StepIndicatorType.COMPLETE)
   }
 
   const handlePrev = () => {
@@ -76,7 +75,11 @@ function EmailVerifyStep({
           </Button>
         </div>
       </form>
-      <Button onClick={handlePrev} className="mt-6 h-11" variant="outline">
+      <Button
+        onClick={handlePrev}
+        className="mt-6 h-11 w-full"
+        variant="outline"
+      >
         이전 단계
       </Button>
     </div>

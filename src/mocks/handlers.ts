@@ -26,6 +26,8 @@ import { certifyPhoneNumber } from './handlers/certifyPhoneNumber/index.ts'
 import { deleteBookMarkAnnouncementHandler } from './handlers/bookmarkAnnouncement/deleteBookMarkAnnouncement.ts'
 import { deleteBookMarkStudytHandler } from './handlers/bookmarkStudy/deleteBookMarkStudy.ts'
 import { s3PresignedHandler } from './handlers/s3/index.ts'
+import { findEmailHandlers } from './handlers/findAccount/findEmailHandler.ts'
+import { findPasswordHandlers } from './handlers/findAccount/findPasswordHandler.ts'
 export const handlers = [
   ...userInformationHandler,
   ...courseInformationHandler,
@@ -49,4 +51,6 @@ export const handlers = [
   ...patchReviewHandler,
   ...s3PresignedHandler,
   ...patchUserInformationHandler,
+  ...findEmailHandlers,
+  ...findPasswordHandlers,
 ]

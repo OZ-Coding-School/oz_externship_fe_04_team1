@@ -3,7 +3,7 @@ import type { UserInformation } from '@/types/userInformation'
 import { axiosInstance } from '@/api/axios'
 import type { EditUserInformation } from '@/types/editUserInformation'
 
-export const getUserInformationApi = async (): Promise<UserInformation[]> => {
+export const getUserInformationApi = async (): Promise<UserInformation> => {
   const { data } = await axiosInstance.get(API_PATHS.USER.GET)
   return data
 }

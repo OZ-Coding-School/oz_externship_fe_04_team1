@@ -1,22 +1,42 @@
 import CourseBookmark from '@/components/common/cards/CourseBookmark'
+import Loading from '@/components/common/loading'
 import NoSearchReult from '@/components/common/notFound/noSearchResult'
 import Search from '@/components/common/search/Search'
 import useBookmarkStudy from '@/hooks/quries/useBookMarkStudy'
 import { useDeleteBookmarkStudy } from '@/hooks/quries/useDeleteBookmarkStudy'
 import { useStudySearchFilter } from '@/hooks/useStudySearchFilter'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { useSearchParams } from 'react-router'
+import { useInfiniteScroll } from '@/hooks/useInfiniteScroll'
+import NoData from '@/components/common/notFound/noData'
 function BookMarkStudyDesktop() {
-  const { data: bookmarkStudyData } = useBookmarkStudy()
+  const {
+    data: bookmarkStudyData,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useBookmarkStudy()
   const { mutate: deleteBookmarkStudy } = useDeleteBookmarkStudy()
   const [searchParams, setSearchParams] = useSearchParams()
-  const filteredData = useStudySearchFilter(bookmarkStudyData)
+  const allResults =
+    bookmarkStudyData?.pages.flatMap((page) => page.results) ?? []
+  const filteredData = useStudySearchFilter(allResults)
+  const loadMoreRef = useRef<HTMLDivElement>(null)
   // 새로고침시 검색 기록 초기화
   useEffect(() => {
     setSearchParams({ search: '' })
   }, [])
   // 추후 북마크한 항목 없을때 항목 없음 컴포넌트 렌더링해야함
-  // 추후 무한 스크롤 구현하기
+  useInfiniteScroll(
+    loadMoreRef,
+    () => {
+      if (!searchParams.get('search')) {
+        if (!hasNextPage || isFetchingNextPage) return
+        fetchNextPage()
+      }
+    },
+    300
+  )
   return (
     <>
       {/* 제목 및 검색 컴포넌트 파트 */}
@@ -32,10 +52,23 @@ function BookMarkStudyDesktop() {
         <Search placeHolder="강의명이나 강사로 검색..." />
       </div>
       {/* 카드 컴포넌트 */}
-      <div className="mt-6 flex flex-col gap-4">
-        {searchParams.get('search') ? (
-          filteredData && filteredData.length > 0 ? (
-            filteredData.map((value) => (
+      {allResults.length > 0 ? (
+        <div className="mt-6 flex flex-col gap-4">
+          {searchParams.get('search') ? (
+            filteredData && filteredData.length > 0 ? (
+              filteredData.map((value) => (
+                <CourseBookmark
+                  key={value.id}
+                  studyBookMarkData={value}
+                  onBookmarkClick={() => deleteBookmarkStudy(value.id)}
+                  onViewClick={() => console.log('view clicked')}
+                />
+              ))
+            ) : (
+              <NoSearchReult searchResult={searchParams.get('search') ?? ''} />
+            )
+          ) : (
+            allResults.map((value) => (
               <CourseBookmark
                 key={value.id}
                 studyBookMarkData={value}
@@ -43,20 +76,17 @@ function BookMarkStudyDesktop() {
                 onViewClick={() => console.log('view clicked')}
               />
             ))
-          ) : (
-            <NoSearchReult searchResult={searchParams.get('search') ?? ''} />
-          )
-        ) : (
-          bookmarkStudyData.map((value) => (
-            <CourseBookmark
-              key={value.id}
-              studyBookMarkData={value}
-              onBookmarkClick={() => deleteBookmarkStudy(value.id)}
-              onViewClick={() => console.log('view clicked')}
-            />
-          ))
-        )}
-      </div>
+          )}
+        </div>
+      ) : (
+        <div className="mt-4">
+          <NoData />
+        </div>
+      )}
+
+      <div ref={loadMoreRef} className="h-4" />
+      {/* 마지막 항목 도달시 */}
+      {hasNextPage && !searchParams.get('search') && <Loading />}
     </>
   )
 }

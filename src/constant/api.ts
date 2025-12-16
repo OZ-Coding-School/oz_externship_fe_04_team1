@@ -16,7 +16,7 @@ export const API_PATHS = {
     GET: '/api/v1/lectures/recommands',
   },
   BOOKMARK: {
-    // 북마크된 공고 조회 가져오는 api
+    // 북마크된 공고 조회 가져오는 api(6개씩)
     ANNOUNCEMENT: {
       GET: '/api/v1/recruitment-bookmarks',
       // 북마크 공고 삭제 api
@@ -114,5 +114,29 @@ export const API_PATHS = {
   },
   S3: {
     GET: '/api/v1/s3-presigned-url',
+  },
+
+  FIND_ACCOUNT: {
+    // 이메일 찾기
+    EMAIL: {
+      IDENTITY: {
+        POST: '/api/v1/accounts/find-email/send-sms',
+      },
+      VERIFY_CODE: {
+        POST: '/api/v1/accounts/find-email',
+      },
+    },
+    // 비밀번호 찾기
+    PASSWORD: {
+      SEND_EMAIL: {
+        POST: '/api/v1/accounts/find-password/send-email',
+      },
+      VERIFY_CODE: {
+        POST: '/api/v1/accounts/find-password/verify-email',
+      },
+      RESET_PASSWORD: {
+        POST: '/api/v1/accounts/find-password',
+      },
+    },
   },
 } as const

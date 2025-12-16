@@ -24,7 +24,7 @@ function EditPhoneNumber({ onClose }: EditPhoneNumberProps) {
     formState: { errors, isValid },
   } = useForm<CertifyNumber>({
     defaultValues: {
-      phone_number: userData[0]?.phone_number,
+      phone_number: userData?.phone_number,
       code: '',
     },
     mode: 'onChange',

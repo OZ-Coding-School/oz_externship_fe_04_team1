@@ -4,7 +4,14 @@ import { bookMarkStudy } from './mockData'
 export const deleteBookMarkStudytHandler = [
   http.delete('/api/v1/lecture-bookmarks/:id', ({ params }) => {
     const { id } = params
-    const data = bookMarkStudy.find((item) => item.id === Number(id))
-    return HttpResponse.json(data)
+    let found = false
+    const index = bookMarkStudy.results.findIndex((r) => r.id === Number(id))
+    if (index !== -1) {
+      bookMarkStudy.results.splice(index, 1)
+      found = true
+    }
+    if (found) {
+      return HttpResponse.json({ success: true })
+    }
   }),
 ]
