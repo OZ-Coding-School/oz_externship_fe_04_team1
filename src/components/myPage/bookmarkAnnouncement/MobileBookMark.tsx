@@ -13,6 +13,7 @@ import { useDeleteBookmarkAnnouncement } from '@/hooks/quries/useDeleteBookmarkA
 import { useDeleteBookmarkStudy } from '@/hooks/quries/useDeleteBookmarkStudy'
 import { useInfiniteScroll } from '@/hooks/useInfiniteScroll'
 import Loading from '@/components/common/loading'
+import NoData from '@/components/common/notFound/noData'
 function MobileBookMark() {
   const {
     data: bookmarkAnnouncementdata,
@@ -124,35 +125,61 @@ function MobileBookMark() {
           )
         ) : (
           <>
-            {allAnnouncementResults.map((value) =>
-              value.recruitment.map((v) => (
-                <StudyBookmark
+            {allAnnouncementResults.length > 0 ? (
+              allAnnouncementResults.map((value) =>
+                value.recruitment.map((v) => (
+                  <StudyBookmark
+                    key={value.id}
+                    announcementBookmarkData={v}
+                    onBookmarkClick={() => deleteBookMarkAnnouncement(v.uuid)}
+                    onViewClick={() => console.log('view clicked')}
+                    className={
+                      optionIsSelected === 'ANNOUNCEMENT' ? 'block' : 'hidden'
+                    }
+                  />
+                ))
+              )
+            ) : (
+              <div
+                className={
+                  optionIsSelected === 'STUDY' ? 'hidden' : 'mt-4 block w-full'
+                }
+              >
+                <NoData />
+              </div>
+            )}
+            {allStudyResults.length > 0 ? (
+              allStudyResults.map((value) => (
+                <CourseBookmark
                   key={value.id}
-                  announcementBookmarkData={v}
-                  onBookmarkClick={() => deleteBookMarkAnnouncement(v.uuid)}
+                  studyBookMarkData={value}
+                  onBookmarkClick={() => deleteBookmarkStudy(value.id)}
                   onViewClick={() => console.log('view clicked')}
-                  className={
-                    optionIsSelected === 'ANNOUNCEMENT' ? 'block' : 'hidden'
-                  }
+                  className={optionIsSelected === 'STUDY' ? 'block' : 'hidden'}
                 />
               ))
+            ) : (
+              <div
+                className={
+                  optionIsSelected === 'ANNOUNCEMENT'
+                    ? 'hidden'
+                    : 'mt-4 block w-full'
+                }
+              >
+                <NoData />
+              </div>
             )}
-            {allStudyResults.map((value) => (
-              <CourseBookmark
-                key={value.id}
-                studyBookMarkData={value}
-                onBookmarkClick={() => deleteBookmarkStudy(value.id)}
-                onViewClick={() => console.log('view clicked')}
-                className={optionIsSelected === 'STUDY' ? 'block' : 'hidden'}
-              />
-            ))}
           </>
         )}
       </div>
       <div ref={loadMoreRef} className="h-4" />
       {/* 마지막 항목 도달시 */}
       {!searchParams.get('search') &&
-        (announceHasNextPage || studyHasNextPage) && <Loading />}
+        optionIsSelected === 'ANNOUNCEMENT' &&
+        announceHasNextPage && <Loading />}
+      {!searchParams.get('search') &&
+        optionIsSelected === 'STUDY' &&
+        studyHasNextPage && <Loading />}
     </>
   )
 }
