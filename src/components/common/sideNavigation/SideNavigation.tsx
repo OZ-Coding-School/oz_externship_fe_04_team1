@@ -9,19 +9,19 @@ function SideNavigation() {
         <div className="bg-basic-white flex h-[591px] w-[280px] flex-col gap-8 rounded-xl border-2 border-solid border-gray-200">
           <div className="mt-[25px] flex flex-col items-center">
             <img
-              src={userData[0]?.profile_img_url}
+              src={userData?.profile_img_url}
               alt="defaultImg"
               className="h-[80px] w-[80px] rounded-full"
             />
             <h3 className="mt-[16px] h-[28px] text-lg font-semibold text-gray-900">
-              {userData[0]?.name}
+              {userData?.name}
             </h3>
             <span className="mt-[8px] text-sm text-gray-600">
-              {userData[0]?.email}
+              {userData?.email}
             </span>
             <span className="mt-[8px] text-xs text-gray-500">
-              가입일 : {userData[0]?.created_at?.slice(0, 4)}년{' '}
-              {userData[0]?.created_at?.slice(5, 7)}월{' '}
+              가입일 : {userData?.created_at?.slice(0, 4)}년{' '}
+              {userData?.created_at?.slice(5, 7)}월{' '}
               {/* 추후 백엔드에서 어떤식으로 내려주는지 보고 1자리인 월인 경우는 수정이 필요함. 
           지금 설계한것은 01 이런식으로 월이 내려오는경우 */}
             </span>
