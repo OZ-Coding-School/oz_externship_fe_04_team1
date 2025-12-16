@@ -231,7 +231,10 @@ function SignupPage() {
     <div className="mx-auto flex min-h-screen w-full flex-col items-center bg-gray-50">
       {/* 회원가입 폼 */}
       <FormProvider {...methods}>
-        <div className="my-14 flex h-fit w-[528px] flex-col gap-9 bg-white px-5 py-10">
+        <form
+          onSubmit={methods.handleSubmit(handleSubmit)}
+          className="my-14 flex h-fit w-[528px] flex-col gap-9 bg-white px-5 py-10"
+        >
           {/* 헤더 */}
           <div className="flex flex-col items-center justify-center gap-4">
             <h2 className="text-3xl font-bold">회원가입</h2>
@@ -274,13 +277,13 @@ function SignupPage() {
           {/* 비밀번호 입력 */}
           <PasswordSection />
           <Button
-            onClick={methods.handleSubmit(handleSubmit)}
+            type="submit"
             className="h-[52px] w-full"
             disabled={isSubmitDisabled}
           >
             {isSubmitPending ? '가입 중...' : '가입하기'}
           </Button>
-        </div>
+        </form>
       </FormProvider>
     </div>
   )

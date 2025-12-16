@@ -68,7 +68,7 @@ function LoginForm() {
   }
 
   return (
-    <form>
+    <form onSubmit={handleSubmit((data) => handleLogin(data, setError))}>
       <div className="flex flex-col gap-3">
         <div>
           <label htmlFor="login-email">
@@ -103,10 +103,10 @@ function LoginForm() {
         <Link to={ROUTE_PATHS.FIND_PASSWORD}>비밀번호 찾기</Link>
       </div>
       <Button
+        type="submit"
         variant="secondary"
         className="mt-2.5 h-[52px] w-full bg-gray-200 hover:bg-gray-300"
         disabled={!isValid || loggingIn}
-        onClick={handleSubmit((data) => handleLogin(data, setError))}
       >
         {loggingIn ? '로그인 중...' : '일반회원 로그인'}
       </Button>
