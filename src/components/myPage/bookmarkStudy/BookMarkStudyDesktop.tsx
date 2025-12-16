@@ -8,6 +8,7 @@ import { useStudySearchFilter } from '@/hooks/useStudySearchFilter'
 import { useEffect, useRef } from 'react'
 import { useSearchParams } from 'react-router'
 import { useInfiniteScroll } from '@/hooks/useInfiniteScroll'
+import NoData from '@/components/common/notFound/noData'
 function BookMarkStudyDesktop() {
   const {
     data: bookmarkStudyData,
@@ -51,10 +52,23 @@ function BookMarkStudyDesktop() {
         <Search placeHolder="강의명이나 강사로 검색..." />
       </div>
       {/* 카드 컴포넌트 */}
-      <div className="mt-6 flex flex-col gap-4">
-        {searchParams.get('search') ? (
-          filteredData && filteredData.length > 0 ? (
-            filteredData.map((value) => (
+      {allResults.length > 0 ? (
+        <div className="mt-6 flex flex-col gap-4">
+          {searchParams.get('search') ? (
+            filteredData && filteredData.length > 0 ? (
+              filteredData.map((value) => (
+                <CourseBookmark
+                  key={value.id}
+                  studyBookMarkData={value}
+                  onBookmarkClick={() => deleteBookmarkStudy(value.id)}
+                  onViewClick={() => console.log('view clicked')}
+                />
+              ))
+            ) : (
+              <NoSearchReult searchResult={searchParams.get('search') ?? ''} />
+            )
+          ) : (
+            allResults.map((value) => (
               <CourseBookmark
                 key={value.id}
                 studyBookMarkData={value}
@@ -62,20 +76,14 @@ function BookMarkStudyDesktop() {
                 onViewClick={() => console.log('view clicked')}
               />
             ))
-          ) : (
-            <NoSearchReult searchResult={searchParams.get('search') ?? ''} />
-          )
-        ) : (
-          allResults.map((value) => (
-            <CourseBookmark
-              key={value.id}
-              studyBookMarkData={value}
-              onBookmarkClick={() => deleteBookmarkStudy(value.id)}
-              onViewClick={() => console.log('view clicked')}
-            />
-          ))
-        )}
-      </div>
+          )}
+        </div>
+      ) : (
+        <div className="mt-4">
+          <NoData />
+        </div>
+      )}
+
       <div ref={loadMoreRef} className="h-4" />
       {/* 마지막 항목 도달시 */}
       {hasNextPage && !searchParams.get('search') && <Loading />}

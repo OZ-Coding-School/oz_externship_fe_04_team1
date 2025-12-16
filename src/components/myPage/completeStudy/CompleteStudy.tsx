@@ -2,6 +2,7 @@ import useCompleteStudyData from '@/hooks/quries/useCompleteStudy'
 import StudyCompleteCard from '@/components/common/cards/StudyCompleteCard'
 import ReviewOverLay from '../overlay/ReviewOverLay'
 import { ReviewModalProvider } from '@/store/context/reviewModalContext'
+import NoData from '@/components/common/notFound/noData'
 function CompleteStudy() {
   const { data: completeStudyData } = useCompleteStudyData()
   const now = new Date()
@@ -27,11 +28,17 @@ function CompleteStudy() {
         </span>
       </div>
       {/* 카드 부분 */}
-      <div className="mt-6 flex flex-wrap justify-center gap-6 xl:justify-start">
-        {filteredData.map((value) => (
-          <StudyCompleteCard key={value.id} studyCompleteCardData={value} />
-        ))}
-      </div>
+      {filteredData.length > 0 ? (
+        <div className="mt-6 flex flex-wrap justify-center gap-6 xl:justify-start">
+          {filteredData.map((value) => (
+            <StudyCompleteCard key={value.id} studyCompleteCardData={value} />
+          ))}
+        </div>
+      ) : (
+        <div className="mt-4">
+          <NoData />
+        </div>
+      )}
     </ReviewModalProvider>
   )
 }

@@ -1,15 +1,18 @@
 import { getBookmarkAnnouncementApi } from '@/api/bookmarkAnnouncement'
 import type { BookmarkAnnouncement } from '@/types/bookmarkAnnouncement'
 import { useInfiniteQuery } from '@tanstack/react-query'
-
+const PAGE_SIZE = 6
 const useBookmarkAnnouncement = () => {
   return useInfiniteQuery<BookmarkAnnouncement>({
-    queryKey: ['bookmarkAnnouncement'],
+    queryKey: ['bookmarkAnnouncement', PAGE_SIZE],
     initialPageParam: null,
     queryFn: ({ pageParam }) =>
-      getBookmarkAnnouncementApi(pageParam as string | null),
+      getBookmarkAnnouncementApi(pageParam as string | null, PAGE_SIZE),
     getNextPageParam: (lastPage) => {
-      return lastPage.next ?? undefined
+      if (!lastPage.next) return undefined
+
+      const url = new URL(lastPage.next)
+      return url.searchParams.get('cursor')
     },
   })
 }

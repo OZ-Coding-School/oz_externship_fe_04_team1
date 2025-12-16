@@ -16,7 +16,6 @@ function EditModal({ onClose }: EditModalProps) {
   const [imgFile, setImgFile] = useState<File | null>(null)
   const { data: userData } = useUserData()
   const { mutate: editUserInformation } = usePatchUserInformation()
-  // 추후 useEffect 이용해서 폼에 초기값 가져오는것 구현하기
   const {
     register,
     handleSubmit,
