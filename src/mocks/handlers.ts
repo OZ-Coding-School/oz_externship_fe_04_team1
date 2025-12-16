@@ -29,7 +29,7 @@ import { s3PresignedHandler } from './handlers/s3/index.ts'
 import { findEmailHandlers } from './handlers/findAccount/findEmailHandler.ts'
 import { findPasswordHandlers } from './handlers/findAccount/findPasswordHandler.ts'
 export const handlers = [
-  // ...userInformationHandler,
+  ...userInformationHandler,
   ...courseInformationHandler,
   ...notificationHandlers,
   ...bookmarkAnnouncementHandler,
@@ -39,7 +39,7 @@ export const handlers = [
   ...signupHandlers,
   ...completeStudyHandler,
   ...accountRecoveryHandler,
-  // ...loginHandlers,
+  ...loginHandlers,
   ...editPassWordHandler,
   ...deleteUserHandler,
   ...sendCodeHandler,
