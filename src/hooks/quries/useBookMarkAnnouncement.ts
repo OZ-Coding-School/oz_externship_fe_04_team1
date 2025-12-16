@@ -9,7 +9,10 @@ const useBookmarkAnnouncement = () => {
     queryFn: ({ pageParam }) =>
       getBookmarkAnnouncementApi(pageParam as string | null),
     getNextPageParam: (lastPage) => {
-      return lastPage.next ?? undefined
+      if (!lastPage.next) return undefined
+
+      const url = new URL(lastPage.next)
+      return url.searchParams.get('cursor')
     },
   })
 }
