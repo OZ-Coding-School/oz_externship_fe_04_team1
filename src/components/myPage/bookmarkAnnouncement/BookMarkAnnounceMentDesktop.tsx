@@ -8,6 +8,7 @@ import { useAnnouncementSearchFilter } from '@/hooks/useAnnouncementSearchFilter
 import { useEffect, useRef } from 'react'
 import { useSearchParams } from 'react-router'
 import { useInfiniteScroll } from '@/hooks/useInfiniteScroll'
+import NoData from '@/components/common/notFound/noData'
 function BookMarkAnnouncementDesktop() {
   const {
     data: bookmarkAnnouncementdata,
@@ -56,11 +57,26 @@ function BookMarkAnnouncementDesktop() {
         <Search placeHolder="공고 제목으로 검색..." />
       </div>
       {/* 카드 컴포넌트들 */}
-      <div className="mt-6 flex flex-col gap-4">
-        {/* 검색 목록이 존재한다면 해당 목록 렌더링, 검색 하지 않았을시 전체 렌더링, 만약 검색 결과가 없다면 검색 결과 없음*/}
-        {searchParams.get('search') ? (
-          filteredData && filteredData.length > 0 ? (
-            filteredData.map((value) =>
+      {allResults.length > 0 ? (
+        <div className="mt-6 flex flex-col gap-4">
+          {/* 검색 목록이 존재한다면 해당 목록 렌더링, 검색 하지 않았을시 전체 렌더링, 만약 검색 결과가 없다면 검색 결과 없음*/}
+          {searchParams.get('search') ? (
+            filteredData && filteredData.length > 0 ? (
+              filteredData.map((value) =>
+                value.recruitment.map((v) => (
+                  <StudyBookmark
+                    key={value.id}
+                    announcementBookmarkData={v}
+                    onBookmarkClick={() => deleteBookmarkAnnouncement(v.uuid)}
+                    onViewClick={() => console.log('view clicked')}
+                  />
+                ))
+              )
+            ) : (
+              <NoSearchReult searchResult={searchParams.get('search') ?? ''} />
+            )
+          ) : (
+            allResults.map((value) =>
               value.recruitment.map((v) => (
                 <StudyBookmark
                   key={value.id}
@@ -70,22 +86,13 @@ function BookMarkAnnouncementDesktop() {
                 />
               ))
             )
-          ) : (
-            <NoSearchReult searchResult={searchParams.get('search') ?? ''} />
-          )
-        ) : (
-          allResults.map((value) =>
-            value.recruitment.map((v) => (
-              <StudyBookmark
-                key={value.id}
-                announcementBookmarkData={v}
-                onBookmarkClick={() => deleteBookmarkAnnouncement(v.uuid)}
-                onViewClick={() => console.log('view clicked')}
-              />
-            ))
-          )
-        )}
-      </div>
+          )}
+        </div>
+      ) : (
+        <div className="mt-4">
+          <NoData />
+        </div>
+      )}
       <div ref={loadMoreRef} className="h-4" />
       {/* 마지막 항목 도달시 */}
       {hasNextPage && !searchParams.get('search') && <Loading />}
