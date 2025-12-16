@@ -9,7 +9,7 @@ export type TimerRefProps = {
 type TimerProps = {
   seconds?: number // 기본 300
   onExpire?: () => void
-  className?: string // 타이머 텍스트 스타일
+  className?: string //  타이머 텍스트 스타일
 }
 
 export const Timer = forwardRef<TimerRefProps, TimerProps>(function TimerSuffix(
