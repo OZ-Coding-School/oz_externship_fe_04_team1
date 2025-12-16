@@ -26,11 +26,11 @@ function EditModal({ onClose }: EditModalProps) {
     formState: { errors },
   } = useForm<EditUserInformation>({
     defaultValues: {
-      name: userData[0]?.name,
-      nickname: userData[0]?.nickname,
-      birthday: userData[0]?.birthday.split('-').join(''),
-      gender: userData[0]?.gender,
-      profile_img_url: userData[0]?.profile_img_url,
+      name: userData?.name,
+      nickname: userData?.nickname,
+      birthday: userData?.birthday.split('-').join(''),
+      gender: userData?.gender,
+      profile_img_url: userData?.profile_img_url,
     },
     mode: 'onBlur',
   })
@@ -73,7 +73,7 @@ function EditModal({ onClose }: EditModalProps) {
     : undefined
 
   const { data: s3UrlImgData } = useS3PresignedUrl(params as S3PresignedUrl)
-  const [editGender, setEditGender] = useState(userData[0]?.gender)
+  const [editGender, setEditGender] = useState(userData?.gender)
   const handleGender = (gender: 'M' | 'F') => {
     setEditGender(gender)
     setValue('gender', gender)
@@ -124,9 +124,7 @@ function EditModal({ onClose }: EditModalProps) {
             className="text-primary-600 flex cursor-pointer flex-col items-center gap-4 text-sm"
           >
             <img
-              src={
-                imgFile ? s3UrlImgData?.file_url : userData[0]?.profile_img_url
-              }
+              src={imgFile ? s3UrlImgData?.file_url : userData?.profile_img_url}
               alt="profileImg"
               className="h-[96px] w-[96px] rounded-full"
             />
