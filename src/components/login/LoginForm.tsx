@@ -15,7 +15,7 @@ function LoginForm() {
   const navigate = useNavigate()
 
   const { mutate: loginWithEmail, isPending: loggingIn } = useLoginWithEmail()
-  const loginState = LoginStateStore((state) => state.setLoginState)
+  const setLoginState = LoginStateStore((state) => state.setLoginState)
 
   const {
     register,
@@ -51,7 +51,7 @@ function LoginForm() {
   ) => {
     loginWithEmail(data, {
       onSuccess: () => {
-        loginState('USER')
+        setLoginState('USER')
         showToast.success('로그인', '성공')
         navigate(ROUTE_PATHS.HOME)
       },
