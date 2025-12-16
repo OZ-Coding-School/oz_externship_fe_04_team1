@@ -6,7 +6,7 @@ interface LoginStore {
 }
 // 로그인 상태를 저장하는 로직 => 추후 사용할때 setLoginState('USER')
 const LoginStateStore = create<LoginStore>((set) => ({
-  loginState: 'USER',
+  loginState: 'GUEST',
   setLoginState: (state) => {
     set({ loginState: state })
   },
