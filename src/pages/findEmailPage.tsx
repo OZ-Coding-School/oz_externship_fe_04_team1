@@ -79,6 +79,7 @@ function FindEmailPage() {
             currentStep={currentStep}
             setCurrentStep={setCurrentStep}
             onVerifyCode={handleVerifyCode}
+            onVerifyUserIdentity={handleVerifyUserIdentity}
           />
         )}
         {currentStep === StepIndicatorType.COMPLETE && (

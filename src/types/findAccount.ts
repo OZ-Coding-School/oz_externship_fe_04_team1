@@ -49,6 +49,7 @@ export type ReqVerifyEmailCode = {
 export interface PasswordVerifyStepProps extends StepControlProps {
   setCurrentStep: Dispatch<SetStateAction<StepIndicatorType>>
   onVerifyCode: (data: ReqVerifyEmailCode) => void
+  onVerifyWithEmail: (data: ReqVerifyWithEmail) => void
 }
 
 export type ReqResetPassword = {
@@ -76,6 +77,7 @@ export interface EmailVerifyStepProps {
   currentStep: StepIndicatorType
   setCurrentStep: Dispatch<SetStateAction<StepIndicatorType>>
   onVerifyCode: (data: ReqVerifyPhoneCode) => void
+  onVerifyUserIdentity: (data: ReqVerifyUserIdentity) => void
 }
 
 export type EmailCompleteStepProps = {

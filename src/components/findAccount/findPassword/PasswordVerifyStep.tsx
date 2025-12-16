@@ -15,6 +15,7 @@ function PasswordVerifyStep({
   currentStep,
   setCurrentStep,
   onVerifyCode,
+  onVerifyWithEmail,
 }: PasswordVerifyStepProps) {
   const { getValues, register, setValue, handleSubmit } =
     useFormContext<FindPasswordFormData>()
@@ -32,7 +33,7 @@ function PasswordVerifyStep({
 
   const handleResendCode = () => {
     setValue('code', '')
-    // api 호출로 인증코드 재전송
+    onVerifyWithEmail({ email })
   }
 
   const codeRegister = register('code', {

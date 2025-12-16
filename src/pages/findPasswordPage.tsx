@@ -105,6 +105,7 @@ function FindPasswordPage() {
             onVerifyCode={handleVerifyCode}
             currentStep={currentStep}
             setCurrentStep={setCurrentStep}
+            onVerifyWithEmail={handleVerifyWithEmail}
           />
         )}
         {currentStep === StepIndicatorType.COMPLETE && (

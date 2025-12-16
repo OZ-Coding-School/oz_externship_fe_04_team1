@@ -15,11 +15,13 @@ function EmailVerifyStep({
   currentStep,
   setCurrentStep,
   onVerifyCode,
+  onVerifyUserIdentity,
 }: EmailVerifyStepProps) {
   const { getValues, register, setValue, handleSubmit } =
     useFormContext<FindEmailFormData>()
   const phone = getValues('phone')
   const code = useWatch({ name: 'code' })
+  const name = getValues('name')
 
   const handleVerifyCode = (data: FindEmailFormData) => {
     onVerifyCode({ phone_number: phone, code: data.code })
@@ -31,7 +33,7 @@ function EmailVerifyStep({
 
   const handleResendCode = () => {
     setValue('code', '')
-    // api 호출로 인증코드 재전송
+    onVerifyUserIdentity({ name, phone_number: phone })
   }
 
   const codeRegister = register('code', {
