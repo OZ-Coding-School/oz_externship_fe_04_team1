@@ -4,13 +4,13 @@ import {
   useVerifyCodeRecovery,
 } from '@/hooks/quries/accountRecovery'
 import { showToast } from '@/components/common/toast/Toast'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import Button from '@/components/common/Button'
 import Input from '@/components/common/Input'
 import accountemail from '@/assets/email.svg'
 import closeIcon from '@/assets/icons/close.svg'
 import SuccessVerification from './successVerification'
-import { useTimer } from '@/components/common/timer/Timer'
+import { Timer, type TimerRefProps } from '@/components/common/timer/Timer'
 interface EmailRegisterFieldProps {
   email: string
   verificationCode: string
@@ -43,11 +43,9 @@ export default function EmailVerificationModal({
 
   const sendEmailMutation = useSendEmailRecovery()
   const verifyCodeMutation = useVerifyCodeRecovery()
-
+  const suffixRef = useRef<TimerRefProps>(null)
   const email = watch('email')
   const verificationCode = watch('verificationCode')
-
-  const timer = useTimer({ defaultSeconds: 300 }) // 타이머 시간 지정
 
   const handleSendCode = async () => {
     // trigger를 사용할 시 해당 (email) 필드를 찾고 register의 정해진 규칙을 실행 시키는 비동기 함수
@@ -58,7 +56,7 @@ export default function EmailVerificationModal({
       onSuccess: () => {
         showToast.success('전송 완료!', '이메일을 확인해주세요.')
         setIsEmailSent(true)
-        timer.start()
+        suffixRef.current?.start()
       },
       onError: () => {
         showToast.error('전송 실패', '이메일을 다시 한번 확인해주세요.')
@@ -176,11 +174,7 @@ export default function EmailVerificationModal({
                     className="w-full"
                     placeholder="인증번호를 입력해주세요"
                   />
-                  {timer.seconds && (
-                    <span className="text-danger-500 absolute top-1/2 right-3 -translate-y-1/2 text-sm">
-                      {timer.formatted}
-                    </span>
-                  )}
+                  <Timer ref={suffixRef} seconds={300} />
                 </div>
                 <Button
                   type="button"

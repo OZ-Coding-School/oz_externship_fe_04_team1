@@ -1,19 +1,27 @@
 import { useEffect, useRef, useState } from 'react'
 
-type Options = {
-  defaultSeconds?: number // ex) 300
+type OptionProps = {
+  defaultSeconds?: number
   onExpire?: () => void
 }
 
-export function useTimer(options: Options = {}) {
+export type TimerProps = {
+  seconds: number
+  formatted: string
+  isActive: boolean
+  start: (sec?: number) => void
+  stop: () => void
+}
+
+export function useTimer(options: OptionProps = {}): TimerProps {
   const defaultSeconds = options.defaultSeconds ?? 0
-  const onExpireRef = useRef(options.onExpire)
 
   const [seconds, setSeconds] = useState(0)
 
   const endAtRef = useRef(0)
   const intervalRef = useRef<number | null>(null)
   const firedRef = useRef(false)
+  const onExpireRef = useRef(options.onExpire)
 
   useEffect(() => {
     onExpireRef.current = options.onExpire
