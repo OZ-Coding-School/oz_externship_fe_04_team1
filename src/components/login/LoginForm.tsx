@@ -18,6 +18,7 @@ function LoginForm({ onSubmit, loggingIn }: LoginFormProps) {
     register,
     handleSubmit,
     setError,
+    clearErrors,
     formState: { isValid, errors },
   } = useForm<ReqLoginFormData>({
     mode: 'onSubmit',
@@ -25,10 +26,20 @@ function LoginForm({ onSubmit, loggingIn }: LoginFormProps) {
 
   const emailRegister = register('email', {
     required: true,
+    onChange: () => {
+      if (errors.root) {
+        clearErrors('root')
+      }
+    },
   })
 
   const passwordRegister = register('password', {
     required: true,
+    onChange: () => {
+      if (errors.root) {
+        clearErrors('root')
+      }
+    },
   })
 
   const handleLoginSubmit = (data: ReqLoginFormData) => {
