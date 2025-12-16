@@ -1,19 +1,22 @@
-import { Link } from 'react-router'
+import { Link, useNavigate } from 'react-router'
 import Button from '../common/Button'
 import Input from '../common/Input'
 import { ROUTE_PATHS } from '@/constant/route'
 import { useForm, type UseFormSetError } from 'react-hook-form'
 import type { ReqLoginFormData } from '@/types/login'
+import { useState } from 'react'
+import AccountRecoveryStep from './accountRecovery/accountRecoveryStep'
+import { showToast } from '../common/toast/Toast'
+import { useLoginWithEmail } from '@/hooks/quries/auth/useLogin'
+import LoginStateStore from '@/store/loginStateStore'
 
-type LoginFormProps = {
-  onSubmit: (
-    data: ReqLoginFormData,
-    setError: UseFormSetError<ReqLoginFormData>
-  ) => void
-  loggingIn: boolean
-}
+function LoginForm() {
+  const [isAccountRecoveryOpen, setIsAccountRecoveryOpen] = useState(false)
+  const navigate = useNavigate()
 
-function LoginForm({ onSubmit, loggingIn }: LoginFormProps) {
+  const { mutate: loginWithEmail, isPending: loggingIn } = useLoginWithEmail()
+  const loginState = LoginStateStore((state) => state.setLoginState)
+
   const {
     register,
     handleSubmit,
@@ -42,12 +45,30 @@ function LoginForm({ onSubmit, loggingIn }: LoginFormProps) {
     },
   })
 
-  const handleLoginSubmit = (data: ReqLoginFormData) => {
-    onSubmit(data, setError)
+  const handleLogin = (
+    data: ReqLoginFormData,
+    setError: UseFormSetError<ReqLoginFormData>
+  ) => {
+    loginWithEmail(data, {
+      onSuccess: () => {
+        loginState('USER')
+        showToast.success('로그인', '성공')
+        navigate(ROUTE_PATHS.HOME)
+      },
+      onError: (error) => {
+        // 임시로 409를 status로 생각
+        if (error.statusCode === 409) {
+          setIsAccountRecoveryOpen(true)
+          return
+        }
+        const errorMessage = error.error_detail || '로그인에 실패했습니다.'
+        setError('root', { message: errorMessage })
+      },
+    })
   }
 
   return (
-    <form onSubmit={handleSubmit(handleLoginSubmit)}>
+    <form>
       <div className="flex flex-col gap-3">
         <div>
           <label htmlFor="login-email">
@@ -82,13 +103,17 @@ function LoginForm({ onSubmit, loggingIn }: LoginFormProps) {
         <Link to={ROUTE_PATHS.FIND_PASSWORD}>비밀번호 찾기</Link>
       </div>
       <Button
-        type="submit"
         variant="secondary"
         className="mt-2.5 h-[52px] w-full bg-gray-200 hover:bg-gray-300"
         disabled={!isValid || loggingIn}
+        onClick={handleSubmit((data) => handleLogin(data, setError))}
       >
         {loggingIn ? '로그인 중...' : '일반회원 로그인'}
       </Button>
+      <AccountRecoveryStep
+        isOpen={isAccountRecoveryOpen}
+        onClose={() => setIsAccountRecoveryOpen(false)}
+      />
     </form>
   )
 }

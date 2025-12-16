@@ -9,4 +9,5 @@ export type ResLoginData = {
 
 export type LoginError = {
   error_detail: string
+  statusCode: number
 }
