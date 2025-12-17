@@ -1,4 +1,5 @@
-import type { Dispatch, SetStateAction } from 'react'
+import type { Dispatch, RefObject, SetStateAction } from 'react'
+import type { TimerRefProps } from '@/components/common/timer/Timer'
 
 export enum FINDTYPE {
   FIND_EMAIL = 1,
@@ -49,6 +50,8 @@ export type ReqVerifyEmailCode = {
 export interface PasswordVerifyStepProps extends StepControlProps {
   setCurrentStep: Dispatch<SetStateAction<StepIndicatorType>>
   onVerifyCode: (data: ReqVerifyEmailCode) => void
+  onVerifyWithEmail: (data: ReqVerifyWithEmail) => void
+  timerRef: RefObject<TimerRefProps | null>
 }
 
 export type ReqResetPassword = {
@@ -76,6 +79,8 @@ export interface EmailVerifyStepProps {
   currentStep: StepIndicatorType
   setCurrentStep: Dispatch<SetStateAction<StepIndicatorType>>
   onVerifyCode: (data: ReqVerifyPhoneCode) => void
+  onVerifyUserIdentity: (data: ReqVerifyUserIdentity) => void
+  timerRef: RefObject<TimerRefProps | null>
 }
 
 export type EmailCompleteStepProps = {
