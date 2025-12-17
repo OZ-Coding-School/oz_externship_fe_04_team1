@@ -29,6 +29,8 @@ function MobileSideNagigation() {
             }
             alt="profileIcon"
             className="h-[24px] w-[24px]"
+            // onError={(e) => (e.currentTarget.src = defaultImg)}
+            // 대체 이미지 추가하기
           />
           <span
             className={

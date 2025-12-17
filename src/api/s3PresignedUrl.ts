@@ -6,3 +6,4 @@ export const s3PresignedUrlApi = async (params: S3PresignedUrl) => {
   const res = await axiosInstance.get(API_PATHS.S3.GET, { params })
   return res.data
 }
+//  s3에 데이터 전송 -> 반환값으로 upload url을 받음

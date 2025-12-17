@@ -29,6 +29,8 @@ function SideNaigationNavigate() {
           }
           alt="profileImg"
           className="relative left-[5px] h-[20px] px-[10px]"
+          // onError={(e) => (e.currentTarget.src = defaultImg)}
+          // 대체 이미지 추가하기
         />
         <div className="flex flex-col gap-0.5">
           <span

@@ -8,7 +8,7 @@ import {
   type ReqVerifyPhoneCode,
   type ReqVerifyUserIdentity,
 } from '@/types/findAccount'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import {
   useFindEmailByPhone,
@@ -16,10 +16,12 @@ import {
 } from '@/hooks/quries/findAccount/findEmail'
 import { showToast } from '@/components/common/toast/Toast'
 import { getErrorDetail } from '@/utils/getErrorDetail'
+import type { TimerRefProps } from '@/components/common/timer/Timer'
 
 function FindEmailPage() {
   const [currentStep, setCurrentStep] = useState(StepIndicatorType.AUTH)
   const [foundEmail, setFoundEmail] = useState<string>('')
+  const timerRef = useRef<TimerRefProps>(null)
   const methods = useForm<FindEmailFormData>({
     mode: 'onChange',
     defaultValues: {
@@ -37,7 +39,12 @@ function FindEmailPage() {
     verifyUserIdentify(data, {
       onSuccess: () => {
         showToast.success('인증번호', '발송 완료')
-        setCurrentStep(StepIndicatorType.VERIFY)
+        if (currentStep === StepIndicatorType.VERIFY) {
+          // 재전송: 타이머만 재시작
+          timerRef.current?.start()
+        } else {
+          setCurrentStep(StepIndicatorType.VERIFY)
+        }
       },
       onError: (error) => {
         showToast.error(
@@ -79,6 +86,8 @@ function FindEmailPage() {
             currentStep={currentStep}
             setCurrentStep={setCurrentStep}
             onVerifyCode={handleVerifyCode}
+            onVerifyUserIdentity={handleVerifyUserIdentity}
+            timerRef={timerRef}
           />
         )}
         {currentStep === StepIndicatorType.COMPLETE && (

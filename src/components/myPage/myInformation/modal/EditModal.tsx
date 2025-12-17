@@ -2,13 +2,15 @@ import closeIcon from '@/assets/icons/close.svg'
 import Button from '@/components/common/Button'
 import Input from '@/components/common/Input'
 import useUserData from '@/hooks/quries/useUserData'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import type { EditUserInformation } from '@/types/editUserInformation'
 import useS3PresignedUrl from '@/hooks/quries/useS3PresignedUrl'
 import type { S3PresignedUrl } from '@/types/s3PresignedUrl'
 import { usePatchUserInformation } from '@/hooks/usePatchUserData'
 import { showToast } from '@/components/common/toast/Toast'
+import { useS3Upload } from '@/hooks/quries/usePutS3PresignedUrl'
+import defaultImg from '@/assets/images/defaultProfileImg.svg'
 interface EditModalProps {
   onClose: () => void
 }
@@ -16,11 +18,14 @@ function EditModal({ onClose }: EditModalProps) {
   const [imgFile, setImgFile] = useState<File | null>(null)
   const { data: userData } = useUserData()
   const { mutate: editUserInformation } = usePatchUserInformation()
+  const { mutate: uploadToS3 } = useS3Upload()
+  const [uploadImg, setUploadImg] = useState<string | null>(null)
   const {
     register,
     handleSubmit,
     setValue,
     watch,
+    reset,
     getValues,
     formState: { errors },
   } = useForm<EditUserInformation>({
@@ -33,10 +38,22 @@ function EditModal({ onClose }: EditModalProps) {
     },
     mode: 'onBlur',
   })
+  // 모달 들어올때마다 데이터 최신화되게
+  useEffect(() => {
+    if (!userData) return
+
+    reset({
+      name: userData.name,
+      nickname: userData.nickname,
+      birthday: userData.birthday.split('-').join(''),
+      gender: userData.gender,
+      profile_img_url: userData.profile_img_url,
+    })
+
+    setUploadImg(userData.profile_img_url || null)
+    setEditGender(userData.gender)
+  }, [userData, reset])
   const onSubmit = () => {
-    if (imgFile) {
-      setValue('profile_img_url', s3UrlImgData.file_url)
-    }
     const noHipenBirthDay = watch('birthday')
     const parts = [
       noHipenBirthDay.slice(0, 4),
@@ -45,7 +62,16 @@ function EditModal({ onClose }: EditModalProps) {
     ]
     const hipenBirthDay = parts.join('-')
     setValue('birthday', hipenBirthDay)
+    const finalImg = uploadImg
+      ? uploadImg.replace(
+          'https://oz-externship.s3.ap-northeast-2.amazonaws.com/',
+          ''
+        )
+      : ''
+
+    setValue('profile_img_url', finalImg)
     const finalData = getValues()
+    console.log(finalData)
     editUserInformation(finalData, {
       onSuccess: () => {
         showToast.success('성공', '개인정보가 변경되었습니다')
@@ -98,6 +124,20 @@ function EditModal({ onClose }: EditModalProps) {
       message: '생년월일 8자리를 작성해주세요',
     },
   }
+  useEffect(() => {
+    if (!imgFile || !s3UrlImgData?.upload_url) return
+
+    uploadToS3(
+      { uploadUrl: s3UrlImgData.upload_url, file: imgFile },
+      {
+        onSuccess: () => {
+          setUploadImg(s3UrlImgData.file_url)
+          setValue('profile_img_url', s3UrlImgData.file_url)
+        },
+      }
+    )
+  }, [imgFile, s3UrlImgData])
+
   return (
     <div
       className="bg-basic-white z-10 h-[600px] w-[450px] flex-col overflow-y-auto rounded-xl md:h-[730px] md:w-[512px]"
@@ -123,7 +163,7 @@ function EditModal({ onClose }: EditModalProps) {
             className="text-primary-600 flex cursor-pointer flex-col items-center gap-4 text-sm"
           >
             <img
-              src={imgFile ? s3UrlImgData?.file_url : userData?.profile_img_url}
+              src={uploadImg || defaultImg}
               alt="profileImg"
               className="h-[96px] w-[96px] rounded-full"
             />

@@ -13,7 +13,11 @@ import {
   useVerifyEmailCode,
   useVerifySmsCode,
 } from '@/hooks/quries/auth/useSignup'
-import type { ApiError, SignupFormValuesWithValidation } from '@/types/signup'
+import type {
+  ApiError,
+  ReqInfo,
+  SignupFormValuesWithValidation,
+} from '@/types/signup'
 import { useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router'
@@ -32,7 +36,9 @@ function SignupPage() {
       password: '',
       password_confirm: '',
       emailVerified: null,
+      emailCode: '',
       smsVerified: null,
+      smsCode: '',
       nicknameVerified: null,
     },
   })
@@ -200,9 +206,11 @@ function SignupPage() {
       emailVerified: _emailVerified,
       smsVerified: _smsVerified,
       nicknameVerified: _nicknameVerified,
+      emailCode: _emailCode,
+      smsCode: _smsCode,
       ...rest
     } = data
-    const signupData = {
+    const signupData: ReqInfo = {
       ...rest,
       birthday: formatBirthday(rest.birthday),
     }
