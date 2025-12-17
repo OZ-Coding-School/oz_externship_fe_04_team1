@@ -48,7 +48,7 @@ function EmailVerifyStep({
       <StepHeader
         icon={Phone}
         title="휴대폰 인증"
-        description={`${phone}로 인증코드를 발송했습니다.`}
+        description={`${phone.slice(0, 3)}-${phone.slice(3, 7)}-${phone.slice(7, 11)}로 인증코드를 발송했습니다.`}
       />
       <form onSubmit={handleSubmit(handleVerifyCode)}>
         <div className="flex flex-col">
