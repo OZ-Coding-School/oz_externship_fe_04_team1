@@ -25,6 +25,7 @@ function EditModal({ onClose }: EditModalProps) {
     handleSubmit,
     setValue,
     watch,
+    reset,
     getValues,
     formState: { errors },
   } = useForm<EditUserInformation>({
@@ -37,6 +38,21 @@ function EditModal({ onClose }: EditModalProps) {
     },
     mode: 'onBlur',
   })
+  // 모달 들어올때마다 데이터 최신화되게
+  useEffect(() => {
+    if (!userData) return
+
+    reset({
+      name: userData.name,
+      nickname: userData.nickname,
+      birthday: userData.birthday.split('-').join(''),
+      gender: userData.gender,
+      profile_img_url: userData.profile_img_url,
+    })
+
+    setUploadImg(userData.profile_img_url || null)
+    setEditGender(userData.gender)
+  }, [userData, reset])
   const onSubmit = () => {
     const noHipenBirthDay = watch('birthday')
     const parts = [
@@ -46,7 +62,16 @@ function EditModal({ onClose }: EditModalProps) {
     ]
     const hipenBirthDay = parts.join('-')
     setValue('birthday', hipenBirthDay)
+    const finalImg = uploadImg
+      ? uploadImg.replace(
+          'https://oz-externship.s3.ap-northeast-2.amazonaws.com/',
+          ''
+        )
+      : ''
+
+    setValue('profile_img_url', finalImg)
     const finalData = getValues()
+    console.log(finalData)
     editUserInformation(finalData, {
       onSuccess: () => {
         showToast.success('성공', '개인정보가 변경되었습니다')
