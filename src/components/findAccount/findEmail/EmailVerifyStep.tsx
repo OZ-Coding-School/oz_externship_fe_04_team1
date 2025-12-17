@@ -10,12 +10,15 @@ import {
 import { useFormContext, useWatch } from 'react-hook-form'
 import Button from '@/components/common/Button'
 import Input from '@/components/common/Input'
+import { Timer } from '@/components/common/timer/Timer'
+import { useEffect } from 'react'
 
 function EmailVerifyStep({
   currentStep,
   setCurrentStep,
   onVerifyCode,
   onVerifyUserIdentity,
+  timerRef,
 }: EmailVerifyStepProps) {
   const { getValues, register, setValue, handleSubmit } =
     useFormContext<FindEmailFormData>()
@@ -33,6 +36,7 @@ function EmailVerifyStep({
 
   const handleResendCode = () => {
     setValue('code', '')
+    timerRef.current?.stop()
     onVerifyUserIdentity({ name, phone_number: phone })
   }
 
@@ -41,6 +45,10 @@ function EmailVerifyStep({
     minLength: 6,
     maxLength: 6,
   })
+
+  useEffect(() => {
+    timerRef.current?.start()
+  }, [timerRef])
 
   return (
     <div>
@@ -56,12 +64,15 @@ function EmailVerifyStep({
             인증코드
           </label>
           <div className="mb-5 flex gap-2">
-            <Input
-              id="code"
-              className="w-full"
-              placeholder="6자리 인증코드 입력"
-              {...codeRegister}
-            />
+            <div className="relative w-full">
+              <Input
+                id="code"
+                className="w-full"
+                placeholder="6자리 인증코드 입력"
+                {...codeRegister}
+              />
+              <Timer ref={timerRef} />
+            </div>
             <Button onClick={handleResendCode} className="verify-color">
               재전송
             </Button>
