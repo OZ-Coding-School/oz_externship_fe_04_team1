@@ -59,11 +59,11 @@ function EmailVerifyStep({
         description={`${phone.slice(0, 3)}-${phone.slice(3, 7)}-${phone.slice(7, 11)}로 인증코드를 발송했습니다.`}
       />
       <form onSubmit={handleSubmit(handleVerifyCode)}>
-        <div className="flex flex-col">
+        <div className="mb-5 flex flex-col">
           <label htmlFor="code" className="pb-1 text-gray-700">
             인증코드
           </label>
-          <div className="mb-5 flex gap-2">
+          <div className="flex gap-2">
             <div className="relative w-full">
               <Input
                 id="code"

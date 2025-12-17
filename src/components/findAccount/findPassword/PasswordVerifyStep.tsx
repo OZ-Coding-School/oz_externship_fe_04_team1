@@ -58,11 +58,11 @@ function PasswordVerifyStep({
         description={`${email}로 인증코드를 발송했습니다.`}
       />
       <form onSubmit={handleSubmit(handleNextWithVerifyCode)}>
-        <div className="flex flex-col">
+        <div className="mb-5 flex flex-col">
           <label htmlFor="code" className="pb-1 text-gray-700">
             인증코드
           </label>
-          <div className="mb-5 flex gap-2">
+          <div className="flex gap-2">
             <div className="relative w-full">
               <Input
                 id="code"
