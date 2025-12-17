@@ -104,7 +104,12 @@ function CompleteStudyReviewModal({
         <Input
           id="star_rating"
           className="hidden"
-          {...register('star_rating')}
+          {...register('star_rating', {
+            min: {
+              value: 1,
+              message: '별점은 1점 이상 선택해주세요',
+            },
+          })}
         />
       </label>
       {/* 리뷰 내용파트 */}
@@ -136,7 +141,8 @@ function CompleteStudyReviewModal({
           disabled={
             ((myReviewInformation?.content ?? '') === content &&
               (myReviewInformation?.star_rating ?? 0) === rating) ||
-            content.length > 500
+            content.length > 500 ||
+            rating === 0
           }
           className="w-1/2"
           type="submit"
