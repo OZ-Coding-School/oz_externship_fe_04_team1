@@ -2,7 +2,7 @@ import closeIcon from '@/assets/icons/close.svg'
 import Button from '@/components/common/Button'
 import Input from '@/components/common/Input'
 import useUserData from '@/hooks/quries/useUserData'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import type { EditUserInformation } from '@/types/editUserInformation'
 import useS3PresignedUrl from '@/hooks/quries/useS3PresignedUrl'
@@ -99,6 +99,20 @@ function EditModal({ onClose }: EditModalProps) {
       message: '생년월일 8자리를 작성해주세요',
     },
   }
+  useEffect(() => {
+    if (!imgFile || !s3UrlImgData?.upload_url) return
+
+    uploadToS3(
+      { uploadUrl: s3UrlImgData.upload_url, file: imgFile },
+      {
+        onSuccess: () => {
+          setUploadImg(s3UrlImgData.file_url)
+          setValue('profile_img_url', s3UrlImgData.file_url)
+        },
+      }
+    )
+  }, [imgFile, s3UrlImgData])
+
   return (
     <div
       className="bg-basic-white z-10 h-[600px] w-[450px] flex-col overflow-y-auto rounded-xl md:h-[730px] md:w-[512px]"
@@ -140,15 +154,6 @@ function EditModal({ onClose }: EditModalProps) {
                 const file = e.target.files?.[0]
                 if (!file) return
                 setImgFile(file)
-                uploadToS3(
-                  { uploadUrl: s3UrlImgData?.upload_url, file },
-                  {
-                    onSuccess: () => {
-                      setUploadImg(s3UrlImgData?.file_url)
-                      setValue('profile_img_url', s3UrlImgData?.file_url)
-                    },
-                  }
-                )
               }}
             />
           </label>
