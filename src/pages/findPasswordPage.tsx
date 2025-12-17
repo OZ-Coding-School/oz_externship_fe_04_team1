@@ -1,3 +1,4 @@
+import type { TimerRefProps } from '@/components/common/timer/Timer'
 import { showToast } from '@/components/common/toast/Toast'
 import FindAccountLayout from '@/components/findAccount/common/FindAccountLayout'
 import PasswordAuthStep from '@/components/findAccount/findPassword/PasswordAuthStep'
@@ -17,7 +18,7 @@ import {
   type ReqVerifyWithEmail,
 } from '@/types/findAccount'
 import { getErrorDetail } from '@/utils/getErrorDetail'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router'
 
@@ -33,6 +34,7 @@ function FindPasswordPage() {
     },
   })
   const navigate = useNavigate()
+  const timerRef = useRef<TimerRefProps>(null)
 
   const { mutate: passwordResetWithEmail } = usePasswordResetWithEmail()
   const { mutate: verifyPasswordResetCode } = useVerifyPasswordResetCode()
@@ -43,6 +45,12 @@ function FindPasswordPage() {
     passwordResetWithEmail(data, {
       onSuccess: () => {
         showToast.success('인증번호', '발송 완료')
+        if (currentStep === StepIndicatorType.VERIFY) {
+          // 재전송: 타이머만 재시작
+          timerRef.current?.start()
+        } else {
+          setCurrentStep(StepIndicatorType.VERIFY)
+        }
         setCurrentStep(StepIndicatorType.VERIFY)
       },
       onError: (error) => {
@@ -102,6 +110,7 @@ function FindPasswordPage() {
         )}
         {currentStep === StepIndicatorType.VERIFY && (
           <PasswordVerifyStep
+            timerRef={timerRef}
             onVerifyCode={handleVerifyCode}
             currentStep={currentStep}
             setCurrentStep={setCurrentStep}

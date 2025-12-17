@@ -43,7 +43,6 @@ function FindEmailPage() {
           // 재전송: 타이머만 재시작
           timerRef.current?.start()
         } else {
-          // 최초 인증: VERIFY 단계로 이동 (useEffect에서 타이머 시작)
           setCurrentStep(StepIndicatorType.VERIFY)
         }
       },

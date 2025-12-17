@@ -51,6 +51,7 @@ export interface PasswordVerifyStepProps extends StepControlProps {
   setCurrentStep: Dispatch<SetStateAction<StepIndicatorType>>
   onVerifyCode: (data: ReqVerifyEmailCode) => void
   onVerifyWithEmail: (data: ReqVerifyWithEmail) => void
+  timerRef: RefObject<TimerRefProps | null>
 }
 
 export type ReqResetPassword = {
