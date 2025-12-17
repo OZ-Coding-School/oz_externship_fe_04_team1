@@ -1,5 +1,5 @@
+import { cn } from '@/lib/utils'
 import { cva } from 'class-variance-authority'
-import { twMerge } from 'tailwind-merge'
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger'
@@ -44,7 +44,7 @@ const Button = ({
 }: ButtonProps) => {
   return (
     <button
-      className={twMerge(buttonVariants({ variant, size }), className)}
+      className={cn(buttonVariants({ variant, size }), className)}
       type={type}
       {...props}
     />

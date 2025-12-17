@@ -1,5 +1,5 @@
+import { cn } from '@/lib/utils'
 import { cva } from 'class-variance-authority'
-import { twMerge } from 'tailwind-merge'
 
 type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   error?: boolean
@@ -30,7 +30,7 @@ function Input({
     <input
       type={type}
       disabled={disabled}
-      className={twMerge(inputVariants({ variant }), className)}
+      className={cn(inputVariants({ variant }), className)}
       {...props}
     />
   )
