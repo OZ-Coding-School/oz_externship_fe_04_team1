@@ -9,6 +9,8 @@ import useS3PresignedUrl from '@/hooks/quries/useS3PresignedUrl'
 import type { S3PresignedUrl } from '@/types/s3PresignedUrl'
 import { usePatchUserInformation } from '@/hooks/usePatchUserData'
 import { showToast } from '@/components/common/toast/Toast'
+import { useS3Upload } from '@/hooks/quries/usePutS3PresignedUrl'
+import defaultImg from '@/assets/images/defaultProfileImg.svg'
 interface EditModalProps {
   onClose: () => void
 }
@@ -16,6 +18,8 @@ function EditModal({ onClose }: EditModalProps) {
   const [imgFile, setImgFile] = useState<File | null>(null)
   const { data: userData } = useUserData()
   const { mutate: editUserInformation } = usePatchUserInformation()
+  const { mutate: uploadToS3 } = useS3Upload()
+  const [uploadImg, setUploadImg] = useState<string | null>(null)
   const {
     register,
     handleSubmit,
@@ -34,9 +38,6 @@ function EditModal({ onClose }: EditModalProps) {
     mode: 'onBlur',
   })
   const onSubmit = () => {
-    if (imgFile) {
-      setValue('profile_img_url', s3UrlImgData.file_url)
-    }
     const noHipenBirthDay = watch('birthday')
     const parts = [
       noHipenBirthDay.slice(0, 4),
@@ -123,7 +124,7 @@ function EditModal({ onClose }: EditModalProps) {
             className="text-primary-600 flex cursor-pointer flex-col items-center gap-4 text-sm"
           >
             <img
-              src={imgFile ? s3UrlImgData?.file_url : userData?.profile_img_url}
+              src={uploadImg || defaultImg}
               alt="profileImg"
               className="h-[96px] w-[96px] rounded-full"
             />
@@ -139,6 +140,15 @@ function EditModal({ onClose }: EditModalProps) {
                 const file = e.target.files?.[0]
                 if (!file) return
                 setImgFile(file)
+                uploadToS3(
+                  { uploadUrl: s3UrlImgData?.upload_url, file },
+                  {
+                    onSuccess: () => {
+                      setUploadImg(s3UrlImgData?.file_url)
+                      setValue('profile_img_url', s3UrlImgData?.file_url)
+                    },
+                  }
+                )
               }}
             />
           </label>
