@@ -1,9 +1,10 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Button from '../common/Button'
 import Input from '../common/Input'
 import FormField from './FormField'
 import { useFormContext, useWatch } from 'react-hook-form'
 import type { SignupFormValuesWithValidation } from '@/types/signup'
+import { Timer, type TimerRefProps } from '../common/timer/Timer'
 
 type EmailVerificationSectionProps = {
   onEmailSubmit: (email: string) => void
@@ -25,6 +26,8 @@ function EmailVerificationSection({
   isEmailSent,
 }: EmailVerificationSectionProps) {
   const [code, setCode] = useState('')
+  const timerRef = useRef<TimerRefProps>(null)
+  const [isTimerExpired, setIsTimerExpired] = useState(false)
 
   const {
     register,
@@ -43,6 +46,9 @@ function EmailVerificationSection({
     onChange: () => {
       onEmailChange()
       setCode('')
+
+      setIsTimerExpired(false)
+      timerRef.current?.stop()
     },
   })
 
@@ -51,12 +57,22 @@ function EmailVerificationSection({
     onEmailSubmit(email)
     setCode('')
     clearErrors('emailVerified')
+
+    setIsTimerExpired(false)
+    timerRef.current?.start()
   }
 
   const handleVerifyEmail = () => {
     if (!code || code.length !== 6 || !email) return
     onVerifyEmail(email, code)
   }
+
+  // 인증 성공 시 타이머 정지
+  useEffect(() => {
+    if (emailVerified === true) {
+      timerRef.current?.stop()
+    }
+  }, [emailVerified])
 
   return (
     <div>
@@ -68,16 +84,20 @@ function EmailVerificationSection({
         errorMsg={errors.email?.message}
       >
         <div className="flex gap-2.5">
-          <Input
-            {...emailRegister}
-            id="email"
-            type="email"
-            error={!!errors.email || !!emailSendError || isSendingEmail}
-            autoComplete="email"
-            className="h-12 flex-1"
-            placeholder="example@gmail.com"
-            disabled={isSendingEmail}
-          />
+          <div className="relative w-full">
+            <Input
+              {...emailRegister}
+              id="email"
+              type="email"
+              error={!!errors.email || !!emailSendError || isSendingEmail}
+              autoComplete="email"
+              className="h-12 flex-1"
+              placeholder="example@gmail.com"
+              disabled={isSendingEmail}
+            />
+            <Timer ref={timerRef} onExpire={() => setIsTimerExpired(true)} />
+          </div>
+
           <Button
             disabled={!email || !!errors.email || isSendingEmail}
             className={`w-[112px] text-base ${email ? 'verify-color hover:verify-color' : 'before-verify-color opacity-60'}`}
@@ -107,7 +127,11 @@ function EmailVerificationSection({
           />
           <Button
             disabled={
-              !email || !!errors.email || !isEmailSent || isVerifyingEmail
+              !email ||
+              !!errors.email ||
+              !isEmailSent ||
+              isVerifyingEmail ||
+              isTimerExpired
             }
             className={`w-[112px] text-base ${code.length === 6 ? 'verify-color hover:verify-color' : 'before-verify-color opacity-60'}`}
             onClick={handleVerifyEmail}

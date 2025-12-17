@@ -1,9 +1,10 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Button from '../common/Button'
 import Input from '../common/Input'
 import FormField from './FormField'
 import type { SignupFormValuesWithValidation } from '@/types/signup'
 import { useFormContext, useWatch } from 'react-hook-form'
+import { Timer, type TimerRefProps } from '../common/timer/Timer'
 
 type SmsVerificationSectionProps = {
   onSmsSubmit: (phone_number: string) => void
@@ -25,6 +26,8 @@ function SmsVerificationSection({
   isSmsSent,
 }: SmsVerificationSectionProps) {
   const [code, setCode] = useState('')
+  const timerRef = useRef<TimerRefProps>(null)
+  const [isTimerExpired, setIsTimerExpired] = useState(false)
 
   const {
     register,
@@ -44,6 +47,9 @@ function SmsVerificationSection({
     onChange: () => {
       onSmsChange()
       setCode('')
+
+      setIsTimerExpired(false)
+      timerRef.current?.stop()
     },
   })
 
@@ -53,12 +59,22 @@ function SmsVerificationSection({
     setCode('')
     setValue('smsVerified', null)
     clearErrors('smsVerified')
+
+    setIsTimerExpired(false)
+    timerRef.current?.start()
   }
 
   const handleVerifySms = () => {
     if (!code || code.length !== 6) return
     onVerifySms(phone_number, code)
   }
+
+  // 인증 성공 시 타이머 정지
+  useEffect(() => {
+    if (smsVerified === true) {
+      timerRef.current?.stop()
+    }
+  }, [smsVerified])
 
   return (
     <div>
@@ -69,15 +85,18 @@ function SmsVerificationSection({
         require
       >
         <div className="flex gap-2.5">
-          <Input
-            {...phoneRegister}
-            id="phone_number"
-            autoComplete="tel"
-            type="tel"
-            className="h-12 flex-1"
-            placeholder="01012345678"
-            error={!!errors.phone_number || !!smsSendError || isSendingSms}
-          />
+          <div className="relative w-full">
+            <Input
+              {...phoneRegister}
+              id="phone_number"
+              autoComplete="tel"
+              type="tel"
+              className="h-12 flex-1"
+              placeholder="01012345678"
+              error={!!errors.phone_number || !!smsSendError || isSendingSms}
+            />
+            <Timer ref={timerRef} onExpire={() => setIsTimerExpired(true)} />
+          </div>
           <Button
             disabled={!phone_number || isSendingSms || !!errors.phone_number}
             className={`w-[112px] text-base ${phone_number ? 'verify-color hover:verify-color' : 'before-verify-color opacity-60'}`}
@@ -110,7 +129,8 @@ function SmsVerificationSection({
               code.length !== 6 ||
               !!errors.phone_number ||
               !isSmsSent ||
-              isVerifyingSms
+              isVerifyingSms ||
+              isTimerExpired
             }
             className={`w-[112px] text-base ${code.length === 6 ? 'verify-color hover:verify-color' : 'before-verify-color opacity-60'}`}
             onClick={handleVerifySms}
