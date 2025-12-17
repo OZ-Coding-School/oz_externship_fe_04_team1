@@ -10,16 +10,21 @@ import {
 import { useFormContext, useWatch } from 'react-hook-form'
 import Button from '@/components/common/Button'
 import Input from '@/components/common/Input'
+import { Timer } from '@/components/common/timer/Timer'
+import { useEffect } from 'react'
 
 function EmailVerifyStep({
   currentStep,
   setCurrentStep,
   onVerifyCode,
+  onVerifyUserIdentity,
+  timerRef,
 }: EmailVerifyStepProps) {
   const { getValues, register, setValue, handleSubmit } =
     useFormContext<FindEmailFormData>()
   const phone = getValues('phone')
   const code = useWatch({ name: 'code' })
+  const name = getValues('name')
 
   const handleVerifyCode = (data: FindEmailFormData) => {
     onVerifyCode({ phone_number: phone, code: data.code })
@@ -31,7 +36,8 @@ function EmailVerifyStep({
 
   const handleResendCode = () => {
     setValue('code', '')
-    // api 호출로 인증코드 재전송
+    timerRef.current?.stop()
+    onVerifyUserIdentity({ name, phone_number: phone })
   }
 
   const codeRegister = register('code', {
@@ -40,26 +46,33 @@ function EmailVerifyStep({
     maxLength: 6,
   })
 
+  useEffect(() => {
+    timerRef.current?.start()
+  }, [timerRef])
+
   return (
     <div>
       <StepProgress currentStep={currentStep} type={FINDTYPE.FIND_EMAIL} />
       <StepHeader
         icon={Phone}
         title="휴대폰 인증"
-        description={`${phone}로 인증코드를 발송했습니다.`}
+        description={`${phone.slice(0, 3)}-${phone.slice(3, 7)}-${phone.slice(7, 11)}로 인증코드를 발송했습니다.`}
       />
       <form onSubmit={handleSubmit(handleVerifyCode)}>
-        <div className="flex flex-col">
+        <div className="mb-5 flex flex-col">
           <label htmlFor="code" className="pb-1 text-gray-700">
             인증코드
           </label>
-          <div className="mb-5 flex gap-2">
-            <Input
-              id="code"
-              className="w-full"
-              placeholder="6자리 인증코드 입력"
-              {...codeRegister}
-            />
+          <div className="flex gap-2">
+            <div className="relative w-full">
+              <Input
+                id="code"
+                className="w-full"
+                placeholder="6자리 인증코드 입력"
+                {...codeRegister}
+              />
+              <Timer ref={timerRef} />
+            </div>
             <Button onClick={handleResendCode} className="verify-color">
               재전송
             </Button>
