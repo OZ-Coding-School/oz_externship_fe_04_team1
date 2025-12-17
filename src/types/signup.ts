@@ -1,4 +1,4 @@
-export type ReqInfo = Omit<SignupFormValues, 'password_confirm'>
+export type ReqInfo = Omit<SignupFormValues, 'password_confirm' | 'emailCode' | 'smsCode'>
 
 export type ReqEmailOnly = Pick<SignupFormValues, 'email'>
 
@@ -23,6 +23,8 @@ export type SignupFormValues = {
   phone_number: string
   password: string
   password_confirm: string
+  emailCode: string
+  smsCode: string
 }
 export interface SignupFormValuesWithValidation extends SignupFormValues {
   emailVerified: boolean | null

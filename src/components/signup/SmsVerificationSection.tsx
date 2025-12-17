@@ -25,7 +25,6 @@ function SmsVerificationSection({
   smsSendError,
   isSmsSent,
 }: SmsVerificationSectionProps) {
-  const [code, setCode] = useState('')
   const timerRef = useRef<TimerRefProps>(null)
   const [isTimerExpired, setIsTimerExpired] = useState(false)
 
@@ -37,6 +36,7 @@ function SmsVerificationSection({
   } = useFormContext<SignupFormValuesWithValidation>()
   const phone_number = useWatch({ name: 'phone_number' })
   const smsVerified = useWatch({ name: 'smsVerified' })
+  const smsCode = useWatch({ name: 'smsCode' })
 
   const phoneRegister = register('phone_number', {
     required: '휴대폰 인증을 해주세요.',
@@ -46,7 +46,7 @@ function SmsVerificationSection({
     },
     onChange: () => {
       onSmsChange()
-      setCode('')
+      setValue('smsCode', '')
 
       setIsTimerExpired(false)
       timerRef.current?.stop()
@@ -56,7 +56,7 @@ function SmsVerificationSection({
   const handleSmsSubmit = () => {
     if (errors.phone_number) return
     onSmsSubmit(phone_number)
-    setCode('')
+    setValue('smsCode', '')
     setValue('smsVerified', null)
     clearErrors('smsVerified')
 
@@ -65,8 +65,8 @@ function SmsVerificationSection({
   }
 
   const handleVerifySms = () => {
-    if (!code || code.length !== 6) return
-    onVerifySms(phone_number, code)
+    if (!smsCode || smsCode.length !== 6) return
+    onVerifySms(phone_number, smsCode)
   }
 
   // 인증 성공 시 타이머 정지
@@ -119,20 +119,26 @@ function SmsVerificationSection({
             id="smsVerificationCode"
             className="h-12 flex-1"
             autoComplete="one-time-code"
-            value={code}
+            {...register('smsCode', {
+              onChange: () => {
+                if (smsVerified === false) {
+                  clearErrors('smsVerified')
+                  setValue('smsVerified', null)
+                }
+              },
+            })}
             error={smsVerified === false}
-            onChange={(e) => setCode(e.target.value)}
             placeholder="인증번호 6자리를 입력해주세요"
           />
           <Button
             disabled={
-              code.length !== 6 ||
+              smsCode.length !== 6 ||
               !!errors.phone_number ||
               !isSmsSent ||
               isVerifyingSms ||
               isTimerExpired
             }
-            className={`w-[112px] text-base ${code.length === 6 ? 'verify-color hover:verify-color' : 'before-verify-color opacity-60'}`}
+            className={`w-[112px] text-base ${smsCode.length === 6 ? 'verify-color hover:verify-color' : 'before-verify-color opacity-60'}`}
             onClick={handleVerifySms}
           >
             {isVerifyingSms ? '확인 중...' : '인증번호확인'}
