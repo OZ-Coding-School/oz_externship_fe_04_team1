@@ -1,9 +1,4 @@
 export type ApplyList = {
-  next: string | null
-  previous: string | null
-  results: Results[]
-}
-type Results = {
   id: number
   status: Status
   recruitment: Recruitment

@@ -2,28 +2,9 @@ import StudyApplicationCard from '@/components/common/cards/StudyApplicationCard
 import NoData from '@/components/common/notFound/noData'
 import useApplyList from '@/hooks/quries/useApplyList'
 import { useApplyModal } from '@/hooks/useApplyModal'
-import { useRef } from 'react'
-import { useInfiniteScroll } from '@/hooks/useInfiniteScroll'
-import Loading from '@/components/common/loading'
-
 function ApplyListDesktop() {
-  const {
-    data: applyListData,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-  } = useApplyList()
+  const { data: applyListData } = useApplyList()
   const { onOpenModal } = useApplyModal()
-  const loadMoreRef = useRef<HTMLDivElement>(null)
-  useInfiniteScroll(
-    loadMoreRef,
-    () => {
-      if (hasNextPage && !isFetchingNextPage) fetchNextPage()
-    },
-    300
-  )
-  const allResults = applyListData?.pages.flatMap((page) => page.results) ?? []
-  // console.log(allResults)
   return (
     <>
       {/* 제목 */}
@@ -34,9 +15,9 @@ function ApplyListDesktop() {
         </span>
       </div>
       {/* 카드 컴포넌트 */}
-      {allResults.length > 0 ? (
+      {applyListData.length > 0 ? (
         <div className="mt-6 flex flex-col gap-4">
-          {allResults?.map((value) => (
+          {applyListData?.map((value) => (
             <StudyApplicationCard
               key={value.id}
               applyData={value}
@@ -51,9 +32,6 @@ function ApplyListDesktop() {
           <NoData />
         </div>
       )}
-      <div ref={loadMoreRef} className="h-4" />
-      {/* 마지막 항목 도달시 */}
-      {hasNextPage && <Loading />}
     </>
   )
 }
