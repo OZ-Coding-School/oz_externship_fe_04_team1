@@ -4,8 +4,6 @@ import { applyList } from './mockData'
 
 export const applyListHandler = [
   http.get(API_PATHS.APPLY.LIST.GET, () => {
-    return HttpResponse.json({
-      results: applyList,
-    })
+    return HttpResponse.json(applyList)
   }),
 ]
