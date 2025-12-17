@@ -1,0 +1,223 @@
+import closeIcon from '@/assets/icons/close.svg'
+import Button from '@/components/common/Button'
+import Input from '@/components/common/Input'
+import useUserData from '@/hooks/quries/useUserData'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import type { EditUserInformation } from '@/types/editUserInformation'
+import useS3PresignedUrl from '@/hooks/quries/useS3PresignedUrl'
+import type { S3PresignedUrl } from '@/types/s3PresignedUrl'
+import { usePatchUserInformation } from '@/hooks/usePatchUserData'
+import { showToast } from '@/components/common/toast/Toast'
+interface EditModalProps {
+  onClose: () => void
+}
+function EditModal({ onClose }: EditModalProps) {
+  const [imgFile, setImgFile] = useState<File | null>(null)
+  const { data: userData } = useUserData()
+  const { mutate: editUserInformation } = usePatchUserInformation()
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    watch,
+    getValues,
+    formState: { errors },
+  } = useForm<EditUserInformation>({
+    defaultValues: {
+      name: userData?.name,
+      nickname: userData?.nickname,
+      birthday: userData?.birthday.split('-').join(''),
+      gender: userData?.gender,
+      profile_img_url: userData?.profile_img_url,
+    },
+    mode: 'onBlur',
+  })
+  const onSubmit = () => {
+    if (imgFile) {
+      setValue('profile_img_url', s3UrlImgData.file_url)
+    }
+    const noHipenBirthDay = watch('birthday')
+    const parts = [
+      noHipenBirthDay.slice(0, 4),
+      noHipenBirthDay.slice(4, 6),
+      noHipenBirthDay.slice(6),
+    ]
+    const hipenBirthDay = parts.join('-')
+    setValue('birthday', hipenBirthDay)
+    const finalData = getValues()
+    editUserInformation(finalData, {
+      onSuccess: () => {
+        showToast.success('성공', '개인정보가 변경되었습니다')
+        onClose()
+        console.log(finalData)
+      },
+      onError: (error: any) => {
+        if (error.statusCode === 409) {
+          showToast.error('실패', '중복된 닉네임이 존재합니다')
+          const errorBirthDay = watch('birthday')
+          const errorNoHipenBirthDay = errorBirthDay.split('-').join('')
+          setValue('birthday', errorNoHipenBirthDay)
+        }
+      },
+    })
+  }
+  const params = imgFile
+    ? {
+        type: 'USER_PROFILE_IMAGE',
+        content_type: imgFile.type,
+        file_name: imgFile.name,
+        file_ext: imgFile.name.split('.').pop()!,
+      }
+    : undefined
+
+  const { data: s3UrlImgData } = useS3PresignedUrl(params as S3PresignedUrl)
+  const [editGender, setEditGender] = useState(userData?.gender)
+  const handleGender = (gender: 'M' | 'F') => {
+    setEditGender(gender)
+    setValue('gender', gender)
+  }
+  const nameRegister = {
+    required: { value: true, message: '이름은 필수 항목입니다' },
+    pattern: {
+      value: /^[가-힣a-zA-Z]{2,8}$/,
+      message: '2~8자의 한글/영문만 가능합니다',
+    },
+  }
+  const nickNameRegister = {
+    required: { value: true, message: '닉네임은 필수 항목입니다' },
+    pattern: {
+      value: /^[가-힣a-zA-Z0-9]{1,10}$/,
+      message: '1~10자의 한글/영문/숫자만 가능합니다.',
+    },
+  }
+  const birthDayRegister = {
+    required: { value: true, message: '생년월일은 필수 항목입니다' },
+    pattern: {
+      value: /^(19|20)\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])$/,
+      message: '생년월일 8자리를 작성해주세요',
+    },
+  }
+  return (
+    <div
+      className="bg-basic-white z-10 h-[600px] w-[450px] flex-col overflow-y-auto rounded-xl md:h-[730px] md:w-[512px]"
+      onClick={(e) => e.stopPropagation()}
+    >
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="flex h-[89px] w-full items-center justify-between border-b-2 border-solid border-gray-200 px-6 py-7">
+          <span className="text-lg font-semibold text-gray-900">
+            프로필 수정
+          </span>
+          <img
+            src={closeIcon}
+            alt="colseIcon"
+            onClick={onClose}
+            className="h-[20px] w-[20px] cursor-pointer"
+          />
+        </div>
+        {/* 사진~성별까지의 부분 */}
+        <div className="mt-11 flex flex-col gap-3 border-b-2 border-solid border-gray-200 px-6 pb-10">
+          {/* 프로필 사진 변경 부분 */}
+          <label
+            htmlFor="profile_img_url"
+            className="text-primary-600 flex cursor-pointer flex-col items-center gap-4 text-sm"
+          >
+            <img
+              src={imgFile ? s3UrlImgData?.file_url : userData?.profile_img_url}
+              alt="profileImg"
+              className="h-[96px] w-[96px] rounded-full"
+            />
+            프로필 사진 변경
+            <Input
+              type="file"
+              id="profile_img_url"
+              className="hidden"
+              {...register('profile_img_url')}
+              accept="image/*"
+              // 이미지만 첨부 가능하게
+              onChange={(e) => {
+                const file = e.target.files?.[0]
+                if (!file) return
+                setImgFile(file)
+              }}
+            />
+          </label>
+          {/* 이름 부분*/}
+          <label
+            htmlFor="nameForm"
+            className="flex flex-col gap-2 text-sm text-gray-900"
+          >
+            이름
+            <Input {...register('name', nameRegister)} id="nameForm" />
+            {errors.name && (
+              <p className="text-danger-500 pl-1 text-xs">
+                {errors.name.message}
+              </p>
+            )}
+          </label>
+          {/*닉네임 부분*/}
+          <label className="flex flex-col gap-2 text-sm text-gray-900">
+            닉네임
+            <Input {...register('nickname', nickNameRegister)} />
+            {errors.nickname && (
+              <p className="text-danger-500 pl-1 text-xs">
+                {errors.nickname.message}
+              </p>
+            )}
+          </label>
+          {/*생년월일*/}
+          <label className="flex flex-col gap-2 text-sm text-gray-900">
+            생년월일
+            <Input {...register('birthday', birthDayRegister)} />
+            {errors.birthday && (
+              <p className="text-danger-500 pl-1 text-xs">
+                {errors.birthday.message}
+              </p>
+            )}
+          </label>
+          {/*성별 부분*/}
+          <div className="flex flex-col gap-2">
+            성별
+            <div className="flex gap-5">
+              {/* 선택하면  */}
+              <Button
+                className={
+                  editGender === 'M'
+                    ? 'border-primary-600 bg-primary-100 text-primary-600 hover:text-basic-white w-[90px] cursor-pointer rounded-full border border-solid px-7 py-4'
+                    : 'border-gray-250 hover:text-basic-white w-[90px] cursor-pointer rounded-full border border-solid bg-gray-200 px-8 py-4 text-gray-600'
+                }
+                onClick={() => handleGender('M')}
+              >
+                남
+              </Button>
+              <Button
+                className={
+                  editGender === 'F'
+                    ? 'border-primary-600 bg-primary-100 text-primary-600 hover:text-basic-white w-[90px] cursor-pointer rounded-full border border-solid px-7 py-4'
+                    : 'border-gray-250 hover:text-basic-white w-[90px] cursor-pointer rounded-full border border-solid bg-gray-200 px-8 py-4 text-gray-600'
+                }
+                onClick={() => handleGender('F')}
+              >
+                여
+              </Button>
+            </div>
+          </div>
+        </div>
+        {/* 취소, 변경하기 버튼 */}
+        <div className="mt-3 flex items-center justify-end gap-3 px-6 pb-4 md:pb-0">
+          <button
+            className="bg-basic-white cursor-pointer rounded-lg border-2 border-solid border-gray-300 px-6 py-2 text-base text-gray-900"
+            type="button"
+            onClick={onClose}
+          >
+            취소
+          </button>
+          <button className="bg-primary-500 text-basic-white text-bas cursor-pointer rounded-lg px-7 py-2">
+            변경하기
+          </button>
+        </div>
+      </form>
+    </div>
+  )
+}
+export default EditModal

@@ -1,5 +1,17 @@
+import AppRoutes from '@/routes/AppRoutes'
+import { useLocation } from 'react-router'
+import { ToastContainer } from 'react-toastify'
+import MoveToTop from '@/components/common/moveToTop/MoveToTop'
+
 function App() {
-  return <div>template</div>
+  const { pathname } = useLocation()
+  const isSpecialPage = pathname.startsWith('/mypage')
+  return (
+    <>
+      <ToastContainer position={isSpecialPage ? 'top-right' : 'top-center'} />
+      <MoveToTop />
+      <AppRoutes />
+    </>
+  )
 }
-// 배포테스트
 export default App

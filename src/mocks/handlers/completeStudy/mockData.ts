@@ -1,0 +1,110 @@
+import type { CompleteStudy } from '@/types/completeStudy'
+import pythonCompleteImg from '@/assets/images/pythonCompleteStudyImg.png'
+import typeScriptCompleteImg from '@/assets/images/typeScriptCompleteStudyImg.png'
+export const completeStudy: CompleteStudy[] = [
+  {
+    id: 1,
+    name: 'Python 데이터 분석 스터디1',
+    is_leader: true,
+    start_at: '2025-11-01T00:00:00.000Z',
+    end_at: '2026-03-01T00:00:00.000Z',
+    max_headcount: 5,
+    current_headcount: 4,
+    profile_img_url: pythonCompleteImg,
+    status: 'ONGOING',
+    lectures: [{ id: 1, title: '쉽게 뜯어보는 python', instructor: '엄준식' }],
+    reviews: [],
+  },
+  {
+    id: 2,
+    name: 'Python 데이터 분석 스터디2',
+    is_leader: false,
+    start_at: '2025-05-01T00:00:00.000Z',
+    end_at: '2025-11-01T00:00:00.000Z',
+    max_headcount: 5,
+    current_headcount: 5,
+    profile_img_url: pythonCompleteImg,
+    status: 'ENDED',
+    lectures: [{ id: 1, title: '쉽게 뜯어보는 python', instructor: '엄준식' }],
+    reviews: [
+      {
+        id: 1,
+        is_mine: true,
+        star_rating: 5,
+        content: '정말 고생많았습니다',
+      },
+      {
+        id: 2,
+        is_mine: false,
+        star_rating: 4,
+        content: '많은 것을 배웠습니다',
+      },
+    ],
+  },
+  {
+    id: 3,
+    name: 'TypeScript 심화 스터디3',
+    is_leader: true,
+    start_at: '2025-07-01T00:00:00.000Z',
+    end_at: '2025-12-01T00:00:00.000Z',
+    max_headcount: 5,
+    current_headcount: 3,
+    profile_img_url: typeScriptCompleteImg,
+    status: 'ENDED',
+    lectures: [{ id: 1, title: '쉽게 뜯어보는 python', instructor: '엄준식' }],
+    reviews: [
+      {
+        id: 1,
+        is_mine: false,
+        star_rating: 5,
+        content: '정말 고생많았습니다',
+      },
+      {
+        id: 2,
+        is_mine: false,
+        star_rating: 4,
+        content: '많은 것을 배웠습니다',
+      },
+      {
+        id: 3,
+        is_mine: true,
+        star_rating: 4,
+        content:
+          '사람이 적긴 했었지만, 팀원 분들이 좋으신 분이였기에 잘 마칠수 있었습니다.',
+      },
+    ],
+  },
+  {
+    id: 4,
+    name: 'TypeScript 심화 스터디4',
+    is_leader: true,
+    start_at: '2025-07-01T00:00:00.000Z',
+    end_at: '2025-12-01T00:00:00.000Z',
+    max_headcount: 5,
+    current_headcount: 3,
+    profile_img_url: typeScriptCompleteImg,
+    status: 'ENDED',
+    lectures: [{ id: 1, title: '쉽게 뜯어보는 python', instructor: '엄준식' }],
+    reviews: [
+      {
+        id: 1,
+        is_mine: false,
+        star_rating: 5,
+        content: '정말 고생많았습니다',
+      },
+      {
+        id: 2,
+        is_mine: false,
+        star_rating: 4,
+        content: '많은 것을 배웠습니다',
+      },
+      {
+        id: 3,
+        is_mine: false,
+        star_rating: 4.5,
+        content:
+          '사람이 적긴 했었지만, 팀원 분들이 좋으신 분이였기에 잘 마칠수 있었습니다.',
+      },
+    ],
+  },
+]
