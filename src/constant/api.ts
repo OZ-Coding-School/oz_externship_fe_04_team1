@@ -50,7 +50,7 @@ export const API_PATHS = {
     },
     // 닉네임 중복 get api
     NICKNAME_CHECK: {
-      GET: '/api/v1/accounts/signup/check-nickname',
+      GET: '/api/v1/accounts/check-nickname',
     },
     // 이메일 인증 발송 post api
     EMAIL_SEND: {
@@ -109,7 +109,7 @@ export const API_PATHS = {
   },
 
   REFRESH_TOKEN: {
-    POST: '/api/v1/auth/refresh/',
+    POST: '/api/v1/accounts/token/refresh',
   },
 
   LOGOUT: {
