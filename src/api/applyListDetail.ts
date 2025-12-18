@@ -8,7 +8,7 @@ export const getApplyListDetailApi = async (
   const { data } = await axiosInstance.get(API_PATHS.APPLY.DETAIL.BASE(id))
   return data
 }
-export const deleteApplyListApi = async (id: number) => {
-  const { data } = await axiosInstance.delete(API_PATHS.APPLY.DETAIL.BASE(id))
+export const cancelApplyListApi = async (id: number) => {
+  const { data } = await axiosInstance.post(API_PATHS.APPLY.CANCELED.POST(id))
   return data
 }

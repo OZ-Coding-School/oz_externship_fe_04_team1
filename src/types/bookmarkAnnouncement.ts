@@ -5,7 +5,7 @@ export interface BookmarkAnnouncement {
 }
 export interface Results {
   id: number
-  recruitment: Recruitment[]
+  recruitment: Recruitment
 }
 interface Recruitment {
   uuid: string

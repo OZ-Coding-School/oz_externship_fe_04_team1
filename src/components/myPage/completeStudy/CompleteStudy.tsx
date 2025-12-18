@@ -9,11 +9,9 @@ import Loading from '@/components/common/loading'
 const PAGE_SIZE = 6
 function CompleteStudy() {
   const { data: completeStudyData } = useCompleteStudyData()
-  const now = new Date()
   // 현재 시간 기준으로 완료된 스터디 목록 필터링
   const filteredData = completeStudyData.filter((value) => {
-    const endAt = new Date(value.end_at)
-    return value.status === 'ENDED' && now > endAt
+    return value.status === 'ENDED'
   })
   // api에 페이지네이션이 없어 직접 6개씩 잘라서 구현
   const [page, setPage] = useState<number>(1)
