@@ -66,9 +66,7 @@ function BookMarkAnnouncementDesktop() {
                 <StudyBookmark
                   key={value.id}
                   announcementBookmarkData={value.recruitment}
-                  onBookmarkClick={() =>
-                    deleteBookmarkAnnouncement(value.recruitment.uuid)
-                  }
+                  onBookmarkClick={() => deleteBookmarkAnnouncement(value.id)}
                   onViewClick={() => console.log('view clicked')}
                 />
               ))
@@ -80,9 +78,7 @@ function BookMarkAnnouncementDesktop() {
               <StudyBookmark
                 key={value.id}
                 announcementBookmarkData={value.recruitment}
-                onBookmarkClick={() =>
-                  deleteBookmarkAnnouncement(value.recruitment.uuid)
-                }
+                onBookmarkClick={() => deleteBookmarkAnnouncement(value.id)}
                 onViewClick={() => console.log('view clicked')}
               />
             ))

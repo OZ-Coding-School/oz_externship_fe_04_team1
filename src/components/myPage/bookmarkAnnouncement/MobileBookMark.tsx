@@ -101,9 +101,7 @@ function MobileBookMark() {
                 <StudyBookmark
                   key={value.id}
                   announcementBookmarkData={value.recruitment}
-                  onBookmarkClick={() =>
-                    deleteBookMarkAnnouncement(value.recruitment.uuid)
-                  }
+                  onBookmarkClick={() => deleteBookMarkAnnouncement(value.id)}
                   onViewClick={() => console.log('view clicked')}
                   className={
                     optionIsSelected === 'ANNOUNCEMENT' ? 'block' : 'hidden'
@@ -130,9 +128,7 @@ function MobileBookMark() {
                 <StudyBookmark
                   key={value.id}
                   announcementBookmarkData={value.recruitment}
-                  onBookmarkClick={() =>
-                    deleteBookMarkAnnouncement(value.recruitment.uuid)
-                  }
+                  onBookmarkClick={() => deleteBookMarkAnnouncement(value.id)}
                   onViewClick={() => console.log('view clicked')}
                   className={
                     optionIsSelected === 'ANNOUNCEMENT' ? 'block' : 'hidden'
