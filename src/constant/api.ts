@@ -106,7 +106,7 @@ export const API_PATHS = {
   },
 
   REFRESH_TOKEN: {
-    POST: '/api/v1/auth/refresh/',
+    POST: '/api/v1/accounts/token/refresh',
   },
 
   LOGOUT: {
