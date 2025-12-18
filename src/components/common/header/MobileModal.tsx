@@ -41,17 +41,35 @@ function MobileModal({ setIsModalOpen }: MobileModalProps) {
         </span>
         <div className="flex h-[48px] items-center gap-3">
           <img src={classIcon} alt="classIcon" />
-          <a href="">강의 목록</a>
+          <a
+            href="https://learn.ozcoding.site/courses"
+            target="_blank"
+            rel="noreferrer"
+          >
+            강의 목록
+          </a>
           {/* 강의목록 페이지로 렌더링 */}
         </div>
         <div className="flex h-[48px] items-center gap-3">
           <img src={study} alt="studyIcon" />
-          <a href="">스터디 그룹</a>
+          <a
+            href="https://study.ozcoding.site/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            스터디 그룹
+          </a>
           {/* 로그인 화면으로 렌더링 */}
         </div>
         <div className="flex h-[48px] items-center gap-3">
           <img src={announcement} alt="announcementIcon" />
-          <a href="">구인 광고</a>
+          <a
+            href="https://learn.ozcoding.site/recruitments"
+            target="_blank"
+            rel="noreferrer"
+          >
+            구인 광고
+          </a>
           {/* 구인광고 페이지로 렌더링 */}
         </div>
       </div>
