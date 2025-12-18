@@ -4,19 +4,16 @@ import { bookmarkAnnouncement } from './mockData'
 export const deleteBookMarkAnnouncementHandler = [
   http.delete('/api/v1/recruitment-bookmarks/:uuid', ({ params }) => {
     const { uuid } = params
-    // recruitment 배열 안에서 uuid 찾기
-    let found = false
-    for (const bookmark of bookmarkAnnouncement.results) {
-      const index = bookmark.recruitment.findIndex((r) => r.uuid === uuid)
-      if (index !== -1) {
-        bookmark.recruitment.splice(index, 1) // 삭제
-        found = true
-        break
-      }
-    }
 
-    if (found) {
+    const index = bookmarkAnnouncement.results.findIndex(
+      (bookmark) => bookmark.recruitment.uuid === uuid
+    )
+
+    if (index !== -1) {
+      bookmarkAnnouncement.results.splice(index, 1)
       return HttpResponse.json({ success: true })
     }
+
+    return HttpResponse.json({ message: 'Bookmark not found' }, { status: 404 })
   }),
 ]
