@@ -2,13 +2,14 @@ import closeIcon from '@/assets/icons/close.svg'
 import Button from '@/components/common/Button'
 import useApplyListDetail from '@/hooks/quries/useApplyListDetail'
 import { HAS_STUDY_CONFIG, STATUS_CONFIG } from '@/constant/badgeConstant'
-import { useDeleteApplyList } from '@/hooks/quries/useDeleteApplyList'
+import { useCancelApplyList } from '@/hooks/quries/useCancelApplyList'
 interface ApplyListModalProps {
   applyListId: number | null
   onCloseModal: () => void
 }
 function ApplyListModal({ applyListId, onCloseModal }: ApplyListModalProps) {
-  const { mutate: deleteApplyList } = useDeleteApplyList()
+  // const { mutate: deleteApplyList } = useDeleteApplyList()
+  const { mutate: cancelApplyList } = useCancelApplyList()
   const { data: applyListData, isLoading } = useApplyListDetail(applyListId)
   // applyListId 없으면 아무것도 렌더링 안 함
   if (!applyListId) return null
@@ -112,8 +113,9 @@ function ApplyListModal({ applyListId, onCloseModal }: ApplyListModalProps) {
         <Button
           variant="danger"
           size="lg"
+          disabled={applyListData.status === 'CANCELED'}
           onClick={() => {
-            deleteApplyList(applyListId)
+            cancelApplyList(applyListId)
             onCloseModal()
           }}
         >

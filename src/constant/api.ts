@@ -20,7 +20,7 @@ export const API_PATHS = {
     ANNOUNCEMENT: {
       GET: '/api/v1/recruitment-bookmarks',
       // 북마크 공고 삭제 api
-      DELETE: (uuid: string) => `/api/v1/recruitment-bookmarks/${uuid}`,
+      DELETE: (id: number) => `/api/v1/recruitment-bookmarks/${id}/`,
     },
     // 북마크된 강의 조회 가져오는 api
     STUDY: {
@@ -38,6 +38,9 @@ export const API_PATHS = {
     // 지원 내역 상세 가져오는 api
     DETAIL: {
       BASE: (id: number) => `/api/v1/applications/${id}`,
+    },
+    CANCELED: {
+      POST: (id: number) => `/api/v1/applications/${id}/cancel`,
     },
   },
   SIGNUP: {

@@ -62,30 +62,26 @@ function BookMarkAnnouncementDesktop() {
           {/* 검색 목록이 존재한다면 해당 목록 렌더링, 검색 하지 않았을시 전체 렌더링, 만약 검색 결과가 없다면 검색 결과 없음*/}
           {searchParams.get('search') ? (
             filteredData && filteredData.length > 0 ? (
-              filteredData.map((value) =>
-                value.recruitment.map((v) => (
-                  <StudyBookmark
-                    key={value.id}
-                    announcementBookmarkData={v}
-                    onBookmarkClick={() => deleteBookmarkAnnouncement(v.uuid)}
-                    onViewClick={() => console.log('view clicked')}
-                  />
-                ))
-              )
+              filteredData.map((value) => (
+                <StudyBookmark
+                  key={value.id}
+                  announcementBookmarkData={value.recruitment}
+                  onBookmarkClick={() => deleteBookmarkAnnouncement(value.id)}
+                  onViewClick={() => console.log('view clicked')}
+                />
+              ))
             ) : (
               <NoSearchReult searchResult={searchParams.get('search') ?? ''} />
             )
           ) : (
-            allResults.map((value) =>
-              value.recruitment.map((v) => (
-                <StudyBookmark
-                  key={value.id}
-                  announcementBookmarkData={v}
-                  onBookmarkClick={() => deleteBookmarkAnnouncement(v.uuid)}
-                  onViewClick={() => console.log('view clicked')}
-                />
-              ))
-            )
+            allResults.map((value) => (
+              <StudyBookmark
+                key={value.id}
+                announcementBookmarkData={value.recruitment}
+                onBookmarkClick={() => deleteBookmarkAnnouncement(value.id)}
+                onViewClick={() => console.log('view clicked')}
+              />
+            ))
           )}
         </div>
       ) : (
