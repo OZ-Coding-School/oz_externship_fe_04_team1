@@ -11,6 +11,7 @@ const defaultOptions: ToastOptions = {
   theme: 'light',
   transition: Slide,
   closeButton: false,
+  position: 'top-right',
   icon: false,
   className: 'bg-transparent shadow-none p-0 border-none m-0',
 }
