@@ -78,7 +78,7 @@ function StudyApplicationCard({
         {/* 태그 목록 (데스크톱만 표시) */}
         <div className="hidden sm:block">
           <div className="mt-2 flex flex-wrap gap-2">
-            {applyData.recruitment.tags.map((tag) => (
+            {applyData?.recruitment?.tags?.map((tag) => (
               <span
                 key={tag.id}
                 className="badge-yellow px-2 py-1 text-xs whitespace-nowrap text-gray-600"
@@ -90,7 +90,7 @@ function StudyApplicationCard({
         </div>
         <div className="block sm:hidden">
           <div className="mt-2 flex flex-wrap items-center gap-2 text-xs text-gray-500">
-            {applyData.recruitment.tags.slice(0, 3).map((tag) => (
+            {applyData?.recruitment?.tags?.slice(0, 3).map((tag) => (
               <span
                 key={tag.id}
                 className="badge-yellow px-2 py-1 text-xs whitespace-nowrap text-gray-600"
@@ -98,7 +98,7 @@ function StudyApplicationCard({
                 {tag.name}
               </span>
             ))}
-            +{applyData.recruitment.tags.length - 3}
+            +{applyData?.recruitment?.tags?.length - 3}
           </div>
         </div>
       </div>
