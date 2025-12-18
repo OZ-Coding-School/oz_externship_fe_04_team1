@@ -97,19 +97,17 @@ function MobileBookMark() {
           announcementFilteredData.length > 0 ||
           studyFilteredData.length > 0 ? (
             <>
-              {announcementFilteredData.map((value) =>
-                value.recruitment.map((v) => (
-                  <StudyBookmark
-                    key={value.id}
-                    announcementBookmarkData={v}
-                    onBookmarkClick={() => deleteBookMarkAnnouncement(v.uuid)}
-                    onViewClick={() => console.log('view clicked')}
-                    className={
-                      optionIsSelected === 'ANNOUNCEMENT' ? 'block' : 'hidden'
-                    }
-                  />
-                ))
-              )}
+              {announcementFilteredData.map((value) => (
+                <StudyBookmark
+                  key={value.id}
+                  announcementBookmarkData={value.recruitment}
+                  onBookmarkClick={() => deleteBookMarkAnnouncement(value.id)}
+                  onViewClick={() => console.log('view clicked')}
+                  className={
+                    optionIsSelected === 'ANNOUNCEMENT' ? 'block' : 'hidden'
+                  }
+                />
+              ))}
               {studyFilteredData.map((value) => (
                 <CourseBookmark
                   key={value.id}
@@ -126,19 +124,17 @@ function MobileBookMark() {
         ) : (
           <>
             {allAnnouncementResults.length > 0 ? (
-              allAnnouncementResults.map((value) =>
-                value.recruitment.map((v) => (
-                  <StudyBookmark
-                    key={value.id}
-                    announcementBookmarkData={v}
-                    onBookmarkClick={() => deleteBookMarkAnnouncement(v.uuid)}
-                    onViewClick={() => console.log('view clicked')}
-                    className={
-                      optionIsSelected === 'ANNOUNCEMENT' ? 'block' : 'hidden'
-                    }
-                  />
-                ))
-              )
+              allAnnouncementResults.map((value) => (
+                <StudyBookmark
+                  key={value.id}
+                  announcementBookmarkData={value.recruitment}
+                  onBookmarkClick={() => deleteBookMarkAnnouncement(value.id)}
+                  onViewClick={() => console.log('view clicked')}
+                  className={
+                    optionIsSelected === 'ANNOUNCEMENT' ? 'block' : 'hidden'
+                  }
+                />
+              ))
             ) : (
               <div
                 className={

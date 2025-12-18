@@ -5,9 +5,7 @@ export const useAnnouncementSearchFilter = (
 ) => {
   const [searchParams] = useSearchParams()
   const filteredData = data.filter((value) => {
-    return value.recruitment.some((v) => {
-      return v.title.includes(searchParams.get('search') ?? '')
-    })
+    return value.recruitment?.title?.includes(searchParams.get('search') ?? '')
   })
   return filteredData
 }

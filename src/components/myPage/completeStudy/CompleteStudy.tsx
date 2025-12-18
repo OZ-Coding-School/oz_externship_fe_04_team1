@@ -3,15 +3,33 @@ import StudyCompleteCard from '@/components/common/cards/StudyCompleteCard'
 import ReviewOverLay from '../overlay/ReviewOverLay'
 import { ReviewModalProvider } from '@/store/context/reviewModalContext'
 import NoData from '@/components/common/notFound/noData'
+import { useRef, useState } from 'react'
+import { useInfiniteScroll } from '@/hooks/useInfiniteScroll'
+import Loading from '@/components/common/loading'
+const PAGE_SIZE = 6
 function CompleteStudy() {
   const { data: completeStudyData } = useCompleteStudyData()
-  const now = new Date()
   // 현재 시간 기준으로 완료된 스터디 목록 필터링
   const filteredData = completeStudyData.filter((value) => {
-    const endAt = new Date(value.end_at)
-    return value.status === 'ENDED' && now > endAt
+    return value.status === 'ENDED'
   })
-  // 완료된 스터디 항목에 대한 데이터 -> 추후 데이터가 없을때 항목없음 컴포넌트 렌더링 해야함 + 무한 스크롤
+  // api에 페이지네이션이 없어 직접 6개씩 잘라서 구현
+  const [page, setPage] = useState<number>(1)
+  const [isLoading, setIsLoading] = useState(false)
+  const loadMoreRef = useRef<HTMLDivElement | null>(null)
+  // 보여줄 항목
+  const end = page * PAGE_SIZE
+  const visibleStudies = filteredData.slice(0, page * PAGE_SIZE)
+  const hasMore = end < filteredData.length
+  const loadMore = () => {
+    if (!hasMore || isLoading) return
+    setIsLoading(true)
+    setTimeout(() => {
+      setPage((prev) => prev + 1)
+      setIsLoading(false)
+    }, 500)
+  }
+  useInfiniteScroll(loadMoreRef, loadMore)
   return (
     <ReviewModalProvider>
       <ReviewOverLay />
@@ -28,9 +46,9 @@ function CompleteStudy() {
         </span>
       </div>
       {/* 카드 부분 */}
-      {filteredData.length > 0 ? (
+      {visibleStudies.length > 0 ? (
         <div className="mt-6 flex flex-wrap justify-center gap-6 xl:justify-start">
-          {filteredData.map((value) => (
+          {visibleStudies.map((value) => (
             <StudyCompleteCard key={value.id} studyCompleteCardData={value} />
           ))}
         </div>
@@ -39,6 +57,8 @@ function CompleteStudy() {
           <NoData />
         </div>
       )}
+      <div ref={loadMoreRef} className="h-4" />
+      {isLoading && <Loading />}
     </ReviewModalProvider>
   )
 }

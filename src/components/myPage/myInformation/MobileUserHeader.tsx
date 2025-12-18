@@ -9,6 +9,8 @@ function MobileUserHeader() {
         src={userData?.profile_img_url}
         alt="profileImg"
         className="h-[80px] w-[80px] rounded-full"
+        // onError={(e) => (e.currentTarget.src = defaultImg)}
+        // 대체 이미지 추가하기
       />
       <div className="mt-3 flex flex-col items-center">
         <span className="text-lg font-semibold text-gray-900">

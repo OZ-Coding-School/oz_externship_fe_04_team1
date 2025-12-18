@@ -1,7 +1,7 @@
 import useUserData from '@/hooks/quries/useUserData'
 import Input from '@/components/common/Input'
 import { useInformationModal } from '@/hooks/useInformationModal'
-
+// import defaultImg from '@/assets/images/defaultProfileImg.svg'
 function EditUserInformation() {
   const { data: userData } = useUserData()
   const { openModal } = useInformationModal()
@@ -13,6 +13,8 @@ function EditUserInformation() {
             src={userData?.profile_img_url}
             alt="profileImg"
             className="h-[128px] w-[128px] rounded-full"
+            // onError={(e) => (e.currentTarget.src = defaultImg)}
+            // 대체 이미지 추가하기
           />
           <h3 className="text-lg font-semibold text-gray-900">프로필 이미지</h3>
         </div>

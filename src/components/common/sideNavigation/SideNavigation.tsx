@@ -22,8 +22,6 @@ function SideNavigation() {
             <span className="mt-[8px] text-xs text-gray-500">
               가입일 : {userData?.created_at?.slice(0, 4)}년{' '}
               {userData?.created_at?.slice(5, 7)}월{' '}
-              {/* 추후 백엔드에서 어떤식으로 내려주는지 보고 1자리인 월인 경우는 수정이 필요함. 
-          지금 설계한것은 01 이런식으로 월이 내려오는경우 */}
             </span>
           </div>
           <SideNaigationNavigate />

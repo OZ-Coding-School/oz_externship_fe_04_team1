@@ -10,11 +10,15 @@ import { useFormContext, useWatch } from 'react-hook-form'
 import { MailCheck } from 'lucide-react'
 import Input from '@/components/common/Input'
 import Button from '@/components/common/Button'
+import { Timer } from '@/components/common/timer/Timer'
+import { useEffect } from 'react'
 
 function PasswordVerifyStep({
   currentStep,
   setCurrentStep,
   onVerifyCode,
+  onVerifyWithEmail,
+  timerRef,
 }: PasswordVerifyStepProps) {
   const { getValues, register, setValue, handleSubmit } =
     useFormContext<FindPasswordFormData>()
@@ -32,7 +36,7 @@ function PasswordVerifyStep({
 
   const handleResendCode = () => {
     setValue('code', '')
-    // api 호출로 인증코드 재전송
+    onVerifyWithEmail({ email })
   }
 
   const codeRegister = register('code', {
@@ -40,6 +44,10 @@ function PasswordVerifyStep({
     minLength: 6,
     maxLength: 6,
   })
+
+  useEffect(() => {
+    timerRef.current?.start()
+  }, [timerRef])
 
   return (
     <div>
@@ -50,17 +58,21 @@ function PasswordVerifyStep({
         description={`${email}로 인증코드를 발송했습니다.`}
       />
       <form onSubmit={handleSubmit(handleNextWithVerifyCode)}>
-        <div className="flex flex-col">
+        <div className="mb-5 flex flex-col">
           <label htmlFor="code" className="pb-1 text-gray-700">
             인증코드
           </label>
-          <div className="mb-5 flex gap-2">
-            <Input
-              id="code"
-              className="w-full"
-              placeholder="6자리 인증코드 입력"
-              {...codeRegister}
-            />
+          <div className="flex gap-2">
+            <div className="relative w-full">
+              <Input
+                id="code"
+                className="w-full"
+                placeholder="6자리 인증코드 입력"
+                {...codeRegister}
+              />
+              <Timer ref={timerRef} />
+            </div>
+
             <Button onClick={handleResendCode} className="verify-color">
               재전송
             </Button>

@@ -67,7 +67,7 @@ function StudyBookmark({
         {/* 강의 목록 (데스크톱만 표시) */}
         <div className="hidden pb-3 text-gray-700 sm:block">
           <span className="block pb-1 text-sm">강의 목록:</span>
-          {announcementBookmarkData.lecture.map((lecture) => (
+          {announcementBookmarkData?.lecture?.map((lecture) => (
             <div key={lecture.id} className="text-sm text-gray-600">
               • {lecture.title} - {lecture.instructor}
             </div>

@@ -20,7 +20,7 @@ export const API_PATHS = {
     ANNOUNCEMENT: {
       GET: '/api/v1/recruitment-bookmarks',
       // 북마크 공고 삭제 api
-      DELETE: (uuid: string) => `/api/v1/recruitment-bookmarks/${uuid}`,
+      DELETE: (id: number) => `/api/v1/recruitment-bookmarks/${id}/`,
     },
     // 북마크된 강의 조회 가져오는 api
     STUDY: {
@@ -39,6 +39,9 @@ export const API_PATHS = {
     DETAIL: {
       BASE: (id: number) => `/api/v1/applications/${id}`,
     },
+    CANCELED: {
+      POST: (id: number) => `/api/v1/applications/${id}/cancel`,
+    },
   },
   SIGNUP: {
     // 회원가입 post api
@@ -47,7 +50,7 @@ export const API_PATHS = {
     },
     // 닉네임 중복 get api
     NICKNAME_CHECK: {
-      GET: '/api/v1/accounts/signup/check-nickname',
+      GET: '/api/v1/accounts/check-nickname',
     },
     // 이메일 인증 발송 post api
     EMAIL_SEND: {
@@ -106,7 +109,7 @@ export const API_PATHS = {
   },
 
   REFRESH_TOKEN: {
-    POST: '/api/v1/auth/refresh/',
+    POST: '/api/v1/accounts/token/refresh',
   },
 
   LOGOUT: {

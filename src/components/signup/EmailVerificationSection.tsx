@@ -1,9 +1,10 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Button from '../common/Button'
 import Input from '../common/Input'
 import FormField from './FormField'
 import { useFormContext, useWatch } from 'react-hook-form'
 import type { SignupFormValuesWithValidation } from '@/types/signup'
+import { Timer, type TimerRefProps } from '../common/timer/Timer'
 
 type EmailVerificationSectionProps = {
   onEmailSubmit: (email: string) => void
@@ -24,15 +25,18 @@ function EmailVerificationSection({
   emailSendError,
   isEmailSent,
 }: EmailVerificationSectionProps) {
-  const [code, setCode] = useState('')
+  const timerRef = useRef<TimerRefProps>(null)
+  const [isTimerExpired, setIsTimerExpired] = useState(false)
 
   const {
     register,
     formState: { errors },
     clearErrors,
+    setValue,
   } = useFormContext<SignupFormValuesWithValidation>()
   const email = useWatch({ name: 'email' })
   const emailVerified = useWatch({ name: 'emailVerified' })
+  const emailCode = useWatch({ name: 'emailCode' })
 
   const emailRegister = register('email', {
     required: '이메일 인증을 해주세요.',
@@ -42,21 +46,34 @@ function EmailVerificationSection({
     },
     onChange: () => {
       onEmailChange()
-      setCode('')
+      setValue('emailCode', '')
+
+      setIsTimerExpired(false)
+      timerRef.current?.stop()
     },
   })
 
   const handleEmailSubmit = () => {
     if (errors.email || !email) return
     onEmailSubmit(email)
-    setCode('')
+    setValue('emailCode', '')
     clearErrors('emailVerified')
+
+    setIsTimerExpired(false)
+    timerRef.current?.start()
   }
 
   const handleVerifyEmail = () => {
-    if (!code || code.length !== 6 || !email) return
-    onVerifyEmail(email, code)
+    if (!emailCode || emailCode.length !== 6 || !email) return
+    onVerifyEmail(email, emailCode)
   }
+
+  // 인증 성공 시 타이머 정지
+  useEffect(() => {
+    if (emailVerified === true) {
+      timerRef.current?.stop()
+    }
+  }, [emailVerified])
 
   return (
     <div>
@@ -68,16 +85,20 @@ function EmailVerificationSection({
         errorMsg={errors.email?.message}
       >
         <div className="flex gap-2.5">
-          <Input
-            {...emailRegister}
-            id="email"
-            type="email"
-            error={!!errors.email || !!emailSendError || isSendingEmail}
-            autoComplete="email"
-            className="h-12 flex-1"
-            placeholder="example@gmail.com"
-            disabled={isSendingEmail}
-          />
+          <div className="relative w-full">
+            <Input
+              {...emailRegister}
+              id="email"
+              type="email"
+              error={!!errors.email || !!emailSendError || isSendingEmail}
+              autoComplete="email"
+              className="h-12 flex-1"
+              placeholder="example@gmail.com"
+              disabled={isSendingEmail}
+            />
+            <Timer ref={timerRef} onExpire={() => setIsTimerExpired(true)} />
+          </div>
+
           <Button
             disabled={!email || !!errors.email || isSendingEmail}
             className={`w-[112px] text-base ${email ? 'verify-color hover:verify-color' : 'before-verify-color opacity-60'}`}
@@ -97,19 +118,29 @@ function EmailVerificationSection({
       <FormField className="gap-4" htmlFor="emailVerificationCode">
         <div className="flex gap-2.5">
           <Input
+            {...register('emailCode', {
+              onChange: () => {
+                if (emailVerified === false) {
+                  clearErrors('emailVerified')
+                  setValue('emailVerified', null)
+                }
+              },
+            })}
             id="emailVerificationCode"
             autoComplete="one-time-code"
             className="h-12 flex-1"
-            value={code}
             error={emailVerified === false}
-            onChange={(e) => setCode(e.target.value)}
             placeholder="전송된 코드를 입력해주세요."
           />
           <Button
             disabled={
-              !email || !!errors.email || !isEmailSent || isVerifyingEmail
+              !email ||
+              !!errors.email ||
+              !isEmailSent ||
+              isVerifyingEmail ||
+              isTimerExpired
             }
-            className={`w-[112px] text-base ${code.length === 6 ? 'verify-color hover:verify-color' : 'before-verify-color opacity-60'}`}
+            className={`w-[112px] text-base ${emailCode?.length === 6 ? 'verify-color hover:verify-color' : 'before-verify-color opacity-60'}`}
             onClick={handleVerifyEmail}
           >
             {isVerifyingEmail ? '확인 중...' : '인증번호확인'}
