@@ -54,8 +54,8 @@ export default function EmailVerificationModal({
     if (!isValid) return
 
     sendEmailMutation.mutate(email, {
-      onSuccess: (data) => {
-        showToast.success('전송 완료!', data.detail)
+      onSuccess: () => {
+        showToast.success('전송 완료!', '이메일을 확인해주세요.')
         setIsEmailSent(true)
         suffixRef.current?.start()
       },
