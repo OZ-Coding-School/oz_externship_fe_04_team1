@@ -92,7 +92,7 @@ export default function EmailVerificationModal({
       showToast.error('이메일 전송', '이메일로 인증코드를 전송해주세요')
       return
     }
-    if (codeError !== 'success') {
+    if (!verifyCodeMutation.isSuccess) {
       showToast.error('인증 실패', '인증번호를 입력해주세요')
       return
     }
