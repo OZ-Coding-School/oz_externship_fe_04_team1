@@ -104,7 +104,7 @@ function EditPhoneNumber({ onClose }: EditPhoneNumberProps) {
                   {
                     onSuccess: () => {
                       showToast.success('성공', '인증번호가 전송되었습니다')
-                      timeRef.current?.start(5)
+                      timeRef.current?.start(300)
                       setIsSendCode(true)
                       setIsExpired(false)
                     },
