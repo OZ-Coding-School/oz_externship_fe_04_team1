@@ -11,7 +11,7 @@ import accountemail from '@/assets/email.svg'
 import closeIcon from '@/assets/icons/close.svg'
 import SuccessVerification from './successVerification'
 import { Timer, type TimerRefProps } from '@/components/common/timer/Timer'
-import { getErrorDetail } from '@/utils/getErrorDetail'
+
 interface EmailRegisterFieldProps {
   email: string
   verificationCode: string
