@@ -6,8 +6,9 @@ import { useForm, useWatch } from 'react-hook-form'
 import type { CertifyNumber } from '@/types/certifyNumber'
 import { useSendCode } from '@/hooks/quries/useSendCode'
 import { showToast } from '@/components/common/toast/Toast'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { useEditPhoneNumber } from '@/hooks/quries/useEditPhoneNumber'
+import { Timer, type TimerRefProps } from '@/components/common/timer/Timer'
 interface EditPhoneNumberProps {
   onClose: () => void
 }
@@ -61,6 +62,8 @@ function EditPhoneNumber({ onClose }: EditPhoneNumberProps) {
       },
     })
   }
+  const timeRef = useRef<TimerRefProps>(null)
+  const [isExpired, setIsExpired] = useState(false)
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -87,7 +90,7 @@ function EditPhoneNumber({ onClose }: EditPhoneNumberProps) {
           className="flex flex-col gap-2 text-sm text-gray-700"
         >
           휴대폰 번호
-          <div className="flex gap-2">
+          <div className="relative flex gap-2">
             <Input
               id="phone_number"
               {...register('phone_number', phoneNumberRegister)}
@@ -101,16 +104,48 @@ function EditPhoneNumber({ onClose }: EditPhoneNumberProps) {
                   {
                     onSuccess: () => {
                       showToast.success('성공', '인증번호가 전송되었습니다')
+                      timeRef.current?.start(5)
                       setIsSendCode(true)
+                      setIsExpired(false)
                     },
                   }
                 )
               }}
-              disabled={!isPhoneValid}
+              disabled={
+                !isPhoneValid || isCertify || (isSendCode && !isExpired)
+              }
+              className="w-[150px]"
             >
-              인증하기
+              <span
+                className={
+                  isSendCode && !isExpired && !isCertify
+                    ? 'relative right-[20px]'
+                    : ''
+                }
+              >
+                {isSendCode ? '재전송' : '인증하기'}
+              </span>
             </Button>
-            {/* 타이머 어케 구현? 현재는 계속 전송이 되게 구현 -> 인증하기 누르면 3분간 비활성화 -> 3분 지나면 활성화 이런식으로 해야할듯 */}
+
+            <span
+              className={
+                isSendCode && !isExpired && !isCertify
+                  ? 'absolute right-[12px] flex h-full items-center text-sm font-medium text-gray-900 opacity-50'
+                  : 'hidden'
+              }
+            >
+              (
+              <Timer
+                ref={timeRef}
+                onExpire={() => {
+                  if (isCertify) return
+                  setIsExpired(true)
+                  showToast.error('실패', '인증번호가 만료되었습니다')
+                }}
+                className="text-sm text-gray-900"
+              />
+              )
+            </span>
           </div>
           {errors.phone_number && (
             <p className="text-danger-500 pl-1 text-xs">
@@ -142,8 +177,7 @@ function EditPhoneNumber({ onClose }: EditPhoneNumberProps) {
             <div
               className={isCertify ? 'hidden' : 'pl-1 text-xs text-gray-500'}
             >
-              인증번호가 오지 않나요? 스팸함을 확인하거나 타이머 후
-              재전송해주세요
+              인증번호가 오지 않나요? 스팸함을 확인하거나 재전송해주세요
             </div>
           ) : (
             ''
