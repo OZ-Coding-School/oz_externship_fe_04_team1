@@ -11,6 +11,7 @@ import accountemail from '@/assets/email.svg'
 import closeIcon from '@/assets/icons/close.svg'
 import SuccessVerification from './successVerification'
 import { Timer, type TimerRefProps } from '@/components/common/timer/Timer'
+
 interface EmailRegisterFieldProps {
   email: string
   verificationCode: string
@@ -58,8 +59,11 @@ export default function EmailVerificationModal({
         setIsEmailSent(true)
         suffixRef.current?.start()
       },
-      onError: () => {
-        showToast.error('전송 실패', '이메일을 다시 한번 확인해주세요.')
+      onError: (err: any) => {
+        if (err?.response?.status === 400) {
+          const msg = err?.response?.data?.error_detail
+          showToast.error('전송 실패', msg)
+        }
       },
     })
   }
@@ -73,7 +77,12 @@ export default function EmailVerificationModal({
       { email, code: verificationCode },
       {
         onSuccess: () => setCodeError('success'),
-        onError: () => setCodeError('인증번호가 일치하지 않습니다'),
+        onError: (err: any) => {
+          if (err?.response?.status === 400) {
+            const msg = err?.response?.data?.error_detail
+            setCodeError(msg)
+          }
+        },
       }
     )
   }
@@ -83,7 +92,7 @@ export default function EmailVerificationModal({
       showToast.error('이메일 전송', '이메일로 인증코드를 전송해주세요')
       return
     }
-    if (codeError !== 'success') {
+    if (!verifyCodeMutation.isSuccess) {
       showToast.error('인증 실패', '인증번호를 입력해주세요')
       return
     }
