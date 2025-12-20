@@ -92,7 +92,7 @@ function MobileModal({ setIsModalOpen }: MobileModalProps) {
             </div>
           </div>
           <Button
-            className="flex cursor-pointer items-center justify-center bg-[#FEF9C3]"
+            className="hover:bg-parent flex cursor-pointer items-center justify-center bg-[#FEF9C3]"
             onClick={() => {
               navigate(ROUTE_PATHS.MYPAGE)
               setMyPageState('MY_INFORMATION')
@@ -104,7 +104,7 @@ function MobileModal({ setIsModalOpen }: MobileModalProps) {
             </span>
           </Button>
           <Button
-            className="flex cursor-pointer items-center justify-center gap-[13px] rounded-lg bg-gray-100 px-4 py-2"
+            className="hover:bg-parent flex cursor-pointer items-center justify-center gap-[13px] rounded-lg bg-gray-100 px-4 py-2"
             onClick={async () => {
               await logout()
               setLoginState('GUEST')
