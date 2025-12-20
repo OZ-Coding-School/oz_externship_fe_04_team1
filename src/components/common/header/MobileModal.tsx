@@ -13,6 +13,7 @@ import MyPageStateStore from '@/store/mypageStateStore'
 import Button from '../Button'
 import { logout } from '@/api/auth/logout'
 import AuthStateStore from '@/store/authStateStore'
+import { showToast } from '../toast/Toast'
 interface MobileModalProps {
   setIsModalOpen: (value: boolean) => void
 }
@@ -52,13 +53,18 @@ function MobileModal({ setIsModalOpen }: MobileModalProps) {
         </div>
         <div className="flex h-[48px] items-center gap-3">
           <img src={study} alt="studyIcon" />
-          <a
-            href="https://study.ozcoding.site/"
-            target="_blank"
-            rel="noreferrer"
+          <p
+            onClick={() => {
+              if (loginState === 'GUEST') {
+                showToast.error('실패', '로그인 후 이용할 수 있는 서비스입니다')
+                navigate(ROUTE_PATHS.LOGIN)
+              } else {
+                navigate('https://study.ozcoding.site/')
+              }
+            }}
           >
             스터디 그룹
-          </a>
+          </p>
           {/* 로그인 화면으로 렌더링 */}
         </div>
         <div className="flex h-[48px] items-center gap-3">
