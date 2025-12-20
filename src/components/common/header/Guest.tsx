@@ -39,7 +39,7 @@ function Guest() {
         </div>
         <span
           onClick={() => navigate(ROUTE_PATHS.LOGIN)}
-          className="hover:text-primary-600 cursor-pointer text-base md:text-lg"
+          className="hover:text-primary-600 cursor-pointer"
         >
           로그인
         </span>
@@ -48,7 +48,7 @@ function Guest() {
       {/* 클릭하면 회원가입 페이지 렌더링 */}
       <button
         onClick={() => navigate('/signup')}
-        className="bg-primary-500 text-basic-white ml-4 h-[40px] w-[90.89px] cursor-pointer rounded-lg text-base md:text-lg"
+        className="bg-primary-500 text-basic-white ml-4 h-[40px] w-[90.89px] cursor-pointer rounded-lg"
       >
         회원가입
       </button>
