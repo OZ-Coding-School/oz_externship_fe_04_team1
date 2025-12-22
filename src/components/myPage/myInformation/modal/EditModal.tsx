@@ -24,7 +24,6 @@ function EditModal({ onClose }: EditModalProps) {
     register,
     handleSubmit,
     setValue,
-    watch,
     reset,
     getValues,
     formState: { errors },
@@ -53,24 +52,20 @@ function EditModal({ onClose }: EditModalProps) {
     setUploadImg(userData.profile_img_url || null)
     setEditGender(userData.gender)
   }, [userData, reset])
-  const onSubmit = () => {
-    const noHipenBirthDay = watch('birthday')
-    const parts = [
-      noHipenBirthDay.slice(0, 4),
-      noHipenBirthDay.slice(4, 6),
-      noHipenBirthDay.slice(6),
-    ]
-    const hipenBirthDay = parts.join('-')
-    setValue('birthday', hipenBirthDay)
+  const onSubmit = (data: EditUserInformation) => {
     const finalImg = uploadImg
       ? uploadImg.replace(
           'https://oz-externship.s3.ap-northeast-2.amazonaws.com/',
           ''
         )
-      : ''
+      : null
 
     setValue('profile_img_url', finalImg)
-    const finalData = getValues()
+    const finalData = {
+      ...data,
+      // birthday: hipenBirthDay,
+      profile_img_url: finalImg,
+    }
     console.log(finalData)
     editUserInformation(finalData, {
       onSuccess: () => {
@@ -81,7 +76,7 @@ function EditModal({ onClose }: EditModalProps) {
       onError: (error: any) => {
         if (error.statusCode === 409) {
           showToast.error('실패', '중복된 닉네임이 존재합니다')
-          const errorBirthDay = watch('birthday')
+          const errorBirthDay = getValues('birthday')
           const errorNoHipenBirthDay = errorBirthDay.split('-').join('')
           setValue('birthday', errorNoHipenBirthDay)
         }
