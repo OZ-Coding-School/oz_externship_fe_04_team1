@@ -1,6 +1,7 @@
 import useUserData from '@/hooks/quries/useUserData'
 import SideNaigationNavigate from '@/components/common/sideNavigation/SideNavigationNavigate'
 import MobileSideNagigation from './MobileSideNavigation'
+import defaultImg from '@/assets/images/defaultProfileImg.svg'
 function SideNavigation() {
   const { data: userData } = useUserData()
   return (
@@ -9,7 +10,7 @@ function SideNavigation() {
         <div className="bg-basic-white flex h-[591px] w-[280px] flex-col gap-8 rounded-xl border-2 border-solid border-gray-200">
           <div className="mt-[25px] flex flex-col items-center">
             <img
-              src={userData?.profile_img_url}
+              src={userData?.profile_img_url || defaultImg}
               alt="defaultImg"
               className="h-[80px] w-[80px] rounded-full"
             />
