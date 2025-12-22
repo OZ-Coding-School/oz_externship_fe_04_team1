@@ -63,7 +63,6 @@ function EditModal({ onClose }: EditModalProps) {
     setValue('profile_img_url', finalImg)
     const finalData = {
       ...data,
-      // birthday: hipenBirthDay,
       profile_img_url: finalImg,
     }
     console.log(finalData)
