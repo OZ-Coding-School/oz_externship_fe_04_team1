@@ -1,12 +1,12 @@
 import useUserData from '@/hooks/quries/useUserData'
-
+import defaultImg from '@/assets/images/defaultProfileImg.svg'
 function MobileUserHeader() {
   const { data: userData } = useUserData()
   return (
     // 이미지, 이름, 이메일 나타내줌
     <div className="flex flex-col items-center">
       <img
-        src={userData?.profile_img_url}
+        src={userData?.profile_img_url || defaultImg}
         alt="profileImg"
         className="h-[80px] w-[80px] rounded-full"
         // onError={(e) => (e.currentTarget.src = defaultImg)}

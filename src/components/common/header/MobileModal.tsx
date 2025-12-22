@@ -14,6 +14,7 @@ import Button from '../Button'
 import { logout } from '@/api/auth/logout'
 import AuthStateStore from '@/store/authStateStore'
 import { showToast } from '../toast/Toast'
+import defaultImg from '@/assets/images/defaultProfileImg.svg'
 interface MobileModalProps {
   setIsModalOpen: (value: boolean) => void
 }
@@ -84,7 +85,7 @@ function MobileModal({ setIsModalOpen }: MobileModalProps) {
         <div className="absolute bottom-[70px] mb-6 flex h-[117px] w-full flex-col gap-3 border-t border-solid border-gray-200 p-4">
           <div className="flex items-center gap-3">
             <img
-              src={userData?.profile_img_url}
+              src={userData?.profile_img_url || defaultImg}
               alt="profile_img"
               className="h-[60px] w-[60px] rounded-full"
             />
