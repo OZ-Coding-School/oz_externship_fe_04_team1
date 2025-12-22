@@ -102,7 +102,12 @@ function MobileBookMark() {
                   key={value.id}
                   announcementBookmarkData={value.recruitment}
                   onBookmarkClick={() => deleteBookMarkAnnouncement(value.id)}
-                  onViewClick={() => console.log('view clicked')}
+                  onViewClick={() =>
+                    window.open(
+                      `https://learn.ozcoding.site/recruitments/${value.recruitment.uuid}`,
+                      '_blank'
+                    )
+                  }
                   className={
                     optionIsSelected === 'ANNOUNCEMENT' ? 'block' : 'hidden'
                   }
@@ -129,7 +134,12 @@ function MobileBookMark() {
                   key={value.id}
                   announcementBookmarkData={value.recruitment}
                   onBookmarkClick={() => deleteBookMarkAnnouncement(value.id)}
-                  onViewClick={() => console.log('view clicked')}
+                  onViewClick={() =>
+                    window.open(
+                      `https://learn.ozcoding.site/recruitments/${value.recruitment.uuid}`,
+                      '_blank'
+                    )
+                  }
                   className={
                     optionIsSelected === 'ANNOUNCEMENT' ? 'block' : 'hidden'
                   }
