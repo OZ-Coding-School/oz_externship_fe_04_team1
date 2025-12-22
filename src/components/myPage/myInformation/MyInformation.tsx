@@ -18,7 +18,7 @@ function MyInformation() {
           </span>
         </div>
         <button
-          className="md:bg-primary-500 md:text-basic-white hidden md:block md:h-[40px] md:w-[106.89px] md:cursor-pointer md:rounded-lg md:px-6 md:py-2"
+          className="md:bg-primary-500 md:text-basic-white hidden md:block md:w-[106.89px] md:cursor-pointer md:rounded-lg md:px-6 md:py-2"
           onClick={() => openModal('editModal')}
         >
           수정하기
