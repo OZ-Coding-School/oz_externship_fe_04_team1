@@ -5,6 +5,8 @@ type DeleteReasonModalProps = {
   defaultValue: string
   className?: string
   onChange?: (value: string) => void
+  onOpen?: () => void
+  onClose?: () => void
 }
 
 function DeleteReasonModal({
@@ -12,6 +14,8 @@ function DeleteReasonModal({
   defaultValue,
   className,
   onChange,
+  onOpen,
+  onClose,
 }: DeleteReasonModalProps) {
   const [isOpen, setIsOpen] = useState(false)
   const [selected, setSelected] = useState<string | null>(null)
@@ -25,6 +29,7 @@ function DeleteReasonModal({
         !dropdownRef.current.contains(e.target as Node)
       ) {
         setIsOpen(false)
+        onClose?.()
       }
     }
     document.addEventListener('mousedown', handleOutsideClick)
@@ -35,7 +40,10 @@ function DeleteReasonModal({
     <div className={`relative ${className}`} ref={dropdownRef}>
       {/* 선택 영역 */}
       <div
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={() => {
+          setIsOpen(!isOpen)
+          onOpen?.()
+        }}
         className={`flex h-9 cursor-pointer items-center justify-between rounded-lg bg-white px-4 py-2 text-sm outline-1 outline-gray-300 ${!selected ? 'text-gray-500' : ''}`}
       >
         {selected ?? defaultValue}
