@@ -78,7 +78,7 @@ function EditUserInformation() {
             <div className="flex w-1/2 flex-col gap-2">
               <span className="text-sm text-gray-700">성별</span>
               <Input
-                placeholder={userData?.gender === 'M' ? '남자' : '여자'}
+                placeholder={userData?.gender === 'M' ? '남성' : '여성'}
                 disabled
                 className="!opacity-100 placeholder:font-medium placeholder:text-gray-900"
               />
