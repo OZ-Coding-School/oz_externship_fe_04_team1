@@ -113,7 +113,7 @@ function MobileBookMark() {
                   key={value.id}
                   studyBookMarkData={value}
                   onBookmarkClick={() => deleteBookmarkStudy(value.id)}
-                  onViewClick={() => console.log('view clicked')}
+                  onViewClick={() => window.open(value.url_link, '_blank')}
                   className={optionIsSelected === 'STUDY' ? 'block' : 'hidden'}
                 />
               ))}
@@ -150,7 +150,7 @@ function MobileBookMark() {
                   key={value.id}
                   studyBookMarkData={value}
                   onBookmarkClick={() => deleteBookmarkStudy(value.id)}
-                  onViewClick={() => console.log('view clicked')}
+                  onViewClick={() => window.open(value.url_link, '_blank')}
                   className={optionIsSelected === 'STUDY' ? 'block' : 'hidden'}
                 />
               ))
