@@ -1,5 +1,5 @@
 import type {
-  ResNickname,
+  ResDetail,
   ReqCodeWithEmail,
   ReqCodeWithPhone,
   ReqEmailOnly,
@@ -13,7 +13,7 @@ import { API_PATHS } from '@/constant/api'
 // 닉네임 중복 확인
 export const checkNickname = async (
   data: ReqNicknameOnly
-): Promise<ResNickname> => {
+): Promise<ResDetail> => {
   const res = await axiosInstance.get(API_PATHS.SIGNUP.NICKNAME_CHECK.GET, {
     params: data,
   })
@@ -21,7 +21,7 @@ export const checkNickname = async (
 }
 
 // 이메일 전송
-export const sendEmail = async (data: ReqEmailOnly) => {
+export const sendEmail = async (data: ReqEmailOnly): Promise<ResDetail> => {
   const res = await axiosInstance.post(API_PATHS.SIGNUP.EMAIL_SEND.POST, data)
 
   return res.data
@@ -35,7 +35,7 @@ export const verifyEmailCode = async (data: ReqCodeWithEmail) => {
 }
 
 // SMS 전송
-export const sendSms = async (data: ReqPhoneOnly) => {
+export const sendSms = async (data: ReqPhoneOnly): Promise<ResDetail> => {
   const res = await axiosInstance.post(API_PATHS.SIGNUP.SMS_SEND.POST, data)
 
   return res.data

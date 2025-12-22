@@ -1,4 +1,7 @@
-export type ReqInfo = Omit<SignupFormValues, 'password_confirm' | 'emailCode' | 'smsCode'>
+export type ReqInfo = Omit<
+  SignupFormValues,
+  'password_confirm' | 'emailCode' | 'smsCode'
+>
 
 export type ReqEmailOnly = Pick<SignupFormValues, 'email'>
 
@@ -51,6 +54,6 @@ export type ConflictError = {
 
 export type ApiError = ValidationError | ConflictError
 
-export type ResNickname = {
+export type ResDetail = {
   detail: string
 }
