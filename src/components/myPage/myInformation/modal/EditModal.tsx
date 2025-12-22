@@ -65,12 +65,10 @@ function EditModal({ onClose }: EditModalProps) {
       ...data,
       profile_img_url: finalImg,
     }
-    console.log(finalData)
     editUserInformation(finalData, {
       onSuccess: () => {
         showToast.success('성공', '개인정보가 변경되었습니다')
         onClose()
-        console.log(finalData)
       },
       onError: (error: any) => {
         if (error.statusCode === 409) {
