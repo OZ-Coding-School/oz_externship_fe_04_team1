@@ -2,7 +2,7 @@ import {
   patchUserInformationHandler,
   userInformationHandler,
 } from './handlers/user'
-import { courseInformationHandler } from './handlers/course'
+// import { courseInformationHandler } from './handlers/course'
 import { notificationHandlers } from './handlers/notification/index.ts'
 import { bookmarkAnnouncementHandler } from './handlers/bookmarkAnnouncement/index.ts'
 import { bookmarkStudyHandler } from './handlers/bookmarkStudy/index.ts'
@@ -30,7 +30,7 @@ import { findEmailHandlers } from './handlers/findAccount/findEmailHandler.ts'
 import { findPasswordHandlers } from './handlers/findAccount/findPasswordHandler.ts'
 export const handlers = [
   ...userInformationHandler,
-  ...courseInformationHandler,
+  // ...courseInformationHandler,
   ...notificationHandlers,
   ...bookmarkAnnouncementHandler,
   ...bookmarkStudyHandler,

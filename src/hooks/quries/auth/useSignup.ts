@@ -6,12 +6,18 @@ import {
   verifyEmailCode,
   verifySmsCode,
 } from '@/api/auth/signup'
-import type { ApiError, ResNickname, ReqNicknameOnly } from '@/types/signup'
+import type {
+  ApiError,
+  ReqNicknameOnly,
+  ReqEmailOnly,
+  ResDetail,
+  ReqPhoneOnly,
+} from '@/types/signup'
 import { useMutation } from '@tanstack/react-query'
 
 // 닉네임 중복 확인
 export const useCheckNickname = () => {
-  return useMutation<ResNickname, ApiError, ReqNicknameOnly>({
+  return useMutation<ResDetail, ApiError, ReqNicknameOnly>({
     mutationFn: checkNickname,
     retry: false,
   })
@@ -19,7 +25,7 @@ export const useCheckNickname = () => {
 
 // 이메일 전송
 export const useSendEmail = () => {
-  return useMutation({
+  return useMutation<ResDetail, ApiError, ReqEmailOnly>({
     mutationFn: sendEmail,
   })
 }
@@ -33,7 +39,7 @@ export const useVerifyEmailCode = () => {
 
 // SMS 전송
 export const useSendSms = () => {
-  return useMutation({
+  return useMutation<ResDetail, ApiError, ReqPhoneOnly>({
     mutationFn: sendSms,
   })
 }
