@@ -14,7 +14,10 @@ function Layout() {
       <Outlet />
       <Footer />
       {isSideBarOpen && (
-        <div className="fixed inset-0 h-full w-full bg-black opacity-50 md:hidden"></div>
+        <div
+          className="fixed inset-0 h-full w-full bg-black opacity-50 md:hidden"
+          onClick={() => setIsSideBarOpen(false)}
+        ></div>
       )}
     </>
   )

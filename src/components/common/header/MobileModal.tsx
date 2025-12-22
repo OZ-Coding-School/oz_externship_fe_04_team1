@@ -13,6 +13,8 @@ import MyPageStateStore from '@/store/mypageStateStore'
 import Button from '../Button'
 import { logout } from '@/api/auth/logout'
 import AuthStateStore from '@/store/authStateStore'
+import { showToast } from '../toast/Toast'
+import defaultImg from '@/assets/images/defaultProfileImg.svg'
 interface MobileModalProps {
   setIsModalOpen: (value: boolean) => void
 }
@@ -52,13 +54,18 @@ function MobileModal({ setIsModalOpen }: MobileModalProps) {
         </div>
         <div className="flex h-[48px] items-center gap-3">
           <img src={study} alt="studyIcon" />
-          <a
-            href="https://study.ozcoding.site/"
-            target="_blank"
-            rel="noreferrer"
+          <p
+            onClick={() => {
+              if (loginState === 'GUEST') {
+                showToast.error('실패', '로그인 후 이용할 수 있는 서비스입니다')
+                navigate(ROUTE_PATHS.LOGIN)
+              } else {
+                navigate('https://study.ozcoding.site/')
+              }
+            }}
           >
             스터디 그룹
-          </a>
+          </p>
           {/* 로그인 화면으로 렌더링 */}
         </div>
         <div className="flex h-[48px] items-center gap-3">
@@ -78,7 +85,7 @@ function MobileModal({ setIsModalOpen }: MobileModalProps) {
         <div className="absolute bottom-[70px] mb-6 flex h-[117px] w-full flex-col gap-3 border-t border-solid border-gray-200 p-4">
           <div className="flex items-center gap-3">
             <img
-              src={userData?.profile_img_url}
+              src={userData?.profile_img_url || defaultImg}
               alt="profile_img"
               className="h-[60px] w-[60px] rounded-full"
             />
@@ -92,7 +99,7 @@ function MobileModal({ setIsModalOpen }: MobileModalProps) {
             </div>
           </div>
           <Button
-            className="flex cursor-pointer items-center justify-center bg-[#FEF9C3]"
+            className="hover:bg-parent flex cursor-pointer items-center justify-center bg-[#FEF9C3]"
             onClick={() => {
               navigate(ROUTE_PATHS.MYPAGE)
               setMyPageState('MY_INFORMATION')
@@ -104,7 +111,7 @@ function MobileModal({ setIsModalOpen }: MobileModalProps) {
             </span>
           </Button>
           <Button
-            className="flex cursor-pointer items-center justify-center gap-[13px] rounded-lg bg-gray-100 px-4 py-2"
+            className="hover:bg-parent flex cursor-pointer items-center justify-center gap-[13px] rounded-lg bg-gray-100 px-4 py-2"
             onClick={async () => {
               await logout()
               setLoginState('GUEST')

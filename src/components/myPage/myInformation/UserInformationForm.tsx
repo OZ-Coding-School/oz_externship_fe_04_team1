@@ -1,7 +1,7 @@
 import useUserData from '@/hooks/quries/useUserData'
 import Input from '@/components/common/Input'
 import { useInformationModal } from '@/hooks/useInformationModal'
-// import defaultImg from '@/assets/images/defaultProfileImg.svg'
+import defaultImg from '@/assets/images/defaultProfileImg.svg'
 function EditUserInformation() {
   const { data: userData } = useUserData()
   const { openModal } = useInformationModal()
@@ -10,7 +10,7 @@ function EditUserInformation() {
       <div>
         <div className="flex flex-col items-center gap-4">
           <img
-            src={userData?.profile_img_url}
+            src={userData?.profile_img_url || defaultImg}
             alt="profileImg"
             className="h-[128px] w-[128px] rounded-full"
             // onError={(e) => (e.currentTarget.src = defaultImg)}
@@ -78,7 +78,7 @@ function EditUserInformation() {
             <div className="flex w-1/2 flex-col gap-2">
               <span className="text-sm text-gray-700">성별</span>
               <Input
-                placeholder={userData?.gender === 'M' ? '남자' : '여자'}
+                placeholder={userData?.gender === 'M' ? '남성' : '여성'}
                 disabled
                 className="!opacity-100 placeholder:font-medium placeholder:text-gray-900"
               />
