@@ -1,5 +1,6 @@
 import type { CourseCardProps } from '@/types/mypage'
 import { Star } from 'lucide-react'
+import { useNavigate } from 'react-router'
 
 interface CourseProps {
   course: CourseCardProps
@@ -12,11 +13,11 @@ export default function CourseCard({ course }: CourseProps) {
     { length: 5 },
     (_, i) => i < Math.floor(course.average_rating)
   )
-
+  const navigate = useNavigate()
   return (
     <div
-      onClick={course.onClick}
-      className="flex max-h-[388px] min-w-[389px] cursor-pointer flex-col overflow-hidden rounded-xl border border-gray-200"
+      onClick={() => navigate(`/courses/${course.id}`)} // 상세 페이지로 navigate
+      className="flex h-auto min-w-[389px] cursor-pointer flex-col overflow-hidden rounded-xl border border-gray-200"
     >
       {/* 썸네일 */}
       <img
@@ -46,7 +47,7 @@ export default function CourseCard({ course }: CourseProps) {
           {/* 평균 평점 */}
           <p>{course.average_rating}</p>
           {/* 리뷰 수 */}
-          <p>({course.reviewCount}명)</p>
+          <p>({course.reviewCount} 명)</p>
         </div>
         {/* 가격 */}
         <div className="flex items-center">
