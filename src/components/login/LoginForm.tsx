@@ -56,8 +56,7 @@ function LoginForm() {
         navigate(ROUTE_PATHS.HOME)
       },
       onError: (error) => {
-        // 임시로 409를 status로 생각
-        if (error.statusCode === 409) {
+        if (error.statusCode === 403) {
           setIsAccountRecoveryOpen(true)
           return
         }

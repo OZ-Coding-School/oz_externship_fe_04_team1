@@ -3,6 +3,7 @@ import Button from '../Button'
 import BaseBookmarkCard from './BaseBookmarkCard'
 import type { StudyBookmarkType } from '@/types/mypage'
 import { PLATFORM_CONFIG, DIFFICULTY_CONFIG } from '@/constant/badgeConstant'
+import noImage from '@/assets/images/noImage.png'
 interface CourseBookMarkProps {
   studyBookMarkData: StudyBookmarkType
   onBookmarkClick: () => void
@@ -21,7 +22,7 @@ function CourseBookmark({
   return (
     <BaseBookmarkCard
       title={studyBookMarkData.title}
-      thumbnail_img_url={studyBookMarkData.thumbnail_img_url}
+      thumbnail_img_url={studyBookMarkData.thumbnail_img_url || noImage}
       className={className}
     >
       {/* 콘텐츠 영역 */}

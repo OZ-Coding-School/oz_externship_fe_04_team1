@@ -1,5 +1,5 @@
 import notificationIcon from '@/assets/icons/notification.svg'
-import profileIcon from '@/assets/icons/profileImg.svg'
+import defaultImg from '@/assets/images/defaultProfileImg.svg'
 import topArrow from '@/assets/icons/topArrow.svg'
 import useUserData from '@/hooks/quries/useUserData'
 import useIsDesktop from '@/hooks/useIsDesktop'
@@ -100,11 +100,11 @@ function User() {
         className="relative ml-4 flex cursor-pointer items-center gap-2"
         onClick={handleUserModal}
       >
-        <div className="flex h-[32px] w-[32px] items-center justify-center rounded-full bg-[#FEF9C3]">
+        <div className="flex h-[32px] w-[32px] items-center justify-center rounded-full">
           <img
-            src={profileIcon}
+            src={userData?.profile_img_url || defaultImg}
             alt="profileIcon"
-            className="h-[25px] w-[25px]"
+            className="h-[25px] w-[25px] rounded-full"
           />
         </div>
         <div className="text-primary-600 text-base">{userData?.name}</div>
