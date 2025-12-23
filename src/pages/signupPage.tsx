@@ -251,7 +251,7 @@ function SignupPage() {
       <FormProvider {...methods}>
         <form
           onSubmit={methods.handleSubmit(handleSubmit)}
-          className="my-14 flex h-fit w-[528px] flex-col gap-9 bg-white px-5 py-10"
+          className="my-14 flex h-fit w-[485px] flex-col gap-9 bg-white px-5 py-10 sm:w-[520px]"
         >
           {/* 헤더 */}
           <div className="flex flex-col items-center justify-center gap-4">
