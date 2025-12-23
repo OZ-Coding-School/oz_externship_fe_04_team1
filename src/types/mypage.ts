@@ -1,15 +1,3 @@
-// 랜딩페이지에서 사용되는 강의 타입
-export type CourseCardProps = {
-  id: number
-  title: string
-  instructor: string
-  thumbnail_img_url?: string
-  average_rating: number
-  reviewCount: number
-  discounted_price: number
-  original_price?: number
-  onClick?: () => void
-}
 type Difficulty = 'EASY' | 'NORMAL' | 'HARD'
 type Platform = 'INFLEARN' | 'UDEMY'
 // 북마크한 강의 관련 타입

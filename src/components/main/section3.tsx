@@ -1,9 +1,12 @@
 import { useGetCourses } from '@/hooks/quries/course'
 import CourseCard from '@/components/common/cards/CourseCard'
 import { useNavigate } from 'react-router'
+import type { CourseSort } from '@/types/landingPage'
 
 function Section3() {
-  const { data: courses = [] } = useGetCourses()
+  const sort: CourseSort = 'high_rating'
+  const { data: courses = [] } = useGetCourses(sort)
+
   const navigate = useNavigate()
   return (
     <section className="flex min-h-[500px] w-full justify-center px-20 py-16 sm:min-h-[615px]">
@@ -24,7 +27,7 @@ function Section3() {
         </div>
 
         <div className="flex w-full flex-col gap-6 sm:flex-row sm:gap-6 md:h-auto md:w-[389px]">
-          {courses.map((course) => (
+          {courses.slice(0, 3).map((course) => (
             <CourseCard key={course.id} course={course} />
           ))}
         </div>

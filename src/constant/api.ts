@@ -13,7 +13,7 @@ export const API_PATHS = {
   },
   COURSE: {
     // 강의 정보를 가져오는 api
-    GET: '/api/v1/lectures/recommends',
+    GET: '/api/v1/lectures',
   },
   BOOKMARK: {
     // 북마크된 공고 조회 가져오는 api(6개씩)
