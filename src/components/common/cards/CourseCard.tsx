@@ -1,4 +1,4 @@
-import type { Course, CourseCardProps } from '@/types/landingPage'
+import type { Course } from '@/types/landingPage'
 import { Star } from 'lucide-react'
 
 interface CourseProps {
@@ -22,7 +22,7 @@ export default function CourseCard({ course }: CourseProps) {
     >
       <div
         // 상세 페이지로 navigate
-        className="flex h-auto min-w-[389px] cursor-pointer flex-col overflow-hidden rounded-xl border border-gray-200"
+        className="flex h-[420px] min-w-[389px] cursor-pointer flex-col overflow-hidden rounded-xl border border-gray-200"
       >
         {/* 썸네일 */}
         <img

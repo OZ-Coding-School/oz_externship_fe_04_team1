@@ -1,13 +1,12 @@
 import { useGetCourses } from '@/hooks/quries/course'
 import CourseCard from '@/components/common/cards/CourseCard'
-import { useNavigate } from 'react-router'
+
 import type { CourseSort } from '@/types/landingPage'
 
 function Section3() {
   const sort: CourseSort = 'high_rating'
   const { data: courses = [] } = useGetCourses(sort)
 
-  const navigate = useNavigate()
   return (
     <section className="flex min-h-[500px] w-full justify-center px-20 py-16 sm:min-h-[615px]">
       <div className="flex w-full max-w-[1440px] flex-col px-8">
@@ -19,14 +18,16 @@ function Section3() {
             </p>
           </div>
           <button
-            onClick={() => navigate(`/courses`)}
+            onClick={() =>
+              window.open('https://learn.ozcoding.site/courses', '_self')
+            }
             className="text-primary-600 mb-8 cursor-pointer text-sm font-medium hover:underline"
           >
             모든 강의 보기 →
           </button>
         </div>
 
-        <div className="flex w-full flex-col gap-6 sm:flex-row sm:gap-6 md:h-auto md:w-[389px]">
+        <div className="flex w-full flex-col gap-6 sm:flex-row sm:gap-6 md:h-[400px] md:w-[389px]">
           {courses.slice(0, 3).map((course) => (
             <CourseCard key={course.id} course={course} />
           ))}
