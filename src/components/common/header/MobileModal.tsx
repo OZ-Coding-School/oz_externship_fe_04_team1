@@ -94,7 +94,10 @@ function MobileModal({ setIsModalOpen }: MobileModalProps) {
                 {userData?.name}
               </span>
               <span className="text-base font-normal text-gray-600">
-                {userData?.email}
+                {userData?.email &&
+                  (userData.email.length > 20
+                    ? `${userData.email.slice(0, 20)}...`
+                    : userData.email)}
               </span>
             </div>
           </div>

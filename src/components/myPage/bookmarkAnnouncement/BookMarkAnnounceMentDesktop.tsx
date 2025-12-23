@@ -67,7 +67,12 @@ function BookMarkAnnouncementDesktop() {
                   key={value.id}
                   announcementBookmarkData={value.recruitment}
                   onBookmarkClick={() => deleteBookmarkAnnouncement(value.id)}
-                  onViewClick={() => console.log('view clicked')}
+                  onViewClick={() =>
+                    window.open(
+                      `https://learn.ozcoding.site/recruitments/${value.recruitment.uuid}`,
+                      '_blank'
+                    )
+                  }
                 />
               ))
             ) : (
@@ -79,7 +84,12 @@ function BookMarkAnnouncementDesktop() {
                 key={value.id}
                 announcementBookmarkData={value.recruitment}
                 onBookmarkClick={() => deleteBookmarkAnnouncement(value.id)}
-                onViewClick={() => console.log('view clicked')}
+                onViewClick={() =>
+                  window.open(
+                    `https://learn.ozcoding.site/recruitments/${value.recruitment.uuid}`,
+                    '_blank'
+                  )
+                }
               />
             ))
           )}
