@@ -1,7 +1,9 @@
 import Button from '@/components/common/Button'
 import image from '@/assets/images/mainImage.png'
+import useRequireLogin from '@/hooks/useRequireLogin'
 
 function Section1() {
+  const { requireLogin } = useRequireLogin()
   return (
     <section className="bg-primary-50 flex w-full justify-center">
       <div className="flex w-[1440px] flex-col gap-12 px-10 py-10 sm:flex-row sm:px-20 sm:py-20">
@@ -16,10 +18,21 @@ function Section1() {
           </p>
           {/* flex flex-col gap-4 sm:justify-center */}
           <div className="flex flex-col gap-3 sm:flex-row">
-            <Button size="lg" className="px-8">
+            <Button
+              onClick={() =>
+                window.open('https://learn.ozcoding.site/courses', '_self')
+              }
+              size="lg"
+              className="px-8"
+            >
               강의 둘러보기
             </Button>
             <Button
+              onClick={() =>
+                requireLogin(() =>
+                  window.open('https://study.ozcoding.site/', '_self')
+                )
+              }
               size="lg"
               variant={'outline'}
               className="hover:bg-primary-200 text-primary-600 border-primary-600 bg-transparent px-5"

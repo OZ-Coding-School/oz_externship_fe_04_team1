@@ -1,8 +1,15 @@
 import { API_PATHS } from '@/constant/api'
 import { axiosInstance } from '@/api/axios'
-import type { CourseCardProps } from '@/types/mypage'
+import type { CourseListResponse, CourseSort } from '@/types/landingPage'
 
-export const getCourseInformationApi = async (): Promise<CourseCardProps[]> => {
-  const { data } = await axiosInstance.get(API_PATHS.COURSE.GET)
-  return data
+export const getCourseInformationApi = async (
+  sort: CourseSort
+): Promise<CourseListResponse> => {
+  const res = await axiosInstance.get<CourseListResponse>(
+    API_PATHS.COURSE.GET,
+    {
+      params: { sort },
+    }
+  )
+  return res.data
 }
