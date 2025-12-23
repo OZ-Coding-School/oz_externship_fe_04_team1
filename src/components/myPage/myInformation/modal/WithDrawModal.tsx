@@ -11,6 +11,7 @@ import { showToast } from '@/components/common/toast/Toast'
 import { useNavigate } from 'react-router'
 import LoginStateStore from '@/store/loginStateStore'
 import { ROUTE_PATHS } from '@/constant/route'
+import { useState } from 'react'
 interface WithDrawProps {
   onClose: () => void
 }
@@ -54,10 +55,11 @@ function WithDrawModal({ onClose }: WithDrawProps) {
   const reasonDetailRegister = {
     required: { value: true, message: '탈퇴 사유를 작성해주세요' },
   }
+  const [dropDownOpen, setDropDownOpen] = useState(false)
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="bg-basic-white flex h-[625px] w-[448px] flex-col overflow-y-auto rounded-xl"
+      className={`bg-basic-white flex h-[620px] w-[448px] flex-col rounded-xl ${dropDownOpen ? 'overflow-y-auto' : 'overflow-hidden'}`}
       onClick={(e) => e.stopPropagation()}
     >
       {/* 헤더부분 */}
@@ -97,6 +99,8 @@ function WithDrawModal({ onClose }: WithDrawProps) {
           <DeleteReasonModal
             defaultValue="탈퇴 사유를 선택해주세요"
             options={options.map((v) => v.label)}
+            onOpen={() => setDropDownOpen(true)}
+            onClose={() => setDropDownOpen(false)}
             onChange={(label) => {
               const option = options.find((v) => v.label === label)
               if (option) setValue('reason', option.value as any)

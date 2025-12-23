@@ -118,9 +118,14 @@ function SignupPage() {
           setIsEmailSent(true)
           setEmailSendError(null)
         },
-        onError: () => {
+        onError: (error) => {
           setIsEmailSent(false)
-          setEmailSendError('이메일 전송에 실패했습니다.')
+          if (error.statusCode === 400) {
+            const errorMsg = Object.values(error.error_detail)?.[0]?.[0]
+            setEmailSendError(errorMsg)
+          } else {
+            setEmailSendError('이메일 전송에 실패했습니다.')
+          }
         },
       }
     )
@@ -165,9 +170,14 @@ function SignupPage() {
           setIsSmsSent(true)
           setSmsSendError(null)
         },
-        onError: () => {
+        onError: (error) => {
           setIsSmsSent(false)
-          setSmsSendError('SMS 전송에 실패했습니다.')
+          if (error.statusCode === 400) {
+            const errorMsg = Object.values(error.error_detail)?.[0]?.[0]
+            setSmsSendError(errorMsg)
+          } else {
+            setSmsSendError('SMS 전송에 실패했습니다.')
+          }
         },
       }
     )

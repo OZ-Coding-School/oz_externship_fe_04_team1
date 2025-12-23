@@ -2,6 +2,7 @@ import Button from '../Button'
 import BaseBookmarkCard from './BaseBookmarkCard'
 import { Bookmark, Users, Calendar, Eye } from 'lucide-react'
 import type { AnnouncementBookMarkType } from '@/types/mypage'
+import noImage from '@/assets/images/noImage.png'
 interface StudyBookMarkProps {
   announcementBookmarkData: AnnouncementBookMarkType
   onBookmarkClick: () => void
@@ -17,7 +18,7 @@ function StudyBookmark({
   return (
     <BaseBookmarkCard
       title={announcementBookmarkData.title}
-      thumbnail_img_url={announcementBookmarkData.thumbnail_img_url}
+      thumbnail_img_url={announcementBookmarkData.thumbnail_img_url || noImage}
       className={className}
     >
       {/* 콘텐츠 영역 */}

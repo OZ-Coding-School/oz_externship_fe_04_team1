@@ -3,6 +3,7 @@ import Button from '../Button'
 import type { CompleteStudy } from '@/types/completeStudy'
 import { useReviewModal } from '@/hooks/useReviewModal'
 import { calculateDurationMonths } from '@/utils/calculateMonth'
+import noImage from '@/assets/images/noImage.png'
 interface StudyCompleteCardProps {
   studyCompleteCardData: CompleteStudy
 }
@@ -21,7 +22,7 @@ function StudyCompleteCard({ studyCompleteCardData }: StudyCompleteCardProps) {
       {/* thumbnail */}
       <img
         className="h-[179px] w-full rounded-t-lg object-cover sm:h-[216px]"
-        src={studyCompleteCardData.profile_img_url}
+        src={studyCompleteCardData.profile_img_url || noImage}
         alt={studyCompleteCardData.name}
       />
 
