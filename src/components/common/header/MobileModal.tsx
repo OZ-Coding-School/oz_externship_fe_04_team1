@@ -25,7 +25,7 @@ function MobileModal({ setIsModalOpen }: MobileModalProps) {
   const setMyPageState = MyPageStateStore((state) => state.setMyPageState)
   const { data: userData } = useUserData()
   return (
-    <div className="bg-basic-white fixed top-[0] left-[0] z-10 h-screen w-[263px] pt-4 md:hidden">
+    <div className="bg-basic-white fixed top-[0] left-[0] z-10 h-full w-[263px] pt-4 md:hidden">
       <div className="border-b border-solid border-gray-200">
         <div className="ml-4 flex items-center gap-43 pb-[15px]">
           <img src={logo} alt="logo" className="h-[32px] w-[32px]" />

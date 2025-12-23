@@ -1,6 +1,7 @@
 import Button from '@/components/common/Button'
-
-function section4() {
+import useRequireLogin from '@/hooks/useRequireLogin'
+function Section4() {
+  const { requireLogin } = useRequireLogin()
   return (
     <section className="bg-primary-500 flex min-h-[400px] w-full justify-center px-20 py-16 sm:min-h-[292px]">
       <div className="flex w-full max-w-[1280px] flex-col">
@@ -13,6 +14,11 @@ function section4() {
           </p>
           <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
             <Button
+              onClick={() =>
+                requireLogin(() =>
+                  window.open('https://study.ozcoding.site/', '_self')
+                )
+              }
               size="lg"
               variant="outline"
               className="text-primary-500 border-none px-8 font-normal hover:bg-gray-200"
@@ -20,6 +26,11 @@ function section4() {
               무료로 시작하기
             </Button>
             <Button
+              onClick={() =>
+                requireLogin(() =>
+                  window.open('https://study.ozcoding.site/', '_self')
+                )
+              } // 스터디 그룹 만들기 url 정확히 몰라서 수정해야함
               size="lg"
               variant={'outline'}
               className="hover:bg-primary-400 border-gray-50 bg-transparent px-8 text-gray-50"
@@ -33,4 +44,4 @@ function section4() {
   )
 }
 
-export default section4
+export default Section4

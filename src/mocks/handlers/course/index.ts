@@ -1,10 +1,10 @@
-import { API_PATHS } from '@/constant/api'
-import { http, HttpResponse } from 'msw'
+// import { API_PATHS } from '@/constant/api'
+// import { http, HttpResponse } from 'msw'
 
-import { courseInformation } from './mockData'
+// // import { courseInformation } from './mockData'
 
-export const courseInformationHandler = [
-  http.get(API_PATHS.COURSE.GET, () => {
-    return HttpResponse.json(courseInformation)
-  }),
-]
+// export const courseInformationHandler = [
+//   http.get(API_PATHS.COURSE.GET, () => {
+//     return HttpResponse.json(courseInformation)
+//   }),
+// ]

@@ -11,7 +11,6 @@ import { showToast } from '@/components/common/toast/Toast'
 import { useNavigate } from 'react-router'
 import LoginStateStore from '@/store/loginStateStore'
 import { ROUTE_PATHS } from '@/constant/route'
-import { useState } from 'react'
 interface WithDrawProps {
   onClose: () => void
 }
@@ -55,11 +54,10 @@ function WithDrawModal({ onClose }: WithDrawProps) {
   const reasonDetailRegister = {
     required: { value: true, message: '탈퇴 사유를 작성해주세요' },
   }
-  const [dropDownOpen, setDropDownOpen] = useState(false)
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className={`bg-basic-white flex h-[620px] w-[448px] flex-col rounded-xl ${dropDownOpen ? 'overflow-y-auto' : 'overflow-hidden'}`}
+      className={`bg-basic-white flex h-[672px] w-[448px] flex-col rounded-xl`}
       onClick={(e) => e.stopPropagation()}
     >
       {/* 헤더부분 */}
@@ -82,7 +80,7 @@ function WithDrawModal({ onClose }: WithDrawProps) {
         />
       </div>
       {/* 메인부분 */}
-      <div className="relative flex flex-col gap-6 border-b-2 border-solid border-gray-200 px-6 pt-6 pb-11">
+      <div className="relative flex flex-col gap-6 border-b-2 border-solid border-gray-200 px-6 pt-6 pb-12">
         <ToastAlert
           type="alert"
           title="회원 탈퇴 안내"
@@ -99,11 +97,8 @@ function WithDrawModal({ onClose }: WithDrawProps) {
           <DeleteReasonModal
             defaultValue="탈퇴 사유를 선택해주세요"
             options={options.map((v) => v.label)}
-            onOpen={() => setDropDownOpen(true)}
-            onClose={() => setDropDownOpen(false)}
             onChange={(label) => {
               const option = options.find((v) => v.label === label)
-              setDropDownOpen(false)
               if (option) setValue('reason', option.value as any)
               // 계속 타입 오류 발생해서 임시로 any로 지정
             }}
@@ -126,7 +121,7 @@ function WithDrawModal({ onClose }: WithDrawProps) {
           </div>
           <textarea
             id="reason_detail"
-            className="bg-basic-white h-[80px] resize-none rounded-lg border border-solid border-gray-300 px-3 py-2 text-sm"
+            className="bg-basic-white h-[120px] resize-none rounded-lg border border-solid border-gray-300 px-3 py-2 text-sm"
             placeholder="탈퇴 사유를 입력해주세요"
             {...register('reason_detail', reasonDetailRegister)}
           />
@@ -157,7 +152,7 @@ function WithDrawModal({ onClose }: WithDrawProps) {
         )}
       </div>
       {/* 버튼 부분 */}
-      <div className="flex justify-end gap-3 p-3 md:p-6">
+      <div className="flex justify-end gap-3 p-6 md:p-6">
         <Button variant="outline" onClick={onClose} type="button">
           취소
         </Button>
