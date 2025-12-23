@@ -53,9 +53,11 @@ function CourseBookmark({
           <div className="hidden items-center gap-1 text-gray-600 sm:flex sm:flex-wrap">
             <Clock3 className="h-3.5 w-3.5" />
             {studyBookMarkData.total_class_time >= 60 ? (
-              <span className="text-sm">
+              <span className="pt-[2px] text-sm">
                 {Math.floor(studyBookMarkData.total_class_time / 60)} :{' '}
-                {studyBookMarkData.total_class_time % 60}
+                {studyBookMarkData.total_class_time % 60 < 10
+                  ? `0${studyBookMarkData.total_class_time % 60}`
+                  : studyBookMarkData.total_class_time % 60}
               </span>
             ) : (
               <span className="text-sm">
