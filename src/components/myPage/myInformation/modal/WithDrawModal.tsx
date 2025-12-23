@@ -88,7 +88,7 @@ function WithDrawModal({ onClose }: WithDrawProps) {
           title="회원 탈퇴 안내"
           message="• 탈퇴 즉시 서비스 이용이 중단됩니다
         • 2주간 계정 복구가 가능합니다
-        • 2주후 모든 개인정복사 완전히 삭제됩니다"
+        • 2주 후 모든 개인정보가 완전히 삭제됩니다"
         />
         {/* 폼 부분 */}
         <label htmlFor="reason" className="flex flex-col gap-1">
@@ -103,6 +103,7 @@ function WithDrawModal({ onClose }: WithDrawProps) {
             onClose={() => setDropDownOpen(false)}
             onChange={(label) => {
               const option = options.find((v) => v.label === label)
+              setDropDownOpen(false)
               if (option) setValue('reason', option.value as any)
               // 계속 타입 오류 발생해서 임시로 any로 지정
             }}
