@@ -171,8 +171,8 @@ export default function EmailVerificationModal({
                     {...register('verificationCode', {
                       required: '인증번호를 입력해주세요',
                       pattern: {
-                        value: /^\d{6}$/,
-                        message: '6자리 숫자를 입력해주세요',
+                        value: /^\S{6}$/,
+                        message: '6자리로 입력해주세요',
                       },
                       onChange: () => {
                         clearErrors('verificationCode')

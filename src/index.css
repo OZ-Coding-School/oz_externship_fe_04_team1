@@ -185,3 +185,10 @@ body {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+/*  챗팅 */
+@layer components {
+  .centralize {
+    @apply flex items-center justify-center;
+  }
+}

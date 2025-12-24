@@ -50,7 +50,7 @@ function PasswordVerifyStep({
   }, [timerRef])
 
   return (
-    <div>
+    <div className="w-[90%]">
       <StepProgress currentStep={currentStep} type={FINDTYPE.FIND_PASSWORD} />
       <StepHeader
         icon={MailCheck}

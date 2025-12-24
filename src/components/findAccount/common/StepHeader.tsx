@@ -18,12 +18,12 @@ function StepHeader({
   return (
     <div className="mt-4 flex flex-col items-center justify-center">
       <div
-        className={`${bgColorClass} mb-3 flex size-15 items-center justify-center rounded-full`}
+        className={`${bgColorClass} my-3 flex size-15 items-center justify-center rounded-full`}
       >
         <Icon className={iconColorClass} size={24} />
       </div>
       <h3 className="mb-2 text-lg font-semibold">{title}</h3>
-      <p className="pb-6 text-sm text-gray-600">{description}</p>
+      <p className="pb-6 text-center text-sm text-gray-600">{description}</p>
     </div>
   )
 }

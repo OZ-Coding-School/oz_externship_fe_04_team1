@@ -13,7 +13,7 @@ const getCookie = (name: string): string | undefined => {
 }
 
 const deleteCookie = (name: string) => {
-  document.cookie = `${name}=; max-age=0; path=/`
+  document.cookie = `${name}=; max-age=0; path=/; domain=.ozcoding.site`
 }
 
 const SOCIAL_ERROR_MESSAGE: Record<string, string> = {

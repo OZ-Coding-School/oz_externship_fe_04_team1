@@ -15,7 +15,7 @@ function FindAccountLayout({
         <h2 className="text-3xl font-semibold text-gray-900">{title}</h2>
         <p className="pt-2 text-sm font-normal text-gray-600">{subTitle}</p>
       </div>
-      <div className="flex h-fit w-[460px] flex-col items-center bg-white pt-8 pb-7 shadow-xs">
+      <div className="flex h-fit w-[85%] max-w-[460px] flex-col items-center bg-white pt-8 pb-7 shadow-xs">
         {children}
       </div>
     </div>
