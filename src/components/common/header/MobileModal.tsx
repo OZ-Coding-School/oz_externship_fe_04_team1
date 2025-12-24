@@ -60,7 +60,7 @@ function MobileModal({ setIsModalOpen }: MobileModalProps) {
                 showToast.error('실패', '로그인 후 이용할 수 있는 서비스입니다')
                 navigate(ROUTE_PATHS.LOGIN)
               } else {
-                navigate('https://study.ozcoding.site/')
+                window.open('https://study.ozcoding.site/', '_blank')
               }
             }}
           >
