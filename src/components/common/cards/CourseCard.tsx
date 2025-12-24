@@ -15,7 +15,7 @@ export default function CourseCard({ course }: CourseProps) {
 
   return (
     <a
-      href={`/courses/${course.id}`}
+      href={course.url_link}
       target="_blank"
       rel="noopener noreferrer"
       className="block"
@@ -33,7 +33,7 @@ export default function CourseCard({ course }: CourseProps) {
         {/* 콘텐츠 영역 */}
         <div className="p-5">
           {/* 제목 */}
-          <h4 className="pb-2 text-lg font-semibold text-gray-900">
+          <h4 className="line-clamp-2 min-h-[64px] pb-2 text-lg font-semibold text-gray-900">
             {course.title}
           </h4>
           {/* 강사명 */}
@@ -56,15 +56,24 @@ export default function CourseCard({ course }: CourseProps) {
           </div>
           {/* 가격 */}
           <div className="flex items-center">
-            {/* 할인된 가격 */}
-            <p className="text-lg font-bold text-gray-900">
-              {course.discounted_price.toLocaleString()}원
-            </p>
-            {/* 원래 가격 */}
-            {course.original_price && (
-              <p className="pl-2 text-sm text-gray-500 line-through">
-                {course.original_price.toLocaleString()}원
-              </p>
+            {/* 0으로 표시 될때 무료로 반환 */}
+            {course.discounted_price === 0 && course.original_price === 0 ? (
+              <p className="text-lg font-bold text-gray-900">무료</p>
+            ) : (
+              <>
+                {/* 할인된 가격 */}
+                <p className="text-lg font-bold text-gray-900">
+                  {course.discounted_price.toLocaleString()}원
+                </p>
+
+                {/* 원래 가격 */}
+                {course.original_price > 0 &&
+                  course.original_price !== course.discounted_price && (
+                    <p className="pl-2 text-sm text-gray-500 line-through">
+                      {course.original_price.toLocaleString()}원
+                    </p>
+                  )}
+              </>
             )}
           </div>
         </div>
