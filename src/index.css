@@ -186,7 +186,7 @@ body {
   overflow: hidden;
 }
 
-/*  챗팅 css */
+/*  챗팅 */
 @layer components {
   .centralize {
     @apply flex items-center justify-center;
