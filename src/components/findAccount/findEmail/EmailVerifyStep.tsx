@@ -51,7 +51,7 @@ function EmailVerifyStep({
   }, [timerRef])
 
   return (
-    <div>
+    <div className="w-[90%]">
       <StepProgress currentStep={currentStep} type={FINDTYPE.FIND_EMAIL} />
       <StepHeader
         icon={Phone}

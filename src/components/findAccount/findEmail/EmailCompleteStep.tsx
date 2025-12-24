@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router'
 function EmailCompleteStep({ currentStep, email }: EmailCompleteStepProps) {
   const navigate = useNavigate()
   return (
-    <div>
+    <div className="w-[90%]">
       <StepProgress currentStep={currentStep} type={FINDTYPE.FIND_EMAIL} />
       <StepHeader
         icon={Check}
