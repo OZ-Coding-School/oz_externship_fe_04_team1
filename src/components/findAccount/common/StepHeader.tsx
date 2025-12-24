@@ -23,7 +23,7 @@ function StepHeader({
         <Icon className={iconColorClass} size={24} />
       </div>
       <h3 className="mb-2 text-lg font-semibold">{title}</h3>
-      <p className="pb-6 text-sm text-gray-600">{description}</p>
+      <p className="pb-6 text-center text-sm text-gray-600">{description}</p>
     </div>
   )
 }
