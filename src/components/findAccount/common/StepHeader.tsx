@@ -18,7 +18,7 @@ function StepHeader({
   return (
     <div className="mt-4 flex flex-col items-center justify-center">
       <div
-        className={`${bgColorClass} mb-3 flex size-15 items-center justify-center rounded-full`}
+        className={`${bgColorClass} my-3 flex size-15 items-center justify-center rounded-full`}
       >
         <Icon className={iconColorClass} size={24} />
       </div>
