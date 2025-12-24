@@ -13,13 +13,10 @@ type StepProgressProps = {
 function StepProgress({ type, currentStep }: StepProgressProps) {
   // 단계 표시 UI
   return (
-    <div className="mx-auto flex">
+    <div className="mx-auto flex items-center justify-center">
       {STEP_TEXTS[type].map((text, index) => (
         <div key={index} className="flex items-center">
-          <div
-            key={index}
-            className="flex w-[80px] flex-col items-center justify-center"
-          >
+          <div key={index} className="relative mb-4 flex flex-col items-center">
             <span
               className={`flex h-10 w-10 items-center justify-center rounded-full text-base ${
                 currentStep === 3
@@ -31,11 +28,13 @@ function StepProgress({ type, currentStep }: StepProgressProps) {
             >
               {index + 1}
             </span>
-            <p className="pt-1 text-xs text-gray-500">{text}</p>
+            <p className="absolute top-10 left-1/2 w-[100px] -translate-x-1/2 pt-1 text-center text-xs text-gray-500">
+              {text}
+            </p>
           </div>
           {index < 2 && (
             <div
-              className={`mb-2 h-1 w-[75px] rounded-full ${
+              className={`mx-2 mb-5 h-1 w-[75px] rounded-full ${
                 currentStep === 3
                   ? 'bg-success-500'
                   : index + 1 < currentStep
