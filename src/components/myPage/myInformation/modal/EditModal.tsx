@@ -76,6 +76,11 @@ function EditModal({ onClose }: EditModalProps) {
           const errorBirthDay = getValues('birthday')
           const errorNoHipenBirthDay = errorBirthDay.split('-').join('')
           setValue('birthday', errorNoHipenBirthDay)
+        } else if (error.statusCode === 400) {
+          showToast.error(
+            '실패',
+            '잘못된 경로입니다. 다른 이미지를 선택해주세요'
+          )
         }
       },
     })
