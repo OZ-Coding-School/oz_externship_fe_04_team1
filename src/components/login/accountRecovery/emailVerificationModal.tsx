@@ -11,7 +11,7 @@ import accountemail from '@/assets/email.svg'
 import closeIcon from '@/assets/icons/close.svg'
 import SuccessVerification from './successVerification'
 import { Timer, type TimerRefProps } from '@/components/common/timer/Timer'
-
+import { isAxiosError } from 'axios'
 interface EmailRegisterFieldProps {
   email: string
   verificationCode: string
@@ -52,27 +52,28 @@ export default function EmailVerificationModal({
     // trigger를 사용할 시 해당 (email) 필드를 찾고 register의 정해진 규칙을 실행 시키는 비동기 함수
     const isValid = await trigger('email')
     if (!isValid) return
-
     sendEmailMutation.mutate(email, {
       onSuccess: () => {
         showToast.success('전송 완료!', '이메일을 확인해주세요.')
         setIsEmailSent(true)
         suffixRef.current?.start()
       },
-      onError: (err: any) => {
-        if (err?.response?.status === 400) {
-          const msg = err?.response?.data?.error_detail
-          showToast.error('전송 실패', msg)
-        }
+      onError: (err) => {
+        const data = isAxiosError(err) ? err.response?.data : (err as any)
+        const msg =
+          data?.error_detail?.email?.error_detail?.[0] ??
+          data?.detail ??
+          data?.message ??
+          '요청에 실패했습니다'
+
+        showToast.error('전송 실패', msg)
       },
     })
   }
 
   const handleVerifyCode = async () => {
     const isValid = await trigger('verificationCode')
-
     if (!isValid) return
-
     verifyCodeMutation.mutate(
       { email, code: verificationCode },
       {
