@@ -1,8 +1,8 @@
 import { useMutation } from '@tanstack/react-query'
 import { sendEmailRequestApi, verifyRequestApi } from '@/api/accountRecovery'
-
+import type { ApiError } from '@/types/accountRecovery'
 export const useSendEmailRecovery = () => {
-  return useMutation({
+  return useMutation<void, ApiError, string>({
     mutationFn: sendEmailRequestApi,
     retry: false,
   })
