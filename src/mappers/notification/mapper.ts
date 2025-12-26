@@ -1,8 +1,17 @@
 import type { AlarmItem } from '@/types/alarm'
+import type { IconName } from '@/helpers/icons'
 
 export type NotificationApiItem = {
   id: number
-  type: string
+  type:
+    | 'STUDY_NOTE_CREATE'
+    | 'TODAY_SCHEDULE'
+    | 'UPCOMING_SCHEDULE'
+    | 'STUDY_JOIN'
+    | 'APPLICATION_CREATED'
+    | 'APPLICATION_ACCEPT'
+    | 'APPLICATION_REJECT'
+    | 'STUDY_REVIEW_REQUEST'
   content: string
   back_url_link: string
   is_read: boolean
@@ -11,13 +20,16 @@ export type NotificationApiItem = {
 
 export type NotificationListResponse = {
   results: NotificationApiItem[]
-  total_count: number
-  unread_count: number
+  next: string | null
+  previous: string | null
+  total?: number
+  unread_total?: number
 }
 
 // ISO 날짜 문자열을 "12월 1일" 형태로 포맷
 const formatDate = (isoString: string) => {
   const date = new Date(isoString)
+  if (Number.isNaN(date.getTime())) return ''
   const month = date.getMonth() + 1
   const day = date.getDate()
   return `${month}월 ${day}일`
@@ -36,7 +48,7 @@ const typeToAccent = {
 } as const
 
 // 타입별 아이콘 지정
-const typeToIcon = {
+const typeToIcon: Record<string, IconName> = {
   STUDY_NOTE_CREATE: 'note',
   TODAY_SCHEDULE: 'today',
   UPCOMING_SCHEDULE: 'upcoming',
@@ -52,11 +64,12 @@ export const alarmMapper = (item: NotificationApiItem): AlarmItem => {
   const iconType = typeToIcon[item.type as keyof typeof typeToIcon] ?? 'apply'
 
   return {
-    id: String(item.id),
-    message: item.content,
-    date: formatDate(item.created_at),
-    isRead: item.is_read,
+    id: String(item.id ?? crypto.randomUUID()),
+    message: item.content ?? '',
+    date: formatDate(item.created_at ?? ''),
+    isRead: !!item.is_read,
     accent,
     iconType,
+    backUrl: item.back_url_link ?? '',
   }
 }
