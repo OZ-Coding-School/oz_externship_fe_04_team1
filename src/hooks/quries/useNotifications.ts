@@ -22,7 +22,7 @@ export const useNotifications = (filter: FilterKey) => {
         const { data } = cursorUrl
           ? await axiosInstance.get<NotificationListResponse>(cursorUrl)
           : await axiosInstance.get<NotificationListResponse>(
-              '/v1/notifications',
+              '/api/v1/notifications',
               {
                 params: {
                   page_size: 10,
