@@ -22,7 +22,6 @@ function MobileButton() {
           onClick={() => openModal('withDrawModal')}
         >
           회원 탈퇴
-          {/* api 연동 시켜야함 */}
         </button>
       </div>
     </div>

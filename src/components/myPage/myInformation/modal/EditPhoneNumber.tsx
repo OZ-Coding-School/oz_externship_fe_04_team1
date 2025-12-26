@@ -52,11 +52,11 @@ function EditPhoneNumber({ onClose }: EditPhoneNumberProps) {
         showToast.success('성공', '인증번호가 확인되었습니다')
         setIsCertify(true)
       },
-      onError: (err: any) => {
-        const status = err.statusCode
-        if (status === 400) {
+      onError: (error: any) => {
+        console.log(error)
+        if (error.statusCode === 400) {
           showToast.error('실패', '인증 코드가 유효하지 않습니다')
-        } else if (status === 409) {
+        } else if (error.statusCode === 409) {
           showToast.error('실패', '이미 등록된 휴대폰 번호입니다')
         }
       },
@@ -107,6 +107,11 @@ function EditPhoneNumber({ onClose }: EditPhoneNumberProps) {
                       timeRef.current?.start(300)
                       setIsSendCode(true)
                       setIsExpired(false)
+                    },
+                    onError: (error: any) => {
+                      if (error.statusCode === 400) {
+                        showToast.error('실패', '이미 등록된 휴대폰 번호입니다')
+                      }
                     },
                   }
                 )

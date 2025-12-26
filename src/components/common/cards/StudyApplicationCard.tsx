@@ -21,7 +21,7 @@ function StudyApplicationCard({
       <div className="flex w-full flex-1 flex-col">
         {/* 헤더 영역 sm이상 - 스터디 제목과 지원 일시 및 상태 표시 */}
         <div className="hidden sm:flex sm:flex-wrap sm:items-center sm:justify-between sm:gap-2 sm:pb-4">
-          <h4 className="text-sm font-semibold text-gray-900 sm:text-lg">
+          <h4 className="flex-1 text-sm font-semibold text-gray-900 sm:text-lg">
             {applyData.recruitment.title}
           </h4>
           <p className="flex flex-wrap items-center pl-4">
