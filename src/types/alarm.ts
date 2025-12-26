@@ -8,15 +8,7 @@ export type AccentKey =
   | 'pink'
   | 'teal'
 
-export type AlarmIconType =
-  | 'apply'
-  | 'approved'
-  | 'rejected'
-  | 'newMember'
-  | 'studyEnd'
-  | 'upcoming'
-  | 'today'
-  | 'note'
+import type { IconName } from '@/helpers/icons'
 
 export type AlarmItem = {
   id: string
@@ -24,5 +16,6 @@ export type AlarmItem = {
   date: string
   isRead: boolean
   accent: AccentKey
-  iconType: AlarmIconType
+  iconType: IconName
+  backUrl?: string
 }
