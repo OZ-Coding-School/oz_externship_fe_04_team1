@@ -88,6 +88,23 @@ body {
   --toastify-color-progress-success: #22c55e;
   --toastify-color-progress-warning: #facc15;
   --toastify-color-progress-error: #dc2626;
+  --color-accent-blue-bg: #dbeafe;
+  --color-accent-blue-text: #2563eb;
+  --color-accent-green-bg: #dcfce7;
+  --color-accent-green-text: #16a34a;
+  --color-accent-red-bg: #fee2e2;
+  --color-accent-red-text: #dc2626;
+  --color-accent-purple-bg: #f3e8ff;
+  --color-accent-purple-text: #9333ea;
+  --color-accent-orange-bg: #ffedd5;
+  --color-accent-orange-text: #ea580c;
+  --color-accent-indigo-bg: #e0e7ff;
+  --color-accent-indigo-text: #4f46e5;
+  --color-accent-pink-bg: #fce7f3;
+  --color-accent-pink-text: #db2777;
+  --color-accent-teal-bg: #ccfbf1;
+  --color-accent-teal-text: #0d9488;
+  --accent-foreground: #374151;
 }
 
 .Toastify__toast {
@@ -133,36 +150,40 @@ body {
 }
 /* Accent helpers */
 .accent-blue {
-  background-color: var(--color-accent-blue-bg);
+  background: var(--color-accent-blue-bg);
   color: var(--color-accent-blue-text);
 }
 .accent-green {
-  background-color: var(--color-accent-green-bg);
+  background: var(--color-accent-green-bg);
   color: var(--color-accent-green-text);
 }
 .accent-red {
-  background-color: var(--color-accent-red-bg);
+  background: var(--color-accent-red-bg);
   color: var(--color-accent-red-text);
 }
 .accent-purple {
-  background-color: var(--color-accent-purple-bg);
+  background: var(--color-accent-purple-bg);
   color: var(--color-accent-purple-text);
 }
 .accent-orange {
-  background-color: var(--color-accent-orange-bg);
+  background: var(--color-accent-orange-bg);
   color: var(--color-accent-orange-text);
 }
 .accent-indigo {
-  background-color: var(--color-accent-indigo-bg);
+  background: var(--color-accent-indigo-bg);
   color: var(--color-accent-indigo-text);
 }
 .accent-pink {
-  background-color: var(--color-accent-pink-bg);
+  background: var(--color-accent-pink-bg);
   color: var(--color-accent-pink-text);
 }
 .accent-teal {
-  background-color: var(--color-accent-teal-bg);
+  background: var(--color-accent-teal-bg);
   color: var(--color-accent-teal-text);
+}
+.accent-gray {
+  background: var(--color-gray-100);
+  color: var(--color-gray-600);
 }
 
 .flex-between {

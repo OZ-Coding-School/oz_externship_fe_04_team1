@@ -12,3 +12,9 @@ export const patchUserInformationApi = async (data: EditUserInformation) => {
   const res = await axiosInstance.patch(API_PATHS.USER.GET, data)
   return res.data
 }
+export const getAccessTokenApi = async (): Promise<string> => {
+  const { data } = await axiosInstance.post<{ access_token: string }>(
+    '/v1/accounts/token/refresh'
+  )
+  return data.access_token
+}
