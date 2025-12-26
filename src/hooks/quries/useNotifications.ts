@@ -22,7 +22,7 @@ export const useNotifications = (filter: FilterKey) => {
         const { data } = cursorUrl
           ? await axiosInstance.get<NotificationListResponse>(cursorUrl)
           : await axiosInstance.get<NotificationListResponse>(
-              '/v1/notifications',
+              '/api/v1/notifications',
               {
                 params: {
                   page_size: 10,
@@ -100,13 +100,13 @@ export const useNotificationActions = () => {
   }
 
   const markAllRead = async () => {
-    const res = await axiosInstance.post('/v1/notifications/read-all')
+    const res = await axiosInstance.post('/api/v1/notifications/read-all')
     invalidateNotificationCaches()
     return res
   }
 
   const markRead = async (id: string | number) => {
-    const res = await axiosInstance.post(`/v1/notifications/${id}/read`)
+    const res = await axiosInstance.post(`/api/v1/notifications/${id}/read`)
     invalidateNotificationCaches()
     return res
   }
