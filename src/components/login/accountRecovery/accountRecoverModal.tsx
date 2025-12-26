@@ -31,7 +31,7 @@ export default function AccountRecoverModal({
 
           <p className="mb-4 text-lg font-bold">해당 계정은 탈퇴된 상태예요</p>
           <p className="mb-10 text-sm text-gray-600">
-            `계정 삭제되는 날짜`이후, 계정 정보는 완전히 삭제돼요.
+            2026년 1월 15일 이후, 계정 정보는 완전히 삭제돼요.
             <br /> 계정을 다시 사용하려면 아래버튼을 눌러 복구를 진행해주세요.
           </p>
           <Button
